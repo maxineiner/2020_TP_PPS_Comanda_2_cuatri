@@ -10,20 +10,19 @@ Integrantes
 
 # Sprint 1
 
-## Fecha de inicio 17/10 
-## Fecha de entrega 24/10
+## Fecha de entrega 24/10 
 
 - Alejandro Planes
-ABM Mesas
-Splash con animación e icóno
-Pantalla alta mesa
+  - ABM Mesas
+  - Splash con animación e icóno
+  - Pantalla alta mesa
 - Federico Vera
-ABM Producto
-Carga de imágenes
-Pantalla alta producto
+  - ABM Producto
+  - Carga de imágenes
+  - Pantalla alta producto
 - Leandro Egea
-ABM Usuario (Sup,Dueño, Emp,Cliente)
-Login
+  - ABM Usuario (Sup,Dueño, Emp,Cliente)
+  - Login
 
 
 
