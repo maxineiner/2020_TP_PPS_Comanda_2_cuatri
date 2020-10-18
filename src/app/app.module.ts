@@ -10,6 +10,11 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ComponentsModule } from './components/components.module';
 
+import { AngularFireModule } from '@angular/fire';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+import { environment } from 'src/environments/environment';
+import { FormsModule } from '@angular/forms';
+
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -17,7 +22,10 @@ import { ComponentsModule } from './components/components.module';
     BrowserModule, 
     IonicModule.forRoot(), 
     AppRoutingModule,
-    ComponentsModule
+    ComponentsModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFireAuthModule,
+    FormsModule
   ],
   providers: [
     StatusBar,
