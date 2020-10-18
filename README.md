@@ -4,10 +4,11 @@ Para registrar el <strong>grupo completo</strong> con todos sus integrantes: htt
 
 <br>
 
-<h4>Integrantes</h4>
+<h3>Integrantes</h3>
 <h5>Tomadin Federico</h5>
 <h5>Lucas Sánchez</h5>
 <h5>Lucas Cardone</h5>
+<hr>
 
 
 1. Apellido: Tomadin
