@@ -1,0 +1,13 @@
+<ion-list *ngFor="let mesa of mesas">
+  <ion-item (click)="seleccionarMesa(mesa)">
+    <ion-card>
+      <h1>Mesa:{{mesa.numero}}</h1>
+      <p>
+        Capacidad:{{mesa.comensales}}
+      </p>
+      <p>
+        Tipo de mesa:{{mesa.tipo}}
+      </p>
+    </ion-card>
+  </ion-item>
+</ion-list>
