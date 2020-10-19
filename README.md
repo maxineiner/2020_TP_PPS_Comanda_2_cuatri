@@ -8,6 +8,11 @@ Para registrar el <strong>grupo completo</strong> con todos sus integrantes: htt
 - Federico Tomadin
 - Lucas Cardone
 - Lucas Sánchez
+
+## Branches
+- Federico 
+- LucasCardone
+- LucasSanchez
 <hr>
 
 # Tareas
@@ -21,8 +26,3 @@ Para registrar el <strong>grupo completo</strong> con todos sus integrantes: htt
 - Login funcional
 - Icono y Splash Screen con Logo de la aplicación 
 
-1. Apellido: Tomadin
-2. Nombre: Federico
-3. Módulos splash animado, icono, creación del proyecto.
-4. Fecha de inicio de la tarea: 17/10/2020
-5. Fecha de finalización de la tarea: 18/10/2020
