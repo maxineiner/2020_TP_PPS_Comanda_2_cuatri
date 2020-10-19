@@ -4,12 +4,21 @@ Para registrar el <strong>grupo completo</strong> con todos sus integrantes: htt
 
 <br>
 
-<h3>Integrantes</h3>
-<h5>Tomadin Federico</h5>
-<h5>Lucas Sánchez</h5>
-<h5>Lucas Cardone</h5>
+## Integrantes
+- Federico Tomadin
+- Lucas Cardone
+- Lucas Sánchez
 <hr>
 
+# Tareas
+
+## 1er Semana (19/10 al 25/10)
+
+
+
+<h1>Tareas</h1>
+
+<h3>Semana </h3>
 
 1. Apellido: Tomadin
 2. Nombre: Federico
