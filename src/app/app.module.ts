@@ -12,8 +12,10 @@ import { ComponentsModule } from './components/components.module';
 
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireAuthModule } from '@angular/fire/auth';
+import { AngularFireDatabaseModule, AngularFireDatabase } from '@angular/fire/database';
 import { environment } from 'src/environments/environment';
 import { FormsModule } from '@angular/forms';
+
 
 @NgModule({
   declarations: [AppComponent],
@@ -22,15 +24,17 @@ import { FormsModule } from '@angular/forms';
     BrowserModule, 
     IonicModule.forRoot(), 
     AppRoutingModule,
-    ComponentsModule,
-    AngularFireModule.initializeApp(environment.firebaseConfig),
+    FormsModule,
     AngularFireAuthModule,
-    FormsModule
+    AngularFireDatabaseModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    ComponentsModule
   ],
   providers: [
     StatusBar,
     SplashScreen,
-    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    AngularFireDatabase
   ],
   bootstrap: [AppComponent]
 })
