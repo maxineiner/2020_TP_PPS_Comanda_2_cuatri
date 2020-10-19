@@ -14,11 +14,12 @@ Para registrar el <strong>grupo completo</strong> con todos sus integrantes: htt
 
 ## 1er Semana (19/10 al 25/10)
 
-
-
-<h1>Tareas</h1>
-
-<h3>Semana </h3>
+- Creación de repositorio  
+- Armado de estructura de la aplicacion  
+- Definicion de tareas para cada integrante del equipo
+- Servicios de Firebase  
+- Login funcional
+- Icono y Splash Screen con Logo de la aplicación 
 
 1. Apellido: Tomadin
 2. Nombre: Federico
