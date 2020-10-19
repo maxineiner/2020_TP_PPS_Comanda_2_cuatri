@@ -4,8 +4,15 @@ Para registrar el <strong>grupo completo</strong> con todos sus integrantes: htt
 
 <br>
 
-Grupos:<br>
-<h4>Máximo 3 integrantes</h4>
-<h4>Mínimo 2 integrantes</h4>
+<h3>Integrantes</h3>
+<h5>Tomadin Federico</h5>
+<h5>Lucas Sánchez</h5>
+<h5>Lucas Cardone</h5>
+<hr>
 
 
+1. Apellido: Tomadin
+2. Nombre: Federico
+3. Módulos splash animado, icono, creación del proyecto.
+4. Fecha de inicio de la tarea: 17/10/2020
+5. Fecha de finalización de la tarea: 18/10/2020
