@@ -23,7 +23,12 @@ const routes: Routes = [
         path: '',
         redirectTo: '/tabs/tab1',
         pathMatch: 'full'
-      }
+      },
+      {
+        path: 'menu-mesa',
+        loadChildren: () => import('../menu-mesa/menu-mesa.module').then( m => m.MenuMesaPageModule)
+      },
+      
     ]
   },
   {

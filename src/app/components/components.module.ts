@@ -1,24 +1,37 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SplashComponent } from './splash/splash.component';
-import { ListadoProductosComponent } from "./listado-productos/listado-productos.component";
-import { FormProductoComponent } from "./form-producto/form-producto.component";
-import { ReactiveFormsModule, FormsModule } from "@angular/forms";
+import { HeaderComponent } from './header/header.component';
+import { FormMesasComponent } from './form-mesas/form-mesas.component';
+import { IonicModule } from '@ionic/angular';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ListadoMesasComponent } from './listado-mesas/listado-mesas.component';
+import { FormProductoComponent } from './form-producto/form-producto.component';
+import { ListadoProductosComponent } from './listado-productos/listado-productos.component';
+
+
 @NgModule({
   declarations: [
     SplashComponent,
-    ListadoProductosComponent,
-    FormProductoComponent
+    HeaderComponent,
+    FormMesasComponent,
+    ListadoMesasComponent,
+    FormProductoComponent,
+    ListadoProductosComponent
   ],
   imports: [
     CommonModule,
-    ReactiveFormsModule,
-    FormsModule
+    IonicModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   exports: [
     SplashComponent,
     ListadoProductosComponent,
-    FormProductoComponent
+    FormProductoComponent,
+    HeaderComponent,
+    FormMesasComponent,
+    ListadoMesasComponent
   ]
 })
 export class ComponentsModule { }
