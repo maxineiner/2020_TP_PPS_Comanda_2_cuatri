@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { SupervisorComponent } from './altas/supervisor/supervisor.component';
 
 const routes: Routes = [
   {
@@ -8,13 +9,17 @@ const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: 'home',
+    redirectTo: 'altaDueñoSupervisor',
     pathMatch: 'full'
   },
   {
     path: 'inicio',
     loadChildren: () => import('./inicio/inicio.module').then( m => m.InicioPageModule)
   },
+  {
+    path: 'altaDueñoSupervisor',
+    component:SupervisorComponent
+  }
 ];
 
 @NgModule({
