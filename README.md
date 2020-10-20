@@ -24,5 +24,6 @@ Para registrar el <strong>grupo completo</strong> con todos sus integrantes: htt
 - Definicion de tareas para cada integrante del equipo
 - Servicios de Firebase  
 - Login funcional
+- Configuración del proyecto en firebase
 - Icono y Splash Screen con Logo de la aplicación 
 
