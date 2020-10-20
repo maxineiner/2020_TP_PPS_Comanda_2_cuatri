@@ -17,7 +17,6 @@ export class Empleado extends Usuario {
     apellido: string,
     dni: string,
     foto: string,
-    isActive: boolean,
     tipo: TipoEmpleado,
     cuil: string
   ) {
@@ -28,7 +27,7 @@ export class Empleado extends Usuario {
     empleado.apellido = apellido;
     empleado.dni = dni;
     empleado.foto = foto;
-    empleado.isActive = isActive;
+    empleado.isActive = true;
     empleado.tipo = tipo;
     empleado.cuil = cuil;
 

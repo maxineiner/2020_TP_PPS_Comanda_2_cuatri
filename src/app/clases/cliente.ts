@@ -7,7 +7,6 @@ export class Cliente extends Usuario {
     apellido: string,
     dni: string,
     foto: string,
-    isActive: boolean
   ) {
     let cliente = new Cliente();
 
@@ -16,7 +15,7 @@ export class Cliente extends Usuario {
     cliente.apellido = apellido;
     cliente.dni = dni;
     cliente.foto = foto;
-    cliente.isActive = isActive;
+    cliente.isActive = true;
 
     return cliente;
   }

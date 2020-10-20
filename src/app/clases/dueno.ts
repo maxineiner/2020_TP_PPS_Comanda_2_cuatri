@@ -7,7 +7,6 @@ export class Dueno extends Jefe {
     apellido: string,
     dni: string,
     foto: string,
-    isActive: boolean,
     cuil: string
   ) {
     let dueno = new Dueno();
@@ -17,7 +16,7 @@ export class Dueno extends Jefe {
     dueno.apellido = apellido;
     dueno.dni = dni;
     dueno.foto = foto;
-    dueno.isActive = isActive;
+    dueno.isActive = true;
     dueno.cuil = cuil;
 
     return dueno;
