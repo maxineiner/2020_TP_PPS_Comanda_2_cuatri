@@ -13,9 +13,10 @@ export class Mesa
     tipo: TipoMesa;
     foto: string;
     datosQR: DatosMesa;
+    codigoQR: string;
 
-    public static CrearMesa(id: string, numero: number, comensales: number, 
-                            tipo: TipoMesa, foto: string, datosQR: DatosMesa)
+    public static CrearMesa(id: string, numero: number, comensales: number, tipo: TipoMesa, 
+                            foto: string, datosQR: DatosMesa, codigoQR: string)
     {
         let mesa = new Mesa();
 
@@ -25,6 +26,7 @@ export class Mesa
         mesa.tipo = tipo;
         mesa.foto = foto;
         mesa.datosQR = datosQR;
+        mesa.codigoQR = codigoQR;
 
         return mesa;
     }

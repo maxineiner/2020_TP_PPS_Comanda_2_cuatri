@@ -1,4 +1,4 @@
-<app-header titulo="Menú" paginaAnterior='/tabs/tab1'></app-header>
+<app-header titulo="Menú Mesa" paginaAnterior='/tabs/tab1'></app-header>
 
 
 <ion-content>
@@ -10,10 +10,10 @@
     <ion-segment-button value="Alta">
       <ion-label>Alta</ion-label>
     </ion-segment-button>
-    <ion-segment-button value="Baja">
+    <ion-segment-button value="Baja" *ngIf="mesaElegida.numero > 0">
       <ion-label>Baja</ion-label>
     </ion-segment-button>
-    <ion-segment-button value="Modificación">
+    <ion-segment-button value="Modificación" *ngIf="mesaElegida.numero > 0">
       <ion-label>Modificación</ion-label>
     </ion-segment-button>
   </ion-segment>
