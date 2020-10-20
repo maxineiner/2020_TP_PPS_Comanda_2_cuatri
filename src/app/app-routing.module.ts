@@ -7,9 +7,10 @@ const routes: Routes = [
     loadChildren: () => import('./pages/tabs/tabs.module').then(m => m.TabsPageModule)
   },
   {
-    path: 'registro-producto',
-    loadChildren: () => import('./pages/registro-producto/registro-producto.module').then( m => m.RegistroProductoPageModule)
+    path: 'menu-producto',
+    loadChildren: () => import('./pages/menu-producto/menu-producto.module').then( m => m.MenuProductoPageModule)
   }
+
 
 ];
 @NgModule({

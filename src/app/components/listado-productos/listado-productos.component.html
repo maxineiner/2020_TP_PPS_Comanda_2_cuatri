@@ -1,0 +1,18 @@
+
+<ion-list *ngFor="let producto of productos">
+  <ion-item (click)="seleccionarProducto(producto)">
+    <ion-card>
+      <h1>Producto: {{producto.nombre}}</h1>
+      <p>
+        <small>Descripción: {{producto.descripcion}}</small>        
+      </p>
+      <p>
+        Tiempo de elaboracion: {{producto.minutosDeElaboracion}} minutos
+      </p>   
+      <div *ngFor="let fotos of producto.fotos" style="text-align: center;">
+        <img style="max-height: 100px;" src="{{fotos.url}}" alt="{{producto.nombre}}">
+      </div>      
+      <h5>Precio: ${{producto.precio}}</h5>
+    </ion-card>
+  </ion-item>
+</ion-list>

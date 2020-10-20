@@ -10,7 +10,10 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ReactiveFormsModule, FormsModule } from "@angular/forms";
 import { ComponentsModule } from './components/components.module';
-
+import { AngularFireDatabaseModule } from "@angular/fire/database";
+import { ProductoService } from "./services/producto.service";
+import { AngularFireModule } from '@angular/fire';
+import { environment } from 'src/environments/environment';
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -21,11 +24,14 @@ import { ComponentsModule } from './components/components.module';
     AppRoutingModule,
     ReactiveFormsModule,
     FormsModule,
-    ComponentsModule
+    ComponentsModule,
+    AngularFireDatabaseModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig),
   ],
   providers: [
     StatusBar,
     SplashScreen,
+    ProductoService,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]
