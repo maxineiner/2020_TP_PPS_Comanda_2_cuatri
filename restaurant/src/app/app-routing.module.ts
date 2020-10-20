@@ -9,11 +9,7 @@ const routes: Routes = [
   },
   {
     path: '',
-<<<<<<< HEAD
     redirectTo: 'inicio',
-=======
-    redirectTo: 'altaDueñoSupervisor',
->>>>>>> 3195ef93145a05d081c735fcb44b093918ef078e
     pathMatch: 'full'
   },
   {

@@ -1,7 +1,7 @@
-
 import { Component, OnInit } from '@angular/core';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
+import { UtilsService } from 'src/app/servicios/utils.service';
 
 @Component({
   selector: 'app-supervisor',
@@ -13,7 +13,8 @@ export class SupervisorComponent implements OnInit {
   constructor(
 
     private scanner: BarcodeScanner,
-    private camera: Camera
+    private camera: Camera,
+    private utils: UtilsService
   ) { }
   mostrarContenidos = true;
   instanciaScanner;
@@ -71,27 +72,27 @@ export class SupervisorComponent implements OnInit {
 
   ValidarFormulario() {
     if (this.nombre.length > 20  || this.nombre.length == 0) {
-      alert("Nombre invalido. La cantidad de caracteres debe ser mayor a 0 y menor o igual 20.");
+      this.utils.presentAlert("Nombre inválido","","La cantidad de caracteres debe ser mayor a 0 y menor o igual 20.");
       return 1;
     }
     if (!this.ValidarSoloLetras(this.nombre)) {
-      alert("Nombre invalido. No debe contener caracteres numeros");
+      this.utils.presentAlert("Nombre inválido","","No debe contener caracteres numeros");
       return 1;
     }
     if (this.apellido.length > 20  || this.apellido.length == 0) {
-      alert("Apellido invalido. La cantidad de caracteres debe ser mayor a 0 y menor o igual 20.");
+      this.utils.presentAlert("Apellido inválido","","La cantidad de caracteres debe ser mayor a 0 y menor o igual 20.");
       return 1;
     }
     if (!this.ValidarSoloLetras(this.apellido)) {
-      alert("Apellido invalido. No debe contener caracteres numeros");
+      this.utils.presentAlert("Apellido inválido","","No debe contener caracteres numeros");
       return 1;
     }
     if (this.dni > 99999999 || this.dni < 10000000 || this.dni == "") {
-      alert("DNI invalido. Valor fuera de rango");
+      this.utils.presentAlert("DNI inválido","","Valor fuera de rango");
       return 1;
     }
     if (this.cuil > 99999999999 || this.cuil < 10000000000 || this.dni == "") {
-      alert("CUIL invalido. Valor fuera de rango");
+      this.utils.presentAlert("CUIL inválido","","Valor fuera de rango");
       return 1;
     }
   }
