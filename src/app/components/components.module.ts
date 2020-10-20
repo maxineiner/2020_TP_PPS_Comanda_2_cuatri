@@ -10,6 +10,7 @@ import { FormProductoComponent } from './form-producto/form-producto.component';
 import { ListadoProductosComponent } from './listado-productos/listado-productos.component';
 import { PipesModule } from '../pipes/pipes.module';
 import { DetalleMesaComponent } from './detalle-mesa/detalle-mesa.component';
+import { FormEmpleadosComponent } from './form-empleados/form-empleados.component';
 
 
 @NgModule({
@@ -20,7 +21,8 @@ import { DetalleMesaComponent } from './detalle-mesa/detalle-mesa.component';
     FormMesasComponent,
     ListadoMesasComponent,
     FormProductoComponent,
-    ListadoProductosComponent
+    ListadoProductosComponent,
+    FormEmpleadosComponent
   ],
   imports: [
     CommonModule,
@@ -36,7 +38,8 @@ import { DetalleMesaComponent } from './detalle-mesa/detalle-mesa.component';
     FormProductoComponent,
     HeaderComponent,
     FormMesasComponent,
-    ListadoMesasComponent
+    ListadoMesasComponent,
+    FormEmpleadosComponent
   ]
 })
 export class ComponentsModule { }
