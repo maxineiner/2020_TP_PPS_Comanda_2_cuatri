@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { ToastController } from '@ionic/angular';
 import { DatosMesa, Mesa } from 'src/app/clases/mesa';
 import { MesaService } from 'src/app/services/mesa.service';
 
@@ -24,8 +25,9 @@ export class FormMesasComponent implements OnInit {
     cancelText: "Cerrar",
     okText: "Guardar"
   }
+  codigoQR: any;
 
-  constructor(private mesaService: MesaService) { }
+  constructor(private mesaService: MesaService, private toastController: ToastController) { }
 
   ngOnInit() 
   {
@@ -40,9 +42,15 @@ export class FormMesasComponent implements OnInit {
   {
     this.mesa.datosQR = new DatosMesa( true , null, "Sin pedido");
     console.log("Crear Mesa");
-    if(this.mesa)
+    if(this.mesa && !this.mesa.id)
     {
-      this.mesaService.crear(this.mesa);
+      this.mesaService.crear(this.mesa)
+                      .then(() => this.presentToast("Alta exitosa"))
+                      .catch(() => this.presentToast("No se pudo realizar el alta"));
+    }
+    else
+    {
+      this.presentToast("Mesa existente");
     }
   }
 
@@ -53,7 +61,9 @@ export class FormMesasComponent implements OnInit {
     this.mesa.foto = "_";
     if(this.mesa)
     {
-      this.mesaService.actualizar(this.mesa);
+      this.mesaService.actualizar(this.mesa)
+                      .then(() => this.presentToast("Modificación exitosa"))
+                      .catch(err => this.presentToast("No se pudo modificar"));
     }
   }
 
@@ -63,15 +73,22 @@ export class FormMesasComponent implements OnInit {
     if(this.mesa)
     {
       this.mesa.foto = "_";
-      this.mesa.datosQR.isAvailable = false;
-      this.mesaService.actualizar(this.mesa);
-      // BAJA FISICA NO USAR
-      //this.mesaService.borrar(this.mesa);
+      this.mesaService.borrar(this.mesa)
+                      .then(() => this.presentToast("Baja realizada"))
+                      .catch(err => this.presentToast("No se pudo realizar baja"));
     }
   }
 
   submit()
   {
     console.log(this.mesa);
+  }
+
+  async presentToast(message) {
+    const toast = await this.toastController.create({
+      message,
+      duration: 2000
+    });
+    toast.present();
   }
 }

@@ -27,7 +27,7 @@
       <ion-label>Tipo de mesa</ion-label>
       <ion-select value="mesa.estado" multiple="false" name="tipoMesa" [placeholder]="mesa.tipo"
                   [(ngModel)]="mesa.tipo" [disabled]="opcion == 'Baja'"
-                  [interfaceOptions]="popoverOptions" interface="popover">
+                  [interfaceOptions]="popoverOptions" interface="popover" required>
         <ion-select-option value="Vip">V.I.P.</ion-select-option>
         <ion-select-option value="Normal">Normal</ion-select-option>
         <ion-select-option value="Discapacitados">Discapacitados</ion-select-option>
@@ -35,7 +35,7 @@
     </ion-item>
 
     <ion-item>
-      <ion-button (click)="sacarFoto()" fill="solid" shape="round" size="large" color="dark"
+      <ion-button (click)="sacarFoto()" fill="solid" shape="round" size="medium" color="dark"
                   [disabled]="opcion == 'Baja'">
         Subir foto
       </ion-button>
@@ -58,4 +58,5 @@
       Eliminar
     </ion-button>
 
+    <ion-img [src]="mesa.codigoQR"></ion-img>
   </form>
