@@ -1,9 +1,28 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>inicio</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content>
-
+  <div class="fondo">
+  
+    <button  type="button" color="success" class="btnClienteRegistradoInicio"
+      (click)="manejadoraInicio('CLIENTE_REGISTRADO')">Registrarme</button><br>
+    <button type="button" color="success" class="btnClienteAnonimoInicio" 
+      (click)="manejadoraInicio('CLIENTE_ANONIMO')">Ingreso<br>sin registro</button><br>
+    <button type="button" color="success" class="btnLoginInicio" 
+      (click)="manejadoraInicio('LOGIN')">Ya estoy registrado</button>
+  
+    <div class="loadingInicio">
+      <img src="../../../assets/spinner.png">
+    </div>
+    <label class="divTitulo">CodeFactory</label>
+    <label class="divNombres">
+      <p>
+        <ion-badge color="warning">TOMADIN FEDERICO</ion-badge>
+      </p>
+      <p>
+        <ion-badge color="warning">CARDONE LUCAS</ion-badge>
+      </p>
+      <p>
+        <ion-badge color="warning">SANCHEZ LUCAS</ion-badge>
+      </p>
+    </label>
+  
+  </div>
 </ion-content>

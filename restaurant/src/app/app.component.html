@@ -1,11 +1,28 @@
-<div id="custom-overlay" [style.display]="showSplash ? 'flex': 'none'">
+<!-- <div id="custom-overlay" [style.display]="showSplash ? 'flex': 'none'">
   <div class="flb">
     <div class="Aligner-item Aligner-item--top"></div>
     <img src="../assets/restaurante.png" class="imgSplashMovimiento"> 
     <div class="Aligner-item Aligner-item--bottom"></div>
   </div>
-</div>
+</div> -->
 
 <ion-app>
+  <div class="fondo" [style.display]="splash ? 'flex' : 'none'">
+    <div class="logoSplash">
+      <img src="../assets/spinner.png">
+    </div>
+    <label class="divTitulo">CodeFactory</label>
+    <label class="divNombres">
+      <p>
+        <ion-badge color="success">TOMADIN FEDERICO</ion-badge>
+      </p>
+      <p>
+        <ion-badge color="success">CARDONE LUCAS</ion-badge>
+      </p>
+      <p>
+        <ion-badge color="success">SANCHEZ LUCAS</ion-badge>
+      </p>
+    </label>
+  </div>
   <ion-router-outlet></ion-router-outlet>
 </ion-app>
