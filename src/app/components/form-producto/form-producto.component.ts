@@ -15,7 +15,7 @@ enum OpcionForm {
   templateUrl: './form-producto.component.html',
   styleUrls: ['./form-producto.component.scss'],
 })
-export class FormProductoComponent implements OnInit {
+export class FormProductoComponent {
 
   @Input() opcion: OpcionForm;
   @Input() producto: Producto;
@@ -38,15 +38,15 @@ export class FormProductoComponent implements OnInit {
   ) {
     this.crearForm();
   }
-  ngOnInit() {
-    console.log(this.producto);
+  ngOnChanges(){
+    console.log(this.opcion);
     this.rellenarFormulario();
   }
 
-  rellenarFormulario(){
+  rellenarFormulario() {
     try {
-      
-      if (this.producto) {
+
+      if (this.producto && this.opcion != OpcionForm.ALTA) {
         this.registroForm.setValue(
           {
             'nombre': this.producto.nombre,
@@ -56,10 +56,17 @@ export class FormProductoComponent implements OnInit {
             'fotos': this.producto.fotos,
           }
         );
+        this.fotos = this.producto.fotos;
+      }
+      else{
+        this.registroForm.reset();
       }
 
       if (this.opcion == OpcionForm.BAJA) {
         this.registroForm.disable();
+      }
+      else{
+        this.registroForm.enable();
       }
 
 
@@ -82,34 +89,40 @@ export class FormProductoComponent implements OnInit {
 
   registrar() {
     console.log("registrando..");
-    this.productoService.registrar(new Producto(this.registroForm.value)).then(data => {
-      console.log("Registrado correctamente.")
-    }
-    );
+    this.imagenService.registrarArrayImagenes(this.fotos, '/productos').then((data) => {
+      this.fotos = data;
+      this.productoService.registrar(new Producto(this.registroForm.value)).then(data => {
+        console.log("Registrado correctamente.")
+      }
+      );
+    }).catch(error => console.error(error))
+
   }
 
   tomarFoto() {
-    this.imagenService.sacarFoto("/productos").then(data => {
+    this.imagenService.sacarFoto().then(data => {
       this.fotos.push(data);
       this.registroForm.get('fotos').setValue(this.fotos);
     })
   }
 
-  modificarProducto()
-  {
+  modificarProducto() {
     console.log("Modificar Producto");
-    console.log(this.producto);
-    if(this.producto)
-    {
-      this.productoService.actualizar(this.producto);
+    this.producto.nombre = this.registroForm.get('nombre').value;
+    this.producto.descripcion = this.registroForm.get('descripcion').value;
+    this.producto.minutosDeElaboracion = this.registroForm.get('minutosDeElaboracion').value;
+    this.producto.precio = this.registroForm.get('precio').value;
+    this.producto.fotos = this.registroForm.get('fotos').value;
+    
+    this.productoService.actualizar(this.producto).then(data => {
+      console.log("Registrado correctamente.")
     }
+    ).catch(error=>{console.error(error)});
   }
 
-  borrarProducto()
-  {
+  borrarProducto() {
     console.log("Baja de producto");
-    if(this.producto)
-    {            
+    if (this.producto) {
       this.producto.isActive = false;
       this.productoService.actualizar(this.producto);
     }

@@ -22,9 +22,9 @@ export class ImagenService {
   constructor(private storage: AngularFireStorage, private toastController: ToastController) {
   }
   //Abre la camara, si toman la foto devuelve un objeto tipo Imagen, recibe una ruta a la carpeta que quieras guardar la foto
-  async sacarFoto(rutaCarpetaStorage: string): Promise<Imagen> {
+  async sacarFoto(): Promise<Imagen> {
     let imagen: Imagen = new Imagen();
-    let carpeta = rutaCarpetaStorage;
+
 
     Camera.getPhoto({
       quality: 90,
@@ -41,24 +41,47 @@ export class ImagenService {
         console.log(imageData);
         imagen.base64 = imageData.base64String;
         imagen.fecha = new Date().toUTCString();
-        // Se sube imagen a Base de Datos
-        this.crear(imagen).then(img => {
-          imagen = img;
-          // Se guarda imagen en el Storage
-          this.guardarImagen(imagen, carpeta)
-            .then(snapshot => snapshot.ref.getDownloadURL()
-              .then(res => imagen.url = res))
-            .finally(() => this.actualizar(imagen));
-        })
-          .catch(console.error);
+
       })
       .catch(error => {
         this.presentToast(error);
       })
     return imagen;
   }
+  //Registra una imagen y la devuelve con su respectivo id y su url
+  public async registrarUnaImagen(imagen: Imagen, rutaCarpetaStorage: string):Promise<Imagen> {
+    let carpeta = rutaCarpetaStorage;
+    // Se sube imagen a Base de Datos
+    this.crear(imagen).then(img => {
+      imagen = img;
+      // Se guarda imagen en el Storage
+      this.guardarImagen(imagen, carpeta)
+        .then(snapshot => snapshot.ref.getDownloadURL()
+          .then(res => imagen.url = res))
+        .finally(() => this.actualizar(imagen));
+    })
+      .catch(console.error);
+    return imagen;
+  }
+  //Registra un array de imagenes y lo devuelve con sus respectivos id y url
+  public async registrarArrayImagenes(imagenes: Array<Imagen>, rutaCarpetaStorage: string):Promise<Array<Imagen>> {
+    let carpeta = rutaCarpetaStorage;
+    // Se sube imagen a Base de Datos
+    imagenes.forEach(imagen => {
+      this.crear(imagen).then(img => {
+        imagen = img;
+        // Se guarda imagen en el Storage
+        this.guardarImagen(imagen, carpeta)
+          .then(snapshot => snapshot.ref.getDownloadURL()
+            .then(res => imagen.url = res))
+          .finally(() => this.actualizar(imagen));
+      })
+        .catch(console.error);
+    })
+    return imagenes;
+  }
 
-  async guardarImagen(imagen: Imagen, carpeta: string) {
+  private async guardarImagen(imagen: Imagen, carpeta: string) {
     console.log("Guardar imagen-----------------------");
     const metadata: UploadMetadata = {
       contentType: 'image/jpeg',
@@ -68,17 +91,11 @@ export class ImagenService {
          date : imagen.fecha, */
       }
     };
-
-    console.log(imagen);
     // Se sube imagen al Firebase Storage
     return this.storage.ref(`${carpeta}/${imagen.id}`)
       .putString(imagen.base64, firebase.storage.StringFormat.BASE64, metadata).catch(error => console.log("Firebase Storage:", error));
   }
-
-  public async descargarImagen(carpeta: string, usuario: string) {
-    return this.storage.ref(`${carpeta}/${usuario}`).getDownloadURL()
-  }
-
+  //Crea una referencia en la carpeta imagenes de la base de datos, y devuelve el parametro imagen pero con el id de referencia 
   private async crear(imagen: Imagen) {
     console.log(imagen);
     database().ref('imagenes')
@@ -95,8 +112,8 @@ export class ImagenService {
       .catch(() => console.info("No se pudo actualizar"));
   }
 
-  public borrar(imagen:Imagen): Promise<any> {
-    return database().ref('imagenes/' +imagen.id)
+  public borrar(imagen: Imagen): Promise<any> {
+    return database().ref('imagenes/' + imagen.id)
       .remove()
       .then(() => console.info("Imagen eliminada"))
       .catch(() => console.info("No se pudo realizar la baja."));

@@ -16,7 +16,7 @@ export class ProductoService {
     try {
       this.referenciaProductos = db.list(this.rutaDB);
     } catch (error) {
-      console.log("Error: ", error);
+      console.error("Error: ", error);
     }
 
   }
@@ -38,7 +38,7 @@ export class ProductoService {
       });
       return fetch;
     } catch (error) {
-      console.log("Error: ", error);
+      console.error("Error: ", error);
     }
 
   }
@@ -67,14 +67,13 @@ export class ProductoService {
 
   eliminar(producto:Producto): Promise<void> {
     try {
-
       producto.isActive = false;
       return this.actualizar(producto)
       .then(()=>{
         console.info("Borrado")
       });
     } catch (error) {
-      console.log("No se pudo Borrar: ", error);
+      console.error("No se pudo Borrar: ", error);
     }
 
   }
