@@ -4,9 +4,10 @@ import { SplashComponent } from './splash/splash.component';
 import { HeaderComponent } from './header/header.component';
 import { FormMesasComponent } from './form-mesas/form-mesas.component';
 import { IonicModule } from '@ionic/angular';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ListadoMesasComponent } from './listado-mesas/listado-mesas.component';
-
+import { FormProductoComponent } from './form-producto/form-producto.component';
+import { ListadoProductosComponent } from './listado-productos/listado-productos.component';
 
 
 @NgModule({
@@ -14,15 +15,20 @@ import { ListadoMesasComponent } from './listado-mesas/listado-mesas.component';
     SplashComponent,
     HeaderComponent,
     FormMesasComponent,
-    ListadoMesasComponent
+    ListadoMesasComponent,
+    FormProductoComponent,
+    ListadoProductosComponent
   ],
   imports: [
     CommonModule,
     IonicModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
   exports: [
     SplashComponent,
+    ListadoProductosComponent,
+    FormProductoComponent,
     HeaderComponent,
     FormMesasComponent,
     ListadoMesasComponent

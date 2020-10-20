@@ -1,0 +1,76 @@
+<form class="modal-content animate container" [formGroup]="registroForm" novalidate>
+  <div class="form-group">
+    <label>Nombre:</label>
+    <input class="form-control" formControlName="nombre" type="text">
+  </div>
+  <div
+    *ngIf="registroForm.controls['nombre'].invalid && (registroForm.controls['nombre'].dirty || registroForm.controls['nombre'].touched)"
+    class="alert alert-danger">
+    <div *ngIf="registroForm.controls['nombre'].errors.required">
+      Nombre es requerido.
+    </div>
+  </div>
+  <div class="form-group">
+    <label>Descripcion:</label>
+    <input class="form-control" formControlName="descripcion" type="text">
+  </div>
+  <div
+    *ngIf="registroForm.controls['descripcion'].invalid && (registroForm.controls['descripcion'].dirty || registroForm.controls['descripcion'].touched)"
+    class="alert alert-danger">
+    <div *ngIf="registroForm.controls['descripcion'].errors.required">
+      Descricion es requerida.
+    </div>
+  </div>
+  <div class="form-group">
+    <label>Tiempo de elaboracion (minutos):</label>
+    <input class="form-control" formControlName="minutosDeElaboracion" type="text">
+  </div>
+  <div
+    *ngIf="registroForm.controls['minutosDeElaboracion'].invalid && (registroForm.controls['minutosDeElaboracion'].dirty || registroForm.controls['minutosDeElaboracion'].touched)"
+    class="alert alert-danger">
+    <div *ngIf="registroForm.controls['minutosDeElaboracion'].errors.required">
+      Tiempo de elaboracion es requerido.
+    </div>
+    <div *ngIf="registroForm.controls['precio'].errors.pattern">
+      El Tiempo de elaboracion solo debe contener numeros.
+    </div>
+  </div>
+  <div class="form-group">
+    <label>Precio:</label>
+    <input class="form-control" formControlName="precio" type="text">
+  </div>
+  <div
+    *ngIf="registroForm.controls['precio'].invalid && (registroForm.controls['precio'].dirty || registroForm.controls['precio'].touched)"
+    class="alert alert-danger">
+    <div *ngIf="registroForm.controls['precio'].errors.required">
+      Precio es requerido.
+    </div>
+    <div *ngIf="registroForm.controls['precio'].errors.pattern">
+      El precio solo debe contener numeros.
+    </div>
+  </div>
+  <ion-button color="dark" center (click)=tomarFoto() [disabled]="opcion == 'Baja'">
+    <ion-icon slot="start" name="camera"></ion-icon>
+    Subir Foto
+  </ion-button>
+  <div *ngFor="let foto of fotos" style="height: 25px; width: 25px;">
+    <img src="{{foto.url}}" alt="">
+  </div>
+<!--   <ion-button shape="round" expand="full" [disabled]="registroForm.pristine || registroForm.invalid"
+    (click)="registrar()">Registrar Producto</ion-button>
+  <ion-button shape="round" expand="full">Cancelar</ion-button> -->
+  <!-- Se muestra accion segun tipo de llamado al formulario -->
+  <ion-button (click)="registrar()" color="dark" expand="block" type="submit" [disabled]="registroForm.pristine || registroForm.invalid"
+    *ngIf="opcion == 'Alta'">
+    Crear
+  </ion-button>
+
+  <ion-button (click)="modificarProducto()" color="dark" expand="block" type="submit" [disabled]="registroForm.pristine || registroForm.invalid"
+    *ngIf="opcion == 'Modificación'">
+    Modificar
+  </ion-button>
+
+  <ion-button (click)="borrarProducto()" color="dark" expand="block" type="submit" *ngIf="opcion == 'Baja'">
+    Eliminar
+  </ion-button>
+</form>
