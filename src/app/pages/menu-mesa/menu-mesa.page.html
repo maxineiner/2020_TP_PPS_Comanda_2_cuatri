@@ -10,10 +10,10 @@
     <ion-segment-button value="Alta">
       <ion-label>Alta</ion-label>
     </ion-segment-button>
-    <ion-segment-button value="Baja" *ngIf="mesaElegida.numero > 0">
+    <ion-segment-button value="Baja" *ngIf="mesaElegida.isActive">
       <ion-label>Baja</ion-label>
     </ion-segment-button>
-    <ion-segment-button value="Modificación" *ngIf="mesaElegida.numero > 0">
+    <ion-segment-button value="Modificación" *ngIf="mesaElegida.isActive">
       <ion-label>Modificación</ion-label>
     </ion-segment-button>
   </ion-segment>

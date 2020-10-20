@@ -1,3 +1,5 @@
+import { Cliente } from './cliente';
+
 export enum TipoMesa
 {
     VIP = 'Vip',
@@ -12,11 +14,15 @@ export class Mesa
     comensales: number;
     tipo: TipoMesa;
     foto: string;
-    datosQR: DatosMesa;
     codigoQR: string;
+    isAvailable: boolean;
+    isActive: boolean;
+    estadoPedido: string;
+    cliente: Cliente;
 
     public static CrearMesa(id: string, numero: number, comensales: number, tipo: TipoMesa, 
-                            foto: string, datosQR: DatosMesa, codigoQR: string)
+                            foto: string, codigoQR: string, isAvailable: boolean,
+                            isActive: boolean, estadoPedido: string, cliente:Cliente)
     {
         let mesa = new Mesa();
 
@@ -25,24 +31,14 @@ export class Mesa
         mesa.comensales = comensales;
         mesa.tipo = tipo;
         mesa.foto = foto;
-        mesa.datosQR = datosQR;
         mesa.codigoQR = codigoQR;
+        mesa.isAvailable = isAvailable;
+        mesa.isActive = isActive;
+        mesa.estadoPedido = estadoPedido;
+        mesa.cliente = cliente;
 
         return mesa;
     }
 }
 
-export class DatosMesa
-{
-    isAvailable: boolean;
-    cliente: any; // Cambiar a tipo cliente
-    estadoPedido: string; // Cambiar a tipo Estado del pedido
-
-    constructor(isAvailable: boolean, cliente: any, estadoPedido: string)
-    {
-        this.isAvailable = isAvailable;
-        this.cliente = cliente;
-        this.estadoPedido = estadoPedido;
-    }
-}
 
