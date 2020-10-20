@@ -37,10 +37,6 @@ export class ProductoService {
         })
       });
       return fetch;
-
-
-
-
     } catch (error) {
       console.log("Error: ", error);
     }
@@ -57,7 +53,7 @@ export class ProductoService {
         .then(() => this.actualizar(producto))
         .catch(console.error);
     } catch (error) {
-      console.log("Error: ", error);
+      console.log("No se pudo registrar: ", error);
     }
 
   }
@@ -69,25 +65,19 @@ export class ProductoService {
       .catch(() => console.info("No se pudo actualizar"));
   }
 
-  eliminar(id: string): Promise<void> {
+  eliminar(producto:Producto): Promise<void> {
     try {
-      return this.referenciaProductos.remove(id);
+
+      producto.isActive = false;
+      return this.actualizar(producto)
+      .then(()=>{
+        console.info("Borrado")
+      });
     } catch (error) {
-      console.log("Error: ", error);
+      console.log("No se pudo Borrar: ", error);
     }
 
   }
-
-  deleteAll(): Promise<void> {
-    try {
-      return this.referenciaProductos.remove();
-    } catch (error) {
-      console.log("Error: ", error);
-    }
-
-  }
-
-
 
 
 

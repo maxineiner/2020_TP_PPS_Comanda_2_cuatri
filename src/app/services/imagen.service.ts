@@ -95,8 +95,8 @@ export class ImagenService {
       .catch(() => console.info("No se pudo actualizar"));
   }
 
-  public borrar(id: number): Promise<any> {
-    return database().ref('imagenes/' + id)
+  public borrar(imagen:Imagen): Promise<any> {
+    return database().ref('imagenes/' +imagen.id)
       .remove()
       .then(() => console.info("Imagen eliminada"))
       .catch(() => console.info("No se pudo realizar la baja."));

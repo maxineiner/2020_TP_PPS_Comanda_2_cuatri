@@ -95,9 +95,9 @@ export class FormProductoComponent implements OnInit {
     })
   }
 
-  modificarMesa()
+  modificarProducto()
   {
-    console.log("Modificar Mesa");
+    console.log("Modificar Producto");
     console.log(this.producto);
     if(this.producto)
     {
@@ -105,9 +105,9 @@ export class FormProductoComponent implements OnInit {
     }
   }
 
-  borrarMesa()
+  borrarProducto()
   {
-    console.log("Baja de mesa");
+    console.log("Baja de producto");
     if(this.producto)
     {            
       this.producto.isActive = false;
