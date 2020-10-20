@@ -60,6 +60,7 @@ export class FormProductoComponent {
       }
       else{
         this.registroForm.reset();
+        this.fotos= [];
       }
 
       if (this.opcion == OpcionForm.BAJA) {

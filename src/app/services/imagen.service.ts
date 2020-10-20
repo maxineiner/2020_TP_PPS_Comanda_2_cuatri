@@ -2,12 +2,9 @@ import { Injectable } from '@angular/core';
 import * as firebase from 'firebase';
 import { Imagen } from '../clases/imagen';
 import { Plugins, CameraResultType, CameraSource } from '@capacitor/core';
-
 import { AngularFireStorage } from '@angular/fire/storage';
 import { database } from 'firebase';
 import { ToastController } from '@ionic/angular';
-import { Producto } from '../clases/producto';
-
 import { UploadMetadata } from '@angular/fire/storage/interfaces';
 
 const { Camera } = Plugins;
