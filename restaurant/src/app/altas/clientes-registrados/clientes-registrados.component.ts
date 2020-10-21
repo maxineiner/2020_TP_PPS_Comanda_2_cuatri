@@ -5,6 +5,7 @@ import { Usuario } from 'src/app/clases/usuario';
 import { TipoUsuario } from 'src/app/enums/tipo-usuario.enum';
 import { UtilsService } from 'src/app/servicios/utils.service';
 import * as firebase from 'firebase';
+import { AuthService } from 'src/app/servicios/auth.service';
 
 @Component({
   selector: 'app-clientes-registrados',
@@ -19,8 +20,8 @@ export class ClientesRegistradosComponent implements OnInit {
     private scanner: BarcodeScanner,
     private camera: Camera,
     private utils: UtilsService,
-    public user: Usuario
-
+    public user: Usuario,
+    public auth:AuthService
   ) { }
 
   ngOnInit() {
@@ -109,6 +110,8 @@ export class ClientesRegistradosComponent implements OnInit {
       this.utils.presentAlert("Falta foto!", "", "Es obligatorio tener una foto de la persona para continuar.");
       return 1;
     }
+    //----------- USAR SOLO SI YA SE TIENE DEFINIDA LA BASE DE DATOS---------
+    //this.AltaUsuario();
     return 0;
   }
 
@@ -131,12 +134,18 @@ export class ClientesRegistradosComponent implements OnInit {
     return (false)
   }
 
+  AltaUsuario()
+  {
+    this.SubirFotoFirestore(this.foto);
+  }
+
   SubirFotoFirestore(imagen) {
     this.utils.presentLoading();
     let storageRef = firebase.storage().ref();
 
     // Creo el nombre del archivo
-    const filename = Math.random().toString(36).substring(2);
+    //const filename = Math.random().toString(36).substring(2);
+    const filename = this.user.correo;
 
     // Creo la referencia de la imagen
     const imageRef = storageRef.child(`clientes/${filename}.jpg`);
@@ -145,15 +154,17 @@ export class ClientesRegistradosComponent implements OnInit {
       .then((snapshot) => {
         imageRef.getDownloadURL().then(url => {
           this.user.foto = url;
-          this.RegistrarImagenEnBD(url, filename, this.user.perfil , this.user.correo);
+          //this.RegistrarImagenEnBD(url, filename, this.user.perfil , this.user.correo);
+          this.RegistrarUsuarioEnBD(this.user);
         });
       })
       .catch(error => {
         alert("Algo salio mal. " + JSON.stringify(error));
       })
+      
   }
 
-  RegistrarImagenEnBD(imagenURL, fileName, tipo, creador) {//Importante ------------------------
+  /*RegistrarImagenEnBD(imagenURL, fileName, tipo, creador) {
     try {
 
       var fechaActualStr = this.ObtenerFechaActual();
@@ -168,27 +179,30 @@ export class ClientesRegistradosComponent implements OnInit {
         fecha: fechaActualStr,
         creador: creador,
         //id: idFoto,
+      }).then(()=>{
+        //MUY IMPORTANTE. MI BIEN SE SUBA LA IMAGEN NECESITARE REGISTRAR EL USUARIO
+        this.RegistrarUsuarioEnBD(this.user);
       });
 
     }
     catch (e) {
       this.utils.presentAlert("Algo salio mal!", "", "Error al registrar imagen: " + e);
     }
-  }
+  }*/
 
   RegistrarUsuarioEnBD(usuario: Usuario) {//Importante ------------------------
     try {
 
-      //var fechaActualStr = this.ObtenerFechaActual();
       var database = firebase.database();
-      //var idFoto = this.crearIDFoto();
-
-      database.ref("clientes/").push({
+      database.ref("usuarios/").push({
         nombre: usuario.nombre,
         foto: usuario.foto,
         perfil: usuario.perfil,
         apellido: usuario.apellido,
         dni: usuario.dni
+      }).then(()=>{
+        //SE GUARDARA CORREO Y CLAVE PARA LA FUTURA AUTENTICACION
+        this.auth.signUp(usuario);
       });
 
     }

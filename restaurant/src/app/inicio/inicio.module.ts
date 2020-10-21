@@ -11,6 +11,9 @@ import { ClientesAnonimosComponent } from '../altas/clientes-anonimos/clientes-a
 import { ClientesRegistradosComponent } from '../altas/clientes-registrados/clientes-registrados.component';
 import { Usuario } from '../clases/usuario';
 import { LoginComponent } from '../login/login.component';
+import { MesasComponent } from '../altas/mesas/mesas.component';
+import { Mesa } from '../clases/mesa';
+import { MenuPrincipalComponent } from '../menu-principal/menu-principal.component';
 
 @NgModule({
   imports: [
@@ -24,8 +27,10 @@ import { LoginComponent } from '../login/login.component';
     InicioPage,
     ClientesAnonimosComponent,
     ClientesRegistradosComponent,
-    LoginComponent
+    LoginComponent,
+    MesasComponent,
+    MenuPrincipalComponent
   ],
-  providers:[Usuario]
+  providers:[Usuario,Mesa]
 })
 export class InicioPageModule {}
