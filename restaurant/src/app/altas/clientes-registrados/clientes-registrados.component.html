@@ -2,13 +2,16 @@
   <ion-header [translucent]="true">
     <ion-toolbar>
       <ion-title>
-        <b class="lbl">Alta de Dueño/Supervisor</b>
+        <b class="lbl">Registro de Cliente</b>
       </ion-title>
     </ion-toolbar>
   </ion-header>
   
   <ion-content [fullscreen]="true">
+
     <div style="height: 100%;background-color: #166837;overflow: scroll;" >
+      <br>
+      <br>
       <br>
       <ion-card style="border-radius:10px;">
         <div style="padding: 5%;">
@@ -36,21 +39,6 @@
           </ion-item>
           <br>
 
-          <ion-item>
-            <ion-label position="fixed" class="lbl">CUIL</ion-label>
-            <ion-input [(ngModel)]="user.cuil" type="number" placeholder="Ingrese CUIL aquí"></ion-input>
-          </ion-item>
-          <br>
-
-          <ion-item>
-            <ion-label class="lbl">PERFIL</ion-label>
-            <ion-select [(ngModel)]="user.perfil" interface="popover">
-              <ion-select-option value="DUEÑO">Dueño</ion-select-option>
-              <ion-select-option value="SUPERVISOR">Supervisor</ion-select-option>
-            </ion-select>
-          </ion-item>
-          <br>
-
           <button class="btn" (click)="TomarFoto()" style="width: 100%;font-size: 18px;height: 40px;"><b>AGREGAR FOTO</b></button>
           <br>
           <br>
@@ -61,7 +49,7 @@
               </td>
               <td>
                 <div align="center">
-                  <h1 class="lbl">La foto ha sido tomada exitosamente!</h1>
+                  <h1 class="lbl" style="font-size:25px">La foto ha sido tomada exitosamente!</h1>
                 </div>
               </td>
             </tr>
@@ -72,3 +60,4 @@
       </ion-card>
     </div>
   </ion-content>
+

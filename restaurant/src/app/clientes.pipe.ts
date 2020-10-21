@@ -8,5 +8,4 @@ export class ClientesPipe implements PipeTransform {
   transform(value: unknown, ...args: unknown[]): unknown {
     return null;
   }
-
 }

@@ -1,32 +1,33 @@
 import { Component, OnInit } from '@angular/core';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
+import { Usuario } from 'src/app/clases/usuario';
 import { TipoUsuario } from 'src/app/enums/tipo-usuario.enum';
 import { UtilsService } from 'src/app/servicios/utils.service';
-import { Usuario } from '../../clases/usuario'
-@Component({
-  selector: 'app-supervisor',
-  templateUrl: './supervisor.component.html',
-  styleUrls: ['./supervisor.component.scss'],
-})
-export class SupervisorComponent implements OnInit {
-  
-  datosEscaneados;
-  foto;
+import * as firebase from 'firebase';
 
+@Component({
+  selector: 'app-clientes-registrados',
+  templateUrl: './clientes-registrados.component.html',
+  styleUrls: ['./clientes-registrados.component.scss'],
+})
+export class ClientesRegistradosComponent implements OnInit {
+
+  foto;
+  datosEscaneados;
   constructor(
     private scanner: BarcodeScanner,
     private camera: Camera,
     private utils: UtilsService,
     public user: Usuario
+    
   ) { }
-  
+
   ngOnInit() { 
     this.user.nombre = "";
     this.user.apellido = "";
     this.user.dni = "";
-    this.user.cuil = "";
-    this.user.perfil = TipoUsuario.DUEÑO;
+    this.user.perfil = TipoUsuario.CLIENTE_ANONIMO;
   }
 
   scanQrAltaUsuarios(): void {
@@ -43,8 +44,7 @@ export class SupervisorComponent implements OnInit {
     var nombre: string = (parsedData[2].toString());
     var apellido: string = parsedData[1].toString();
     var dni: number = parsedData[4];
-    var cuil: number = parsedData[8];
-    cuil = parseInt(cuil.toString().substr(0, 2) + dni + cuil.toString().substr(2));// por ej: 20 + dni + 5
+
     //Agrego mayuscula a solo la primera letra
     nombre = nombre.toLowerCase().substr(0, 1).toUpperCase() + nombre.toLowerCase().substr(1);
     apellido = apellido.toLowerCase().substr(0, 1).toUpperCase() + apellido.toLowerCase().substr(1);
@@ -53,7 +53,6 @@ export class SupervisorComponent implements OnInit {
     this.user.nombre = nombre;
     this.user.apellido = apellido;
     this.user.dni = dni.toString();
-    this.user.cuil = cuil.toString();
   }
 
   TomarFoto() {
@@ -94,10 +93,6 @@ export class SupervisorComponent implements OnInit {
       this.utils.presentAlert("DNI inválido","","Valor fuera de rango");
       return 1;
     }
-    if (parseInt(this.user.cuil) > 99999999999 || parseInt(this.user.cuil) < 10000000000 || this.user.dni == "") {
-      this.utils.presentAlert("CUIL inválido","","Valor fuera de rango");
-      return 1;
-    }
     if(this.foto == undefined)
     {
       this.utils.presentAlert("Falta foto!","","Es obligatorio que tener una foto de la persona para continuar.");
@@ -115,5 +110,90 @@ export class SupervisorComponent implements OnInit {
       }
     }
     return true;
+  }
+
+  SubirFotoFirestore(imagen) {
+    this.utils.presentLoading();
+    let storageRef = firebase.storage().ref();
+    
+    // Creo el nombre del archivo
+    const filename = Math.random().toString(36).substring(2);
+
+    // Creo la referencia de la imagen
+    const imageRef = storageRef.child(`clientes/${filename}.jpg`);
+
+    imageRef.putString(imagen, firebase.storage.StringFormat.DATA_URL)
+      .then((snapshot) => {
+        imageRef.getDownloadURL().then(url => {
+          this.user.foto = url;
+          this.RegistrarImagenEnBD(url, filename, TipoUsuario.CLIENTE_ANONIMO, this.user.nombre);
+        });
+      })
+      .catch(error => {
+        alert("Algo salio mal. " + JSON.stringify(error));
+      })
+  }
+
+  RegistrarImagenEnBD(imagenURL, fileName, tipo, creador) {//Importante ------------------------
+    try {
+
+      var fechaActualStr = this.ObtenerFechaActual();
+      var database = firebase.database();
+      //var idFoto = this.crearIDFoto();
+      
+
+      database.ref("clientes/" + fileName).set({
+        fileName: fileName,
+        url: imagenURL,
+        tipo: tipo,
+        fecha: fechaActualStr,
+        creador: creador,
+        //id: idFoto,
+      });
+
+    }
+    catch (e) {
+      this.utils.presentAlert("Algo salio mal!","","Error al registrar imagen: " + e);
+    }
+  }
+
+  RegistrarUsuarioEnBD(usuario:Usuario) {//Importante ------------------------
+    try {
+
+      //var fechaActualStr = this.ObtenerFechaActual();
+      var database = firebase.database();
+      //var idFoto = this.crearIDFoto();
+      
+      database.ref("clientes/").push({
+        nombre: usuario.nombre,
+        foto: usuario.foto,
+        perfil: usuario.perfil,
+        apellido: usuario.apellido,
+        dni:usuario.dni
+      });
+
+    }
+    catch (e) {
+      this.utils.presentAlert("Algo salio mal!","","Error al registrar al usuario: " + e);
+    }
+  }
+
+  ObtenerFechaActual() {
+    var now = new Date();
+    return (now.getHours()) + ":" + (now.getMinutes()) + ":" + now.getSeconds() + " " + now.getDate() + "/" + (now.getMonth() + 1) + "/" + now.getFullYear();
+  }
+
+  ObtenerFechaActualObjDate (fechaStr: string): any {
+    var horario = fechaStr.split(" ")[0];
+    var fecha = fechaStr.split(" ")[1];
+
+    var hora = horario.split(":")[0];
+    var minutos = horario.split(":")[1];
+    var segundos = horario.split(":")[2];
+
+    var dia = fecha.split("/")[0];
+    var mes = fecha.split("/")[1];
+    var anio = fecha.split("/")[2];
+    return new Date(parseInt(anio), parseInt(mes) - 1, parseInt(dia), parseInt(hora) - 1, parseInt(minutos), parseInt(segundos));
   }
 }
