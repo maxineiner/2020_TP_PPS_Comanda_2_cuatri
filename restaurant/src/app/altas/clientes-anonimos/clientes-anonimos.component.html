@@ -1,7 +1,10 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      <b class="lbl">Ingreso sin registro</b>
+      <button class="btn" style="height: 35px;width: 35px;color: white;border-radius: 5px;">
+        <ion-icon name="chevron-back-outline" routerLink="/inicio"></ion-icon>
+      </button>
+      <b class="lbl"> Ingreso sin registro</b>
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -17,7 +20,7 @@
         <ion-item>
           <ion-label position="stacked" class="lbl" style="font-size: 25px;"><b>NOMBRE DE USUARIO</b></ion-label>
           <br>
-          <ion-input [(ngModel)]="user.nombre" type="text" maxlength="20" placeholder="Ingrese nombre aquí"></ion-input>
+          <ion-input [(ngModel)]="user.nombre" type="name" maxlength="20" placeholder="Ingrese nombre aquí"></ion-input>
         </ion-item>
         <br>
         <br>
