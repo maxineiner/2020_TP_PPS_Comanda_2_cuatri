@@ -9,11 +9,7 @@ const routes: Routes = [
   },
   {
     path: '',
-<<<<<<< HEAD
     redirectTo: 'inicio',
-=======
-    redirectTo: 'altaDueñoSupervisor',
->>>>>>> 3195ef93145a05d081c735fcb44b093918ef078e
     pathMatch: 'full'
   },
   {
@@ -23,7 +19,20 @@ const routes: Routes = [
   {
     path: 'altaDueñoSupervisor',
     component:SupervisorComponent
+  },
+  {
+    path: 'alta-usuarios',
+    loadChildren: () => import('./usuarios/alta-usuarios/alta-usuarios.module').then( m => m.AltaUsuariosPageModule)
+  },
+  {
+    path: 'editar-usuario',
+    loadChildren: () => import('./usuarios/editar-usuario/editar-usuario.module').then( m => m.EditarUsuarioPageModule)
+  },
+  {
+    path: 'usuarios',
+    loadChildren: () => import('./usuarios/usuarios.module').then( m => m.UsuariosPageModule)
   }
+
 ];
 
 @NgModule({

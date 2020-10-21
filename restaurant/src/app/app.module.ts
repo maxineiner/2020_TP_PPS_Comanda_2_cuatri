@@ -8,28 +8,44 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-<<<<<<< HEAD
 import { AngularFireAuthModule} from '@angular/fire/auth';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { environment } from 'src/environments/environment';
 import { AngularFireModule } from '@angular/fire';
+import { AngularFireStorageModule } from '@angular/fire/storage';
 
-=======
 import { SupervisorComponent } from './altas/supervisor/supervisor.component';
 //import { QRScanner } from '@ionic-native/qr-scanner/ngx';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Camera } from '@ionic-native/camera/ngx';
->>>>>>> 3195ef93145a05d081c735fcb44b093918ef078e
+import { ClientesPipe } from './clientes.pipe';
+
+
+import { HttpClientModule } from '@angular/common/http';
+import { CommonModule } from '@angular/common';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+
+import * as firebase from 'firebase';
+firebase.initializeApp(environment.firebaseConfig);
+
 @NgModule({
-  declarations: [AppComponent,SupervisorComponent],
+  declarations: [AppComponent,SupervisorComponent, ClientesPipe],
   entryComponents: [],
-<<<<<<< HEAD
-  imports: [AngularFireModule.initializeApp(environment.firebaseConfig),
-    BrowserModule, IonicModule.forRoot(), AppRoutingModule, AngularFireAuthModule, AngularFireDatabaseModule],
-=======
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, FormsModule],
->>>>>>> 3195ef93145a05d081c735fcb44b093918ef078e
+  imports: [
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    BrowserModule, 
+    IonicModule.forRoot(),
+     AppRoutingModule, 
+     AngularFireAuthModule, 
+     AngularFireDatabaseModule,
+     HttpClientModule,
+     AngularFirestoreModule,
+     AngularFireAuthModule,
+     AngularFireStorageModule,
+     CommonModule,
+    FormsModule,
+    ReactiveFormsModule],
   providers: [
     StatusBar,
     SplashScreen,

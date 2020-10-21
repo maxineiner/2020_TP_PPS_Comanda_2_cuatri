@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
-// import 'firebase/auth';
+ import 'firebase/auth';
 import { UsuarioService } from './usuario.service';
 import { Usuario } from '../clases/usuario';
 import { EstadoUsuario } from '../enums/estado-usuario.enum';
