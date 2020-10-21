@@ -107,7 +107,7 @@ export class ClientesRegistradosComponent implements OnInit {
       return 1;
     }
     if (this.foto == undefined) {
-      this.utils.presentAlert("Falta foto!", "", "Es obligatorio que tener una foto de la persona para continuar.");
+      this.utils.presentAlert("Falta foto!", "", "Es obligatorio tener una foto de la persona para continuar.");
       return 1;
     }
     //----------- USAR SOLO SI YA SE TIENE DEFINIDA LA BASE DE DATOS---------

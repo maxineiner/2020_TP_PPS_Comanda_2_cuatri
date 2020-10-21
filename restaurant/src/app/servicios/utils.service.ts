@@ -135,7 +135,7 @@ export class UtilsService {
   }
 
   async showLoadingAndNavigate(route: string) {
-    await this.presentLoadingAuto();
+  await this.presentLoadingAuto(200);
     this.router.navigate([route]);
   }
 
