@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ToastController } from '@ionic/angular';
 import { Mesa } from 'src/app/clases/mesa';
+import { CodigoQRService } from 'src/app/services/codigo-qr.service';
 import { ImagenService } from 'src/app/services/imagen.service';
 import { MesaService } from 'src/app/services/mesa.service';
 
@@ -23,13 +24,11 @@ export class FormMesasComponent{
   popoverOptions = {
     header: 'Seleccione el tipo',
     translucent: true,
-    cancelText: "Cerrar",
-    okText: "Guardar"
   }
   codigoQR: any;
 
   constructor(private mesaService: MesaService, private imagenService: ImagenService,
-              private toastController: ToastController) { }
+              private toastController: ToastController, private escanerQR: CodigoQRService) { }
 
 
   sacarFoto()

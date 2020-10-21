@@ -1,3 +1,4 @@
+import { IEscaneable } from '../interfaces/IEscaneable';
 import { Cliente } from './cliente';
 
 export enum TipoMesa
@@ -7,7 +8,7 @@ export enum TipoMesa
     Normal = 'Normal'
 }
 
-export class Mesa
+export class Mesa implements IEscaneable
 {
     id: string;
     numero: number;
