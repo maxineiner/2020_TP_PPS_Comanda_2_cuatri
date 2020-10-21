@@ -110,6 +110,8 @@ export class ClientesRegistradosComponent implements OnInit {
       this.utils.presentAlert("Falta foto!", "", "Es obligatorio que tener una foto de la persona para continuar.");
       return 1;
     }
+    //----------- USAR SOLO SI YA SE TIENE DEFINIDA LA BASE DE DATOS---------
+    //this.AltaUsuario();
     return 0;
   }
 
@@ -190,10 +192,7 @@ export class ClientesRegistradosComponent implements OnInit {
   RegistrarUsuarioEnBD(usuario: Usuario) {//Importante ------------------------
     try {
 
-      //var fechaActualStr = this.ObtenerFechaActual();
       var database = firebase.database();
-      //var idFoto = this.crearIDFoto();
-
       database.ref("usuarios/").push({
         nombre: usuario.nombre,
         foto: usuario.foto,

@@ -87,8 +87,8 @@ export class ClientesAnonimosComponent implements OnInit {
       this.utils.presentAlert("Falta foto!","","Es obligatorio que tener una foto de la persona para continuar.");
       return 1;
     }
-    //Una vez que pasan todas las validacion, recien ahi subo la foto.
-    this.AltaUsuario();
+    //----------- USAR SOLO SI YA SE TIENE DEFINIDA LA BASE DE DATOS---------
+    //this.AltaUsuario();
     return 0;
   }
 
@@ -159,9 +159,7 @@ export class ClientesAnonimosComponent implements OnInit {
   RegistrarUsuarioEnBD(usuario:Usuario) {//Importante ------------------------
     try {
 
-      //var fechaActualStr = this.ObtenerFechaActual();
       var database = firebase.database();
-      //var idFoto = this.crearIDFoto();
       
       database.ref("usuarios/").push({
         nombre: usuario.nombre,
