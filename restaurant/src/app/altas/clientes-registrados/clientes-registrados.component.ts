@@ -161,6 +161,7 @@ export class ClientesRegistradosComponent implements OnInit {
       .catch(error => {
         alert("Algo salio mal. " + JSON.stringify(error));
       })
+      
   }
 
   /*RegistrarImagenEnBD(imagenURL, fileName, tipo, creador) {
