@@ -1,0 +1,31 @@
+.btn{
+    border-radius: 100px;
+    background-color: #2dd36f;
+    font-family: cursive;
+}
+
+
+.lbl{
+    font-size: 18px;
+    font-family: cursive;
+}
+
+.btn:hover{
+    background-color: #35f381;
+}
+
+.btn:focus {
+    outline: 0 !important;
+}
+
+.btn-secondary{
+    border-radius: 100px;
+    background-color: #acacac;
+    font-family: cursive;
+}
+.btn-secondary:hover{
+    background-color: #cccccc;
+}
+.btn-secondary:focus{
+    outline: 0 !important;
+}

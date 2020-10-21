@@ -3,7 +3,9 @@ import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 import { TipoUsuario } from 'src/app/enums/tipo-usuario.enum';
 import { UtilsService } from 'src/app/servicios/utils.service';
-import { Usuario } from '../../clases/usuario'
+import { Usuario } from '../../clases/usuario';
+import * as firebase from 'firebase';
+import { AuthService } from 'src/app/servicios/auth.service';
 @Component({
   selector: 'app-supervisor',
   templateUrl: './supervisor.component.html',
@@ -18,7 +20,8 @@ export class SupervisorComponent implements OnInit {
     private scanner: BarcodeScanner,
     private camera: Camera,
     private utils: UtilsService,
-    public user: Usuario
+    public user: Usuario,
+    public auth: AuthService
   ) { }
   
   ngOnInit() { 
@@ -74,6 +77,16 @@ export class SupervisorComponent implements OnInit {
   }
 
   ValidarFormulario() {
+    if(!this.ValidarCorreo(this.user.correo))
+    {
+      this.utils.presentAlert("Correo inválido", "", "Verifica que este bien escrito.");
+      return 1;
+    }
+    if(this.user.clave.length == 0 || this.user.clave.length < 6 || this.user.clave.length > 20)
+    {
+      this.utils.presentAlert("Clave inválida", "", "La logitud de caracteres de la clave no puede ser menor a 6 ni mayor a 20");
+      return 1;
+    }
     if (this.user.nombre.length > 20  || this.user.nombre.length == 0) {
       this.utils.presentAlert("Nombre inválido","","La cantidad de caracteres debe ser mayor a 0 y menor o igual 20.");
       return 1;
@@ -115,5 +128,103 @@ export class SupervisorComponent implements OnInit {
       }
     }
     return true;
+  }
+
+  ValidarCorreo(mail) {
+    if (/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(mail)) {
+      return (true)
+    }
+    return (false)
+  }
+
+
+  SubirFotoFirestore(imagen) {
+    this.utils.presentLoading();
+    let storageRef = firebase.storage().ref();
+
+    // Creo el nombre del archivo
+    const filename = Math.random().toString(36).substring(2);
+
+    // Creo la referencia de la imagen
+    const imageRef = storageRef.child(`empleados/${filename}.jpg`);
+
+    imageRef.putString(imagen, firebase.storage.StringFormat.DATA_URL)
+      .then((snapshot) => {
+        imageRef.getDownloadURL().then(url => {
+          this.user.foto = url;
+          this.RegistrarImagenEnBD(url, filename, this.user.perfil , this.user.correo);
+        });
+      })
+      .catch(error => {
+        alert("Algo salio mal. " + JSON.stringify(error));
+      })
+  }
+
+  RegistrarImagenEnBD(imagenURL, fileName, tipo, creador) {//Importante ------------------------
+    try {
+
+      var fechaActualStr = this.ObtenerFechaActual();
+      var database = firebase.database();
+      //var idFoto = this.crearIDFoto();
+
+
+      database.ref("empleados/" + fileName).set({
+        fileName: fileName,
+        url: imagenURL,
+        tipo: tipo,
+        fecha: fechaActualStr,
+        creador: creador,
+        //id: idFoto,
+      });
+
+    }
+    catch (e) {
+      this.utils.presentAlert("Algo salio mal!", "", "Error al registrar imagen: " + e);
+    }
+  }
+
+  RegistrarUsuarioEnBD(usuario: Usuario) {//Importante ------------------------
+    try {
+
+      //var fechaActualStr = this.ObtenerFechaActual();
+      var database = firebase.database();
+      //var idFoto = this.crearIDFoto();
+
+      database.ref("usuarios/").push({
+        nombre: usuario.nombre,
+        foto: usuario.foto,
+        perfil: usuario.perfil,
+        apellido: usuario.apellido,
+        dni: usuario.dni,
+        cuil: usuario.cuil,
+        correo: usuario.correo,
+        clave: usuario.clave
+      }).then(()=>{
+        this.auth.signUp(usuario);
+      });
+
+    }
+    catch (e) {
+      this.utils.presentAlert("Algo salio mal!", "", "Error al registrar al usuario: " + e);
+    }
+  }
+
+  ObtenerFechaActual() {
+    var now = new Date();
+    return (now.getHours()) + ":" + (now.getMinutes()) + ":" + now.getSeconds() + " " + now.getDate() + "/" + (now.getMonth() + 1) + "/" + now.getFullYear();
+  }
+
+  ObtenerFechaActualObjDate(fechaStr: string): any {
+    var horario = fechaStr.split(" ")[0];
+    var fecha = fechaStr.split(" ")[1];
+
+    var hora = horario.split(":")[0];
+    var minutos = horario.split(":")[1];
+    var segundos = horario.split(":")[2];
+
+    var dia = fecha.split("/")[0];
+    var mes = fecha.split("/")[1];
+    var anio = fecha.split("/")[2];
+    return new Date(parseInt(anio), parseInt(mes) - 1, parseInt(dia), parseInt(hora) - 1, parseInt(minutos), parseInt(segundos));
   }
 }

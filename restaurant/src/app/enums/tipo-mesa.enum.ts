@@ -1,5 +1,5 @@
 export enum TipoMesa {
-    ESTANDAR,
+    NORMAL,
     VIP,
     DISCAPACITADOS
 }

@@ -1,74 +1,88 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      <b class="lbl">Alta de Dueño/Supervisor</b>
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
 
-  <ion-header [translucent]="true">
-    <ion-toolbar>
-      <ion-title>
-        <b class="lbl">Alta de Dueño/Supervisor</b>
-      </ion-title>
-    </ion-toolbar>
-  </ion-header>
-  
-  <ion-content [fullscreen]="true">
-    <div style="height: 100%;background-color: #166837;overflow: scroll;" >
-      <br>
-      <ion-card style="border-radius:10px;">
-        <div style="padding: 5%;">
-          <button class="btn" (click)="scanQrAltaUsuarios()" style="width: 100%;height: 40px;">
-            <label style="color: rgb(0, 0, 0);font-size: 18px;"><b>ESCANEAR DNI</b></label>
+<ion-content [fullscreen]="true">
+  <div style="height: 100%;background-color: #166837;overflow: scroll;">
+    <br>
+    <ion-card style="border-radius:10px;">
+      <div style="padding: 5%;">
+        <button class="btn" (click)="scanQrAltaUsuarios()" style="width: 100%;height: 40px;">
+          <label style="color: rgb(0, 0, 0);font-size: 18px;"><b>ESCANEAR DNI</b></label>
+        </button>
+        <br>
+        <br>
+        <ion-item>
+          <ion-label position="fixed" class="lbl">CORREO</ion-label>
+          <ion-input [(ngModel)]="user.correo" type="email" maxlength="20" placeholder="Ingrese nombre aquí">
+          </ion-input>
+        </ion-item>
 
-          </button>
-          <br>
-          <br>
-          <ion-item>
-            <ion-label position="fixed" class="lbl">NOMBRE</ion-label>
-            <ion-input [(ngModel)]="user.nombre" type="text" maxlength="20" placeholder="Ingrese nombre aquí"></ion-input>
-          </ion-item>
-          <br>
+        <ion-item>
+          <ion-label position="fixed" class="lbl">CLAVE</ion-label>
+          <ion-input [(ngModel)]="user.clave" type="password" maxlength="20" placeholder="Ingrese nombre aquí">
+          </ion-input>
+        </ion-item>
 
-          <ion-item>
-            <ion-label position="fixed" class="lbl">APELLIDO</ion-label>
-            <ion-input [(ngModel)]="user.apellido" type="text" maxlength="20" max placeholder="Ingrese apellido aquí"></ion-input>
-          </ion-item>
-          <br>
 
-          <ion-item>
-            <ion-label position="fixed" class="lbl">DNI</ion-label>
-            <ion-input [(ngModel)]="user.dni" type="number" placeholder="Ingrese DNI aquí"></ion-input>
-          </ion-item>
-          <br>
+        <ion-item>
+          <ion-label position="fixed" class="lbl">NOMBRE</ion-label>
+          <ion-input [(ngModel)]="user.nombre" type="text" maxlength="20" placeholder="Ingrese nombre aquí"></ion-input>
+        </ion-item>
 
-          <ion-item>
-            <ion-label position="fixed" class="lbl">CUIL</ion-label>
-            <ion-input [(ngModel)]="user.cuil" type="number" placeholder="Ingrese CUIL aquí"></ion-input>
-          </ion-item>
-          <br>
 
-          <ion-item>
-            <ion-label class="lbl">PERFIL</ion-label>
-            <ion-select [(ngModel)]="user.perfil" interface="popover">
-              <ion-select-option value="DUEÑO">Dueño</ion-select-option>
-              <ion-select-option value="SUPERVISOR">Supervisor</ion-select-option>
-            </ion-select>
-          </ion-item>
-          <br>
+        <ion-item>
+          <ion-label position="fixed" class="lbl">APELLIDO</ion-label>
+          <ion-input [(ngModel)]="user.apellido" type="text" maxlength="20" max placeholder="Ingrese apellido aquí">
+          </ion-input>
+        </ion-item>
 
-          <button class="btn" (click)="TomarFoto()" style="width: 100%;font-size: 18px;height: 40px;"><b>AGREGAR FOTO</b></button>
-          <br>
-          <br>
-          <table *ngIf="foto">
-            <tr>
-              <td>
-                <img [src]="foto" style="border-radius: 25px;" style="width: 80px;">
-              </td>
-              <td>
-                <div align="center">
-                  <h1 class="lbl">La foto ha sido tomada exitosamente!</h1>
-                </div>
-              </td>
-            </tr>
-          </table>
-          <br>
-          <button class="btn" style="width: 100%;height: 40px;font-size: 18px;" (click)="ValidarFormulario()"><b>ENVIAR FORMULARIO</b></button>
-        </div>
-      </ion-card>
-    </div>
-  </ion-content>
+
+        <ion-item>
+          <ion-label position="fixed" class="lbl">DNI</ion-label>
+          <ion-input [(ngModel)]="user.dni" type="number" placeholder="Ingrese DNI aquí"></ion-input>
+        </ion-item>
+
+
+        <ion-item>
+          <ion-label position="fixed" class="lbl">CUIL</ion-label>
+          <ion-input [(ngModel)]="user.cuil" type="number" placeholder="Ingrese CUIL aquí"></ion-input>
+        </ion-item>
+
+
+        <ion-item>
+          <ion-label class="lbl">PERFIL</ion-label>
+          <ion-select [(ngModel)]="user.perfil" interface="popover">
+            <ion-select-option value="DUEÑO">Dueño</ion-select-option>
+            <ion-select-option value="SUPERVISOR">Supervisor</ion-select-option>
+          </ion-select>
+        </ion-item>
+
+        <br>
+        <button class="btn" (click)="TomarFoto()" style="width: 100%;font-size: 18px;height: 40px;"><b>AGREGAR
+            FOTO</b></button>
+        <br>
+        <br>
+        <table *ngIf="foto">
+          <tr>
+            <td>
+              <img [src]="foto" style="border-radius: 25px;" style="width: 80px;">
+            </td>
+            <td>
+              <div align="center">
+                <h1 class="lbl">La foto ha sido tomada exitosamente!</h1>
+              </div>
+            </td>
+          </tr>
+        </table>
+        <br>
+        <button class="btn" style="width: 100%;height: 40px;font-size: 18px;" (click)="ValidarFormulario()"><b>ENVIAR
+            FORMULARIO</b></button>
+      </div>
+    </ion-card>
+  </div>
+</ion-content>
