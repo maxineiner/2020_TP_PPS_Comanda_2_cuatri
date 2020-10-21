@@ -6,12 +6,12 @@ Para registrar el <strong>grupo completo</strong> con todos sus integrantes: htt
 
 ## Integrantes
 - Federico Tomadin
-- Lucas Cardone
+- Lucas Carbone
 - Lucas Sánchez
 
 ## Branches
 - Federico 
-- LucasCardone
+- LucasCarbone
 - LucasSanchez
 <hr>
 
