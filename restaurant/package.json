@@ -22,17 +22,9 @@
     "@angular/platform-browser-dynamic": "~10.0.0",
     "@angular/router": "~10.0.0",
     "@firebase/app": "^0.6.11",
-<<<<<<< HEAD
-<<<<<<< Updated upstream
-=======
     "@firebase/firestore": "^1.18.0",
     "@ionic-native/barcode-scanner": "^5.27.0",
     "@ionic-native/camera": "^5.29.0",
->>>>>>> Stashed changes
-=======
-    "@ionic-native/barcode-scanner": "^5.27.0",
-    "@ionic-native/camera": "^5.29.0",
->>>>>>> de9fa28127bb2fb59f11b073edfd3cdfac3b04e4
     "@ionic-native/core": "^5.0.0",
     "@ionic-native/qr-scanner": "^5.29.0",
     "@ionic-native/splash-screen": "^5.0.0",
