@@ -49,6 +49,8 @@ firebase.initializeApp(environment.firebaseConfig);
   providers: [
     StatusBar,
     SplashScreen,
+    Camera,
+    BarcodeScanner,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]
