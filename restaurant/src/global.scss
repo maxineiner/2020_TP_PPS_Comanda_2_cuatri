@@ -70,6 +70,32 @@
     animation-delay: 0s;
   }
 
+  ion-loading.custom-loading {
+    .loading-wrapper {
+        width: 100px;
+        height: 100px;
+        --background: transparent;
+        border: none;
+        box-shadow: none;
+        .loader {
+            position: fixed;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            margin: auto;
+            z-index: 300;
+            animation: spinLogin 2s linear infinite;
+            // background-color: gold;
+            border-radius: 100px;
+        }
+    }
+    
+    @keyframes spinLogin{
+        from{transform: rotate(0deg);}
+        to{transform: rotate(360deg);}
+    }
+  }
 
   
   
