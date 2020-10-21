@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ToastController } from '@ionic/angular';
-import { DatosMesa, Mesa } from 'src/app/clases/mesa';
+import { Mesa } from 'src/app/clases/mesa';
+import { ImagenService } from 'src/app/services/imagen.service';
 import { MesaService } from 'src/app/services/mesa.service';
 
 enum OpcionForm
@@ -16,7 +17,7 @@ enum OpcionForm
   templateUrl: './form-mesas.component.html',
   styleUrls: ['./form-mesas.component.scss'],
 })
-export class FormMesasComponent implements OnInit {
+export class FormMesasComponent{
   @Input() opcion: OpcionForm;
   @Input() mesa: Mesa;
   popoverOptions = {
@@ -27,43 +28,41 @@ export class FormMesasComponent implements OnInit {
   }
   codigoQR: any;
 
-  constructor(private mesaService: MesaService, private toastController: ToastController) { }
+  constructor(private mesaService: MesaService, private imagenService: ImagenService,
+              private toastController: ToastController) { }
 
-  ngOnInit() 
-  {
-  }
 
   sacarFoto()
   {
-
+    this.imagenService.sacarFoto('mesas');
   }
 
   crearMesa()
   {
-    this.mesa.datosQR = new DatosMesa( true , null, "Sin pedido");
-    console.log("Crear Mesa");
     if(this.mesa && !this.mesa.id)
     {
+      this.mesa.foto = "_";
+
       this.mesaService.crear(this.mesa)
-                      .then(() => this.presentToast("Alta exitosa"))
-                      .catch(() => this.presentToast("No se pudo realizar el alta"));
+                      .then(() => this.presentToast("Alta exitosa", 2000))
+                      .catch(() => this.presentToast("No se pudo realizar el alta", 2000));
     }
     else
     {
-      this.presentToast("Mesa existente");
+      this.presentToast("Mesa existente", 2000);
     }
   }
 
   modificarMesa()
   {
     console.log("Modificar Mesa");
-    console.log(this.mesa);
     this.mesa.foto = "_";
+
     if(this.mesa)
     {
       this.mesaService.actualizar(this.mesa)
-                      .then(() => this.presentToast("Modificación exitosa"))
-                      .catch(err => this.presentToast("No se pudo modificar"));
+                      .then(() => this.presentToast("Modificación exitosa", 2000))
+                      .catch(() => this.presentToast("No se pudo modificar", 2000));
     }
   }
 
@@ -72,22 +71,16 @@ export class FormMesasComponent implements OnInit {
     console.log("Baja de mesa");
     if(this.mesa)
     {
-      this.mesa.foto = "_";
       this.mesaService.borrar(this.mesa)
-                      .then(() => this.presentToast("Baja realizada"))
-                      .catch(err => this.presentToast("No se pudo realizar baja"));
+                      .then(() => this.presentToast("Baja realizada", 2000))
+                      .catch(() => this.presentToast("No se pudo realizar baja", 2000));
     }
   }
 
-  submit()
-  {
-    console.log(this.mesa);
-  }
-
-  async presentToast(message) {
+  async presentToast(message, duration) {
     const toast = await this.toastController.create({
       message,
-      duration: 2000
+      duration 
     });
     toast.present();
   }

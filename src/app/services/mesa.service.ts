@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { Mesa } from '../clases/mesa';
 import { HttpClient } from '@angular/common/http';
+import { Cliente } from '../clases/cliente';
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +14,10 @@ export class MesaService {
 
   public crear(mesa: Mesa): Promise<any>
   {
+    mesa.isActive = true;
+    mesa.cliente = new Cliente();
+    mesa.estadoPedido = "Sin pedido"; 
+
     return this.firebase.database.ref('mesas')
                 .push()
                 .then((snapshot) => {
@@ -31,7 +36,7 @@ export class MesaService {
   // Este método realiza una Baja Física, no usar de ser necesario
   public borrar(mesa: Mesa): Promise<any>
   {
-    mesa.datosQR.isAvailable = false;
+    mesa.isActive = false;
 
     return this.firebase.database.ref('mesas/' + mesa.id).update(mesa);
   } 
@@ -47,13 +52,19 @@ export class MesaService {
           snapshot.forEach((child) =>{
             var data: Mesa = child.val();
             mesas.push(Mesa.CrearMesa(data.id, data.numero, data.comensales, data.tipo, 
-                                    data.foto, data.datosQR, data.codigoQR ));
+                                      data.foto, data.codigoQR, data.isAvailable,
+                                      data.isActive, data.estadoPedido, data.cliente));
           });
           MesaService.mesas = mesas.filter(mesa => mesa.datosQR.isAvailable == true);
           resolve(MesaService.mesas);
       })
     });
     return fetch;
+  }
+
+  public fetch(id: string)
+  {
+    return this.firebase.database.ref(`mesas/${id}`).once('value');
   }
 
   public generarQR(mesa: Mesa)
