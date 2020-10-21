@@ -27,6 +27,9 @@ import { CommonModule } from '@angular/common';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 
 import * as firebase from 'firebase';
+
+
+import { ToolbarModule } from './toolbar/toolbar.module';
 firebase.initializeApp(environment.firebaseConfig);
 
 @NgModule({
@@ -45,6 +48,7 @@ firebase.initializeApp(environment.firebaseConfig);
      AngularFireStorageModule,
      CommonModule,
     FormsModule,
+    ToolbarModule,
     ReactiveFormsModule],
   providers: [
     StatusBar,
