@@ -87,8 +87,8 @@ export class ClientesAnonimosComponent implements OnInit {
       this.utils.presentAlert("Falta foto!","","Es obligatorio que tener una foto de la persona para continuar.");
       return 1;
     }
-    //Una vez que pasan todas las validacion, recien ahi subo la foto.
-    //this.SubirFotoFirestore(this.foto);
+    //----------- USAR SOLO SI YA SE TIENE DEFINIDA LA BASE DE DATOS---------
+    //this.AltaUsuario();
     return 0;
   }
 
@@ -103,12 +103,18 @@ export class ClientesAnonimosComponent implements OnInit {
     return true;
   }
 
+  AltaUsuario()
+  {
+    this.SubirFotoFirestore(this.foto);
+  }
+
   SubirFotoFirestore(imagen) {
     this.utils.presentLoading();
     let storageRef = firebase.storage().ref();
     
     // Creo el nombre del archivo
-    const filename = Math.random().toString(36).substring(2);
+    //const filename = Math.random().toString(36).substring(2);
+    const filename = this.user.nombre;
 
     // Creo la referencia de la imagen
     const imageRef = storageRef.child(`clientes/${filename}.jpg`);
@@ -117,7 +123,8 @@ export class ClientesAnonimosComponent implements OnInit {
       .then((snapshot) => {
         imageRef.getDownloadURL().then(url => {
           this.user.foto = url;
-          this.RegistrarImagenEnBD(url, filename, TipoUsuario.CLIENTE_ANONIMO, this.user.nombre);
+          //this.RegistrarImagenEnBD(url, filename, TipoUsuario.CLIENTE_ANONIMO, this.user.nombre);
+          this.RegistrarUsuarioEnBD(this.user);
         });
       })
       .catch(error => {
@@ -125,7 +132,7 @@ export class ClientesAnonimosComponent implements OnInit {
       })
   }
 
-  RegistrarImagenEnBD(imagenURL, fileName, tipo, creador) {//Importante ------------------------
+  /*RegistrarImagenEnBD(imagenURL, fileName, tipo, creador) {//Importante ------------------------
     try {
 
       var fechaActualStr = this.ObtenerFechaActual();
@@ -145,16 +152,16 @@ export class ClientesAnonimosComponent implements OnInit {
     catch (e) {
       this.utils.presentAlert("Algo salio mal!","","Error al registrar imagen: " + e);
     }
-  }
+  }*/
+
+
 
   RegistrarUsuarioEnBD(usuario:Usuario) {//Importante ------------------------
     try {
 
-      //var fechaActualStr = this.ObtenerFechaActual();
       var database = firebase.database();
-      //var idFoto = this.crearIDFoto();
       
-      database.ref("clientes/").push({
+      database.ref("usuarios/").push({
         nombre: usuario.nombre,
         foto: usuario.foto,
         tipo: usuario.perfil,

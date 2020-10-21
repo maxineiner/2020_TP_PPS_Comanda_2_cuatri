@@ -24,8 +24,10 @@ export class LoginComponent implements OnInit {
   }
 
   async OnLogin() {
+
     if(this.ValidarCorreo(this.usuario.correo))
     {
+      /*
       this.utils.presentLoadingAuto(2000);
       var resultado = await this.authService.signIn(this.usuario);
       if (resultado) {
@@ -34,7 +36,8 @@ export class LoginComponent implements OnInit {
       }
       else {
         this.utils.presentAlert("Algo salio mal!", "", "Error al iniciar sesion.");
-      }
+      }*/
+      this.router.navigateByUrl("/inicio/menu");
     }
     else
     {
@@ -88,7 +91,7 @@ export class LoginComponent implements OnInit {
   }
 
   ValidarCorreo(mail) {
-    if (/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(mail)) {
+    if (/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-ñ]+@[a-zA-Z0-9-ñ]+(?:\.[a-zA-Z0-9-]+)*$/.test(mail)) {
       return (true)
     }
     return (false)

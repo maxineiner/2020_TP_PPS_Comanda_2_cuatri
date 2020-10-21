@@ -30,6 +30,7 @@ import * as firebase from 'firebase';
 
 
 import { ToolbarModule } from './toolbar/toolbar.module';
+import { Usuario } from './clases/usuario';
 firebase.initializeApp(environment.firebaseConfig);
 
 @NgModule({
@@ -55,6 +56,7 @@ firebase.initializeApp(environment.firebaseConfig);
     SplashScreen,
     Camera,
     BarcodeScanner,
+    Usuario,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]
