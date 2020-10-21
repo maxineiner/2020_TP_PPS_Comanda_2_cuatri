@@ -2,7 +2,10 @@
   <ion-header [translucent]="true">
     <ion-toolbar>
       <ion-title>
-        <b class="lbl">Registro de Cliente</b>
+        <button class="btn" style="height: 35px;width: 35px;color: white;border-radius: 5px;">
+          <ion-icon name="chevron-back-outline" routerLink="/inicio"></ion-icon>
+        </button>
+        <b class="lbl"> Registro de Cliente</b>
       </ion-title>
     </ion-toolbar>
   </ion-header>
@@ -11,34 +14,37 @@
 
     <div style="height: 100%;background-color: #166837;overflow: scroll;" >
       <br>
-      <br>
-      <br>
       <ion-card style="border-radius:10px;">
         <div style="padding: 5%;">
           <button class="btn" (click)="scanQrAltaUsuarios()" style="width: 100%;height: 40px;">
             <label style="color: rgb(0, 0, 0);font-size: 18px;"><b>ESCANEAR DNI</b></label>
-
           </button>
           <br>
           <br>
           <ion-item>
+            <ion-label position="fixed"  class="lbl">CORREO</ion-label>
+            <ion-input [(ngModel)]="user.correo" type="email" maxlength="20" placeholder="Ingrese nombre aquí"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="fixed" class="lbl">CLAVE</ion-label>
+            <ion-input [(ngModel)]="user.clave" type="password" maxlength="20" placeholder="Ingrese nombre aquí"></ion-input>
+          </ion-item>
+
+          <ion-item>
             <ion-label position="fixed" class="lbl">NOMBRE</ion-label>
             <ion-input [(ngModel)]="user.nombre" type="text" maxlength="20" placeholder="Ingrese nombre aquí"></ion-input>
           </ion-item>
-          <br>
-
           <ion-item>
             <ion-label position="fixed" class="lbl">APELLIDO</ion-label>
             <ion-input [(ngModel)]="user.apellido" type="text" maxlength="20" max placeholder="Ingrese apellido aquí"></ion-input>
           </ion-item>
-          <br>
 
           <ion-item>
             <ion-label position="fixed" class="lbl">DNI</ion-label>
             <ion-input [(ngModel)]="user.dni" type="number" placeholder="Ingrese DNI aquí"></ion-input>
           </ion-item>
           <br>
-
+          <br>
           <button class="btn" (click)="TomarFoto()" style="width: 100%;font-size: 18px;height: 40px;"><b>AGREGAR FOTO</b></button>
           <br>
           <br>

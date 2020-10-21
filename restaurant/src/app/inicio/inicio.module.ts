@@ -10,6 +10,7 @@ import { InicioPage } from './inicio.page';
 import { ClientesAnonimosComponent } from '../altas/clientes-anonimos/clientes-anonimos.component';
 import { ClientesRegistradosComponent } from '../altas/clientes-registrados/clientes-registrados.component';
 import { Usuario } from '../clases/usuario';
+import { LoginComponent } from '../login/login.component';
 
 @NgModule({
   imports: [
@@ -17,11 +18,13 @@ import { Usuario } from '../clases/usuario';
     FormsModule,
     IonicModule,
     InicioPageRoutingModule,
+    FormsModule
   ],
   declarations: [
     InicioPage,
     ClientesAnonimosComponent,
-    ClientesRegistradosComponent
+    ClientesRegistradosComponent,
+    LoginComponent
   ],
   providers:[Usuario]
 })

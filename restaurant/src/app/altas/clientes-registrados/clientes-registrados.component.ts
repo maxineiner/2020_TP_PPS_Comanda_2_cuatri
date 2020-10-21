@@ -20,14 +20,16 @@ export class ClientesRegistradosComponent implements OnInit {
     private camera: Camera,
     private utils: UtilsService,
     public user: Usuario
-    
+
   ) { }
 
-  ngOnInit() { 
+  ngOnInit() {
     this.user.nombre = "";
     this.user.apellido = "";
     this.user.dni = "";
-    this.user.perfil = TipoUsuario.CLIENTE_ANONIMO;
+    this.user.perfil = TipoUsuario.CLIENTE_REGISTRADO;
+    this.user.clave = "";
+    this.user.correo = "";
   }
 
   scanQrAltaUsuarios(): void {
@@ -73,29 +75,38 @@ export class ClientesRegistradosComponent implements OnInit {
   }
 
   ValidarFormulario() {
-    if (this.user.nombre.length > 20  || this.user.nombre.length == 0) {
-      this.utils.presentAlert("Nombre inválido","","La cantidad de caracteres debe ser mayor a 0 y menor o igual 20.");
+    if(!this.ValidarCorreo(this.user.correo))
+    {
+      this.utils.presentAlert("Correo inválido", "", "Verifica que este bien escrito.");
+      return 1;
+    }
+    if(this.user.clave.length == 0 || this.user.clave.length < 6 || this.user.clave.length > 20)
+    {
+      this.utils.presentAlert("Clave inválida", "", "La logitud de caracteres de la clave no puede ser menor a 6 ni mayor a 20");
+      return 1;
+    }
+    if (this.user.nombre.length > 20 || this.user.nombre.length == 0) {
+      this.utils.presentAlert("Nombre inválido", "", "La cantidad de caracteres debe ser mayor a 0 y menor o igual a 20.");
       return 1;
     }
     if (!this.ValidarSoloLetras(this.user.nombre)) {
-      this.utils.presentAlert("Nombre inválido","","No debe contener caracteres numeros");
+      this.utils.presentAlert("Nombre inválido", "", "No debe contener caracteres numeros");
       return 1;
     }
-    if (this.user.apellido.length > 20  || this.user.apellido.length == 0) {
-      this.utils.presentAlert("Apellido inválido","","La cantidad de caracteres debe ser mayor a 0 y menor o igual 20.");
+    if (this.user.apellido.length > 20 || this.user.apellido.length == 0) {
+      this.utils.presentAlert("Apellido inválido", "", "La cantidad de caracteres debe ser mayor a 0 y menor o igual a 20.");
       return 1;
     }
     if (!this.ValidarSoloLetras(this.user.apellido)) {
-      this.utils.presentAlert("Apellido inválido","","No debe contener caracteres numeros");
+      this.utils.presentAlert("Apellido inválido", "", "No debe contener caracteres numeros");
       return 1;
     }
     if (parseInt(this.user.dni) > 99999999 || parseInt(this.user.dni) < 10000000 || this.user.dni == "") {
-      this.utils.presentAlert("DNI inválido","","Valor fuera de rango");
+      this.utils.presentAlert("DNI inválido", "", "Valor fuera de rango");
       return 1;
     }
-    if(this.foto == undefined)
-    {
-      this.utils.presentAlert("Falta foto!","","Es obligatorio que tener una foto de la persona para continuar.");
+    if (this.foto == undefined) {
+      this.utils.presentAlert("Falta foto!", "", "Es obligatorio que tener una foto de la persona para continuar.");
       return 1;
     }
     return 0;
@@ -112,10 +123,18 @@ export class ClientesRegistradosComponent implements OnInit {
     return true;
   }
 
+
+  ValidarCorreo(mail) {
+    if (/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(mail)) {
+      return (true)
+    }
+    return (false)
+  }
+
   SubirFotoFirestore(imagen) {
     this.utils.presentLoading();
     let storageRef = firebase.storage().ref();
-    
+
     // Creo el nombre del archivo
     const filename = Math.random().toString(36).substring(2);
 
@@ -126,7 +145,7 @@ export class ClientesRegistradosComponent implements OnInit {
       .then((snapshot) => {
         imageRef.getDownloadURL().then(url => {
           this.user.foto = url;
-          this.RegistrarImagenEnBD(url, filename, TipoUsuario.CLIENTE_ANONIMO, this.user.nombre);
+          this.RegistrarImagenEnBD(url, filename, this.user.perfil , this.user.correo);
         });
       })
       .catch(error => {
@@ -140,7 +159,7 @@ export class ClientesRegistradosComponent implements OnInit {
       var fechaActualStr = this.ObtenerFechaActual();
       var database = firebase.database();
       //var idFoto = this.crearIDFoto();
-      
+
 
       database.ref("clientes/" + fileName).set({
         fileName: fileName,
@@ -153,28 +172,28 @@ export class ClientesRegistradosComponent implements OnInit {
 
     }
     catch (e) {
-      this.utils.presentAlert("Algo salio mal!","","Error al registrar imagen: " + e);
+      this.utils.presentAlert("Algo salio mal!", "", "Error al registrar imagen: " + e);
     }
   }
 
-  RegistrarUsuarioEnBD(usuario:Usuario) {//Importante ------------------------
+  RegistrarUsuarioEnBD(usuario: Usuario) {//Importante ------------------------
     try {
 
       //var fechaActualStr = this.ObtenerFechaActual();
       var database = firebase.database();
       //var idFoto = this.crearIDFoto();
-      
+
       database.ref("clientes/").push({
         nombre: usuario.nombre,
         foto: usuario.foto,
         perfil: usuario.perfil,
         apellido: usuario.apellido,
-        dni:usuario.dni
+        dni: usuario.dni
       });
 
     }
     catch (e) {
-      this.utils.presentAlert("Algo salio mal!","","Error al registrar al usuario: " + e);
+      this.utils.presentAlert("Algo salio mal!", "", "Error al registrar al usuario: " + e);
     }
   }
 
@@ -183,7 +202,7 @@ export class ClientesRegistradosComponent implements OnInit {
     return (now.getHours()) + ":" + (now.getMinutes()) + ":" + now.getSeconds() + " " + now.getDate() + "/" + (now.getMonth() + 1) + "/" + now.getFullYear();
   }
 
-  ObtenerFechaActualObjDate (fechaStr: string): any {
+  ObtenerFechaActualObjDate(fechaStr: string): any {
     var horario = fechaStr.split(" ")[0];
     var fecha = fechaStr.split(" ")[1];
 
