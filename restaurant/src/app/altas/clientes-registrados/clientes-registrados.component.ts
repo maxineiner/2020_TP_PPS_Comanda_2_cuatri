@@ -1,32 +1,29 @@
 import { Component, OnInit } from '@angular/core';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
-import { TipoUsuario } from 'src/app/enums/tipo-usuario.enum';
+import { Usuario } from 'src/app/clases/usuario';
 import { UtilsService } from 'src/app/servicios/utils.service';
-import { Usuario } from '../../clases/usuario'
-@Component({
-  selector: 'app-supervisor',
-  templateUrl: './supervisor.component.html',
-  styleUrls: ['./supervisor.component.scss'],
-})
-export class SupervisorComponent implements OnInit {
-  
-  datosEscaneados;
-  foto;
 
+@Component({
+  selector: 'app-clientes-registrados',
+  templateUrl: './clientes-registrados.component.html',
+  styleUrls: ['./clientes-registrados.component.scss'],
+})
+export class ClientesRegistradosComponent implements OnInit {
+
+  foto;
+  datosEscaneados;
   constructor(
     private scanner: BarcodeScanner,
     private camera: Camera,
     private utils: UtilsService,
     public user: Usuario
   ) { }
-  
+
   ngOnInit() { 
     this.user.nombre = "";
     this.user.apellido = "";
     this.user.dni = "";
-    this.user.cuil = "";
-    this.user.perfil = TipoUsuario.DUEÑO;
   }
 
   scanQrAltaUsuarios(): void {
@@ -43,8 +40,7 @@ export class SupervisorComponent implements OnInit {
     var nombre: string = (parsedData[2].toString());
     var apellido: string = parsedData[1].toString();
     var dni: number = parsedData[4];
-    var cuil: number = parsedData[8];
-    cuil = parseInt(cuil.toString().substr(0, 2) + dni + cuil.toString().substr(2));// por ej: 20 + dni + 5
+
     //Agrego mayuscula a solo la primera letra
     nombre = nombre.toLowerCase().substr(0, 1).toUpperCase() + nombre.toLowerCase().substr(1);
     apellido = apellido.toLowerCase().substr(0, 1).toUpperCase() + apellido.toLowerCase().substr(1);
@@ -53,7 +49,6 @@ export class SupervisorComponent implements OnInit {
     this.user.nombre = nombre;
     this.user.apellido = apellido;
     this.user.dni = dni.toString();
-    this.user.cuil = cuil.toString();
   }
 
   TomarFoto() {
@@ -94,10 +89,6 @@ export class SupervisorComponent implements OnInit {
       this.utils.presentAlert("DNI inválido","","Valor fuera de rango");
       return 1;
     }
-    if (parseInt(this.user.cuil) > 99999999999 || parseInt(this.user.cuil) < 10000000000 || this.user.dni == "") {
-      this.utils.presentAlert("CUIL inválido","","Valor fuera de rango");
-      return 1;
-    }
     if(this.foto == undefined)
     {
       this.utils.presentAlert("Falta foto!","","Es obligatorio que tener una foto de la persona para continuar.");
@@ -116,4 +107,6 @@ export class SupervisorComponent implements OnInit {
     }
     return true;
   }
+
+
 }

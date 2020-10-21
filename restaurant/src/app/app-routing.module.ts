@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { ClientesAnonimosComponent } from './altas/clientes-anonimos/clientes-anonimos.component';
+import { ClientesRegistradosComponent } from './altas/clientes-registrados/clientes-registrados.component';
 import { SupervisorComponent } from './altas/supervisor/supervisor.component';
 
 const routes: Routes = [
@@ -16,10 +18,7 @@ const routes: Routes = [
     path: 'inicio',
     loadChildren: () => import('./inicio/inicio.module').then( m => m.InicioPageModule)
   },
-  {
-    path: 'altaDueñoSupervisor',
-    component:SupervisorComponent
-  }
+
 ];
 
 @NgModule({

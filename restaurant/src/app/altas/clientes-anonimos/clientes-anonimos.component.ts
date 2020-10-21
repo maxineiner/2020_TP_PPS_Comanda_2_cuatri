@@ -1,32 +1,29 @@
 import { Component, OnInit } from '@angular/core';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
-import { TipoUsuario } from 'src/app/enums/tipo-usuario.enum';
+import { Usuario } from 'src/app/clases/usuario';
 import { UtilsService } from 'src/app/servicios/utils.service';
-import { Usuario } from '../../clases/usuario'
+import * as firebase from 'firebase';
 @Component({
-  selector: 'app-supervisor',
-  templateUrl: './supervisor.component.html',
-  styleUrls: ['./supervisor.component.scss'],
+  selector: 'app-clientes-anonimos',
+  templateUrl: './clientes-anonimos.component.html',
+  styleUrls: ['./clientes-anonimos.component.scss'],
 })
-export class SupervisorComponent implements OnInit {
-  
-  datosEscaneados;
-  foto;
+export class ClientesAnonimosComponent implements OnInit {
 
+  foto;
+  datosEscaneados;
   constructor(
     private scanner: BarcodeScanner,
     private camera: Camera,
     private utils: UtilsService,
     public user: Usuario
   ) { }
-  
+
   ngOnInit() { 
     this.user.nombre = "";
     this.user.apellido = "";
     this.user.dni = "";
-    this.user.cuil = "";
-    this.user.perfil = TipoUsuario.DUEÑO;
   }
 
   scanQrAltaUsuarios(): void {
@@ -43,8 +40,7 @@ export class SupervisorComponent implements OnInit {
     var nombre: string = (parsedData[2].toString());
     var apellido: string = parsedData[1].toString();
     var dni: number = parsedData[4];
-    var cuil: number = parsedData[8];
-    cuil = parseInt(cuil.toString().substr(0, 2) + dni + cuil.toString().substr(2));// por ej: 20 + dni + 5
+
     //Agrego mayuscula a solo la primera letra
     nombre = nombre.toLowerCase().substr(0, 1).toUpperCase() + nombre.toLowerCase().substr(1);
     apellido = apellido.toLowerCase().substr(0, 1).toUpperCase() + apellido.toLowerCase().substr(1);
@@ -53,7 +49,6 @@ export class SupervisorComponent implements OnInit {
     this.user.nombre = nombre;
     this.user.apellido = apellido;
     this.user.dni = dni.toString();
-    this.user.cuil = cuil.toString();
   }
 
   TomarFoto() {
@@ -68,6 +63,9 @@ export class SupervisorComponent implements OnInit {
     this.camera.getPicture(options)
       .then((imageData) => {
         this.foto = 'data:image/jpeg;base64,' + imageData;
+        //Subo la foto a firestore
+        this.foto;
+        
       }, (err) => {
         console.log(err);
       });
@@ -82,27 +80,13 @@ export class SupervisorComponent implements OnInit {
       this.utils.presentAlert("Nombre inválido","","No debe contener caracteres numeros");
       return 1;
     }
-    if (this.user.apellido.length > 20  || this.user.apellido.length == 0) {
-      this.utils.presentAlert("Apellido inválido","","La cantidad de caracteres debe ser mayor a 0 y menor o igual 20.");
-      return 1;
-    }
-    if (!this.ValidarSoloLetras(this.user.apellido)) {
-      this.utils.presentAlert("Apellido inválido","","No debe contener caracteres numeros");
-      return 1;
-    }
-    if (parseInt(this.user.dni) > 99999999 || parseInt(this.user.dni) < 10000000 || this.user.dni == "") {
-      this.utils.presentAlert("DNI inválido","","Valor fuera de rango");
-      return 1;
-    }
-    if (parseInt(this.user.cuil) > 99999999999 || parseInt(this.user.cuil) < 10000000000 || this.user.dni == "") {
-      this.utils.presentAlert("CUIL inválido","","Valor fuera de rango");
-      return 1;
-    }
     if(this.foto == undefined)
     {
       this.utils.presentAlert("Falta foto!","","Es obligatorio que tener una foto de la persona para continuar.");
       return 1;
     }
+    //Una vez que pasan todas las validacion, recien ahi subo la foto.
+    //this.SubirFotoFirestore(this.foto);
     return 0;
   }
 
@@ -115,5 +99,28 @@ export class SupervisorComponent implements OnInit {
       }
     }
     return true;
+  }
+
+  SubirFotoFirestore(imagen) {//Importante ------------------------
+    this.utils.presentLoading();
+    let storageRef = firebase.storage().ref();
+    
+    // Creo el nombre del archivo
+    const filename = Math.random().toString(36).substring(2);
+
+    // Creo la referencia de la imagen
+    const imageRef = storageRef.child(`clientes/${filename}.jpg`);
+
+    imageRef.putString(imagen, firebase.storage.StringFormat.DATA_URL)
+      .then((snapshot) => {
+        imageRef.getDownloadURL().then(url => {
+          //console.log(url);
+          //this.RegistrarSubidaImagenFirebaseDB(url, filename, "linda", this.perfil_Usuario);
+          //this.ObtenerFotoDeFirebase(url);
+        });
+      })
+      .catch(error => {
+        alert("Algo salio mal. " + JSON.stringify(error));
+      })
   }
 }

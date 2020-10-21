@@ -7,14 +7,22 @@ import { IonicModule } from '@ionic/angular';
 import { InicioPageRoutingModule } from './inicio-routing.module';
 
 import { InicioPage } from './inicio.page';
+import { ClientesAnonimosComponent } from '../altas/clientes-anonimos/clientes-anonimos.component';
+import { ClientesRegistradosComponent } from '../altas/clientes-registrados/clientes-registrados.component';
+import { Usuario } from '../clases/usuario';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    InicioPageRoutingModule
+    InicioPageRoutingModule,
   ],
-  declarations: [InicioPage]
+  declarations: [
+    InicioPage,
+    ClientesAnonimosComponent,
+    ClientesRegistradosComponent
+  ],
+  providers:[Usuario]
 })
 export class InicioPageModule {}

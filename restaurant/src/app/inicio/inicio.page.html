@@ -2,9 +2,9 @@
   <div class="fondo">
   
     <button  type="button" color="success" class="btnClienteRegistradoInicio"
-      (click)="manejadoraInicio('CLIENTE_REGISTRADO')">Registrarme</button><br>
+      (click)="manejadoraInicio('CLIENTE_REGISTRADO')" routerLink="/inicio/AltaClientesRegistrados">Registrarme</button><br>
     <button type="button" color="success" class="btnClienteAnonimoInicio" 
-      (click)="manejadoraInicio('CLIENTE_ANONIMO')">Ingreso<br>sin registro</button><br>
+      (click)="manejadoraInicio('CLIENTE_ANONIMO')" routerLink="/inicio/AltaClientesAnonimos">Ingreso<br>sin registro</button><br>
     <button type="button" color="success" class="btnLoginInicio" 
       (click)="manejadoraInicio('LOGIN')">Ya estoy registrado</button>
   
