@@ -3,6 +3,7 @@ import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 import { Usuario } from 'src/app/clases/usuario';
 import { UtilsService } from 'src/app/servicios/utils.service';
+import { TipoUsuario } from 'src/app/enums/tipo-usuario.enum';
 import * as firebase from 'firebase';
 @Component({
   selector: 'app-clientes-anonimos',
@@ -22,8 +23,8 @@ export class ClientesAnonimosComponent implements OnInit {
 
   ngOnInit() { 
     this.user.nombre = "";
-    this.user.apellido = "";
-    this.user.dni = "";
+    this.user.perfil = TipoUsuario.CLIENTE_ANONIMO;
+    this.user.foto = "";
   }
 
   scanQrAltaUsuarios(): void {
@@ -51,6 +52,7 @@ export class ClientesAnonimosComponent implements OnInit {
     this.user.dni = dni.toString();
   }
 
+
   TomarFoto() {
     const options: CameraOptions = {
       quality: 10,
@@ -63,7 +65,7 @@ export class ClientesAnonimosComponent implements OnInit {
     this.camera.getPicture(options)
       .then((imageData) => {
         this.foto = 'data:image/jpeg;base64,' + imageData;
-        //Subo la foto a firestore
+        //Guardo la foto en una variable local
         this.foto;
         
       }, (err) => {
@@ -101,7 +103,7 @@ export class ClientesAnonimosComponent implements OnInit {
     return true;
   }
 
-  SubirFotoFirestore(imagen) {//Importante ------------------------
+  SubirFotoFirestore(imagen) {
     this.utils.presentLoading();
     let storageRef = firebase.storage().ref();
     
@@ -114,13 +116,72 @@ export class ClientesAnonimosComponent implements OnInit {
     imageRef.putString(imagen, firebase.storage.StringFormat.DATA_URL)
       .then((snapshot) => {
         imageRef.getDownloadURL().then(url => {
-          //console.log(url);
-          //this.RegistrarSubidaImagenFirebaseDB(url, filename, "linda", this.perfil_Usuario);
-          //this.ObtenerFotoDeFirebase(url);
+          this.user.foto = url;
+          this.RegistrarImagenEnBD(url, filename, TipoUsuario.CLIENTE_ANONIMO, this.user.nombre);
         });
       })
       .catch(error => {
         alert("Algo salio mal. " + JSON.stringify(error));
       })
+  }
+
+  RegistrarImagenEnBD(imagenURL, fileName, tipo, creador) {//Importante ------------------------
+    try {
+
+      var fechaActualStr = this.ObtenerFechaActual();
+      var database = firebase.database();
+      //var idFoto = this.crearIDFoto();
+      
+      database.ref("clientes/" + fileName).set({
+        fileName: fileName,
+        url: imagenURL,
+        tipo: tipo,
+        fecha: fechaActualStr,
+        creador: creador,
+        //id: idFoto,
+      });
+
+    }
+    catch (e) {
+      this.utils.presentAlert("Algo salio mal!","","Error al registrar imagen: " + e);
+    }
+  }
+
+  RegistrarUsuarioEnBD(usuario:Usuario) {//Importante ------------------------
+    try {
+
+      //var fechaActualStr = this.ObtenerFechaActual();
+      var database = firebase.database();
+      //var idFoto = this.crearIDFoto();
+      
+      database.ref("clientes/").push({
+        nombre: usuario.nombre,
+        foto: usuario.foto,
+        tipo: usuario.perfil,
+      });
+
+    }
+    catch (e) {
+      this.utils.presentAlert("Algo salio mal!","","Error al registrar al usuario: " + e);
+    }
+  }
+
+  ObtenerFechaActual() {
+    var now = new Date();
+    return (now.getHours()) + ":" + (now.getMinutes()) + ":" + now.getSeconds() + " " + now.getDate() + "/" + (now.getMonth() + 1) + "/" + now.getFullYear();
+  }
+
+  ObtenerFechaActualObjDate (fechaStr: string): any {
+    var horario = fechaStr.split(" ")[0];
+    var fecha = fechaStr.split(" ")[1];
+
+    var hora = horario.split(":")[0];
+    var minutos = horario.split(":")[1];
+    var segundos = horario.split(":")[2];
+
+    var dia = fecha.split("/")[0];
+    var mes = fecha.split("/")[1];
+    var anio = fecha.split("/")[2];
+    return new Date(parseInt(anio), parseInt(mes) - 1, parseInt(dia), parseInt(hora) - 1, parseInt(minutos), parseInt(segundos));
   }
 }

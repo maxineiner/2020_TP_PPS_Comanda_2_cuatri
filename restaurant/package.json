@@ -22,6 +22,7 @@
     "@angular/platform-browser-dynamic": "~10.0.0",
     "@angular/router": "~10.0.0",
     "@firebase/app": "^0.6.11",
+    "@firebase/firestore": "^1.18.0",
     "@ionic-native/barcode-scanner": "^5.27.0",
     "@ionic-native/camera": "^5.29.0",
     "@ionic-native/core": "^5.0.0",
@@ -32,7 +33,9 @@
     "cordova": "^10.0.0",
     "firebase": "7.24.0",
     "firebase-tools": "^8.12.1",
+    "httpclient": "^0.1.0",
     "rxjs": "~6.5.5",
+    "toolbar": "0.0.5",
     "tslib": "^2.0.0",
     "zone.js": "~0.10.3"
   },

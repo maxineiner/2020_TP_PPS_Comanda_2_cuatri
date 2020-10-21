@@ -19,6 +19,22 @@ const routes: Routes = [
     loadChildren: () => import('./inicio/inicio.module').then( m => m.InicioPageModule)
   },
 
+  {
+    path: 'altaDueñoSupervisor',
+    component:SupervisorComponent
+  },
+  {
+    path: 'alta-usuarios',
+    loadChildren: () => import('./usuarios/alta-usuarios/alta-usuarios.module').then( m => m.AltaUsuariosPageModule)
+  },
+  {
+    path: 'editar-usuario',
+    loadChildren: () => import('./usuarios/editar-usuario/editar-usuario.module').then( m => m.EditarUsuarioPageModule)
+  },
+  {
+    path: 'usuarios',
+    loadChildren: () => import('./usuarios/usuarios.module').then( m => m.UsuariosPageModule)
+  }
 ];
 
 @NgModule({
