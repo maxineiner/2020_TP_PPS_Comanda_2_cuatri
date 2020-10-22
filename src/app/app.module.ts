@@ -15,6 +15,7 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFireDatabaseModule, AngularFireDatabase } from '@angular/fire/database';
 import { environment } from 'src/environments/environment';
 import { AngularFireStorageModule } from '@angular/fire/storage';
+import { MediaCapture } from '@ionic-native/media-capture/ngx';
 
 
 @NgModule({
@@ -37,7 +38,8 @@ import { AngularFireStorageModule } from '@angular/fire/storage';
     StatusBar,
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
-    AngularFireDatabase
+    AngularFireDatabase,
+    MediaCapture
   ],
   bootstrap: [AppComponent]
 })

@@ -31,7 +31,7 @@
     <div *ngIf="registroForm.controls['minutosDeElaboracion'].errors.required">
       Tiempo de elaboracion es requerido.
     </div>
-    <div *ngIf="registroForm.controls['precio'].errors.pattern">
+    <div *ngIf="registroForm.controls['minutosDeElaboracion'].errors.pattern">
       El Tiempo de elaboracion solo debe contener numeros.
     </div>
   </div>
@@ -49,17 +49,19 @@
       El precio solo debe contener numeros.
     </div>
   </div>
-  <ion-button color="dark" center (click)=tomarFoto() [disabled]="opcion == 'Baja'">
+  <ion-button color="dark" center (click)=tomarFotos() *ngIf="opcion != 'Baja'" [disabled]="fotos.length == 3">
     <ion-icon slot="start" name="camera"></ion-icon>
-    Subir Foto
+    Tomar Fotos
   </ion-button>
-  <div *ngFor="let foto of fotos" style="height: 25px; width: 25px;">
-    <img src="{{foto.url}}" alt="">
-  </div>
-<!--   <ion-button shape="round" expand="full" [disabled]="registroForm.pristine || registroForm.invalid"
-    (click)="registrar()">Registrar Producto</ion-button>
-  <ion-button shape="round" expand="full">Cancelar</ion-button> -->
-  <!-- Se muestra accion segun tipo de llamado al formulario -->
+
+  <ion-grid *ngIf="fotos">
+    <ion-row>
+      <ion-col *ngFor="let foto of fotos">
+        <img src="{{foto.url}}">
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  
   <ion-button (click)="registrar()" color="dark" expand="block" type="submit" [disabled]="registroForm.pristine || registroForm.invalid"
     *ngIf="opcion == 'Alta'">
     Crear
