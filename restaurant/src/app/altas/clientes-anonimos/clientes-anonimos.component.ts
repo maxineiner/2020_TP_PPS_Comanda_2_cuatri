@@ -88,7 +88,7 @@ export class ClientesAnonimosComponent implements OnInit {
       return 1;
     }
     //----------- USAR SOLO SI YA SE TIENE DEFINIDA LA BASE DE DATOS---------
-    //this.AltaUsuario();
+    this.AltaUsuario();
     return 0;
   }
 
@@ -105,11 +105,11 @@ export class ClientesAnonimosComponent implements OnInit {
 
   AltaUsuario()
   {
-    this.SubirFotoFirestore(this.foto);
+    this.SubirFotoStorage(this.foto);
   }
 
-  SubirFotoFirestore(imagen) {
-    this.utils.presentLoading();
+  SubirFotoStorage(imagen) {
+    this.utils.presentLoadingAuto(2000);
     let storageRef = firebase.storage().ref();
     
     // Creo el nombre del archivo
@@ -165,6 +165,8 @@ export class ClientesAnonimosComponent implements OnInit {
         nombre: usuario.nombre,
         foto: usuario.foto,
         tipo: usuario.perfil,
+      }).then(()=>{
+        this.utils.presentAlert("Registro exitoso!","","");
       });
 
     }

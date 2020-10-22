@@ -116,6 +116,7 @@ export class SupervisorComponent implements OnInit {
       this.utils.presentAlert("Falta foto!","","Es obligatorio que tener una foto de la persona para continuar.");
       return 1;
     }
+    this.AltaUsuario();
     return 0;
   }
 
@@ -137,14 +138,19 @@ export class SupervisorComponent implements OnInit {
     return (false)
   }
 
+  AltaUsuario()
+  {
+    this.SubirFotoStorage(this.foto);
+  }
 
-  SubirFotoFirestore(imagen) {
+
+  SubirFotoStorage(imagen) {
     this.utils.presentLoading();
     let storageRef = firebase.storage().ref();
 
     // Creo el nombre del archivo
-    const filename = Math.random().toString(36).substring(2);
-
+    //const filename = Math.random().toString(36).substring(2);
+    const filename = this.user.correo;
     // Creo la referencia de la imagen
     const imageRef = storageRef.child(`empleados/${filename}.jpg`);
 
@@ -152,7 +158,7 @@ export class SupervisorComponent implements OnInit {
       .then((snapshot) => {
         imageRef.getDownloadURL().then(url => {
           this.user.foto = url;
-          this.RegistrarImagenEnBD(url, filename, this.user.perfil , this.user.correo);
+          //this.RegistrarImagenEnBD(url, filename, this.user.perfil , this.user.correo);
         });
       })
       .catch(error => {
@@ -160,7 +166,7 @@ export class SupervisorComponent implements OnInit {
       })
   }
 
-  RegistrarImagenEnBD(imagenURL, fileName, tipo, creador) {//Importante ------------------------
+  /*RegistrarImagenEnBD(imagenURL, fileName, tipo, creador) {//Importante ------------------------
     try {
 
       var fechaActualStr = this.ObtenerFechaActual();
@@ -181,7 +187,7 @@ export class SupervisorComponent implements OnInit {
     catch (e) {
       this.utils.presentAlert("Algo salio mal!", "", "Error al registrar imagen: " + e);
     }
-  }
+  }*/
 
   RegistrarUsuarioEnBD(usuario: Usuario) {//Importante ------------------------
     try {

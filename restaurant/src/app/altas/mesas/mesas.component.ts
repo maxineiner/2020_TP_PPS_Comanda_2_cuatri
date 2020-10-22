@@ -96,7 +96,7 @@ export class MesasComponent implements OnInit {
 
     this.utils.presentLoadingAuto(2000);
     //----------- USAR SOLO SI YA SE TIENE DEFINIDA LA BASE DE DATOS---------
-    //this.AltaMesa();
+    this.AltaMesa();
     return 0;
   }
 
@@ -115,10 +115,10 @@ export class MesasComponent implements OnInit {
   //----------- USAR SOLO SI YA SE TIENE DEFINIDA LA BASE DE DATOS---------
   AltaMesa() {
 
-    this.SubirFotoFirestore(this.foto);
+    this.SubirFotoStorage(this.foto);
   }
 
-  SubirFotoFirestore(imagen) {
+  SubirFotoStorage(imagen) {
     this.utils.presentLoading();
     let storageRef = firebase.storage().ref();
 
@@ -140,7 +140,7 @@ export class MesasComponent implements OnInit {
       })
   }
 
-  RegistrarMesaEnBD(usuario: Mesa) {//Importante ------------------------
+  RegistrarMesaEnBD(mesa: Mesa) {//Importante ------------------------
     try {
 
       //var fechaActualStr = this.ObtenerFechaActual();
@@ -148,11 +148,12 @@ export class MesasComponent implements OnInit {
       //var idFoto = this.crearIDFoto();
 
       database.ref("mesas/").push({
-        numero: usuario.numero,
-        cantidad: usuario.cantidad,
-        estado: usuario.estado,
-        foto: usuario.foto,
-        tipo: usuario.tipo
+        numero: mesa.numero,
+        cantidad: mesa.cantidad,
+        estado: mesa.estado,
+        foto: mesa.foto,
+        tipo: mesa.tipo,
+        qr: mesa.qr
       })
     }
     catch (e) {
