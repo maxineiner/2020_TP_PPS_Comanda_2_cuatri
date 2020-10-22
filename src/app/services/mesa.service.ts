@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { Mesa } from '../clases/mesa';
-import { HttpClient } from '@angular/common/http';
 import { Cliente } from '../clases/cliente';
+import { CodigoQRService } from './codigo-qr.service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,19 +10,19 @@ import { Cliente } from '../clases/cliente';
 export class MesaService {
   public static mesas: Mesa[] = [];
 
-  constructor(public firebase: AngularFireDatabase, private http: HttpClient) { }
+  constructor(public firebase: AngularFireDatabase, private escanerQR: CodigoQRService) { }
 
   public crear(mesa: Mesa): Promise<any>
   {
     mesa.isActive = true;
     mesa.cliente = new Cliente();
-    mesa.estadoPedido = "Sin pedido"; 
+    mesa.estadoPedido = "Sin pedido"; // Cambiar por enum de Pedidos
 
     return this.firebase.database.ref('mesas')
                 .push()
                 .then((snapshot) => {
                   mesa.id = snapshot.key;
-                  this.generarQR(mesa);
+                  this.escanerQR.generar(mesa, mesa.id); //Generacion de QR
                 })
                 .then(() => this.actualizar(mesa))
                 .catch(console.error);
@@ -43,7 +43,7 @@ export class MesaService {
 
   public leer()
   {
-    let mesas = [];
+    let mesas: Mesa[] = [];
     console.info("Fetch de todas las mesas");
 
     const fetch = new Promise<Mesa[]>(resolve =>{
@@ -55,7 +55,7 @@ export class MesaService {
                                       data.foto, data.codigoQR, data.isAvailable,
                                       data.isActive, data.estadoPedido, data.cliente));
           });
-          MesaService.mesas = mesas.filter(mesa => mesa.datosQR.isAvailable == true);
+          MesaService.mesas = mesas.filter(mesa => mesa.isActive);
           resolve(MesaService.mesas);
       })
     });
@@ -67,13 +67,5 @@ export class MesaService {
     return this.firebase.database.ref(`mesas/${id}`).once('value');
   }
 
-  public generarQR(mesa: Mesa)
-  {
-    // The text to store within the QR code (URL encoded, PHP programmers may use urlencode()).
-    let data = `ID%3A${mesa.id}`;
-
-    const codigoQR = `http://api.qrserver.com/v1/create-qr-code/?data=${data}&size=66x66`;
-
-    mesa.codigoQR = codigoQR;
-  }
+  
 }

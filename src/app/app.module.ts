@@ -16,6 +16,7 @@ import { AngularFireDatabaseModule, AngularFireDatabase } from '@angular/fire/da
 import { environment } from 'src/environments/environment';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 
+import { QRScanner, QRScannerStatus } from '@ionic-native/qr-scanner/ngx';
 
 @NgModule({
   declarations: [AppComponent],
@@ -36,6 +37,7 @@ import { AngularFireStorageModule } from '@angular/fire/storage';
   providers: [
     StatusBar,
     SplashScreen,
+    QRScanner,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     AngularFireDatabase
   ],

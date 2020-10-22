@@ -23,8 +23,6 @@ export class FormMesasComponent{
   popoverOptions = {
     header: 'Seleccione el tipo',
     translucent: true,
-    cancelText: "Cerrar",
-    okText: "Guardar"
   }
   codigoQR: any;
 
