@@ -15,6 +15,7 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFireDatabaseModule, AngularFireDatabase } from '@angular/fire/database';
 import { environment } from 'src/environments/environment';
 import { AngularFireStorageModule } from '@angular/fire/storage';
+import { MediaCapture } from '@ionic-native/media-capture/ngx';
 
 import { QRScanner, QRScannerStatus } from '@ionic-native/qr-scanner/ngx';
 
@@ -39,7 +40,8 @@ import { QRScanner, QRScannerStatus } from '@ionic-native/qr-scanner/ngx';
     SplashScreen,
     QRScanner,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
-    AngularFireDatabase
+    AngularFireDatabase,
+    MediaCapture
   ],
   bootstrap: [AppComponent]
 })
