@@ -9,9 +9,29 @@
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">Tab 1</ion-title>
+      <ion-title size="large">Botones para prueba</ion-title>
     </ion-toolbar>
   </ion-header>
+  
+  <!-- Código para prueba -->
+  <ion-list>
+    <ion-list-header>
+      <ion-label>Sólo para probar pages</ion-label>
+    </ion-list-header>
 
-  <app-explore-container name="Tab 1 page"></app-explore-container>
+    <ion-item>
+      <ion-button routerLink="/tabs/menu-mesa"   expand="block" fill="clear" shape="round">
+        Formulario mesa
+      </ion-button>
+    </ion-item>
+
+    <ion-item>
+      <ion-button routerLink="/menu-producto" expand="block" fill="clear" shape="round">
+        Formulario producto
+      </ion-button>
+    </ion-item>
+
+  </ion-list>
+  <!--  -->
+
 </ion-content>

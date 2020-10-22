@@ -1,0 +1,62 @@
+
+  <form #formulario="ngForm"  >
+
+    <ion-list mode="ios" lines="none">
+
+      <ion-list-header >
+        <ion-label>{{opcion}} Mesa</ion-label>
+      </ion-list-header>
+
+      <ion-item >
+        <ion-label position="floating">Número de mesa</ion-label>
+        <ion-input type="text" name="name" [(ngModel)]="mesa.numero" [placeholder]="mesa.numero"
+                  [disabled]="opcion == 'Baja'">
+        </ion-input>
+      </ion-item>
+
+      <ion-item >
+        <ion-label position="floating">Capacidad de comensales</ion-label>
+        <ion-input type="number" name="comensales" [(ngModel)]="mesa.comensales" 
+                  [placeholder]="mesa.comensales" [pattern]="emailPattern" 
+                  [disabled]="opcion == 'Baja'" required >
+        </ion-input>
+      </ion-item>
+    </ion-list>
+
+    <ion-item>
+      <ion-label>Tipo de mesa</ion-label>
+      <ion-select value="mesa.estado" multiple="false" name="tipoMesa" [placeholder]="mesa.tipo"
+                  [(ngModel)]="mesa.tipo" [disabled]="opcion == 'Baja'"
+                  [interfaceOptions]="popoverOptions" interface="popover" required>
+        <ion-select-option value="Vip">V.I.P.</ion-select-option>
+        <ion-select-option value="Normal">Normal</ion-select-option>
+        <ion-select-option value="Discapacitados">Discapacitados</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-button (click)="sacarFoto()" fill="solid" shape="round" size="medium" color="dark"
+                  [disabled]="opcion == 'Baja'">
+        Subir foto
+      </ion-button>
+      <img *ngIf="mesa.foto" src="mesa.foto" alt="Foto de la mesa">
+    </ion-item>
+
+    <!-- Se muestra accion segun tipo de llamado al formulario -->
+    <ion-button (click)="crearMesa()" color="dark" expand="block" type="submit" 
+                [disabled]="formulario.invalid" *ngIf="opcion == 'Alta'">
+      Crear
+    </ion-button>
+
+    <ion-button (click)="modificarMesa()" color="dark" expand="block" type="submit" 
+                [disabled]="formulario.invalid" *ngIf="opcion == 'Modificación'">
+      Modificar
+    </ion-button>
+
+    <ion-button (click)="borrarMesa()" color="dark" expand="block" type="submit" 
+                *ngIf="opcion == 'Baja'">
+      Eliminar
+    </ion-button>
+
+    <ion-img [src]="mesa.codigoQR"></ion-img>
+  </form>

@@ -1,0 +1,27 @@
+<app-header titulo="Menú Mesa" paginaAnterior='/tabs/tab1'></app-header>
+
+
+<ion-content>
+
+  <ion-segment value="Listado" (ionChange)="seleccionarOpcion($event)" scrollable>
+    <ion-segment-button value="Listado">
+      <ion-label>Mesas</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="Alta">
+      <ion-label>Alta</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="Baja" *ngIf="mesaElegida.isActive">
+      <ion-label>Baja</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="Modificación" *ngIf="mesaElegida.isActive">
+      <ion-label>Modificación</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+
+  <app-listado-mesas *ngIf="opcion == 'Listado'" 
+                    [mesas]="listado" (elegirMesa)="elegirMesa($event)"></app-listado-mesas>
+  
+  <app-form-mesas *ngIf="opcion != 'Listado'" [opcion]="opcion" [mesa]="mesaElegida"></app-form-mesas>
+  
+
+</ion-content>
