@@ -9,6 +9,13 @@ import { IEscaneable } from '../interfaces/IEscaneable';
 export class CodigoQRService {
   escanerQRref: any;
 
+  /**
+   * Se le adiciona al backbutton la funcion de cancelar el escaneo
+   * si se presiona para retornar a la pagina anterior
+   * 
+   * @param platform Instancia del dispositivo donde se ejecuta el código (Web, Native)
+   * @param escanerQR (Instancia del plugin de lector QR)
+   */
   constructor(public platform: Platform, private escanerQR: QRScanner) 
   {
     this.platform.backButton.subscribeWithPriority(0,()=>
@@ -18,21 +25,28 @@ export class CodigoQRService {
       });    
   }
 
+  /**
+   * Método para leer un código QR
+   * @returns Data contenida por código QR
+   */
   public escanear() 
   {
     console.log("Leer QR");
+    let data = "";
     
     this.escanerQR.prepare().then((status:QRScannerStatus) => 
     {
       if(status.authorized)
       {
         this.escanerQR.show();
+        // Transparencia del layout para escaner
         document.getElementsByTagName("body")[0].style.opacity = "0";
 
         this.escanerQRref = this.escanerQR.scan().subscribe((scan) =>
         {
           // Información del QR decodificado
           console.log(scan);
+          data = scan;
           
           this.escanerQR.show();
           document.getElementsByTagName("body")[0].style.opacity = "1";
@@ -43,8 +57,15 @@ export class CodigoQRService {
         (error) => console.log(error));
       }
     })
+    return data;
   }
 
+  /**
+   * Método para generar QR
+   * - !Se debe mejorar funcionalidad e integrar con DB -
+   * @param elemento Objeto con data para generar QR
+   * @param id UID que identificará al objeto
+   */
   public generar(elemento: IEscaneable, id:string)
   {
     // The text to store within the QR code (URL encoded, PHP programmers may use urlencode()).
@@ -55,6 +76,10 @@ export class CodigoQRService {
     console.log(elemento);
   }
 
+  /**
+   * Método para otorgar permisos a plugin 
+   * - !Este método es opcional pero requiere testear en dispositivo
+   */
   public configurar()
   {
     this.escanerQR.openSettings();

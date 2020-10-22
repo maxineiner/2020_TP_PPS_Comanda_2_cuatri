@@ -34,12 +34,16 @@
       </ion-select>
     </ion-item>
 
+    <ion-item *ngIf="imgPreview">
+      <img [src]="imgPreview | safe: 'url'" alt="Foto de la mesa">
+    </ion-item>
+
     <ion-item>
       <ion-button (click)="sacarFoto()" fill="solid" shape="round" size="medium" color="dark"
                   [disabled]="opcion == 'Baja'">
         Subir foto
       </ion-button>
-      <img *ngIf="mesa.foto" src="mesa.foto" alt="Foto de la mesa">
+      
     </ion-item>
 
     <!-- Se muestra accion segun tipo de llamado al formulario -->
