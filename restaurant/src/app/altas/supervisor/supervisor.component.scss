@@ -2,6 +2,7 @@
     border-radius: 100px;
     background-color: #2dd36f;
     font-family: cursive;
+    outline: none;
 }
 
 .lbl{
@@ -14,5 +15,5 @@
 }
 
 .btn:focus {
-    outline: 0 !important;
+    outline: none;
 }

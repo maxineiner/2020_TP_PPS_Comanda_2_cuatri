@@ -27,7 +27,7 @@ export class AltaUsuariosPage implements OnInit {
   captureDataUrl = new Array<string>();
   datosEscaneados: any;
   qrScan: any;
-
+  foto;
   constructor(
     public utilsService: UtilsService,
     private fb: FormBuilder,
@@ -77,7 +77,7 @@ export class AltaUsuariosPage implements OnInit {
       nuevoUsuario.dni = this.formUsuario.controls.dni.value;
       nuevoUsuario.cuil = this.formUsuario.controls.cuil.value;
       // nuevoUsuario.estado = EstadoUsuario.APROBADO;
-     
+
       nuevoUsuario.foto = this.formUsuario.controls.foto.value;
       switch (localStorage.getItem('tipoDeAlta')) {
         case 'DUEÑO':
@@ -120,8 +120,7 @@ export class AltaUsuariosPage implements OnInit {
       }
       this.authService.signUp(nuevoUsuario).then(datos => {
         this.utilsService.dismissLoading();
-        if (nuevoUsuario.perfil === TipoUsuario.CLIENTE_REGISTRADO)
-        {
+        if (nuevoUsuario.perfil === TipoUsuario.CLIENTE_REGISTRADO) {
           const notificacion = new Notificacion();
           notificacion.mensaje = 'Nuevo cliente pendiente de aprobacion';
           notificacion.receptor = TipoUsuario.DUEÑO;
@@ -129,7 +128,7 @@ export class AltaUsuariosPage implements OnInit {
           this.notificationService.crearNotificacion(notificacion);
           this.volverAltaUsuarios();
         }
-        else{
+        else {
           this.utilsService.showLoadingAndNavigate('clientes');
         }
         console.log(datos);
@@ -309,6 +308,7 @@ export class AltaUsuariosPage implements OnInit {
   tomarFotoAltaUsuarios(): void {
     this.camera.tomarFoto().then(data => {
       this.formUsuario.controls.foto.setValue(data);
+      this.foto = 'data:image/jpeg;base64,' + data;
     });
   }
 
@@ -332,6 +332,16 @@ export class AltaUsuariosPage implements OnInit {
   }
 
   public getTipoAlta(): string { // PATO
-    return localStorage.getItem('tipoDeAlta');
+    switch (localStorage.getItem('tipoDeAlta')) {
+      case "CLIENTE_REGISTRADO":
+        return "cliente registrado";
+        break;
+      case "CLIENTE_ANONIMO":
+        return 'cliente anónimo';
+        break;
+      default:
+        return "ERROR";
+        break;
+    }
   }
 }

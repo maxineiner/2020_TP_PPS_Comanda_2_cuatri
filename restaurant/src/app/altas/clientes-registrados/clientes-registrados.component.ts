@@ -111,7 +111,7 @@ export class ClientesRegistradosComponent implements OnInit {
       return 1;
     }
     //----------- USAR SOLO SI YA SE TIENE DEFINIDA LA BASE DE DATOS---------
-    //this.AltaUsuario();
+    this.AltaUsuario();
     return 0;
   }
 
@@ -136,11 +136,16 @@ export class ClientesRegistradosComponent implements OnInit {
 
   AltaUsuario()
   {
-    this.SubirFotoFirestore(this.foto);
+    /*this.auth.afAuth.createUserWithEmailAndPassword(this.user.correo,this.user.clave).then(()=>{
+      this.utils.presentAlert("Registro exitoso!", "","");
+    }).catch((e)=>{
+      this.utils.presentAlert("Error!", "",JSON.parse(e));
+    })*/
+    this.SubirFotoStorage(this.foto);
   }
 
-  SubirFotoFirestore(imagen) {
-    this.utils.presentLoading();
+  SubirFotoStorage(imagen) {
+    this.utils.presentLoadingAuto(2000);
     let storageRef = firebase.storage().ref();
 
     // Creo el nombre del archivo
@@ -202,7 +207,14 @@ export class ClientesRegistradosComponent implements OnInit {
         dni: usuario.dni
       }).then(()=>{
         //SE GUARDARA CORREO Y CLAVE PARA LA FUTURA AUTENTICACION
-        this.auth.signUp(usuario);
+        this.auth.afAuth.createUserWithEmailAndPassword(usuario.correo,usuario.clave).then(()=>{
+          this.utils.presentAlert("Registro exitoso!", "","");
+        }).catch((e)=>{
+          this.utils.presentAlert("Error!", "",JSON.parse(e));
+        })
+      })
+      .catch((e)=>{
+        this.utils.presentAlert("Algo salio mal!", "", "Error al registrar al usuario: " + e);
       });
 
     }

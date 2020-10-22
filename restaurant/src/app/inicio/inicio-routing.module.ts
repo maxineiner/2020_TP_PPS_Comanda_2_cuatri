@@ -20,6 +20,10 @@ const routes: Routes = [
     component:SupervisorComponent
   },
   {
+    path: 'alta-usuarios',
+    loadChildren: () => import('../usuarios/alta-usuarios/alta-usuarios.module').then( m => m.AltaUsuariosPageModule)
+  },
+  {
     path:"AltaClientesRegistrados",
     component:ClientesRegistradosComponent
   },
