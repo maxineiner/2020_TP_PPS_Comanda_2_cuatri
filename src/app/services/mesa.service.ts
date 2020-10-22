@@ -16,7 +16,7 @@ export class MesaService {
   {
     mesa.isActive = true;
     mesa.cliente = new Cliente();
-    mesa.estadoPedido = "Sin pedido"; 
+    mesa.estadoPedido = "Sin pedido"; // Cambiar por enum de Pedidos
 
     return this.firebase.database.ref('mesas')
                 .push()
