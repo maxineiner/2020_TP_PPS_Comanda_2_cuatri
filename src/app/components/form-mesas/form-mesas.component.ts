@@ -18,7 +18,7 @@ enum OpcionForm
   templateUrl: './form-mesas.component.html',
   styleUrls: ['./form-mesas.component.scss'],
 })
-export class FormMesasComponent{
+export class FormMesasComponent implements OnInit{
   @Input() opcion: OpcionForm;
   @Input() mesa: Mesa;
   popoverOptions = {
@@ -26,12 +26,20 @@ export class FormMesasComponent{
     translucent: true,
   }
   codigoQR: any;
-  auxiliarFoto: Imagen = new Imagen();
+  auxiliarFoto: Imagen;
   imgPreview: string;
+  
 
   constructor(private mesaService: MesaService, private imagenService: ImagenService,
               private toastController: ToastController) { }
 
+  ngOnInit(): void {
+    if(this.opcion == 'Alta')
+    {
+      this.mesa = new Mesa();
+    }
+  }
+    
 
   /**
    * Método para tomar foto y previsualizar
@@ -42,9 +50,9 @@ export class FormMesasComponent{
    
     this.imgPreview = `data:image/jpeg;base64,${foto.base64}`;
 
-    this.mesa.foto = new Imagen();
-    this.mesa.foto.base64 = foto.base64;
-    this.mesa.foto.fecha = foto.fecha;
+    this.auxiliarFoto = new Imagen();
+    this.auxiliarFoto.base64 = foto.base64;
+    this.auxiliarFoto.fecha = foto.fecha;
   }
 
   /**
@@ -54,10 +62,8 @@ export class FormMesasComponent{
   {
     if(this.mesa && !this.mesa.id)
     {
-      const imagenGuardada = await this.imagenService.crearUnaImagen(this.mesa.foto, "/mesas");
-                    
+      const imagenGuardada = await this.imagenService.crearUnaImagen(this.auxiliarFoto, "/mesas");
       this.mesa.foto = imagenGuardada;
-      console.log(this.mesa);
 
       this.mesaService.crear(this.mesa)
           .then(() => this.presentToast("Alta exitosa", 2000))
@@ -69,15 +75,20 @@ export class FormMesasComponent{
     }
   }
 
-  modificarMesa()
+  async modificarMesa()
   {
     console.log("Modificar Mesa");
 
     if(this.mesa)
     {
+      if(this.auxiliarFoto)
+      {
+        const imagenGuardada = await this.imagenService.crearUnaImagen(this.auxiliarFoto, "/mesas");
+        this.mesa.foto = imagenGuardada;
+      }
       this.mesaService.actualizar(this.mesa)
-                      .then(() => this.presentToast("Modificación exitosa", 2000))
-                      .catch(() => this.presentToast("No se pudo modificar", 2000));
+          .then(() => this.presentToast("Modificación exitosa", 2000))
+          .catch(() => this.presentToast("No se pudo modificar", 2000));
     }
   }
 

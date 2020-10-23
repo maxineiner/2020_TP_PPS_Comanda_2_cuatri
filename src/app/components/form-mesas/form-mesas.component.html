@@ -10,7 +10,7 @@
       <ion-item >
         <ion-label position="floating">Número de mesa</ion-label>
         <ion-input type="number" name="name" [(ngModel)]="mesa.numero" [placeholder]="mesa.numero"
-                  [disabled]="opcion == 'Baja'">
+                  [disabled]="opcion == 'Baja'" required>
         </ion-input>
       </ion-item>
 
@@ -39,9 +39,10 @@
     </ion-item>
 
     <ion-item>
-      <ion-button (click)="sacarFoto()" fill="solid" shape="round" size="medium" color="dark"
+      <ion-button (click)="sacarFoto()" fill="solid" size="medium" color="dark"
                   [disabled]="opcion == 'Baja'">
         Subir foto
+        <ion-icon slot="start" name="camera"></ion-icon>
       </ion-button>
       
     </ion-item>

@@ -12,6 +12,7 @@ export class MenuMesaPage implements OnInit, DoCheck {
   opcion: string = 'Listado';
   listado: Mesa[] = MesaService.mesas;
   mesaElegida: Mesa = new Mesa();
+  
 
   constructor(private router: Router, private mesaService: MesaService) { }
 
@@ -28,6 +29,7 @@ export class MenuMesaPage implements OnInit, DoCheck {
       this.listado = mesas;
       console.log(this.listado);
     });
+    this.mesaElegida = new Mesa();
   }
 
   seleccionarOpcion(event)

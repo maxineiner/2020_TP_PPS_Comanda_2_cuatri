@@ -7,15 +7,15 @@
     <ion-img [src]="mesa.foto.url"></ion-img>
 
     <ion-card-content>
-      <ion-chip color="primary" mode="ios" outline="true">
-        <ion-label>{{ mesa.tipo }}</ion-label>
+      <ion-chip color="success" mode="ios" outline="true">
+        <ion-label>Tipo:{{ mesa.tipo }}</ion-label>
       </ion-chip>
-      <ion-chip color="primary" mode="ios" outline="true">
-        <ion-label>{{ mesa.comensales }}</ion-label>
+      <ion-chip color="success" mode="ios" outline="true">
+        <ion-label>Personas:{{ mesa.comensales }}</ion-label>
       </ion-chip>
-      <p>Estado del pedido:{{ mesa.estadoPedido }}</p>
     </ion-card-content>
-    <ion-button (click)="reservar()" expand="block" fill="solid" shape="round" color="dark">
+    <ion-button (click)="reservar()" size="large" expand="block" 
+                fill="solid"  color="success">
       Reservar
     </ion-button>
   </ion-card>
