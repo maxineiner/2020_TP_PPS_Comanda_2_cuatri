@@ -75,7 +75,7 @@ export class LoginPage implements OnInit {
               }
             } else { // No aprobado
               this.utilsService.presentAlert('Hola!',
-                'Pronto vas a poder disfrutar de COHERENCE',
+                'Pronto vas a poder disfrutar de CodeFactory',
                 'Tu cuenta esta pendiente de aprobación.');
               this.authService.logout();
             }
@@ -116,7 +116,7 @@ export class LoginPage implements OnInit {
           retorno = false;
         }
         else {
-          // this.vibration.vibrar(2000);
+           this.vibration.vibrar(2000);
           retorno = true;
         }
         break;
@@ -125,7 +125,7 @@ export class LoginPage implements OnInit {
           retorno = false;
         }
         else {
-          // this.vibration.vibrar(2000);
+           this.vibration.vibrar(2000);
           retorno = true;
         }
         break;
@@ -144,22 +144,22 @@ export class LoginPage implements OnInit {
   mockLogin() {
     this.utilsService.presentActionsheet({
       buttons: [{
-        text: 'DUEÑO Lucas',
+        text: 'DUEÑO Federico Tomadin',
         handler: () => {
-          this.formLogin.controls.correoLogin.setValue('lucas@lucas.com');
-          this.formLogin.controls.claveLogin.setValue('270699');
+          this.formLogin.controls.correoLogin.setValue('federico@gmail.com');
+          this.formLogin.controls.claveLogin.setValue('123456');
         }
       },
       {
-        text: 'DUEÑO Pato',
+        text: 'DUEÑO Lucas Carbone',
         handler: () => {
-          this.formLogin.controls.correoLogin.setValue('pato@pato.com');
+          this.formLogin.controls.correoLogin.setValue('lucasCarbone@gmail.com');
           this.formLogin.controls.claveLogin.setValue('123456');
         }
       }, {
-        text: 'SUPERVISOR Flippi',
+        text: 'SUPERVISOR Lucas Sánchez',
         handler: () => {
-          this.formLogin.controls.correoLogin.setValue('soyflippi@gmail.com');
+          this.formLogin.controls.correoLogin.setValue('lucasSanchez@gmail.com');
           this.formLogin.controls.claveLogin.setValue('123456');
         }
       }, {
@@ -172,7 +172,7 @@ export class LoginPage implements OnInit {
         text: 'BARTENDER',
         handler: () => {
           this.formLogin.controls.correoLogin.setValue('bartender@bartender.com');
-          this.formLogin.controls.claveLogin.setValue('270699');
+          this.formLogin.controls.claveLogin.setValue('123456');
         }
       },
       {
@@ -206,7 +206,7 @@ export class LoginPage implements OnInit {
       {
         text: 'Cliente Anónimo',
         handler: () => {
-          this.formLogin.controls.correoLogin.setValue('pepe@pepe.com');
+          this.formLogin.controls.correoLogin.setValue('anonimo@gmail.com');
           this.formLogin.controls.claveLogin.setValue('123456');
         }
       }, {

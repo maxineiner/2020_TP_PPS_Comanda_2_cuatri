@@ -50,13 +50,13 @@ import { Vibration } from '@ionic-native/vibration/ngx';
      AngularFireStorageModule,
      CommonModule,
     FormsModule,
-    Vibration,
     ToolbarModule,
     ReactiveFormsModule],
   providers: [
     StatusBar,
     SplashScreen,
     Camera,
+    Vibration,
     BarcodeScanner,
     Usuario,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
