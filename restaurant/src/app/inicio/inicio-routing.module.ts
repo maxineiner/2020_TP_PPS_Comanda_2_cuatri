@@ -17,31 +17,31 @@ const routes: Routes = [
   },
   {
     path: 'altaDueñoSupervisor',
-    component:SupervisorComponent
+    component: SupervisorComponent
   },
   {
     path: 'alta-usuarios',
-    loadChildren: () => import('../usuarios/alta-usuarios/alta-usuarios.module').then( m => m.AltaUsuariosPageModule)
+    loadChildren: () => import('../usuarios/alta-usuarios/alta-usuarios.module').then(m => m.AltaUsuariosPageModule)
   },
   {
-    path:"AltaClientesRegistrados",
-    component:ClientesRegistradosComponent
+    path: "AltaClientesRegistrados",
+    component: ClientesRegistradosComponent
   },
   {
-    path:"AltaClientesAnonimos",
-    component:ClientesAnonimosComponent
+    path: "AltaClientesAnonimos",
+    component: ClientesAnonimosComponent
   },
   {
-    path:"AltaMesas",
+    path: "AltaMesas",
     component: MesasComponent
   },
-  // {
-  //   path:"Login",
-  //   component:LoginComponent
-  // },
   {
-    path:"menu",
-    component:MenuPrincipalComponent
+    path: "login",
+    loadChildren: () => import('../login/login.module').then(m => m.LoginPageModule)
+  },
+  {
+    path: "menu",
+    component: MenuPrincipalComponent
   }
 ];
 
@@ -49,4 +49,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class InicioPageRoutingModule {}
+export class InicioPageRoutingModule { }

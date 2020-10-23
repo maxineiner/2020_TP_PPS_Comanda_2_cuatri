@@ -1,27 +1,63 @@
-
-<app-toolbar
-  [titulo]="'Inicia sesión'"
-  [backBtn]="'inicio'"
-  [usuario]="null">
-</app-toolbar>
-
 <ion-content class="background">
-  <form [formGroup]="formLogin" (ngSubmit)="onSubmitLogin()">
-    <label class="lblCorreoLogin">Correo Electrónico</label>
-    <input type="text" class="inpCorreoLogin" formControlName="correoLogin">
-    <div class="errCorreoLogin" [hidden]="!errorEnControlLogin('correoLogin')">CORREO INVALIDO</div>
+  <div class="fondo" style="height: 100%;width: 100%;">
+    <br>
+    <br>
+    <br>
+    <ion-card style="border-radius: 20px;">
+      <ion-card-header style="background-color: #e2e2e2;">
+        <table style="width: 100%;">
+          <tr>
+            <td>
+              <button class="btn" style="height: 40px;width: 40px;color: white;border-radius: 5px;">
+                <ion-icon name="chevron-back-outline" routerLink="/inicio"></ion-icon>
+              </button>
+            </td>
+            <td align="margin-left">
+              <h1 style="padding-left: 10%;"><b>Inicio de Sesión</b></h1>
+            </td>
+          </tr>
 
-    <label class="lblClaveLogin">Contraseña</label>
-    <input type="password" class="inpClaveLogin" formControlName="claveLogin">
-    <div class="errClaveLogin" [hidden]="!errorEnControlLogin('claveLogin')">CLAVE INVALIDA</div>
-
-    <ion-button type="submit" color="warning" [disabled]="!formLogin.valid" class="btnSubmitLogin">Enviar</ion-button>
-    <ion-button color="warning" (click)="limpiarLogin()" class="btnResetLogin">Limpiar</ion-button>
-  </form>
+        </table>
+      </ion-card-header>
+      <ion-card-content style="padding: 10%;">
+        <form [formGroup]="formLogin" (ngSubmit)="onSubmitLogin()">
+          <ion-item>
+            <ion-label position="floating" class="lbl">Correo Electrónico</ion-label>
+            <ion-input type="text" formControlName="correoLogin"></ion-input>
+          </ion-item>
+          <ion-label style="color: red;" [hidden]="!errorEnControlLogin('correoLogin')">
+            ¡Correo inválido!
+          </ion-label>
+          <ion-item>
+            <ion-label position="floating" class="lbl">Clave</ion-label>
+            <ion-input type="password" formControlName="claveLogin"></ion-input>
+          </ion-item>
+          <ion-label style="color: red;" [hidden]="!errorEnControlLogin('claveLogin')">
+            ¡Clave inválida!
+          </ion-label>
+          <br>
+          <table style="width: 100%;">
+            <tr>
+              <td style="width: 50%;" align="center">
+                <button class="btn" style="width: 90%;height: 50px;" type="submit" [disabled]="!formLogin.valid">
+                  <label class="lbl" style="color: black;">Enviar</label>
+                </button>
+              </td>
+              <td style="width: 50%;" align="center">
+                <button class="btn-secondary" style="width: 90%;height: 50px;" color="warning" (click)="limpiarLogin()">
+                  <label class="lbl" style="color: black;">Limpiar</label>
+                </button>
+              </td>
+            </tr>
+          </table>
+          <br>
+        </form>
+        <div align="center">
+          <button style="width: 100%;" class="btn-tertiary" (click)="mockLogin()">
+            <label class="lbl">Inicio Rapido</label>
+          </button>
+        </div>
+      </ion-card-content>
+    </ion-card>
+  </div>
 </ion-content>
-
-<ion-footer class="ion-text-center">
-  <ion-toolbar color="warning">
-    <h5 expand="full" (click)="mockLogin()">Usuarios</h5>
-  </ion-toolbar>
-</ion-footer>

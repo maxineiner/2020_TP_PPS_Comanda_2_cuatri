@@ -1,156 +1,62 @@
-.lblCorreoLogin{
-    position: absolute;
-    width: 80vw; 
-    height: 5vh;
-    top: 10vh;
-    left: 10vw;
-    border-radius: 10px;
-    background-color: rgb(255,215,0);
-    color:  grey;
-    text-align: center;
-    vertical-align: middle;
-    line-height: 5vh; 
-    font-size: 3vh;
+.lbl{
+    font-size: 18px;
+    font-family: cursive;
 }
 
-.inpCorreoLogin{
-    position: absolute;
-    width: 80vw; 
-    height: 5vh;
-    top: 15vh;
-    left: 10vw;
-    color: grey;
-    background-color: rgba(255, 255, 255, 0);
-    border: 0px;
-    border-bottom: 3px solid grey;
-    font-size: 3vh;
-    text-align: center;
+.btn{
+    border-radius: 100px;
+    background-color: #2dd36f;
+    font-family: cursive;
+    height: 50px;
 }
 
-.lblClaveLogin{
-    position: absolute;
-    width: 80vw; 
-    height: 5vh;
-    top: 30vh;
-    left: 10vw;
-    border-radius: 10px;
-    background-color:  rgb(255,215,0);
-    color:  grey;
-    text-align: center;
-    vertical-align: middle;
-    line-height: 5vh; 
-    font-size: 3vh;;
+
+.btn:hover{
+    background-color: #35f381;
 }
 
-.inpClaveLogin{
-    position: absolute;
-    width: 80vw; 
-    height: 5vh;
-    top: 35vh;
-    left: 10vw;
-    color: grey;
-    background-color: rgba(255, 255, 255, 0);
-    border: 0px;
-    border-bottom: 3px solid grey;
-    font-size: 3vh;
-    text-align: center;
+.btn:focus {
+    outline: 0 !important;
 }
 
-//ERRORES
-///////////////////////////////////////////////////////////////////////////
-
-.errCorreoLogin{
-    position: absolute;
-    width: 80vw; 
-    height: 5vh;
-    top: 43vh;
-    left: 10vw;
-    border-radius: 10px;
-    color: grey;
-    background-color: black;
-    text-align: center;
-    vertical-align: middle;
-    line-height: 6vh; 
-    font-size: x-large;
-    animation: showErrorLogin 2s linear;
+.fondo{
+    background: url("../../assets/splash.jpg");
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+.divScroll{
+    overflow-y: auto;
+    height: 100%;
 }
 
-.errClaveLogin{
-    position: absolute;
-    width: 80vw; 
-    height: 5vh;
-    top: 52vh;
-    left: 10vw;
-    border-radius: 10px;
-    color: grey;
-    background-color: black;
-    text-align: center;
-    vertical-align: middle;
-    line-height: 6vh; 
-    font-size: x-large;
-    animation: showErrorLogin 2s linear;
+.btn-secondary{
+    border-radius: 100px;
+    background-color: #ffd000;
+    font-family: cursive;
+    height: 50px;
 }
 
-///////////////////////////////////////////////////////////////////////////
-
-.btnSubmitLogin{
-    position: absolute; 
-    width: 70vw; 
-    height: 10vh;
-    top: 60vh;
-    left: 15vw;
-    /*color: grey;
-    background-color:  rgb(255,215,0);
-    border-radius: 10px;
-    box-shadow: 0 10px 	rgb(218,165,32);
-    font-size: 5vh;*/
+.btn-secondary:hover{
+    background-color: #ddb400;
 }
 
-/*.btnSubmitLogin:active{
-    transform: translate(0px, 5px);
-    box-shadow: 0 5px rgb(218,165,32);
-}*/
-
-.btnResetLogin{
-    position: absolute; 
-    width: 70vw; 
-    height: 6vh;
-    top: 75vh;
-    left: 15vw;
-    /*color: grey;
-    background-color:  rgb(255,215,0);
-    border-radius: 10px;
-    box-shadow: 0 10px 	rgb(218,165,32);
-    font-size: 5vh;*/
+.btn-secondary:focus {
+    outline: 0 !important;
 }
 
-/*.btnResetLogin:active{
-    transform: translate(0px, 5px);
-    box-shadow: 0 5px rgb(218,165,32);
-}*/
-
-@keyframes showErrorLogin{
-    from {transform: scale(0.5, 0.5);}
-    to {transform: scale(1, 1);}
+.btn-tertiary{
+    border-radius: 100px;
+    background-color: #cecece;
+    font-family: cursive;
+    height: 50px;
 }
 
-.headLogin{
-  position: absolute;
-  top: 0vh;
-  left: 0vw;
-  height: 5vh;
-  width: 100vw;
-  background-color: rgb(255,215,0);
+
+.btn-tertiary:hover{
+    background-color: #b9b9b9;
 }
 
-.btnVolverLogin{
-  position: absolute;
-  top: 0%;
-  left: 0%;
-  width: 15%;
-  height: 100%;
-  background-color: rgba(255, 255, 255, 0);
-  color: grey;
-  font-size: 2em;
-  vertical-align: middle;
-} 
+.btn-tertiary:focus {
+    outline: 0 !important;
+}

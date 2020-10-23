@@ -50,7 +50,6 @@ import { Vibration } from '@ionic-native/vibration/ngx';
      AngularFireStorageModule,
      CommonModule,
     FormsModule,
-    Vibration,
     ToolbarModule,
     ReactiveFormsModule],
   providers: [
@@ -59,6 +58,7 @@ import { Vibration } from '@ionic-native/vibration/ngx';
     Camera,
     BarcodeScanner,
     Usuario,
+    Vibration,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]

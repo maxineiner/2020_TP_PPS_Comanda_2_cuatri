@@ -144,74 +144,53 @@ export class LoginPage implements OnInit {
   mockLogin() {
     this.utilsService.presentActionsheet({
       buttons: [{
-        text: 'DUEÑO Lucas',
+        text: 'Dueño',
         handler: () => {
-          this.formLogin.controls.correoLogin.setValue('lucas@lucas.com');
-          this.formLogin.controls.claveLogin.setValue('270699');
+          this.formLogin.controls.correoLogin.setValue('dueño@dueño.com');
+          this.formLogin.controls.claveLogin.setValue('111111');
         }
       },
       {
-        text: 'DUEÑO Pato',
+        text: 'Supervisor',
         handler: () => {
-          this.formLogin.controls.correoLogin.setValue('pato@pato.com');
-          this.formLogin.controls.claveLogin.setValue('123456');
+          this.formLogin.controls.correoLogin.setValue('supervisor@supervisor.com');
+          this.formLogin.controls.claveLogin.setValue('111111');
         }
       }, {
-        text: 'SUPERVISOR Flippi',
-        handler: () => {
-          this.formLogin.controls.correoLogin.setValue('soyflippi@gmail.com');
-          this.formLogin.controls.claveLogin.setValue('123456');
-        }
-      }, {
-        text: 'COCINERO',
-        handler: () => {
-          this.formLogin.controls.correoLogin.setValue('cocinero@cocinero.com');
-          this.formLogin.controls.claveLogin.setValue('123456');
-        }
-      }, {
-        text: 'BARTENDER',
-        handler: () => {
-          this.formLogin.controls.correoLogin.setValue('bartender@bartender.com');
-          this.formLogin.controls.claveLogin.setValue('270699');
-        }
-      },
-      {
-        text: 'METRE',
-        handler: () => {
-          this.formLogin.controls.correoLogin.setValue('metre2@metre.com');
-          this.formLogin.controls.claveLogin.setValue('123456');
-        }
-      },
-      {
-        text: 'MOZO',
+        text: 'Mozo',
         handler: () => {
           this.formLogin.controls.correoLogin.setValue('mozo@mozo.com');
-          this.formLogin.controls.claveLogin.setValue('123456');
-        }
-      },
-      {
-        text: 'Cliente 1',
-        handler: () => {
-          this.formLogin.controls.correoLogin.setValue('cliente1@gmail.com');
-          this.formLogin.controls.claveLogin.setValue('123456');
-        }
-      },
-      {
-        text: 'Cliente 2',
-        handler: () => {
-          this.formLogin.controls.correoLogin.setValue('cliente2@gmail.com');
-          this.formLogin.controls.claveLogin.setValue('123456');
-        }
-      },
-      {
-        text: 'Cliente Anónimo',
-        handler: () => {
-          this.formLogin.controls.correoLogin.setValue('pepe@pepe.com');
-          this.formLogin.controls.claveLogin.setValue('123456');
+          this.formLogin.controls.claveLogin.setValue('111111');
         }
       }, {
+        text: 'Bartender',
+        handler: () => {
+          this.formLogin.controls.correoLogin.setValue('bartender@bartender.com');
+          this.formLogin.controls.claveLogin.setValue('111111');
+        }
+      }, {
+        text: 'Metre',
+        handler: () => {
+          this.formLogin.controls.correoLogin.setValue('metre@metre.com');
+          this.formLogin.controls.claveLogin.setValue('111111');
+        }
+      },
+      {
+        text: 'Cocinero',
+        handler: () => {
+          this.formLogin.controls.correoLogin.setValue('cocinero@cocinero.com');
+          this.formLogin.controls.claveLogin.setValue('111111');
+        }
+      },
+      {
+        text: 'Cliente',
+        handler: () => {
+          this.formLogin.controls.correoLogin.setValue('cliente@cliente.com');
+          this.formLogin.controls.claveLogin.setValue('111111');
+        }
+      }, 
+      {
         text: 'Cerrar',
-        icon: 'close',
         role: 'cancel',
         handler: () => {
         }

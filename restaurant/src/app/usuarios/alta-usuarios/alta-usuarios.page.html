@@ -35,8 +35,8 @@
         <ion-card-content style="padding: 10%;">
           <table style="width: 100%;">
             <tr>
-              <td style="width:50%;" align="center">
-                <button class="btn" style="width: 90%;height: 50px;" *ngIf="mostrarSegunAlta('qr')"
+              <td *ngIf="mostrarSegunAlta('qr')" style="width:50%;" align="center">
+                <button class="btn" style="width: 90%;height: 50px;"
                   (click)="scanQrAltaUsuarios()" expand="block">
                   <ion-icon name="qr-code-outline"></ion-icon> QR
                 </button>
