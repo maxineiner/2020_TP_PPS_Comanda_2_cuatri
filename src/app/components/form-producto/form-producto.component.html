@@ -66,8 +66,8 @@
     </ion-row>
   </ion-grid>
   
-  <ion-button (click)="registrar()" color="dark" expand="block" type="submit" 
-    *ngIf="opcion == 'Alta'"><!-- [disabled]="registroForm.pristine || registroForm.invalid" -->
+  <ion-button (click)="registrar()" color="dark" expand="block" type="submit" [disabled]="registroForm.pristine || registroForm.invalid"
+    *ngIf="opcion == 'Alta'">
     Crear
   </ion-button>
 
