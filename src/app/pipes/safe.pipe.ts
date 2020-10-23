@@ -13,11 +13,11 @@ export class SafePipe implements PipeTransform {
   {
     switch (type) 
     {
-			case 'html': return this.sanitizer.bypassSecurityTrustHtml(value);
-			case 'url': return this.sanitizer.bypassSecurityTrustUrl(value);
-			case 'resourceUrl': return this.sanitizer.bypassSecurityTrustResourceUrl(value);
-			default: throw new Error(`Invalid safe type specified: ${type}`);
-		}
+	case 'html': return this.sanitizer.bypassSecurityTrustHtml(value);
+	case 'url': return this.sanitizer.bypassSecurityTrustUrl(value);
+	case 'resourceUrl': return this.sanitizer.bypassSecurityTrustResourceUrl(value);
+	default: throw new Error(`Invalid safe type specified: ${type}`);
+	}
 
   }
 
