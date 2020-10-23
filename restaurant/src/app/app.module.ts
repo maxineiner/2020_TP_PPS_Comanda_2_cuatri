@@ -59,6 +59,7 @@ import { Vibration } from '@ionic-native/vibration/ngx';
     Vibration,
     BarcodeScanner,
     Usuario,
+    Vibration,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]
