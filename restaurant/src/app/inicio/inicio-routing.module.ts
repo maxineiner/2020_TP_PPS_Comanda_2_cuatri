@@ -5,7 +5,7 @@ import { ClientesAnonimosComponent } from '../altas/clientes-anonimos/clientes-a
 import { ClientesRegistradosComponent } from '../altas/clientes-registrados/clientes-registrados.component';
 import { MesasComponent } from '../altas/mesas/mesas.component';
 import { SupervisorComponent } from '../altas/supervisor/supervisor.component';
-import { LoginComponent } from '../login/login.component';
+// import { LoginComponent } from '../login/login.component';
 import { MenuPrincipalComponent } from '../menu-principal/menu-principal.component';
 
 import { InicioPage } from './inicio.page';
@@ -35,10 +35,10 @@ const routes: Routes = [
     path:"AltaMesas",
     component: MesasComponent
   },
-  {
-    path:"Login",
-    component:LoginComponent
-  },
+  // {
+  //   path:"Login",
+  //   component:LoginComponent
+  // },
   {
     path:"menu",
     component:MenuPrincipalComponent

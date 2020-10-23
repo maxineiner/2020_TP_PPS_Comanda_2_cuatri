@@ -49,7 +49,7 @@ export class InicioPage implements OnInit {
         break;
 
       case 'LOGIN':
-        this.utilsService.showLoadingAndNavigate('inicio/Login');
+        this.utilsService.showLoadingAndNavigate('login');
         break;
     }
   }

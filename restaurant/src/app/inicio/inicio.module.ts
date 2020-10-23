@@ -10,7 +10,7 @@ import { InicioPage } from './inicio.page';
 import { ClientesAnonimosComponent } from '../altas/clientes-anonimos/clientes-anonimos.component';
 import { ClientesRegistradosComponent } from '../altas/clientes-registrados/clientes-registrados.component';
 import { Usuario } from '../clases/usuario';
-import { LoginComponent } from '../login/login.component';
+// import { LoginComponent } from 'login/login.component';
 import { MesasComponent } from '../altas/mesas/mesas.component';
 import { Mesa } from '../clases/mesa';
 import { MenuPrincipalComponent } from '../menu-principal/menu-principal.component';
@@ -27,7 +27,7 @@ import { MenuPrincipalComponent } from '../menu-principal/menu-principal.compone
     InicioPage,
     ClientesAnonimosComponent,
     ClientesRegistradosComponent,
-    LoginComponent,
+    // LoginComponent,
     MesasComponent,
     MenuPrincipalComponent
   ],

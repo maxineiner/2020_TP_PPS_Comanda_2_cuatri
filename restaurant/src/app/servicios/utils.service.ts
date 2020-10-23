@@ -38,6 +38,12 @@ export class UtilsService {
     await alert.present();
   }
 
+  navagarAPage(ruta: string) {
+    this.dismissLoading();
+    this.router.navigate([ruta]);
+
+  }
+
   async presentToast(message, cssClass) {
     const toast = await this.toastCtrl.create({
       message,

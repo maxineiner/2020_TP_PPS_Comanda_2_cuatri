@@ -27,14 +27,16 @@ import { CommonModule } from '@angular/common';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 
 import * as firebase from 'firebase';
-
+firebase.initializeApp(environment.firebaseConfig);
 
 import { ToolbarModule } from './toolbar/toolbar.module';
 import { Usuario } from './clases/usuario';
-firebase.initializeApp(environment.firebaseConfig);
+import { LoginPipe } from './login.pipe';
+import { Vibration } from '@ionic-native/vibration/ngx';
+
 
 @NgModule({
-  declarations: [AppComponent,SupervisorComponent, ClientesPipe],
+  declarations: [AppComponent,SupervisorComponent, ClientesPipe, LoginPipe],
   entryComponents: [],
   imports: [
     AngularFireModule.initializeApp(environment.firebaseConfig),
@@ -45,10 +47,10 @@ firebase.initializeApp(environment.firebaseConfig);
      AngularFireDatabaseModule,
      HttpClientModule,
      AngularFirestoreModule,
-     AngularFireAuthModule,
      AngularFireStorageModule,
      CommonModule,
     FormsModule,
+    Vibration,
     ToolbarModule,
     ReactiveFormsModule],
   providers: [

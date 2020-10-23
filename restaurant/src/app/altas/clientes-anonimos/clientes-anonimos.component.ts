@@ -36,6 +36,8 @@ export class ClientesAnonimosComponent implements OnInit {
     });
   }
 
+ 
+
   cargarDatosQr(datos: any): void {
     var parsedData = datos.text.split('@');
     var nombre: string = (parsedData[2].toString());
