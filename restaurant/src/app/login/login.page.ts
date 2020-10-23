@@ -75,7 +75,7 @@ export class LoginPage implements OnInit {
               }
             } else { // No aprobado
               this.utilsService.presentAlert('Hola!',
-                'Pronto vas a poder disfrutar de COHERENCE',
+                'Pronto vas a poder disfrutar de CodeFactory',
                 'Tu cuenta esta pendiente de aprobación.');
               this.authService.logout();
             }
@@ -116,7 +116,7 @@ export class LoginPage implements OnInit {
           retorno = false;
         }
         else {
-          // this.vibration.vibrar(2000);
+           this.vibration.vibrar(2000);
           retorno = true;
         }
         break;
@@ -125,7 +125,7 @@ export class LoginPage implements OnInit {
           retorno = false;
         }
         else {
-          // this.vibration.vibrar(2000);
+           this.vibration.vibrar(2000);
           retorno = true;
         }
         break;
@@ -141,7 +141,7 @@ export class LoginPage implements OnInit {
     this.formLogin.reset();
   }
 
-  mockLogin() {
+   mockLogin() {
     this.utilsService.presentActionsheet({
       buttons: [{
         text: 'Dueño',

@@ -76,7 +76,7 @@ export class AltaUsuariosPage implements OnInit {
       nuevoUsuario.apellido = this.formUsuario.controls.apellido.value;
       nuevoUsuario.dni = this.formUsuario.controls.dni.value;
       nuevoUsuario.cuil = this.formUsuario.controls.cuil.value;
-      // nuevoUsuario.estado = EstadoUsuario.APROBADO;
+      nuevoUsuario.estado = EstadoUsuario.APROBADO;
 
       nuevoUsuario.foto = this.formUsuario.controls.foto.value;
       switch (localStorage.getItem('tipoDeAlta')) {

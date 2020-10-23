@@ -56,6 +56,7 @@ import { Vibration } from '@ionic-native/vibration/ngx';
     StatusBar,
     SplashScreen,
     Camera,
+    Vibration,
     BarcodeScanner,
     Usuario,
     Vibration,
