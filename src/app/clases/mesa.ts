@@ -1,5 +1,6 @@
 import { IEscaneable } from '../interfaces/IEscaneable';
 import { Cliente } from './cliente';
+import { Imagen } from './imagen';
 
 export enum TipoMesa
 {
@@ -14,7 +15,7 @@ export class Mesa implements IEscaneable
     numero: number;
     comensales: number;
     tipo: TipoMesa;
-    foto: string;
+    foto: Imagen;
     codigoQR: string;
     isAvailable: boolean;
     isActive: boolean;
@@ -22,7 +23,7 @@ export class Mesa implements IEscaneable
     cliente: Cliente;
 
     public static CrearMesa(id: string, numero: number, comensales: number, tipo: TipoMesa, 
-                            foto: string, codigoQR: string, isAvailable: boolean,
+                            foto: Imagen, codigoQR: string, isAvailable: boolean,
                             isActive: boolean, estadoPedido: string, cliente:Cliente)
     {
         let mesa = new Mesa();

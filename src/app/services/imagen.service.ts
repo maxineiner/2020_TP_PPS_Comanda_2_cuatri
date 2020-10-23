@@ -92,30 +92,27 @@ export class ImagenService {
   async subirFoto(): Promise<Imagen> {
     let imagen: Imagen = new Imagen();
 
-    Camera.getPhoto({
-      quality: 90,
-      resultType: CameraResultType.Base64,
-      correctOrientation: true,
-      source: CameraSource.Prompt,
-      promptLabelHeader: "Subir foto",
-      promptLabelCancel: "Cancelar",
-      promptLabelPhoto: "Subir desde galería",
-      promptLabelPicture: "Nueva foto",
-    })
-      .then((imageData) => {
-        console.log(imageData);
-        imagen.base64 = imageData.base64String;
-        imagen.fecha = new Date().toUTCString();
+    const image = await Camera.getPhoto({
+        quality: 90,
+        resultType: CameraResultType.Base64,
+        correctOrientation: true,
+        source: CameraSource.Prompt,
+        promptLabelHeader: "Subir foto",
+        promptLabelCancel: "Cancelar",
+        promptLabelPhoto: "Subir desde galería",
+        promptLabelPicture: "Nueva foto",
       })
-      .catch((error) => {
-        this.presentToast(error);
-      });
+
+    console.log(image);
+    imagen.base64 = image.base64String;
+    imagen.fecha = new Date().toUTCString();
+      
     return imagen;
   }
 
   /**
    * Registra una imagen en la base de datos y la devuelve con su respectivo id y su url
-   *  @imagen Imagen que se decea guardar
+   *  @imagen Imagen que se desea guardar
    * @rutaCarpetaStorage Ruta de la base de datos donde guardar el array, ej '/productos'
    */
   public async crearUnaImagen(

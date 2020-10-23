@@ -8,6 +8,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ListadoMesasComponent } from './listado-mesas/listado-mesas.component';
 import { FormProductoComponent } from './form-producto/form-producto.component';
 import { ListadoProductosComponent } from './listado-productos/listado-productos.component';
+import { PipesModule } from '../pipes/pipes.module';
 
 
 @NgModule({
@@ -23,7 +24,8 @@ import { ListadoProductosComponent } from './listado-productos/listado-productos
     CommonModule,
     IonicModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    PipesModule
   ],
   exports: [
     SplashComponent,

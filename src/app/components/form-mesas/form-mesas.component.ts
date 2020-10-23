@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ToastController } from '@ionic/angular';
+import { Imagen } from 'src/app/clases/imagen';
 import { Mesa } from 'src/app/clases/mesa';
 import { ImagenService } from 'src/app/services/imagen.service';
 import { MesaService } from 'src/app/services/mesa.service';
@@ -25,25 +26,38 @@ export class FormMesasComponent{
     translucent: true,
   }
   codigoQR: any;
+  auxiliarFoto: Imagen = new Imagen();
+  imgPreview: string;
 
   constructor(private mesaService: MesaService, private imagenService: ImagenService,
               private toastController: ToastController) { }
 
 
-  sacarFoto()
+  /**
+   * Método para tomar foto y previsualizar
+   */
+  async sacarFoto()
   {
-    this.imagenService.sacarFoto('mesas');
+    const foto = await this.imagenService.subirFoto()
+   
+    this.imgPreview = `data:image/jpeg;base64,${foto.base64}`;
+    this.auxiliarFoto = Imagen.CrearImagen("_", foto.base64, "_", foto.fecha);
   }
 
+  /**
+   * Alta de mesa
+   */
   crearMesa()
   {
     if(this.mesa && !this.mesa.id)
     {
-      this.mesa.foto = "_";
-
-      this.mesaService.crear(this.mesa)
-                      .then(() => this.presentToast("Alta exitosa", 2000))
-                      .catch(() => this.presentToast("No se pudo realizar el alta", 2000));
+      this.imagenService.crearUnaImagen(this.auxiliarFoto, "/mesas")
+          .then(img => {
+            this.mesa.foto = img;
+            this.mesaService.crear(this.mesa)
+                .then(() => this.presentToast("Alta exitosa", 2000))
+                .catch(() => this.presentToast("No se pudo realizar el alta", 2000));
+          });  
     }
     else
     {
@@ -54,7 +68,7 @@ export class FormMesasComponent{
   modificarMesa()
   {
     console.log("Modificar Mesa");
-    this.mesa.foto = "_";
+    this.mesa.foto = new Imagen();
 
     if(this.mesa)
     {
