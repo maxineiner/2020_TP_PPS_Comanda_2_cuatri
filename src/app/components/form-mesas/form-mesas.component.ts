@@ -41,23 +41,27 @@ export class FormMesasComponent{
     const foto = await this.imagenService.subirFoto()
    
     this.imgPreview = `data:image/jpeg;base64,${foto.base64}`;
-    this.auxiliarFoto = Imagen.CrearImagen("_", foto.base64, "_", foto.fecha);
+
+    this.mesa.foto = new Imagen();
+    this.mesa.foto.base64 = foto.base64;
+    this.mesa.foto.fecha = foto.fecha;
   }
 
   /**
    * Alta de mesa
    */
-  crearMesa()
+  async crearMesa()
   {
     if(this.mesa && !this.mesa.id)
     {
-      this.imagenService.crearUnaImagen(this.auxiliarFoto, "/mesas")
-          .then(img => {
-            this.mesa.foto = img;
-            this.mesaService.crear(this.mesa)
-                .then(() => this.presentToast("Alta exitosa", 2000))
-                .catch(() => this.presentToast("No se pudo realizar el alta", 2000));
-          });  
+      const imagenGuardada = await this.imagenService.crearUnaImagen(this.mesa.foto, "/mesas");
+                    
+      this.mesa.foto = imagenGuardada;
+      console.log(this.mesa);
+
+      this.mesaService.crear(this.mesa)
+          .then(() => this.presentToast("Alta exitosa", 2000))
+          .catch(() => this.presentToast("No se pudo realizar el alta", 2000));
     }
     else
     {
@@ -68,7 +72,6 @@ export class FormMesasComponent{
   modificarMesa()
   {
     console.log("Modificar Mesa");
-    this.mesa.foto = new Imagen();
 
     if(this.mesa)
     {

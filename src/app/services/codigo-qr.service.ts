@@ -7,7 +7,7 @@ import { IEscaneable } from '../interfaces/IEscaneable';
   providedIn: 'root'
 })
 export class CodigoQRService {
-  escanerQRref: any;
+  private escanerQRref: any;
 
   /**
    * Se le adiciona al backbutton la funcion de cancelar el escaneo
@@ -16,7 +16,7 @@ export class CodigoQRService {
    * @param platform Instancia del dispositivo donde se ejecuta el código (Web, Native)
    * @param escanerQR (Instancia del plugin de lector QR)
    */
-  constructor(public platform: Platform, private escanerQR: QRScanner) 
+  constructor(private platform: Platform, private escanerQR: QRScanner) 
   {
     this.platform.backButton.subscribeWithPriority(0,()=>
       {

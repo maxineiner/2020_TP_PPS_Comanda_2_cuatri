@@ -9,12 +9,14 @@ import { ListadoMesasComponent } from './listado-mesas/listado-mesas.component';
 import { FormProductoComponent } from './form-producto/form-producto.component';
 import { ListadoProductosComponent } from './listado-productos/listado-productos.component';
 import { PipesModule } from '../pipes/pipes.module';
+import { DetalleMesaComponent } from './detalle-mesa/detalle-mesa.component';
 
 
 @NgModule({
   declarations: [
     SplashComponent,
     HeaderComponent,
+    DetalleMesaComponent,
     FormMesasComponent,
     ListadoMesasComponent,
     FormProductoComponent,
@@ -30,6 +32,7 @@ import { PipesModule } from '../pipes/pipes.module';
   exports: [
     SplashComponent,
     ListadoProductosComponent,
+    DetalleMesaComponent,
     FormProductoComponent,
     HeaderComponent,
     FormMesasComponent,

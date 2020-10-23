@@ -16,6 +16,9 @@ import {
   CaptureImageOptions,
 } from "@ionic-native/media-capture/ngx";
 import { AngularFireDatabase } from "@angular/fire/database";
+import * as firebase from 'firebase';
+import { ThrowStmt } from '@angular/compiler';
+
 const { Camera } = Plugins;
 declare const window: any;
 
@@ -103,7 +106,6 @@ export class ImagenService {
         promptLabelPicture: "Nueva foto",
       })
 
-    console.log(image);
     imagen.base64 = image.base64String;
     imagen.fecha = new Date().toUTCString();
       
@@ -118,21 +120,32 @@ export class ImagenService {
   public async crearUnaImagen(
     imagen: Imagen,
     rutaCarpetaStorage: string
-  ): Promise<Imagen> {
-    let carpeta = rutaCarpetaStorage;
-    // Se sube imagen a Base de Datos
-    this.crear(imagen)
-      .then((img) => {
-        imagen = img;
-        // Se guarda imagen en el Storage
-        this.guardarImagen(imagen, carpeta)
-          .then((snapshot) =>
-            snapshot.ref.getDownloadURL().then((res) => (imagen.url = res))
-          )
-          .finally(() => this.actualizar(imagen));
-      })
-      .catch(console.error);
-    return imagen;
+  ): Promise<Imagen> 
+  {
+    return new Promise( (resolve,reject) => 
+    {
+      let carpeta = rutaCarpetaStorage;
+      // Se sube imagen a Base de Datos
+  
+      const imagenDB = this.crear(imagen);
+  
+      imagenDB.then(async () => 
+        {
+          console.log("Imagen en DB");
+          // Se guarda imagen en el Storage
+          const imagenStorage = await this.guardarImagen(imagen, carpeta);       
+          const URL = await imagenStorage.ref.getDownloadURL();
+              
+          imagen.url = URL;           
+          imagen.rutaStorage = imagenStorage.ref.child(`${rutaCarpetaStorage}/${imagen.id}`).toString();
+
+          console.log(imagen);
+          
+          resolve(imagen);
+        })
+        .catch(console.error);
+    });
+
   }
 
   /**
@@ -146,15 +159,17 @@ export class ImagenService {
   ): Promise<Array<Imagen>> {
     let carpeta = rutaCarpetaStorage;
     // Se sube imagen a Base de Datos
-    imagenes.forEach((imagen) => {
-      this.crear(imagen)
-        .then((img) => {
-          imagen = img;
+    imagenes.forEach((imagen) => 
+    {
+      this.crear(imagen).then(() => 
+      {
           // Se guarda imagen en el Storage
           this.guardarImagen(imagen, carpeta)
             .then((snapshot) =>
-              snapshot.ref.getDownloadURL().then((res) => (imagen.url = res))
-            )
+            {
+              snapshot.ref.getDownloadURL().then((res) => (imagen.url = res)) // Se asigna URL del Storage
+            })
+            .catch((error) => console.error("Firebase Storage:", error))
             .finally(() => this.actualizar(imagen));
         })
         .catch(console.error);
@@ -166,28 +181,25 @@ export class ImagenService {
     console.log("Guardar imagen-----------------------");
     const metadata: UploadMetadata = {
       contentType: "image/jpeg",
-      customMetadata: {},
     };
     // Se sube imagen al Firebase Storage
     return this.storage
       .ref(`${carpeta}/${imagen.id}`)
-      .putString(imagen.base64, "data_url", metadata)
-      .catch((error) => console.error("Firebase Storage:", error));
+      .putString(imagen.base64, firebase.storage.StringFormat.BASE64, metadata)
   }
 
   /**
    * Crea una referencia en la carpeta imagenes de la base de datos (Realtime data base), y devuelve el parametro imagen pero con el id de referencia
    */
-  private async crear(imagen: Imagen) {
-    this.firebaseDB.database
-      .ref("imagenes")
-      .push()
-      .then((snapshot) =>{
-        imagen.id = snapshot.key;
-        console.log('Creado correctamente');
-      })
-      .catch(() => console.info("No se pudo realizar alta"));
-    return imagen;
+  private crear(imagen: Imagen) {
+    return this.firebaseDB.database.ref("imagenes")
+                .push()
+                .then((snapshot) =>{
+                  imagen.id = snapshot.key;
+                  console.log('Creado correctamente');
+                  this.actualizar(imagen);
+                })
+                .catch(() => console.info("No se pudo realizar alta"));
   }
 
   public actualizar(imagen: Imagen): Promise<any> {
@@ -206,7 +218,7 @@ export class ImagenService {
       .catch(() => console.info("No se pudo realizar la baja."));
   }
 
-  async presentToast(message) {
+  private async presentToast(message) {
     const toast = await this.toastController.create({
       message,
       duration: 2000,

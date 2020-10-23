@@ -1,0 +1,22 @@
+<div class="ion-activatable card-mesa">
+  <ion-card mode="ios" color="dark">
+    <ion-card-header>
+      <ion-card-title>Mesa:{{ mesa.numero }}</ion-card-title>
+    </ion-card-header>
+
+    <ion-img [src]="mesa.foto.url"></ion-img>
+
+    <ion-card-content>
+      <ion-chip color="primary" mode="ios" outline="true">
+        <ion-label>{{ mesa.tipo }}</ion-label>
+      </ion-chip>
+      <ion-chip color="primary" mode="ios" outline="true">
+        <ion-label>{{ mesa.comensales }}</ion-label>
+      </ion-chip>
+      <p>Estado del pedido:{{ mesa.estadoPedido }}</p>
+    </ion-card-content>
+    <ion-button (click)="reservar()" expand="block" fill="solid" shape="round" color="dark">
+      Reservar
+    </ion-button>
+  </ion-card>
+</div>

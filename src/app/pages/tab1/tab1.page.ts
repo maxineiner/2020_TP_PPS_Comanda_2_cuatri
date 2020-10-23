@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ModalController } from '@ionic/angular';
+import { CodigoQRService } from 'src/app/services/codigo-qr.service';
 import { MenuMesaPage } from '../menu-mesa/menu-mesa.page';
 
 @Component({
@@ -9,9 +10,14 @@ import { MenuMesaPage } from '../menu-mesa/menu-mesa.page';
 })
 export class Tab1Page {
 
-  constructor() {}
+  constructor(private escanerQR: CodigoQRService) {}
 
+  escanear()
+  {
+    let scan = this.escanerQR.escanear(); 
 
+    console.log(scan);
+  }
 
 
 }
