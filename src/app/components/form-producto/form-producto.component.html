@@ -53,6 +53,10 @@
     <ion-icon slot="start" name="camera"></ion-icon>
     Tomar Fotos
   </ion-button>
+<!--   <ion-button color="dark" center (click)=subirFoto() *ngIf="opcion != 'Baja'" [disabled]="fotos.length == 3">
+    <ion-icon slot="start" name="camera"></ion-icon>
+    Tomar Fotos
+  </ion-button> -->
 
   <ion-grid *ngIf="fotos">
     <ion-row>
@@ -62,8 +66,8 @@
     </ion-row>
   </ion-grid>
   
-  <ion-button (click)="registrar()" color="dark" expand="block" type="submit" [disabled]="registroForm.pristine || registroForm.invalid"
-    *ngIf="opcion == 'Alta'">
+  <ion-button (click)="registrar()" color="dark" expand="block" type="submit" 
+    *ngIf="opcion == 'Alta'"><!-- [disabled]="registroForm.pristine || registroForm.invalid" -->
     Crear
   </ion-button>
 
