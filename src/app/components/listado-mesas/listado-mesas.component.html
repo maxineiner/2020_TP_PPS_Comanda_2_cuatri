@@ -1,31 +1,7 @@
 <ion-list *ngFor="let mesa of mesas" >
   <ion-item (click)="seleccionarMesa(mesa)" >
 
-    <div class="ion-activatable card-mesa">
-
-      <ion-card mode="ios" color="dark" >
-
-        <ion-card-header>
-          <ion-card-title>Mesa:{{mesa.numero}}</ion-card-title>
-        </ion-card-header>
-
-        <ion-card-content>
-          <ion-chip color="primary" mode="ios" outline="true">
-            <ion-label>Capacidad:{{mesa.comensales}}</ion-label>
-          </ion-chip>
-          <ion-chip color="primary" mode="ios" outline="true">
-            <ion-label>Tipo:{{mesa.tipo}}</ion-label>
-          </ion-chip>
-          <p>
-            Foto de la mesa
-          </p>
-        </ion-card-content>
-
-        <ion-ripple-effect type="bounded"></ion-ripple-effect>
-
-      </ion-card>
-
-    </div>
+    <app-detalle-mesa [mesa]="mesa"></app-detalle-mesa>
 
   </ion-item>
 </ion-list>

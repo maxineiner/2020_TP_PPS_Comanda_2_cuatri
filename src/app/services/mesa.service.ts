@@ -14,12 +14,13 @@ export class MesaService {
 
   public crear(mesa: Mesa): Promise<any>
   {
+    console.log(mesa);
     mesa.isActive = true;
     mesa.cliente = new Cliente();
     mesa.estadoPedido = "Sin pedido"; // Cambiar por enum de Pedidos
 
     return this.firebase.database.ref('mesas')
-                .push()
+                .push(mesa)
                 .then((snapshot) => {
                   mesa.id = snapshot.key;
                   this.escanerQR.generar(mesa, mesa.id); //Generacion de QR

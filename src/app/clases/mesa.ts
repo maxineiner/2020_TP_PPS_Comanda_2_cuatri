@@ -41,6 +41,14 @@ export class Mesa implements IEscaneable
 
         return mesa;
     }
+
+    public setImage(imagen:Imagen)
+    {
+        this.foto.base64 = imagen.base64;
+        this.foto.url = imagen.url;
+        this.foto.fecha = imagen.fecha;
+        this.foto.rutaStorage = imagen.rutaStorage;
+    }
 }
 
 
