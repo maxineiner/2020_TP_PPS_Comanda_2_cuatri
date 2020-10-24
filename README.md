@@ -7,6 +7,7 @@ Para registrar el <strong>grupo completo</strong> con todos sus integrantes: htt
 
 # "Caserito"
 ### Tienda de comida
+<hr>
 <img src="restaurant/src/assets/logo_restaurante.png">
 
 
