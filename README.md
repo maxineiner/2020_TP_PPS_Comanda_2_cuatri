@@ -4,7 +4,6 @@ Para registrar el <strong>grupo completo</strong> con todos sus integrantes: htt
 
 <br>
 
-
 # "Caserito"
 ### Tienda de comida
 <hr>
@@ -22,14 +21,10 @@ Para registrar el <strong>grupo completo</strong> con todos sus integrantes: htt
 - LucasSanchez
 <hr>
 
-# Tareas
+# Flujo de trabajo
 
-## 1er Semana (19/10 al 25/10)
+<a href="https://docs.google.com/spreadsheets/d/1C5TlboQ4kwM8ISqbjtcPCJSgXAjIX555JuIrCkci7Nk/edit#gid=0">Planilla de flujo de trabajo</a>
 
-- Creación de repositorio  
-- Armado de estructura de la aplicacion  
-- Definicion de tareas para cada integrante del equipo
-- Servicios de Firebase  
-- Login funcional
-- Configuración del proyecto en firebase
-- Icono y Splash Screen con Logo de la aplicación 
+<h3> Código Qr - diagrama tentativo -</h3>
+  <img src="https://github.com/maxineiner/2020_TP_PPS_Comanda_1_cuatri/blob/master/Diagrama_QR_MESA.jpg" >
+
