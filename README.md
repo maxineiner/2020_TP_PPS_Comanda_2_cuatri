@@ -5,7 +5,7 @@ Para registrar el <strong>grupo completo</strong> con todos sus integrantes: htt
 <br>
 
 # Nombre restaurante: Caserito
-<img src="restaurant/src/assets/spinner.png">
+<img src="restaurant/src/assets/logo_restaurante.png">
 <hr>
 ## Integrantes
 - Federico Tomadin
@@ -18,14 +18,7 @@ Para registrar el <strong>grupo completo</strong> con todos sus integrantes: htt
 - LucasSanchez
 <hr>
 
-# Tareas
+# Flujo de trabajo
 
-## 1er Semana (19/10 al 25/10)
+<a href="https://docs.google.com/spreadsheets/d/1C5TlboQ4kwM8ISqbjtcPCJSgXAjIX555JuIrCkci7Nk/edit#gid=0">Planilla de flujo de trabajo</a>
 
-- Creación de repositorio  
-- Armado de estructura de la aplicacion  
-- Definicion de tareas para cada integrante del equipo
-- Servicios de Firebase  
-- Login funcional
-- Configuración del proyecto en firebase
-- Icono y Splash Screen con Logo de la aplicación 
