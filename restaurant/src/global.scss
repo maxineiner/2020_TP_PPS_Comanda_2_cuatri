@@ -85,15 +85,15 @@
             bottom: 0;
             margin: auto;
             z-index: 300;
-            animation: spinLogin 2s linear infinite;
+            animation: rotation 1s infinite linear;
+            
             // background-color: gold;
             border-radius: 100px;
         }
     }
     
-    @keyframes spinLogin{
-        from{transform: rotate(0deg);}
-        to{transform: rotate(360deg);}
+    @keyframes rotation {
+      100%{ transform:rotatey(360deg); }
     }
   }
 
