@@ -19,11 +19,20 @@ export class ListadoMesasComponent implements OnInit {
     this.presentLoading('Cargando mesas...', 2000);
   }
 
+  /**
+   * Método para enviar mesa seleccionada
+   * @param mesa Mesa seleccionada
+   */
   seleccionarMesa(mesa: Mesa)
   {
     this.elegirMesa.emit(mesa);
   }
 
+  /**
+   * Método para presentar loading
+   * @param message Mensaje del componente
+   * @param duration Duracion del presentacion del mensaje
+   */
   async presentLoading(message, duration) 
   {
     const loading = await this.loadingController.create({
