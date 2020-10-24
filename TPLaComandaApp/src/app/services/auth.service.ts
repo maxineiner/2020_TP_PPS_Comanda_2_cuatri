@@ -29,6 +29,26 @@ export class AuthService {
 
   logout() {
     this.navCtrl.navigateRoot('/login', {animated: true});
+    this.ngFireAuth.auth.signOut();
+  }
+
+  ObtenerActual(){
+    return this.ngFireAuth.auth.currentUser;
+  }
+
+  RegistrarUsuario(usuario: UsuarioModel){
+    return this.ngFireAuth.auth.createUserWithEmailAndPassword(usuario.mail, usuario.password);
+  }
+
+  EnviarMailVerificacion(){
+    return this.ngFireAuth.auth.currentUser.sendEmailVerification();
+    // return (await this.auth.currentUser).sendEmailVerification();
+  }
+
+  /* True si esta verificado, false sino */
+  VerificoMail(){
+    return this.ngFireAuth.auth.currentUser.emailVerified;
+    // return (await this.auth.currentUser).emailVerified;
   }
 
 }
