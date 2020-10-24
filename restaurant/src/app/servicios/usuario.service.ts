@@ -12,7 +12,7 @@ export class UsuarioService {
 
   // Obtiene foto del usuario o una default
   obtenerFoto(usuario: Usuario) {
-    let foto = '../../../assets/defaultFoto.png';
+    let foto = '../../assets/defaultFoto.png';
     if (usuario.foto !== '') {
       foto = 'data:image/jpeg;base64,' + usuario.foto;
     }
@@ -21,7 +21,7 @@ export class UsuarioService {
 
   // Muestra una foto codificada en base 64 o una default
   mostrarFoto(fotoBase64: string) {
-    let foto = '../../../assets/defaultFoto.png';
+    let foto = '../../assets/defaultFoto.png';
     if (fotoBase64 !== '') {
       foto = 'data:image/jpeg;base64,' + fotoBase64;
     }

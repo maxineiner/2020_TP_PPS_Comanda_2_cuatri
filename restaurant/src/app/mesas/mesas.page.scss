@@ -1,3 +1,89 @@
 .bold {
     font-weight: 700;
 }
+
+
+.lbl{
+    font-size: 25px;
+    font-family: cursive;
+  }
+  
+  .btn{
+    border-radius: 10px;
+    background-color: #2ac568;
+    font-family: cursive;
+    height: 50px;
+    width: 95%;
+    font-size: 15px;
+  }
+  
+  
+  .btn:hover{
+    background-color: #37ff87;
+    height: 40px;
+    width: 90%;
+  }
+  
+  .btn:focus {
+    outline: 0 !important;
+  }
+  
+  .fondo{
+    background: url("../../assets/splash.jpg");
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+  .divScroll{
+    overflow-y: auto;
+    height: 100%;
+  }
+  
+  .btn-secondary{
+    border-radius: 100px;
+    background-color: #ffd000;
+    font-family: cursive;
+    height: 50px;
+  }
+  
+  .btn-secondary:hover{
+    background-color: #ddb400;
+  }
+  
+  .btn-secondary:focus {
+    outline: 0 !important;
+  }
+  
+  .btn-tertiary{
+    border-radius: 100px;
+    background-color: #cecece;
+    font-family: cursive;
+    height: 50px;
+  }
+  
+  
+  .btn-tertiary:hover{
+    background-color: #b9b9b9;
+  }
+  
+  .btn-tertiary:focus {
+    outline: 0 !important;
+  }
+  
+  .btn-icon{
+    background: none;
+    color: white;
+    font-size: 35px;
+  }
+
+  .ocupada{
+    background-color: #720000;
+    width: 80%;
+    height: 20px;
+  }
+
+  .libre{
+    background-color: #208348;
+    width: 55%;
+    height: 20px;
+  }

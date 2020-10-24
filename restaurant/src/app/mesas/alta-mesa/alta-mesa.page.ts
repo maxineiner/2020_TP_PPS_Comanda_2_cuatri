@@ -5,6 +5,7 @@ import { CameraService } from 'src/app/servicios/camera.service';
 import { Mesa } from 'src/app/clases/mesa';
 import { MesaService } from 'src/app/servicios/mesa.service';
 import { UtilsService } from 'src/app/servicios/utils.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-alta-mesa',
@@ -25,7 +26,8 @@ export class AltaMesaPage implements OnInit {
     private fb: FormBuilder,
     public camara: CameraService,
     private mesas: MesaService,
-    private utilsService: UtilsService
+    private utilsService: UtilsService,
+    private location:Location
   ) { }
 
   ngOnInit() {
@@ -36,8 +38,8 @@ export class AltaMesaPage implements OnInit {
     });
   }
 
-  public volverHome(): void {
-    this.utilsService.showLoadingAndNavigate('home');
+  public volver(): void {
+    this.location.back();
   }
 
   public tomarFoto(): void {

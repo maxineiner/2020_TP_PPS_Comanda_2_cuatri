@@ -16,6 +16,10 @@ const routes: Routes = [
     loadChildren: () => import('./productos/productos.module').then(m => m.ProductosPageModule)
   },
   {
+    path: 'inicio',
+    loadChildren: () => import('./inicio/inicio.module').then( m => m.InicioPageModule)
+  },
+  {
     path: '',
     redirectTo: 'inicio',
     pathMatch: 'full'
@@ -27,10 +31,6 @@ const routes: Routes = [
   {
     path: 'propinas',
     loadChildren: () => import('./propinas/propinas.module').then(m => m.PropinasPageModule)
-  },
-  {
-    path: 'inicio',
-    loadChildren: () => import('./inicio/inicio.module').then( m => m.InicioPageModule)
   },
   {
     path: 'altaDueñoSupervisor',
@@ -56,14 +56,23 @@ const routes: Routes = [
     path: 'clientes',
     loadChildren: () => import('./clientes/clientes.module').then( m => m.ClientesPageModule)
   },
+  /*
   {
+<<<<<<< HEAD
+    //path: 'finalizados',
+    //loadChildren: () => import('./finalizados/finalizados.module').then( m => m.FinalizadosPageModule)
+  },
+  {
+=======
+>>>>>>> 8bfecde5562da9a8b218581e2678c50091efc492
     path: 'chat',
     loadChildren: () => import('./chat/chat.module').then( m => m.ChatPageModule)
   },
+  
   {
     path: 'encuesta',
     loadChildren: () => import('./encuesta/encuesta.module').then( m => m.EncuestaPageModule)
-  }
+  }*/
 
 ];
 

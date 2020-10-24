@@ -3,6 +3,7 @@ import { UtilsService } from 'src/app/servicios/utils.service';
 import { MesaService } from 'src/app/servicios/mesa.service';
 import { Mesa } from 'src/app/clases/mesa';
 import { EditarMesaPage } from './editar-mesa/editar-mesa.page';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-mesas',
@@ -14,11 +15,16 @@ export class MesasPage implements OnInit {
 
   constructor(
     public mesaService: MesaService,
-    private utilsService: UtilsService
+    private utilsService: UtilsService,
+    private location:Location
   ) { }
 
   ngOnInit() {
     this.obtenerMesas();
+  }
+
+  public volver(): void {
+    this.location.back();
   }
 
   obtenerMesas() {

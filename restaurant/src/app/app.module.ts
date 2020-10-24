@@ -34,6 +34,7 @@ import { LoginPipe } from './login.pipe';
 import { Vibration } from '@ionic-native/vibration/ngx';
 import { HomeComponent } from './home/home.component';
 import { ToolbarModule } from './toolbar/toolbar.module';
+import { InicioPageModule } from './inicio/inicio.module';
 
 
 @NgModule({
@@ -52,6 +53,7 @@ import { ToolbarModule } from './toolbar/toolbar.module';
      CommonModule,
     FormsModule,
     ToolbarModule,
+    InicioPageModule,
     ReactiveFormsModule],
   providers: [
     StatusBar,

@@ -18,7 +18,7 @@ export class InicioPage implements OnInit {
   }
 
   ngOnInit() {
-    this.authService.isLoggedIn().then(auth => {
+    /*this.authService.isLoggedIn().then(auth => {
       console.log(auth);
       if (auth) {
         // Si esta logeuado lo redireccionamos
@@ -33,7 +33,7 @@ export class InicioPage implements OnInit {
           }
         });
       }
-    });
+    });*/
   }
 
   manejadoraInicio(opcion: string): void {
