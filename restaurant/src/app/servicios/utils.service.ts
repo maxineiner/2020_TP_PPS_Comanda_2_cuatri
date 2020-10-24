@@ -83,7 +83,6 @@ export class UtilsService {
       cssClass: 'custom-loading',
     }).then(a => {
       a.present().then(() => {
-        console.log('presented');
         if (!this.isLoading) {
           a.dismiss().then(() => console.log('abort presenting'));
         }
@@ -141,7 +140,7 @@ export class UtilsService {
   }
 
   async showLoadingAndNavigate(route: string) {
-  await this.presentLoadingAuto(200);
+  await this.presentLoadingAuto(2000);
     this.router.navigate([route]);
   }
 

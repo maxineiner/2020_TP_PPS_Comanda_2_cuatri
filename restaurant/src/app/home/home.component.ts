@@ -31,24 +31,40 @@ export class HomeComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.usuario.perfil = TipoUsuario.DUEÑO;
-    /*this.authService.currentUser().then((response: firebase.User) => {
+    console.log('Se activo ngOnInit de HOME');
+    this.authService.currentUser().then((response: firebase.User) => {
       this.authService.obtenerDetalle(response).subscribe(datos => {
+        console.log('Se asignaron datos al usuario');
         this.usuario = datos;
         this.notificationService.activarNotificaciones(this.usuario.perfil);
         
-        let notificacion = new Notificacion();
+        /*let notificacion = new Notificacion();
         notificacion.idPedido = "27";
         notificacion.mensaje = "sale con fritas";
         notificacion.receptor = TipoUsuario.COCINERO;
-        this.notificationService.crearNotificacion(notificacion);//.then(data => console.log(data));
+        this.notificationService.crearNotificacion(notificacion);*///.then(data => console.log(data));
         
       });
       // .subscribe(datos => {console.log(datos[0].mensaje)});
-    });*/
+    });
   }
 
   ionViewWillEnter() {
+    this.authService.currentUser().then((response: firebase.User) => {
+      this.authService.obtenerDetalle(response).subscribe(datos => {
+        console.log('Se asignaron datos al usuario');
+        this.usuario = datos;
+        this.notificationService.activarNotificaciones(this.usuario.perfil);
+        
+        /*let notificacion = new Notificacion();
+        notificacion.idPedido = "27";
+        notificacion.mensaje = "sale con fritas";
+        notificacion.receptor = TipoUsuario.COCINERO;
+        this.notificationService.crearNotificacion(notificacion);*///.then(data => console.log(data));
+        
+      });
+      // .subscribe(datos => {console.log(datos[0].mensaje)});
+    });
     /*this.authService.currentUser().then((response: firebase.User) => {
       this.authService.obtenerDetalle(response).subscribe(datos => {
         this.usuario = datos;
