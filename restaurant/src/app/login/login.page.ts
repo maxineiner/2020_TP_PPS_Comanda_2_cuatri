@@ -78,17 +78,10 @@ export class LoginPage implements OnInit {
               }
               this.sonidos.Reproducir('iniciar');
             } else { // No aprobado
-<<<<<<< HEAD
-              //this.utilsService.presentAlert('Hola!',
-              //  'Pronto vas a poder disfrutar de COHERENCE',
-              //  'Tu cuenta esta pendiente de aprobación.');
-              //this.authService.logout();
-=======
               this.utilsService.presentAlert('Hola!',
-                'Pronto vas a poder disfrutar de CodeFactory',
+                'Pronto vas a poder disfrutar de Caserito',
                 'Tu cuenta esta pendiente de aprobación.');
               this.authService.logout();
->>>>>>> cc6cbc99d9ac4490d14fab067e8167e5096e0671
             }
             this.loginSub.unsubscribe();
           });
