@@ -14,6 +14,8 @@ import { Usuario } from '../clases/usuario';
 import { MesasComponent } from '../altas/mesas/mesas.component';
 import { Mesa } from '../clases/mesa';
 import { MenuPrincipalComponent } from '../menu-principal/menu-principal.component';
+//import { HomeComponent } from '../home/home.component';
+//import { BrowserModule } from '@angular/platform-browser';
 
 @NgModule({
   imports: [
@@ -21,7 +23,8 @@ import { MenuPrincipalComponent } from '../menu-principal/menu-principal.compone
     FormsModule,
     IonicModule,
     InicioPageRoutingModule,
-    FormsModule
+    FormsModule,
+    //BrowserModule
   ],
   declarations: [
     InicioPage,
@@ -29,7 +32,8 @@ import { MenuPrincipalComponent } from '../menu-principal/menu-principal.compone
     ClientesRegistradosComponent,
     // LoginComponent,
     MesasComponent,
-    MenuPrincipalComponent
+    MenuPrincipalComponent,
+    //HomeComponent
   ],
   providers:[Usuario,Mesa]
 })

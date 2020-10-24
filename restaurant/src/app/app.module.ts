@@ -29,14 +29,15 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 import * as firebase from 'firebase';
 firebase.initializeApp(environment.firebaseConfig);
 
-import { ToolbarModule } from './toolbar/toolbar.module';
 import { Usuario } from './clases/usuario';
 import { LoginPipe } from './login.pipe';
 import { Vibration } from '@ionic-native/vibration/ngx';
+import { HomeComponent } from './home/home.component';
+import { ToolbarModule } from './toolbar/toolbar.module';
 
 
 @NgModule({
-  declarations: [AppComponent,SupervisorComponent, ClientesPipe, LoginPipe],
+  declarations: [AppComponent,SupervisorComponent, ClientesPipe, LoginPipe,HomeComponent],
   entryComponents: [],
   imports: [
     AngularFireModule.initializeApp(environment.firebaseConfig),

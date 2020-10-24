@@ -11,6 +11,7 @@ import { AuthService } from '../servicios/auth.service';
 import { EstadoUsuario } from 'src/app/enums/estado-usuario.enum';
 import { ActionSheetController } from '@ionic/angular';
 import { UtilsService } from 'src/app/servicios/utils.service';
+import { SonidosService } from '../servicios/sonidos.service';
 
 @Component({
   selector: 'app-login',
@@ -34,7 +35,8 @@ export class LoginPage implements OnInit {
     public fb: FormBuilder,
     public authService: AuthService,
     public actionSheetCtrl: ActionSheetController,
-    private utilsService: UtilsService
+    private utilsService: UtilsService,
+    private sonidos:SonidosService
   ) { }
 
   ngOnInit() {
@@ -45,8 +47,8 @@ export class LoginPage implements OnInit {
       });
   }
 
-  ngOnDestroy(){
-    if(this.loginSub){
+  ngOnDestroy() {
+    if (this.loginSub) {
       this.loginSub.unsubscribe();
       console.log("se ejecuto elon destryo");
     }
@@ -60,7 +62,7 @@ export class LoginPage implements OnInit {
       usuario.clave = this.formLogin.controls.claveLogin.value;
       this.authService.signIn(usuario)
         .then((response) => {
-          // tslint:disable-next-line:no-shadowed-variable
+          //tslint:disable-next-line:no-shadowed-variable
           this.loginSub = response.subscribe((usuario: Usuario) => {  // Aprobado
             console.log(usuario);
             this.utilsService.dismissLoading();
@@ -69,15 +71,17 @@ export class LoginPage implements OnInit {
               localStorage.setItem('perfil', usuario.perfil); // PATO
               if (usuario.perfil === TipoUsuario.CLIENTE_REGISTRADO || usuario.perfil === TipoUsuario.CLIENTE_ANONIMO) { // Clientes
                 this.moveTo('clientes');
+                
                 console.log('actualize clientes');
               } else { // Personal
                 this.moveTo('home');
               }
+              this.sonidos.Reproducir('iniciar');
             } else { // No aprobado
-              this.utilsService.presentAlert('Hola!',
-                'Pronto vas a poder disfrutar de COHERENCE',
-                'Tu cuenta esta pendiente de aprobación.');
-              this.authService.logout();
+              //this.utilsService.presentAlert('Hola!',
+              //  'Pronto vas a poder disfrutar de COHERENCE',
+              //  'Tu cuenta esta pendiente de aprobación.');
+              //this.authService.logout();
             }
             this.loginSub.unsubscribe();
           });
@@ -188,7 +192,7 @@ export class LoginPage implements OnInit {
           this.formLogin.controls.correoLogin.setValue('cliente@cliente.com');
           this.formLogin.controls.claveLogin.setValue('111111');
         }
-      }, 
+      },
       {
         text: 'Cerrar',
         role: 'cancel',

@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { UsuariosPageRoutingModule } from './usuarios-routing.module';
 
 import { UsuariosPage } from './usuarios.page';
+import { ToolbarModule } from '../toolbar/toolbar.module';
 
 @NgModule({
   imports: [
@@ -14,6 +15,7 @@ import { UsuariosPage } from './usuarios.page';
     FormsModule,
     ReactiveFormsModule,
     IonicModule,
+    ToolbarModule,
     UsuariosPageRoutingModule
   ],
   declarations: [UsuariosPage]
