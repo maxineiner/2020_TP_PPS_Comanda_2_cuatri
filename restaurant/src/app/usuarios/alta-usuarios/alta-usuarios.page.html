@@ -22,7 +22,7 @@
             <tr>
               <td>
                 <button class="btn" style="height: 40px;width: 40px;color: white;border-radius: 5px;">
-                  <ion-icon name="chevron-back-outline" routerLink="/inicio"></ion-icon>
+                  <ion-icon name="chevron-back-outline" defaultHref="/"></ion-icon>
                 </button>
               </td>
               <td align="margin-left">
@@ -131,9 +131,11 @@
             </div>
             <br>
             <div class="divCuilAltaUsuarios" *ngIf="mostrarSegunAlta('cuil')">
-              <label class="lblCuilAltaUsuarios">CUIL</label>
-              <input type="text" class="inpCuilAltaUsuarios" formControlName="cuil" name="cuil">
-              <label class="lblErrorCuilAltaUsuarios"
+              <ion-item>
+                <ion-label position="floating" class="lbl">CUIL</ion-label>
+                <ion-input type="number" formControlName="cuil" name="cuil"></ion-input>
+              </ion-item>
+              <label style="color: red;"
                 [hidden]="(formUsuario.controls.cuil.valid && validacionAuxCuil(formUsuario.controls.dni.value)) || formUsuario.controls.cuil.pristine">CUIL
                 INVALIDO</label>
             </div>
