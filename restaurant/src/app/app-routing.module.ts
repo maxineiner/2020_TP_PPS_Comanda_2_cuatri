@@ -49,16 +49,8 @@ const routes: Routes = [
     loadChildren: () => import('./usuarios/usuarios.module').then( m => m.UsuariosPageModule)
   },
   {
-    path: 'login',
-    loadChildren: () => import('./login/login.module').then( m => m.LoginPageModule)
-  },
-  {
     path: 'clientes',
     loadChildren: () => import('./clientes/clientes.module').then( m => m.ClientesPageModule)
-  },
-  {
-    path: 'finalizados',
-    loadChildren: () => import('./finalizados/finalizados.module').then( m => m.FinalizadosPageModule)
   },
   {
     path: 'chat',
