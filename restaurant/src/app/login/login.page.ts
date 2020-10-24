@@ -144,9 +144,9 @@ export class LoginPage implements OnInit {
    mockLogin() {
     this.utilsService.presentActionsheet({
       buttons: [{
-        text: 'Dueño',
+        text: 'Duenio',
         handler: () => {
-          this.formLogin.controls.correoLogin.setValue('dueño@dueño.com');
+          this.formLogin.controls.correoLogin.setValue('duenio@duenio.com');
           this.formLogin.controls.claveLogin.setValue('111111');
         }
       },

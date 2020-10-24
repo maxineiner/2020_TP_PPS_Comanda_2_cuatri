@@ -36,6 +36,22 @@ const routes: Routes = [
   },  {
     path: 'login',
     loadChildren: () => import('./login/login.module').then( m => m.LoginPageModule)
+  },
+  {
+    path: 'clientes',
+    loadChildren: () => import('./clientes/clientes.module').then( m => m.ClientesPageModule)
+  },
+  {
+    path: 'finalizados',
+    loadChildren: () => import('./finalizados/finalizados.module').then( m => m.FinalizadosPageModule)
+  },
+  {
+    path: 'chat',
+    loadChildren: () => import('./chat/chat.module').then( m => m.ChatPageModule)
+  },
+  {
+    path: 'encuesta',
+    loadChildren: () => import('./encuesta/encuesta.module').then( m => m.EncuestaPageModule)
   }
 
 ];
