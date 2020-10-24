@@ -2,22 +2,19 @@
   <ion-header class="ion-no-border" translucent="true">
     <ion-card style="background: none;--background:none;backdrop-filter: blur(10px) brightness(0.7);border-radius: 10px;height: 60px;">
       <table style="width:100%;">
-
-         
-
         <tr>
-          <td style="width: 20%;padding-left: 4%;">
+          <td style="width: 10%;padding-left: 4%;">
             <button class="btn-icon" (click)="cerrarSesion()">
               <ion-icon name="log-out-outline"></ion-icon>
             </button>
           </td>
-          <td style="width: 60%;padding-left: 4%;">
+          <td style="width: 70%;padding-left: 4%;">
             <ion-text class="ion-text-center" color="light">
-              <label style="font-size: 25px;">Bienvenido! <b>{{usuario?.nombre}}</b></label>
+              <label style="font-size: 18px;">Bienvenido! <b>{{usuario?.nombre}}</b></label>
             </ion-text>
           </td>
           <td style="height: 60px;">
-            <img src="usuario.foto" style="width:70%;border-radius: 10px;margin-left:30%" alt="">
+            <img [src]="usuarioService.mostrarFoto(usuario.foto)" style="width:70%;border-radius: 10px;margin-left:30%" alt="">
           </td>
         </tr>
       </table>

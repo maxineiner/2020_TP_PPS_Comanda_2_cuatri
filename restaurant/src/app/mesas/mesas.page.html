@@ -1,65 +1,88 @@
-<app-toolbar [titulo]="'Mesas'" [backBtn]="'home'" [usuario]="null">
-</app-toolbar>
-
-<ion-content class="background">
-
-  <ion-grid class="ion-no-padding">
-    <ion-row>
-      <ion-col>
-        <ion-button color="warning" (click)="agregarMesa()" size="block">
-          <ion-icon name="tablet-landscape-outline"></ion-icon> Agregar MESA
-        </ion-button>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
-
-  <!-- MESAS -->
-  <ion-list color=“transparent”>
-    <ion-list-header color="light">
-      MESAS
-    </ion-list-header>
-
-    <ion-item color="warning" *ngIf="listaMesas && listaMesas.length === 0">
-      <ion-label class="ion-text-wrap">
-        No hay mesas cargadas
-      </ion-label>
-    </ion-item>
-
-
-
-    <ion-item-sliding *ngFor="let mesa of listaMesas">
-      <ion-item color="warning">
-        <ion-avatar slot="start">
-          <img src="{{mesaService.obtenerFoto(mesa)}}">
-        </ion-avatar>
-        <ion-label color="light">
-          <h2 class="ion-text-capitalize bold">MESA #{{mesa.numero}}</h2>
-          <h3>
-            <ion-badge color="{{(mesa.estado === 'LIBRE') ? 'success' : 'light'}}">{{mesa.estado}}</ion-badge>
-          </h3>
-          <p>
-            <ion-badge color="light">
-              <ion-icon name="people-outline"></ion-icon>
-              {{mesa.cantidad}}
-            </ion-badge>
-            <ion-badge color="dark">
-              <ion-icon name="information-circle-outline"></ion-icon>
-              {{mesa.tipo}}
-            </ion-badge>
-          </p>
-        </ion-label>
-      </ion-item>
-
-      <ion-item-options side="end">
-        <ion-item-option color="light" (click)="editarMesa(mesa)">
-          <ion-icon slot="icon-only" name="create-outline"></ion-icon>
-        </ion-item-option>
-        <ion-item-option color="danger" (click)="eliminarMesa(mesa)">
-          <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
-        </ion-item-option>
-      </ion-item-options>
-    </ion-item-sliding>
-
-  </ion-list>
-
-</ion-content>
+<body class="fondo">
+  <ion-header class="ion-no-border" translucent="true">
+    <ion-card style="background: none;--background:none;backdrop-filter: blur(10px) brightness(0.7);border-radius: 10px;height: 60px;">
+      <table style="width:100%;">
+        <tr>
+          <td style="width: 10%;padding-left: 4%;">
+            <button class="btn-icon" (click)="volver()">
+              <ion-icon name="chevron-back-outline"></ion-icon>
+            </button>
+          </td>
+          <td style="width: 50%;padding-left: 4%;">
+            <ion-text color="light">
+              <label style="font-size: 18px;"><b>Gestion de Mesas</b></label>
+            </ion-text>
+          </td>
+          <td style="height: 60px;">
+            <button class="btn" (click)="agregarMesa()" size="block">
+              <b>Agregar mesa</b>
+            </button>
+          </td>
+        </tr>
+      </table>
+    </ion-card>
+  </ion-header>
+  
+  <ion-content style="--background:none;">
+    <br>
+    <div style="width: 100%;padding-left: 3%;padding-right: 3%;backdrop-filter: blur(15px) brightness(0.7);border-radius: 20px;">
+        <ion-list-header color="translucent" >
+          <div align="center" style="width: 100%;">
+            <br>
+            <b style="color: white;">LISTA DE MESAS</b> 
+          </div>
+        </ion-list-header>
+    
+        <ion-item color="warning" *ngIf="listaMesas && listaMesas.length === 0">
+          <ion-label class="ion-text-wrap">
+            No hay mesas cargadas
+          </ion-label>
+        </ion-item>
+        <ion-item-sliding *ngFor="let mesa of listaMesas" style="--background: none;">
+            <div style="background-color: rgb(209, 209, 209);width: 100%;border-radius: 10px;padding-left: 3%;padding-right: 3%;margin-top: 3%;">
+              <table style="width: 100%;">
+                <tr>
+                  <td rowspan="2" style="height: 60px;width: 20%;">
+                    <img src="{{mesaService.obtenerFoto(mesa)}}" style="height: 80px;width: 70px;border-radius: 10px;">
+                  </td>
+                  <td colspan="3">
+                    <h2 style="padding-left: 5%;"><b>Número: {{mesa.numero}}</b></h2>
+                  </td>
+                </tr>
+                <tr>
+                  <td style="width: 26%;" align="center">
+                    <h3>
+                      <ion-badge class="{{(mesa.estado === 'LIBRE') ? 'libre' : 'ocupada'}}"> <b>{{mesa.estado}}</b> </ion-badge>
+                      <!--ion-badge color="{{(mesa.estado === 'LIBRE') ? 'success' : 'light'}}">{{mesa.estado}}</ion-badge-->
+                    </h3>
+                  </td>
+                  <td style="width: 26%;" align="center">
+                    <p>
+                      <ion-badge color="light" style="width: 60%;">
+                        <ion-icon name="people-outline"></ion-icon>
+                        {{mesa.cantidad}}
+                      </ion-badge>
+                    </p>
+                  </td>
+                  <td align="center">
+                    <ion-badge color="dark">
+                      {{mesa.tipo}}
+                    </ion-badge>
+                  </td>
+                </tr>
+              </table>
+            </div>
+    
+          <ion-item-options side="end">
+            <ion-item-option color="light" (click)="editarMesa(mesa)">
+              <ion-icon slot="icon-only" name="create-outline"></ion-icon>
+            </ion-item-option>
+            <ion-item-option color="danger" (click)="eliminarMesa(mesa)">
+              <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+            </ion-item-option>
+          </ion-item-options>
+        </ion-item-sliding>
+        <br>
+    </div>
+  </ion-content>
+</body>

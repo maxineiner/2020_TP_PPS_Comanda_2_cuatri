@@ -1,42 +1,80 @@
-<app-toolbar
-  [titulo]="'Nueva Mesa'"
-  [backBtn]="'home'"
-  [usuario]="null">
-</app-toolbar>
 
-<!-- <div class="fondoHome"> -->
-<ion-content class="background">
-  
-  <div *ngIf="getMuestraModal()" id="myModal" class="modal">
-     <img class="modal-content" id="img01" [src]="base64ToImg()" (click)="setMuestraModal(false)">
-  </div>
+<ion-content>
+  <body class="fondo">
+    <ion-card style="border-radius:10px;margin-top: 10%;">
+      <ion-card-header style="background-color: #e2e2e2;">
+        <table style="width: 100%;">
+          <tr>
+            <td>
+              <button class="btn" (click)="volver()" style="height: 40px;width: 40px;color: white;border-radius: 5px;">
+                <ion-icon name="chevron-back-outline"></ion-icon>
+              </button>
+            </td>
+            <td align="margin-left">
+              <h1 style="padding-left: 10%;"> Alta Mesas</h1>
+            </td>
+          </tr>
+        </table>
+      </ion-card-header>
+      <ion-card-content style="padding: 10%;">
 
-  <ion-button *ngIf="getFoto().length === 0" color="warning" (click)="tomarFoto()" expand="block">
-    <ion-icon name="camera-outline"></ion-icon> FOTO
-  </ion-button>
-  <ion-button *ngIf="getFoto().length > 0" color="warning" (click)="setMuestraModal(true)" expand="block">
-    <ion-icon name="image-outline"></ion-icon> VER FOTO
-  </ion-button>
-
-  <form *ngIf="!getMuestraModal()" [formGroup]="formMesa" (ngSubmit) ="onSubmitMesa()">
-    <label class="lblTitulo">Número de mesa</label>
-    <ion-input type="number" [formControl]="formMesa.controls.numeroMesa"></ion-input>
-    <label class="lblError" *ngIf="formMesa.controls.numeroMesa.invalid && (formMesa.controls.numeroMesa.touched || formMesa.controls.numeroMesa.dirty)">{{ mostrarError('numeroMesa') }}</label>
         
-    <label class="lblTitulo">Cantidad de comensales</label>
-    <ion-input type="number" [formControl]="formMesa.controls.cantidadComensales"></ion-input>
-    <label class="lblError" *ngIf="formMesa.controls.cantidadComensales.invalid && (formMesa.controls.cantidadComensales.touched || formMesa.controls.cantidadComensales.dirty)">{{ mostrarError('cantidadComensales') }}</label>
-    
-    <label class="lblTitulo">Tipo de mesa</label>
-    <ion-select [formControl]="formMesa.controls.tipoMesa">
-      <ion-select-option *ngFor="let tipo of tipoMesa">{{ tipo }}</ion-select-option>
-    </ion-select>
-    <label class="lblError" *ngIf="formMesa.controls.tipoMesa.invalid && (formMesa.controls.tipoMesa.touched || formMesa.controls.tipoMesa.dirty)">{{ mostrarError('tipoMesa') }}</label>
+        
+        <button class="btn" (click)="tomarFoto()" expand="block">
+          <ion-icon name="camera-outline"></ion-icon> TOMAR FOTO
+        </button>
+        <br>
+        <br>
+        <div *ngIf="foto" style="width: 100%;background-color: #e2e2e2;border-radius: 20px;padding: 5%;">
+          <table style="width: 100%;">
+            <tr>
+              <td>
+                  <img  [src]="base64ToImg()" style="width: 80px;border-radius: 10px;" alt="">
+                </td>
+                <td align="center">
+                  <h2 style="color: #103f23;"><b>¡La foto ha sido tomada exitosamente!</b></h2>
+                </td>
+              </tr>
+            </table>
+          </div>
+      
+        <form *ngIf="!getMuestraModal()" [formGroup]="formMesa" (ngSubmit) ="onSubmitMesa()">
+          <ion-item>
+            <ion-label position="floating">Número de mesa</ion-label>
+            <ion-input type="number" [formControl]="formMesa.controls.numeroMesa"></ion-input>
+          </ion-item>
+          <ion-label *ngIf="formMesa.controls.numeroMesa.invalid && (formMesa.controls.numeroMesa.touched || formMesa.controls.numeroMesa.dirty)">
+            <b>{{ mostrarError('numeroMesa') }}</b>
+          </ion-label>    
+          <br>
+          <ion-item>
+            <ion-label position="floating">Cantidad de comensales</ion-label>
+            <ion-input type="number" [formControl]="formMesa.controls.cantidadComensales"></ion-input>
+          </ion-item>
+          <ion-label *ngIf="formMesa.controls.cantidadComensales.invalid && (formMesa.controls.cantidadComensales.touched || formMesa.controls.cantidadComensales.dirty)">
+            <b>{{ mostrarError('cantidadComensales') }}</b>
+          </ion-label>
+          <br>
+          <ion-item>
+            <ion-label class="lblTitulo">Tipo de mesa</ion-label>
+            <ion-select  [formControl]="formMesa.controls.tipoMesa" interface="action-sheet">
+              <ion-select-option *ngFor="let tipo of tipoMesa">{{ tipo }}</ion-select-option>
+            </ion-select>
+          </ion-item>
+          <ion-label class="lblError" *ngIf="formMesa.controls.tipoMesa.invalid && (formMesa.controls.tipoMesa.touched || formMesa.controls.tipoMesa.dirty)">
+            <b>{{ mostrarError('tipoMesa') }}</b> 
+          </ion-label>
+          <br>
+          <br>
+          <!-- <button type="button" class="btnVolverAltaMesas" (click)="volverHome()">Volver</button>
+          <button type="button" *ngIf="getFoto().length === 0" class="btnFotoAltaMesas" (click)="tomarFoto()">FOTO</button>
+          <button type="button" *ngIf="getFoto().length > 0" class="btnFotoAltaMesas" (click)="setMuestraModal(true)">VER FOTO</button> -->
+          <button class="btn" type="submit" color="warning" expand="block">ENVIAR</button>
+        </form>
 
-    <!-- <button type="button" class="btnVolverAltaMesas" (click)="volverHome()">Volver</button>
-    <button type="button" *ngIf="getFoto().length === 0" class="btnFotoAltaMesas" (click)="tomarFoto()">FOTO</button>
-    <button type="button" *ngIf="getFoto().length > 0" class="btnFotoAltaMesas" (click)="setMuestraModal(true)">VER FOTO</button> -->
-    <ion-button class="btnSubmitAltaMesas" type="submit" color="warning" expand="block">ENVIAR</ion-button>
-  </form>
+      </ion-card-content>
+    </ion-card>
+  </body>
+  
 </ion-content>
 <!-- </div> -->

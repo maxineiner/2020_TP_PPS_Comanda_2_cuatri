@@ -17,24 +17,8 @@ const routes: Routes = [
     component: InicioPage
   },
   {
-    path: 'altaDueñoSupervisor',
-    component: SupervisorComponent
-  },
-  {
     path: 'alta-usuarios',
     loadChildren: () => import('../usuarios/alta-usuarios/alta-usuarios.module').then(m => m.AltaUsuariosPageModule)
-  },
-  {
-    path: "AltaClientesRegistrados",
-    component: ClientesRegistradosComponent
-  },
-  {
-    path: "AltaClientesAnonimos",
-    component: ClientesAnonimosComponent
-  },
-  {
-    path: "AltaMesas",
-    component: MesasComponent
   },
   {
     path: "login",

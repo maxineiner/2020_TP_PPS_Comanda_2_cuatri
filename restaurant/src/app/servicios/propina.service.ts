@@ -1,17 +1,13 @@
 import { Injectable } from '@angular/core';
-<<<<<<< HEAD
 import { FirebaseService } from './firebase.service';
 import { map } from 'rxjs/internal/operators/map';
 import { Propina } from '../clases/propina';
-=======
->>>>>>> cc6cbc99d9ac4490d14fab067e8167e5096e0671
 
 @Injectable({
   providedIn: 'root'
 })
 export class PropinaService {
 
-<<<<<<< HEAD
   constructor(private firebaseService: FirebaseService) { }
 
   // Obtiene todas las propinas activas
@@ -57,7 +53,4 @@ export class PropinaService {
     propina.fechaBaja = new Date();
     return this.firebaseService.updateDoc('propinas', propina.id, Object.assign({}, propina));
   }
-=======
-  constructor() { }
->>>>>>> cc6cbc99d9ac4490d14fab067e8167e5096e0671
 }
