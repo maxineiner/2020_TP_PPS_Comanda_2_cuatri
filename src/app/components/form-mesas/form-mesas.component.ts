@@ -46,7 +46,7 @@ export class FormMesasComponent implements OnInit{
    */
   async sacarFoto()
   {
-    const foto = await this.imagenService.subirFoto()
+    const foto = await this.imagenService.sacarFoto();
    
     this.imgPreview = `data:image/jpeg;base64,${foto.base64}`;
 

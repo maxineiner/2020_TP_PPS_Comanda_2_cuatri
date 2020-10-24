@@ -104,7 +104,7 @@ export class FormProductoComponent {
       })
   }
   subirFoto(){
-    this.imagenService.subirFoto().then(data=>{
+    this.imagenService.sacarFoto().then(data=>{
       this.fotos.push(data);
     })
   }

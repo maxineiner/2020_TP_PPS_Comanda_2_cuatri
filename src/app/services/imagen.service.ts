@@ -91,7 +91,7 @@ export class ImagenService {
   /**
    * Subir foto del almacenamiento del dispositivo
    */
-  async subirFoto(): Promise<Imagen> {
+  async sacarFoto(): Promise<Imagen> {
     let imagen: Imagen = new Imagen();
 
     const image = await Camera.getPhoto({
