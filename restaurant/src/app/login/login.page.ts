@@ -156,6 +156,13 @@ export class LoginPage implements OnInit {
           }
         },
         {
+          text: 'Sanchez',
+          handler: () => {
+            this.formLogin.controls.correoLogin.setValue('sanchez@sanchez.com');
+            this.formLogin.controls.claveLogin.setValue('333444');
+          }
+        },
+        {
         text: 'Duenio',
         handler: () => {
           this.formLogin.controls.correoLogin.setValue('duenio@duenio.com');
