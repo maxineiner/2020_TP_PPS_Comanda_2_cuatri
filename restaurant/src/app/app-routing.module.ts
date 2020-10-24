@@ -3,16 +3,30 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { ClientesAnonimosComponent } from './altas/clientes-anonimos/clientes-anonimos.component';
 import { ClientesRegistradosComponent } from './altas/clientes-registrados/clientes-registrados.component';
 import { SupervisorComponent } from './altas/supervisor/supervisor.component';
+import { HomeComponent } from './home/home.component';
+import { InicioPage } from './inicio/inicio.page';
 
 const routes: Routes = [
   {
     path: 'home',
-    loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
+    component:HomeComponent
+  },
+  {
+    path: 'productos',
+    loadChildren: () => import('./productos/productos.module').then(m => m.ProductosPageModule)
   },
   {
     path: '',
     redirectTo: 'inicio',
     pathMatch: 'full'
+  },
+  {
+    path: 'mesas',
+    loadChildren: () => import('./mesas/mesas.module').then(m => m.MesasPageModule)
+  },
+  {
+    path: 'propinas',
+    loadChildren: () => import('./propinas/propinas.module').then(m => m.PropinasPageModule)
   },
   {
     path: 'inicio',
@@ -33,7 +47,8 @@ const routes: Routes = [
   {
     path: 'usuarios',
     loadChildren: () => import('./usuarios/usuarios.module').then( m => m.UsuariosPageModule)
-  },  {
+  },
+  {
     path: 'login',
     loadChildren: () => import('./login/login.module').then( m => m.LoginPageModule)
   },

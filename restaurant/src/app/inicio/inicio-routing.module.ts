@@ -5,6 +5,7 @@ import { ClientesAnonimosComponent } from '../altas/clientes-anonimos/clientes-a
 import { ClientesRegistradosComponent } from '../altas/clientes-registrados/clientes-registrados.component';
 import { MesasComponent } from '../altas/mesas/mesas.component';
 import { SupervisorComponent } from '../altas/supervisor/supervisor.component';
+import { HomeComponent } from '../home/home.component';
 // import { LoginComponent } from '../login/login.component';
 import { MenuPrincipalComponent } from '../menu-principal/menu-principal.component';
 
@@ -38,10 +39,6 @@ const routes: Routes = [
   {
     path: "login",
     loadChildren: () => import('../login/login.module').then(m => m.LoginPageModule)
-  },
-  {
-    path: "menu",
-    component: MenuPrincipalComponent
   }
 ];
 
