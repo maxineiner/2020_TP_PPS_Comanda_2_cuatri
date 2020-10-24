@@ -1,3 +1,15 @@
 .bold {
     font-weight: 700;
 }
+
+ion-button {
+    --background: #2dd36f !important; 
+    --background-focused: grey !important;
+    --border-radius: 100px !important;
+    --color: black;
+    --border-style: solid !important;
+}
+
+.btnMesa {
+    margin-left: 25%;
+}

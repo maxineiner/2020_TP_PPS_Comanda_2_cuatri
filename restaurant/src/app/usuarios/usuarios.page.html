@@ -17,35 +17,35 @@
   <ion-grid class="ion-no-padding">
     <ion-row *ngIf="getPerfil() === 'DUEÑO'">
       <ion-col>
-        <ion-button color="warning" (click)="abmUsuario('DUEÑO')" size="block">
+        <ion-button class="btnDuenio" (click)="abmUsuario('DUEÑO')" strong="true">
           <ion-icon name="person-add-outline"></ion-icon> Nuevo DUEÑO
         </ion-button>
       </ion-col>
     </ion-row>
     <ion-row *ngIf="getPerfil() === 'DUEÑO' || getPerfil() === 'SUPERVISOR'">
       <ion-col>
-        <ion-button color="warning" (click)="abmUsuario('SUPERVISOR')" size="block">
+        <ion-button class="btnSupervisor"  (click)="abmUsuario('SUPERVISOR')" strong="true">
           <ion-icon name="person-add-outline"></ion-icon> Nuevo SUPERVISOR
         </ion-button>
       </ion-col>
     </ion-row>
     <ion-row *ngIf="getPerfil() === 'DUEÑO' || getPerfil() === 'SUPERVISOR'">
       <ion-col>
-        <ion-button color="warning" (click)="abmUsuario('EMPLEADO')" size="block">
+        <ion-button class="btnEmpleado" (click)="abmUsuario('EMPLEADO')" strong="true">
           <ion-icon name="person-add-outline"></ion-icon> Nuevo EMPLEADO
         </ion-button>
       </ion-col>
     </ion-row>
     <ion-row *ngIf="getPerfil() === 'METRE'">
       <ion-col>
-        <ion-button color="warning" (click)="abmUsuario('CLIENTE_REGISTRADO')" size="block">
+        <ion-button  (click)="abmUsuario('CLIENTE_REGISTRADO')" size="block">
           <ion-icon name="person-add-outline"></ion-icon> Nuevo CLIENTE_REGISTRADO
         </ion-button>
       </ion-col>
     </ion-row>
     <ion-row *ngIf="getPerfil() === 'METRE'">
       <ion-col>
-        <ion-button color="warning" (click)="abmUsuario('CLIENTE_ANONIMO')" size="block">
+        <ion-button  (click)="abmUsuario('CLIENTE_ANONIMO')" size="block">
           <ion-icon name="person-add-outline"></ion-icon> Nuevo CLIENTE_ANONIMO
         </ion-button>
       </ion-col>
@@ -57,14 +57,14 @@
       PENDIENTES
     </ion-list-header>
 
-    <ion-item color="warning" *ngIf="listaPendientes && listaPendientes.length === 0">
+    <ion-item  *ngIf="listaPendientes && listaPendientes.length === 0">
       <ion-label class="ion-text-wrap">
         No hay usuarios pendientes para confirmar
       </ion-label>
     </ion-item>
 
     <ion-item-sliding *ngFor="let usuario of listaPendientes">
-      <ion-item color="warning">
+      <ion-item >
         <ion-avatar slot="start">
           <img src="{{usuarioService.obtenerFoto(usuario)}}">
         </ion-avatar>
@@ -99,7 +99,7 @@
 
     <ion-item-sliding *ngFor="let usuario of listaAprobados">
 
-      <ion-item color="warning">
+      <ion-item color="success">
         <ion-avatar slot="start">
           <img src="{{usuarioService.obtenerFoto(usuario)}}">
         </ion-avatar>
@@ -107,13 +107,13 @@
           <h2 class="ion-text-capitalize bold">{{usuario.nombre}} {{usuario.apellido}}</h2>
           <h3 *ngIf="usuario.dni">DNI {{usuario.dni}}</h3>
           <p>
-            <ion-badge color="light">{{usuario.perfil}}</ion-badge>
+            <ion-badge color="warning">{{usuario.perfil}}</ion-badge>
           </p>
         </ion-label>
       </ion-item>
 
       <ion-item-options side="end">
-        <ion-item-option color="light" (click)="editarUsuario(usuario)">
+        <ion-item-option color="warning" (click)="editarUsuario(usuario)">
           <ion-icon slot="icon-only" name="create-outline"></ion-icon>
         </ion-item-option>
         <ion-item-option color="danger" (click)="eliminarUsuario(usuario)">

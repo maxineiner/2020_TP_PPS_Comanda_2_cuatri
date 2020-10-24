@@ -26,6 +26,9 @@
 @import "~@ionic/angular/css/flex-utils.css";
 
 
+ion-content.background{
+  --background: url(assets/fondoVeggie.jpg) 0 0/100% 100% no-repeat;
+}
 
 .imgSplash{
     border-radius: 20%;

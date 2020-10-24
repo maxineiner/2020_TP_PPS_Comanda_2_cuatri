@@ -6,7 +6,7 @@
   <ion-grid class="ion-no-padding">
     <ion-row>
       <ion-col>
-        <ion-button color="warning" (click)="agregarMesa()" size="block">
+        <ion-button class="btnMesa" color="success" (click)="agregarMesa()" strong="true" fill="solid">
           <ion-icon name="tablet-landscape-outline"></ion-icon> Agregar MESA
         </ion-button>
       </ion-col>
@@ -19,7 +19,7 @@
       MESAS
     </ion-list-header>
 
-    <ion-item color="warning" *ngIf="listaMesas && listaMesas.length === 0">
+    <ion-item color="success" *ngIf="listaMesas && listaMesas.length === 0">
       <ion-label class="ion-text-wrap">
         No hay mesas cargadas
       </ion-label>
@@ -28,7 +28,7 @@
 
 
     <ion-item-sliding *ngFor="let mesa of listaMesas">
-      <ion-item color="warning">
+      <ion-item color="success">
         <ion-avatar slot="start">
           <img src="{{mesaService.obtenerFoto(mesa)}}">
         </ion-avatar>

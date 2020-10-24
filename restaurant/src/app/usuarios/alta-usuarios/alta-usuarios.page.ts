@@ -333,6 +333,12 @@ export class AltaUsuariosPage implements OnInit {
 
   public getTipoAlta(): string { // PATO
     switch (localStorage.getItem('tipoDeAlta')) {
+      case "DUEÑO":
+        return "Dueños";
+        break;
+        case "SUPERVISOR":
+        return "Supervisores";
+        break;
       case "CLIENTE_REGISTRADO":
         return "cliente registrado";
         break;
