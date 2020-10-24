@@ -7,17 +7,19 @@ import { ModalController } from '@ionic/angular';
   templateUrl: './splash.component.html',
   styleUrls: ['./splash.component.scss'],
 })
-export class SplashComponent implements OnInit {
+export class SplashComponent implements OnInit
+{
 
-  constructor(public viewCtrl: ModalController, public splashScreen: SplashScreen) 
+  constructor(public viewCtrl: ModalController, public splashScreen: SplashScreen)
   {
     this.splashScreen.hide();
-    setTimeout(() => {
-     
-     this.viewCtrl.dismiss()
+    setTimeout(() =>
+    {
+
+      this.viewCtrl.dismiss()
     }, 5000);
   }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
 }

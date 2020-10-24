@@ -6,7 +6,8 @@ import { IEscaneable } from '../interfaces/IEscaneable';
 @Injectable({
   providedIn: 'root'
 })
-export class CodigoQRService {
+export class CodigoQRService
+{
   private escanerQRref: any;
 
   /**
@@ -18,11 +19,11 @@ export class CodigoQRService {
    */
   constructor(private platform: Platform, private escanerQR: QRScanner) 
   {
-    this.platform.backButton.subscribeWithPriority(0,()=>
-      {
-        document.getElementsByTagName("body")[0].style.opacity = "1";
-        this.escanerQRref.unsubscribe();
-      });    
+    this.platform.backButton.subscribeWithPriority(0, () =>
+    {
+      document.getElementsByTagName("body")[0].style.opacity = "1";
+      this.escanerQRref.unsubscribe();
+    });
   }
 
   /**
@@ -33,10 +34,10 @@ export class CodigoQRService {
   {
     console.log("Leer QR");
     let data = "";
-    
-    this.escanerQR.prepare().then((status:QRScannerStatus) => 
+
+    this.escanerQR.prepare().then((status: QRScannerStatus) => 
     {
-      if(status.authorized)
+      if (status.authorized)
       {
         this.escanerQR.show();
         // Transparencia del layout para escaner
@@ -47,14 +48,14 @@ export class CodigoQRService {
           // Información del QR decodificado
           console.log(scan);
           data = scan;
-          
+
           this.escanerQR.show();
           document.getElementsByTagName("body")[0].style.opacity = "1";
-               
+
           this.escanerQR.hide();
           this.escanerQRref.unsubscribe();
         },
-        (error) => console.log(error));
+          (error) => console.log(error));
       }
     })
     return data;
@@ -66,7 +67,7 @@ export class CodigoQRService {
    * @param elemento Objeto con data para generar QR
    * @param id UID que identificará al objeto
    */
-  public generar(elemento: IEscaneable, id:string)
+  public generar(elemento: IEscaneable, id: string)
   {
     // The text to store within the QR code (URL encoded, PHP programmers may use urlencode()).
     let data = `BEGIN:${elemento.constructor.name}ID%3A${id}`;
