@@ -1,3 +1,5 @@
+import { Usuario } from './usuario';
+
 export class Cliente extends Usuario {
   public static CrearCliente(
     id: string,

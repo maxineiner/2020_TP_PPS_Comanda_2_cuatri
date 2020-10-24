@@ -1,4 +1,4 @@
-abstract class Usuario {
+export abstract class Usuario {
   id: string;
   nombre: string;
   apellido: string;

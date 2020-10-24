@@ -1,3 +1,5 @@
+import { Jefe } from './jefe';
+
 export class Supervisor extends Jefe {
   public static CrearSupervisor(
     id: string,
