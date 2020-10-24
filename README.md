@@ -4,8 +4,9 @@ Para registrar el <strong>grupo completo</strong> con todos sus integrantes: htt
 
 <br>
 
-<h1 style="text-align: center;"><strong>Caserito</strong></h1>
-
+# Nombre restaurante: Caserito
+<img src="restaurant/src/assets/spinner.png">
+<hr>
 ## Integrantes
 - Federico Tomadin
 - Lucas Carbone
