@@ -78,10 +78,17 @@ export class LoginPage implements OnInit {
               }
               this.sonidos.Reproducir('iniciar');
             } else { // No aprobado
+<<<<<<< HEAD
               //this.utilsService.presentAlert('Hola!',
               //  'Pronto vas a poder disfrutar de COHERENCE',
               //  'Tu cuenta esta pendiente de aprobación.');
               //this.authService.logout();
+=======
+              this.utilsService.presentAlert('Hola!',
+                'Pronto vas a poder disfrutar de CodeFactory',
+                'Tu cuenta esta pendiente de aprobación.');
+              this.authService.logout();
+>>>>>>> cc6cbc99d9ac4490d14fab067e8167e5096e0671
             }
             this.loginSub.unsubscribe();
           });
@@ -120,7 +127,7 @@ export class LoginPage implements OnInit {
           retorno = false;
         }
         else {
-          // this.vibration.vibrar(2000);
+           this.vibration.vibrar(2000);
           retorno = true;
         }
         break;
@@ -129,7 +136,7 @@ export class LoginPage implements OnInit {
           retorno = false;
         }
         else {
-          // this.vibration.vibrar(2000);
+           this.vibration.vibrar(2000);
           retorno = true;
         }
         break;
@@ -145,12 +152,12 @@ export class LoginPage implements OnInit {
     this.formLogin.reset();
   }
 
-  mockLogin() {
+   mockLogin() {
     this.utilsService.presentActionsheet({
       buttons: [{
-        text: 'Dueño',
+        text: 'Duenio',
         handler: () => {
-          this.formLogin.controls.correoLogin.setValue('dueño@dueño.com');
+          this.formLogin.controls.correoLogin.setValue('duenio@duenio.com');
           this.formLogin.controls.claveLogin.setValue('111111');
         }
       },

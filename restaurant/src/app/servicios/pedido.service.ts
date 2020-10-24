@@ -1,15 +1,19 @@
 import { Injectable } from '@angular/core';
+<<<<<<< HEAD
 import { FirebaseService } from './firebase.service';
 import { map } from 'rxjs/internal/operators/map';
 import { Pedido } from '../clases/pedido';
 import { Usuario } from '../clases/usuario';
 import { EstadoPedido } from '../enums/estado-pedido.enum';
+=======
+>>>>>>> cc6cbc99d9ac4490d14fab067e8167e5096e0671
 
 @Injectable({
   providedIn: 'root'
 })
 export class PedidoService {
 
+<<<<<<< HEAD
   constructor(private firebaseService: FirebaseService) { }
 
   // Obtiene todos los pedidos
@@ -125,4 +129,7 @@ export class PedidoService {
     pedido.fechaBaja = new Date();
     return this.firebaseService.updateDoc('pedidos', pedido.id, Object.assign({}, pedido));
   }
+=======
+  constructor() { }
+>>>>>>> cc6cbc99d9ac4490d14fab067e8167e5096e0671
 }

@@ -57,6 +57,7 @@ import { ToolbarModule } from './toolbar/toolbar.module';
     StatusBar,
     SplashScreen,
     Camera,
+    Vibration,
     BarcodeScanner,
     Usuario,
     Vibration,
