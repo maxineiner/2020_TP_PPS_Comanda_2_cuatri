@@ -4,10 +4,11 @@ export enum TipoEmpleado
 {
   Cocinero = 'Cocinero',
   Bartender = 'Bartender',
-  Mozo = 'Normal'
+  Mozo = 'Mozo'
 }
 
-export class Empleado extends Usuario {
+export class Empleado extends Usuario
+{
   tipo: TipoEmpleado;
   cuil: string;
 
@@ -20,7 +21,8 @@ export class Empleado extends Usuario {
     isActive: boolean,
     tipo: TipoEmpleado,
     cuil: string
-  ) {
+  )
+  {
     let empleado = new Empleado();
 
     empleado.id = id;

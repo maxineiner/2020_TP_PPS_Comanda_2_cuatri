@@ -1,6 +1,7 @@
 import { Jefe } from './jefe';
 
-export class Supervisor extends Jefe {
+export class Supervisor extends Jefe
+{
   public static CrearSupervisor(
     id: string,
     nombre: string,
@@ -9,7 +10,8 @@ export class Supervisor extends Jefe {
     foto: string,
     isActive: boolean,
     cuil: string
-  ) {
+  )
+  {
     let supervisor = new Supervisor();
 
     supervisor.id = id;

@@ -1,6 +1,7 @@
 import { Usuario } from './usuario';
 
-export class Cliente extends Usuario {
+export class Cliente extends Usuario
+{
   public static CrearCliente(
     id: string,
     nombre: string,
@@ -8,7 +9,8 @@ export class Cliente extends Usuario {
     dni: string,
     foto: string,
     isActive: boolean
-  ) {
+  )
+  {
     let cliente = new Cliente();
 
     cliente.id = id;
