@@ -47,7 +47,7 @@ export class MesasPage implements OnInit {
 
   eliminarMesa(mesa: Mesa) {
     const callback = () => this.mesaService.borrarMesa(mesa);
-    this.utilsService.presentAlertConfirm('Atención', '¿Estás seguro que deseas borrar este mesa?', callback);
+    this.utilsService.presentAlertConfirm('Atención', '¿Estás seguro que deseas borrar esta mesa?', callback);
   }
 
 }

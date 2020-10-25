@@ -1,7 +1,7 @@
-
 <body class="fondo">
   <ion-header class="ion-no-border" translucent="true">
-    <ion-card style="background: none;--background:none;backdrop-filter: blur(10px) brightness(0.7);border-radius: 10px;height: 60px;">
+    <ion-card
+      style="background: none;--background:none;backdrop-filter: blur(10px) brightness(0.7);border-radius: 10px;height: 60px;">
       <table style="width:100%;">
         <tr>
           <td style="width: 10%;padding-left: 4%;">
@@ -11,7 +11,7 @@
           </td>
           <td style="width: 50%;padding-left: 4%;">
             <ion-text color="light">
-              <label style="font-size: 18px;"><b>Gestion de Mesas</b></label>
+              <label style="font-size: 18px;"><b>Gestión de Mesas</b></label>
             </ion-text>
           </td>
           <td style="height: 60px;">
@@ -23,68 +23,81 @@
       </table>
     </ion-card>
   </ion-header>
-  
-  <ion-content style="--background:none;">
+
+  <ion-content style="--background:none;" >
     <br>
-    <div style="width: 100%;padding-left: 3%;padding-right: 3%;backdrop-filter: blur(15px) brightness(0.7);border-radius: 20px;">
-        <ion-list-header color="translucent" >
-          <div align="center" style="width: 100%;">
-            <br>
-            <b style="color: white;">LISTA DE MESAS</b> 
-          </div>
-        </ion-list-header>
-    
-        <ion-item color="warning" *ngIf="listaMesas && listaMesas.length === 0">
-          <ion-label class="ion-text-wrap">
-            No hay mesas cargadas
-          </ion-label>
-        </ion-item>
-        <ion-item-sliding *ngFor="let mesa of listaMesas" style="--background: none;">
-            <div style="background-color: rgb(209, 209, 209);width: 100%;border-radius: 10px;padding-left: 3%;padding-right: 3%;margin-top: 3%;">
-              <table style="width: 100%;">
-                <tr>
-                  <td rowspan="2" style="height: 60px;width: 20%;">
-                    <img src="{{mesaService.obtenerFoto(mesa)}}" style="height: 80px;width: 70px;border-radius: 10px;">
-                  </td>
-                  <td colspan="3">
-                    <h2 style="padding-left: 5%;"><b>Número: {{mesa.numero}}</b></h2>
-                  </td>
-                </tr>
-                <tr>
-                  <td style="width: 26%;" align="center">
-                    <h3>
-                      <ion-badge class="{{(mesa.estado === 'LIBRE') ? 'libre' : 'ocupada'}}"> <b>{{mesa.estado}}</b> </ion-badge>
-                      <!--ion-badge color="{{(mesa.estado === 'LIBRE') ? 'success' : 'light'}}">{{mesa.estado}}</ion-badge-->
-                    </h3>
-                  </td>
-                  <td style="width: 26%;" align="center">
-                    <p>
-                      <ion-badge color="light" style="width: 60%;">
-                        <ion-icon name="people-outline"></ion-icon>
-                        {{mesa.cantidad}}
-                      </ion-badge>
-                    </p>
-                  </td>
-                  <td align="center">
-                    <ion-badge color="dark">
-                      {{mesa.tipo}}
+    <div
+      style="width: 100%;padding-left: 3%;padding-right: 3%;backdrop-filter: blur(15px) brightness(0.7);border-radius: 20px;" align="center">
+      <ion-list-header color="translucent">
+        <div align="center" style="width: 100%;">
+          <br>
+          <b style="color: white;">LISTA DE MESAS</b>
+        </div>
+      </ion-list-header>
+
+
+      <div *ngIf="listaMesas && listaMesas.length === 0" style="width: 90%;border-radius: 10px;backdrop-filter: brightness(2);padding: 5%;" align="center">
+        <h2 style="color: white;">
+          No hay mesas cargadas
+        </h2>
+      </div>
+      <ion-item-sliding *ngFor="let mesa of listaMesas" style="--background: none;width: 100%;border-radius: 10px;">
+        <div style="background-color: rgb(209, 209, 209);width: 100%;border-radius: 10px;margin-top: 3%;">
+          <ion-item style="--background: none;width: 100%;">
+            <table style="width: 100%;">
+              <tr>
+                <td rowspan="2" style="height: 60px;width: 20%;">
+                  <img src="{{mesaService.obtenerFoto(mesa)}}" style="height: 80px;width: 70px;border-radius: 10px;">
+                </td>
+                <td colspan="2">
+                  <h2 style="padding-left: 5%;"><b>Mesa: {{mesa.numero}}</b></h2>
+                </td>
+                <td align="center">
+                  <table>
+                    <tr>
+                      <td>
+                        <button class="btn-icon" style="color: rgb(0, 0, 0);" (click)="editarMesa(mesa)">
+                          <ion-icon slot="icon-only" name="create-outline"></ion-icon>
+                        </button>
+                      </td>
+                      <td>
+                        <button class="btn-icon" style="color: red;" (click)="eliminarMesa(mesa)">
+                          <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+                        </button>
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+              <tr>
+                <td style="width: 26%;" align="center">
+                  <h3>
+                    <ion-badge class="{{(mesa.estado === 'LIBRE') ? 'libre' : 'ocupada'}}"
+                      style="width: 80%;height: 100%;">
+                      <b>{{mesa.estado}}</b>
                     </ion-badge>
-                  </td>
-                </tr>
-              </table>
-            </div>
-    
-          <ion-item-options side="end">
-            <ion-item-option color="light" (click)="editarMesa(mesa)">
-              <ion-icon slot="icon-only" name="create-outline"></ion-icon>
-            </ion-item-option>
-            <ion-item-option color="danger" (click)="eliminarMesa(mesa)">
-              <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
-            </ion-item-option>
-          </ion-item-options>
-        </ion-item-sliding>
-        <br>
+                    <!--ion-badge color="{{(mesa.estado === 'LIBRE') ? 'success' : 'light'}}">{{mesa.estado}}</ion-badge-->
+                  </h3>
+                </td>
+                <td style="width: 15%;" align="center">
+                  <p>
+                    <ion-badge color="light" style="width: 80%;height: 100%;">
+                      <ion-icon name="people-outline"></ion-icon>
+                      {{mesa.cantidad}}
+                    </ion-badge>
+                  </p>
+                </td>
+                <td align="center">
+                  <ion-badge style="width: 88%;height: 100%;" color="dark">
+                    {{mesa.tipo}}
+                  </ion-badge>
+                </td>
+              </tr>
+            </table>
+          </ion-item>
+        </div>
+      </ion-item-sliding>
+      <br>
     </div>
   </ion-content>
 </body>
-

@@ -56,15 +56,16 @@ const routes: Routes = [
     path: 'clientes',
     loadChildren: () => import('./clientes/clientes.module').then( m => m.ClientesPageModule)
   },
+  {
+    path: 'clientes-espera',
+    loadChildren: () => import('./home/clientes-espera/clientes-espera.module').then(m => m.ClientesEsperaPageModule)
+  },
   /*
   {
-<<<<<<< HEAD
     //path: 'finalizados',
     //loadChildren: () => import('./finalizados/finalizados.module').then( m => m.FinalizadosPageModule)
   },
   {
-=======
->>>>>>> 8bfecde5562da9a8b218581e2678c50091efc492
     path: 'chat',
     loadChildren: () => import('./chat/chat.module').then( m => m.ChatPageModule)
   },
