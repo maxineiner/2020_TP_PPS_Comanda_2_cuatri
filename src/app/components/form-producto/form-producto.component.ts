@@ -5,7 +5,8 @@ import { ImagenService } from "src/app/services/imagen.service";
 import { ProductoService } from "src/app/services/producto.service";
 import { ToastController } from "@ionic/angular";
 
-enum OpcionForm {
+enum OpcionForm
+{
   ALTA = "Alta",
   MODIFICACION = "Modificación",
   BAJA = "Baja",
@@ -16,7 +17,8 @@ enum OpcionForm {
   templateUrl: "./form-producto.component.html",
   styleUrls: ["./form-producto.component.scss"],
 })
-export class FormProductoComponent {
+export class FormProductoComponent
+{
   @Input() opcion: OpcionForm;
   @Input() producto: Producto;
   popoverOptions = {
@@ -36,16 +38,21 @@ export class FormProductoComponent {
     private productoService: ProductoService,
     private imagenService: ImagenService,
     private toastController: ToastController
-  ) {
+  )
+  {
     this.crearForm();
   }
-  ngOnChanges() {
+  ngOnChanges()
+  {
     this.rellenarFormulario();
   }
 
-  rellenarFormulario() {
-    try {
-      if (this.producto && this.opcion != OpcionForm.ALTA) {
+  rellenarFormulario()
+  {
+    try
+    {
+      if (this.producto && this.opcion != OpcionForm.ALTA)
+      {
         this.registroForm.setValue({
           nombre: this.producto.nombre,
           descripcion: this.producto.descripcion,
@@ -54,22 +61,27 @@ export class FormProductoComponent {
           fotos: this.producto.fotos,
         });
         this.fotos = this.producto.fotos;
-      } else {
+      } else
+      {
         this.registroForm.reset();
         this.fotos = [];
       }
 
-      if (this.opcion == OpcionForm.BAJA) {
+      if (this.opcion == OpcionForm.BAJA)
+      {
         this.registroForm.disable();
-      } else {
+      } else
+      {
         this.registroForm.enable();
       }
-    } catch (error) {
+    } catch (error)
+    {
       console.error(error);
     }
   }
 
-  crearForm() {
+  crearForm()
+  {
     this.registroForm = this.fb.group({
       nombre: ["", Validators.required],
       descripcion: ["", Validators.required],
@@ -86,19 +98,23 @@ export class FormProductoComponent {
     });
   }
 
-  registrar() {
+  registrar()
+  {
     this.imagenService
       .crearArrayImagenes(this.fotos, "/productos")
-      .then((data) => {
-        console.log(data);        
+      .then((data) =>
+      {
+        console.log(data);
         this.registroForm.get("fotos").setValue(data);
         this.productoService
           .registrar(new Producto(this.registroForm.value))
-          .then((data) => {
+          .then((data) =>
+          {
             this.presentToast("Alta exitosa", 2000);
             console.log("Registrado correctamente.");
           })
-          .catch((error) => {
+          .catch((error) =>
+          {
             this.presentToast("No se pudo realizar el alta", 2000);
             console.error("No se pudo realizar el alta.", error);
           });
@@ -106,18 +122,23 @@ export class FormProductoComponent {
       .catch((error) => console.error(error));
   }
 
-  tomarFotos() {
-    this.imagenService.tomarFotos(1).then((data) => {
+  tomarFotos()
+  {
+    this.imagenService.tomarFotos(1).then((data) =>
+    {
       this.fotos = data;
     });
   }
-  subirFoto() {
-    this.imagenService.subirFoto().then((data) => {
+  subirFoto()
+  {
+    this.imagenService.sacarFoto().then((data) =>
+    {
       this.fotos.push(data);
     });
   }
 
-  modificarProducto() {
+  modificarProducto()
+  {
     console.log("Modificando Producto-------");
     this.producto.nombre = this.registroForm.get("nombre").value;
     this.producto.descripcion = this.registroForm.get("descripcion").value;
@@ -129,20 +150,24 @@ export class FormProductoComponent {
 
     this.productoService
       .actualizar(this.producto)
-      .then(() => {
+      .then(() =>
+      {
         this.presentToast("Modificación exitosa", 2000);
         console.log("Modificado correctamente.");
       })
       .catch(() => this.presentToast("No se pudo modificar", 2000));
   }
 
-  borrarProducto() {
+  borrarProducto()
+  {
     console.log("Baja de producto------");
-    if (this.producto) {
+    if (this.producto)
+    {
       this.producto.isActive = false;
       this.productoService
         .actualizar(this.producto)
-        .then(() => {
+        .then(() =>
+        {
           this.presentToast("Baja realizada", 2000);
           this.registroForm.reset();
         })
@@ -150,7 +175,8 @@ export class FormProductoComponent {
     }
   }
 
-  async presentToast(message, duration) {
+  async presentToast(message, duration)
+  {
     const toast = await this.toastController.create({
       message,
       duration,
