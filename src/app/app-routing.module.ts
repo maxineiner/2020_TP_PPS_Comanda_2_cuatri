@@ -8,14 +8,16 @@ const routes: Routes = [
   },
   {
     path: 'menu-producto',
-    loadChildren: () => import('./pages/menu-producto/menu-producto.module').then( m => m.MenuProductoPageModule)
-  },  {
+    loadChildren: () => import('./pages/menu-producto/menu-producto.module').then(m => m.MenuProductoPageModule)
+  },
+  {
     path: 'menu-empleado',
-    loadChildren: () => import('./pages/menu-empleado/menu-empleado.module').then( m => m.MenuEmpleadoPageModule)
-  }
-
-
-
+    loadChildren: () => import('./pages/menu-empleado/menu-empleado.module').then(m => m.MenuEmpleadoPageModule)
+  },
+  {
+    path: 'menu-mesa',
+    loadChildren: () => import('./pages/menu-mesa/menu-mesa.module').then(m => m.MenuMesaPageModule)
+  },
 ];
 @NgModule({
   imports: [
@@ -23,4 +25,4 @@ const routes: Routes = [
   ],
   exports: [RouterModule]
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }
