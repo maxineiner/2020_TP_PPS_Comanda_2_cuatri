@@ -1,24 +1,25 @@
 <app-header titulo="Menú" paginaAnterior='/tabs/tab1'></app-header>
 
+<ion-segment value="Listado" (ionChange)="seleccionarOpcion($event)" scrollable>
+  <ion-segment-button value="Listado">
+    <ion-label>Productos</ion-label>
+  </ion-segment-button>
+  <ion-segment-button value="Alta">
+    <ion-label>Alta</ion-label>
+  </ion-segment-button>
+  <ion-segment-button value="Baja" *ngIf="productoElegido">
+    <ion-label>Baja</ion-label>
+  </ion-segment-button>
+  <ion-segment-button value="Modificación" *ngIf="productoElegido">
+    <ion-label>Modificación</ion-label>
+  </ion-segment-button>
+</ion-segment>
+
 <ion-content>
 
-  <ion-segment value="Listado" (ionChange)="seleccionarOpcion($event)" scrollable>
-    <ion-segment-button value="Listado">
-      <ion-label>Productos</ion-label>
-    </ion-segment-button>
-    <ion-segment-button value="Alta">
-      <ion-label>Alta</ion-label>
-    </ion-segment-button>
-    <ion-segment-button value="Baja" *ngIf="productoElegido">
-      <ion-label>Baja</ion-label>
-    </ion-segment-button>
-    <ion-segment-button value="Modificación" *ngIf="productoElegido">
-      <ion-label>Modificación</ion-label>
-    </ion-segment-button>
-  </ion-segment>
-  
   <app-listado-productos *ngIf="opcion == 'Listado'" [productos]="listado" (elegirProducto)="elegirProducto($event)">
   </app-listado-productos>
-  <app-form-producto *ngIf="opcion != 'Listado'" [opcion]="opcion" [producto]="productoElegido" [opcion]="opcion"></app-form-producto>
+  <app-form-producto *ngIf="opcion != 'Listado'" [opcion]="opcion" [producto]="productoElegido" [opcion]="opcion">
+  </app-form-producto>
 
 </ion-content>

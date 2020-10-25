@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { LoadingController } from '@ionic/angular';
 import { Producto } from "../../clases/producto";
 @Component({
   selector: 'app-listado-productos',
@@ -10,12 +11,22 @@ export class ListadoProductosComponent implements OnInit {
   @Input() productos: Producto[] = [];
   @Output() elegirProducto: EventEmitter<Producto> = new EventEmitter<Producto>();
 
-  constructor() { }
+  constructor(private loadingController: LoadingController) { }
 
-  ngOnInit() {}
+  ngOnInit() {this.presentLoading('Cargando productos...', 2000);}
 
   seleccionarProducto(producto: Producto)
   {
     this.elegirProducto.emit(producto);
+  }
+
+  async presentLoading(message, duration) 
+  {
+    const loading = await this.loadingController.create({
+      message,
+      duration,
+      spinner: 'crescent'
+    });
+    await loading.present();
   }
 }

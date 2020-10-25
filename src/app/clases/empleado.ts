@@ -1,3 +1,5 @@
+import { Usuario } from './usuario';
+
 export enum TipoEmpleado
 {
   Cocinero = 'Cocinero',

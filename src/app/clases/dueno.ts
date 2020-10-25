@@ -1,3 +1,5 @@
+import { Jefe } from './jefe';
+
 export class Dueno extends Jefe {
   public static CrearDueno(
     id: string,
