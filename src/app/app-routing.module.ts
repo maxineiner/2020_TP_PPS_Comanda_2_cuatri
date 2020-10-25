@@ -9,7 +9,11 @@ const routes: Routes = [
   {
     path: 'menu-producto',
     loadChildren: () => import('./pages/menu-producto/menu-producto.module').then( m => m.MenuProductoPageModule)
+  },  {
+    path: 'menu-empleado',
+    loadChildren: () => import('./pages/menu-empleado/menu-empleado.module').then( m => m.MenuEmpleadoPageModule)
   }
+
 
 
 ];
