@@ -1,14 +1,17 @@
 import { Jefe } from './jefe';
 
-export class Dueno extends Jefe {
+export class Dueno extends Jefe
+{
   public static CrearDueno(
     id: string,
     nombre: string,
     apellido: string,
     dni: string,
     foto: string,
+    isActive: boolean,
     cuil: string
-  ) {
+  )
+  {
     let dueno = new Dueno();
 
     dueno.id = id;
@@ -16,7 +19,7 @@ export class Dueno extends Jefe {
     dueno.apellido = apellido;
     dueno.dni = dni;
     dueno.foto = foto;
-    dueno.isActive = true;
+    dueno.isActive = isActive;
     dueno.cuil = cuil;
 
     return dueno;

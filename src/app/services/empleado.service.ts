@@ -13,6 +13,8 @@ export class EmpleadoService
 
   public crear(empleado: Empleado): Promise<any>
   {
+    empleado.isActive = true;
+
     return this.firebase.database
       .ref("empleados")
       .push()
@@ -56,6 +58,7 @@ export class EmpleadoService
               data.apellido,
               data.dni,
               data.foto,
+              data.isActive,
               data.tipo,
               data.cuil
             )
