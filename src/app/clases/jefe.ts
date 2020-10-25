@@ -1,5 +1,40 @@
 import { Usuario } from './usuario';
 
-export abstract class Jefe extends Usuario {
-  cuil: string
+export enum TipoJefe
+{
+  Dueno = 'Dueno',
+  Supervisor = 'Supervisor',
 }
+
+export class Jefe extends Usuario
+{
+  tipo: TipoJefe;
+  cuil: string;
+
+  public static CrearJefe(
+    id: string,
+    nombre: string,
+    apellido: string,
+    dni: string,
+    foto: string,
+    isActive: boolean,
+    tipo: TipoJefe,
+    cuil: string
+  )
+  {
+    let jefe = new Jefe();
+
+    jefe.id = id;
+    jefe.nombre = nombre;
+    jefe.apellido = apellido;
+    jefe.dni = dni;
+    jefe.foto = foto;
+    jefe.isActive = isActive;
+    jefe.tipo = tipo;
+    jefe.cuil = cuil;
+
+    return jefe;
+  }
+}
+
+
