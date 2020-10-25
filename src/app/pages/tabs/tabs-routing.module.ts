@@ -24,11 +24,6 @@ const routes: Routes = [
         redirectTo: '/tabs/tab1',
         pathMatch: 'full'
       },
-      {
-        path: 'menu-mesa',
-        loadChildren: () => import('../menu-mesa/menu-mesa.module').then( m => m.MenuMesaPageModule)
-      },
-      
     ]
   },
   {
@@ -42,4 +37,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class TabsPageRoutingModule {}
+export class TabsPageRoutingModule { }

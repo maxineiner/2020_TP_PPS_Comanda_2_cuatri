@@ -1,0 +1,8 @@
+<ion-list *ngFor="let empleado of empleados">
+  <ion-item (click)="seleccionarEmpleadoDelListado(empleado)">
+
+    <app-detalle-empleado [empleado]="empleado">
+    </app-detalle-empleado>
+
+  </ion-item>
+</ion-list>

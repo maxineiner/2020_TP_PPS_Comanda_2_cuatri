@@ -12,7 +12,7 @@
       <ion-title size="large">Botones para prueba</ion-title>
     </ion-toolbar>
   </ion-header>
-  
+
   <!-- Código para prueba -->
   <ion-list>
     <ion-list-header>
@@ -20,20 +20,26 @@
     </ion-list-header>
 
     <ion-item>
-      <ion-button (click)="escanear()"  expand="block" fill="clear" shape="round">
+      <ion-button (click)="escanear()" expand="block" fill="clear" shape="round">
         Escaner QR
       </ion-button>
     </ion-item>
 
     <ion-item>
-      <ion-button routerLink="/tabs/menu-mesa"   expand="block" fill="clear" shape="round">
-        Formulario mesa
+      <ion-button routerLink="/menu-mesa" expand="block" fill="clear" shape="round">
+        Menú mesa
+      </ion-button>
+    </ion-item>
+
+    <ion-item>
+      <ion-button routerLink="/menu-empleado" expand="block" fill="clear" shape="round">
+        Menú Empleado
       </ion-button>
     </ion-item>
 
     <ion-item>
       <ion-button routerLink="/menu-producto" expand="block" fill="clear" shape="round">
-        Formulario producto
+        Menú producto
       </ion-button>
     </ion-item>
 
