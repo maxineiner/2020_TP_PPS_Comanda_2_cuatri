@@ -8,7 +8,7 @@ import { EmpleadoService } from 'src/app/services/empleado.service';
   templateUrl: './menu-empleado.page.html',
   styleUrls: ['./menu-empleado.page.scss'],
 })
-export class MenuEmpleadoPage implements OnInit
+export class MenuEmpleadoPage implements OnInit, DoCheck
 {
   opcion: string = 'Listado';
   listado: Empleado[] = EmpleadoService.empleados;

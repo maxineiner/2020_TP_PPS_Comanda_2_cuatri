@@ -40,25 +40,26 @@ export class FormEmpleadosComponent implements OnInit
   }
 
   /**
-   * Alta de mesa
+   * Alta de empleado
    */
   async altaEmpleado()
   {
     if (this.empleado && !this.empleado.id)
     {
-      // Alta de mesa en DB
+      // Alta de empleado en DB
       this.empleadoService
         .crear(this.empleado)
         .then(() => this.presentToast('Alta exitosa'))
         .catch(() => this.presentToast('No se pudo realizar el alta'))
-    } else
+    }
+    else
     {
-      this.presentToast('Mesa existente')
+      this.presentToast('Empleado existente')
     }
   }
 
   /**
-   *  Modificacion de mesa
+   *  Modificacion de empleado
    */
   async modificarEmpleado()
   {
@@ -94,7 +95,7 @@ export class FormEmpleadosComponent implements OnInit
   // Toast para notificaciones
   async presentToast(message: string, duration?: number)
   {
-    if (duration <= 0)
+    if (duration === undefined || duration <= 0)
     {
       duration = this.toastTime
     }

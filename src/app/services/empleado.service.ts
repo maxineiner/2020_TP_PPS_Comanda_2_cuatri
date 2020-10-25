@@ -13,6 +13,8 @@ export class EmpleadoService
 
   public crear(empleado: Empleado): Promise<any>
   {
+    //TODO: eliminar cuando tenga implementado la carga de imagenes
+    empleado.foto = "-"
     empleado.isActive = true;
 
     return this.firebase.database
@@ -39,7 +41,7 @@ export class EmpleadoService
 
   public leer()
   {
-    let empleados = [];
+    let empleados: Empleado[] = [];
     console.info("Fetch de todos los empleados");
 
     return new Promise<Empleado[]>((resolve) =>

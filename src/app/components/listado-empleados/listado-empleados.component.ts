@@ -10,7 +10,7 @@ import { Empleado } from 'src/app/clases/empleado';
 export class ListadoEmpleadosComponent implements OnInit
 {
   @Input() empleados: Empleado[] = [];
-  @Output() seleccionarEmpleadoEmitter: EventEmitter<Empleado> = new EventEmitter<Empleado>();
+  @Output() seleccionarEmpleado: EventEmitter<Empleado> = new EventEmitter<Empleado>();
   loadingTime = 2000;
 
   constructor(private loadingController: LoadingController)
@@ -18,22 +18,22 @@ export class ListadoEmpleadosComponent implements OnInit
 
   ngOnInit() 
   {
-    this.presentLoading('Cargando empleados...', 2000);
+    this.presentLoading('Cargando empleados...');
   }
 
   /**
    * Método para enviar empleado seleccionado
    * @param empleado Empleado seleccionado
    */
-  seleccionarEmpleado(empleado: Empleado)
+  seleccionarEmpleadoDelListado(empleado: Empleado)
   {
-    this.seleccionarEmpleadoEmitter.emit(empleado);
+    this.seleccionarEmpleado.emit(empleado);
   }
 
   //TODO: do this method generic for all lists
   async presentLoading(message: string, duration?: number)
   {
-    if (duration <= 0)
+    if (duration === undefined || duration <= 0)
     {
       duration = this.loadingTime
     }
