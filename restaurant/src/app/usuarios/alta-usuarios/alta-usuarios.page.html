@@ -21,8 +21,8 @@
           <table style="width: 100%;">
             <tr>
               <td>
-                <button class="btn" style="height: 40px;width: 40px;color: white;border-radius: 5px;">
-                  <ion-icon name="chevron-back-outline" defaultHref="/"></ion-icon>
+                <button class="btn" (click)="volver()" style="height: 40px;width: 40px;color: white;border-radius: 5px;">
+                  <ion-icon name="chevron-back-outline"></ion-icon>
                 </button>
               </td>
               <td align="margin-left">
@@ -38,7 +38,7 @@
               <td *ngIf="mostrarSegunAlta('qr')" style="width:50%;" align="center">
                 <button class="btn" style="width: 90%;height: 50px;"
                   (click)="scanQrAltaUsuarios()" expand="block">
-                  <ion-icon name="qr-code-outline"></ion-icon> QR
+                  <ion-icon name="qr-code-outline"></ion-icon> DNI
                 </button>
               </td>
               <td style="width:50%;" align="center">
@@ -135,20 +135,22 @@
                 <ion-label position="floating" class="lbl">CUIL</ion-label>
                 <ion-input type="number" formControlName="cuil" name="cuil"></ion-input>
               </ion-item>
-              <label style="color: red;"
-                [hidden]="(formUsuario.controls.cuil.valid && validacionAuxCuil(formUsuario.controls.dni.value)) || formUsuario.controls.cuil.pristine">CUIL
-                INVALIDO</label>
+              <ion-label style="color: red;"
+                [hidden]="(formUsuario.controls.cuil.valid && validacionAuxCuil(formUsuario.controls.dni.value)) || formUsuario.controls.cuil.pristine">
+                ¡CUIL inválido!
+              </ion-label>
             </div>
             <br>
-            <div class="divTipoAltaUsuarios" *ngIf="mostrarSegunAlta('tipo')">
-              <select class="listTipoAltaUsuarios" formControlName="tipo">
-                <option value="MOZO">MOZO</option>
-                <option value="COCINERO">COCINERO</option>
-                <option value="BARTENDER">BARTENDER</option>
-                <option value="METRE">METRE</option>
-              </select>
-            </div>
-    
+            <ion-item *ngIf="mostrarSegunAlta('tipo')">
+              <ion-label class="lbl">Tipo de Empleado</ion-label>
+              <ion-select interface="action-sheet" cancelText="Cancelar" formControlName="tipo">
+                <ion-select-option value="MOZO">MOZO</ion-select-option>
+                <ion-select-option value="COCINERO">COCINERO</ion-select-option>
+                <ion-select-option value="BARTENDER">BARTENDER</ion-select-option>
+                <ion-select-option value="METRE">METRE</ion-select-option>
+              </ion-select>
+            </ion-item>
+            <br>    
             <!-- <button type="button" class="btnVolverAltaUsuarios" (click)="volverAltaUsuarios()">Volver</button>
               <button type="button" class="btnQrAltaUsuarios" (click)="scanQrAltaUsuarios()">QR</button>
               <button class="btnFotoAltaUsuarios" type="button" (click)="tomarFotoAltaUsuarios()">FOTO</button> -->

@@ -40,11 +40,11 @@ export class ClientesEsperaPage implements OnInit {
   }
 
   ionViewWillEnter() {
-    this.authService.currentUser().then((response: firebase.User) => {
+    /*this.authService.currentUser().then((response: firebase.User) => {
       this.authService.obtenerDetalle(response).subscribe(datos => {
         this.usuario = datos;
       });
-    });
+    });*/
   }
 
   obtenerMesasLibres() {

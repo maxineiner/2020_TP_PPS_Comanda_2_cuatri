@@ -11,15 +11,12 @@
               </button>
             </td>
             <td align="margin-left">
-              <h1 style="padding-left: 10%;"> Alta Mesas</h1>
+              <h1 style="padding-left: 10%;"> Alta de Mesas</h1>
             </td>
           </tr>
         </table>
       </ion-card-header>
       <ion-card-content style="padding: 10%;">
-
-        
-        
         <button class="btn" (click)="tomarFoto()" expand="block">
           <ion-icon name="camera-outline"></ion-icon> TOMAR FOTO
         </button>
@@ -37,7 +34,6 @@
               </tr>
             </table>
           </div>
-      
         <form *ngIf="!getMuestraModal()" [formGroup]="formMesa" (ngSubmit) ="onSubmitMesa()">
           <ion-item>
             <ion-label position="floating">Número de mesa</ion-label>

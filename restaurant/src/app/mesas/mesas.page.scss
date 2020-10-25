@@ -72,18 +72,22 @@
   .btn-icon{
     background: none;
     color: white;
-    font-size: 35px;
+    font-size: 30px;
+    outline: none;
+  }
+
+  .btn-icon:hover{
+    background-color: #afafaf;
+    border-radius: 10px;
+    color: white;
+    font-size: 30px;
   }
 
   .ocupada{
     background-color: #720000;
-    width: 80%;
-    height: 20px;
   }
 
   .libre{
     background-color: #208348;
-    width: 55%;
-    height: 20px;
   }
 
