@@ -5,12 +5,14 @@ import { Empleado } from "../clases/empleado";
 @Injectable({
   providedIn: "root",
 })
-export class EmpleadoService {
+export class EmpleadoService
+{
   public static empleados: Empleado[] = [];
 
-  constructor(public firebase: AngularFireDatabase) {}
+  constructor(public firebase: AngularFireDatabase) { }
 
-  public crear(empleado: Empleado): Promise<any> {
+  public crear(empleado: Empleado): Promise<any>
+  {
     return this.firebase.database
       .ref("empleados")
       .push()
@@ -19,31 +21,33 @@ export class EmpleadoService {
       .catch(console.error);
   }
 
-  public actualizar(empleado: Empleado): Promise<any> {
+  public actualizar(empleado: Empleado): Promise<any>
+  {
     return this.firebase.database
       .ref("empleados/" + empleado.id)
-      .update(empleado)
-      .then(() => console.error("Actualizacion exitosa"))
-      .catch(() => console.info("No se pudo actualizar"));
+      .update(empleado);
   }
 
-  public borradoLogico(empleado: Empleado): Promise<any> {
+  public borradoLogico(empleado: Empleado): Promise<any>
+  {
     empleado.isActive = false;
 
-    //TODO: if it is an error put another log
-    // "No se pudo realizar la baja lógica"
     return this.actualizar(empleado);
   }
 
-  public leer() {
+  public leer()
+  {
     let empleados = [];
     console.info("Fetch de todos los empleados");
 
-    return new Promise<Empleado[]>((resolve) => {
-      this.firebase.database.ref("empleados").on("value", (snapshot) => {
+    return new Promise<Empleado[]>((resolve) =>
+    {
+      this.firebase.database.ref("empleados").on("value", (snapshot) =>
+      {
         empleados = [];
 
-        snapshot.forEach((child) => {
+        snapshot.forEach((child) =>
+        {
           var data: Empleado = child.val();
           empleados.push(
             Empleado.CrearEmpleado(
@@ -58,14 +62,17 @@ export class EmpleadoService {
           );
         });
 
-        EmpleadoService.empleados = empleados.filter(
-          (empleado) => empleado.isActive == true
-        );
+        EmpleadoService.empleados = empleados.filter(e => e.isActive);
 
         resolve(EmpleadoService.empleados);
       });
     });
   }
 
-  //TODO: leerPorID
+  public leerPorID(id: string)
+  {
+    return this.firebase.database
+      .ref(`empleados/${id}`)
+      .once('value');
+  }
 }

@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { Mesa } from '../clases/mesa';
-import { Cliente } from '../clases/cliente';
 import { CodigoQRService } from './codigo-qr.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class MesaService {
+export class MesaService
+{
   public static mesas: Mesa[] = [];
 
   constructor(public firebase: AngularFireDatabase, private escanerQR: CodigoQRService) { }
@@ -23,10 +23,10 @@ export class MesaService {
     mesa.isAvailable = true;
 
     return this.firebase.database.ref('mesas')
-                .push(mesa)
-                .then((snapshot) => mesa.id = snapshot.key)
-                .then(() => this.actualizar(mesa))
-                .catch(console.error);
+      .push(mesa)
+      .then((snapshot) => mesa.id = snapshot.key)
+      .then(() => this.actualizar(mesa))
+      .catch(console.error);
   }
 
   /**
@@ -38,7 +38,7 @@ export class MesaService {
     this.escanerQR.generar(mesa, mesa.id); //Generacion de QR
 
     return this.firebase.database.ref('mesas/' + mesa.id).update(mesa);
-  } 
+  }
 
   /**
    * Método para realizar Baja lógica en DB
@@ -49,7 +49,7 @@ export class MesaService {
     mesa.isActive = false;
 
     return this.firebase.database.ref('mesas/' + mesa.id).update(mesa);
-  } 
+  }
 
   /**
    * Método para realizar Fetch de todas las mesas en DB
@@ -59,17 +59,20 @@ export class MesaService {
     let mesas: Mesa[] = [];
     console.info("Fetch de todas las mesas");
 
-    const fetch = new Promise<Mesa[]>(resolve =>{
-      this.firebase.database.ref('mesas').on('value',(snapshot) => {          
-        mesas = [];  
-          snapshot.forEach((child) =>{
-            var data: Mesa = child.val();
-            mesas.push(Mesa.CrearMesa(data.id, data.numero, data.comensales, data.tipo, 
-                                      data.foto, data.codigoQR, data.isAvailable,
-                                      data.isActive));
-          });
-          MesaService.mesas = mesas.filter(mesa => mesa.isActive);
-          resolve(MesaService.mesas);
+    const fetch = new Promise<Mesa[]>(resolve =>
+    {
+      this.firebase.database.ref('mesas').on('value', (snapshot) =>
+      {
+        mesas = [];
+        snapshot.forEach((child) =>
+        {
+          var data: Mesa = child.val();
+          mesas.push(Mesa.CrearMesa(data.id, data.numero, data.comensales, data.tipo,
+            data.foto, data.codigoQR, data.isAvailable,
+            data.isActive));
+        });
+        MesaService.mesas = mesas.filter(mesa => mesa.isActive);
+        resolve(MesaService.mesas);
       })
     });
     return fetch;
@@ -83,6 +86,4 @@ export class MesaService {
   {
     return this.firebase.database.ref(`mesas/${id}`).once('value');
   }
-
-  
 }
