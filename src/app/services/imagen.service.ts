@@ -17,7 +17,6 @@ import {
 } from "@ionic-native/media-capture/ngx";
 import { AngularFireDatabase } from "@angular/fire/database";
 import * as firebase from 'firebase';
-import { ThrowStmt } from '@angular/compiler';
 
 const { Camera } = Plugins;
 declare const window: any;
@@ -92,7 +91,7 @@ export class ImagenService {
   /**
    * Subir foto del almacenamiento del dispositivo
    */
-  async subirFoto(): Promise<Imagen> {
+  async sacarFoto(): Promise<Imagen> {
     let imagen: Imagen = new Imagen();
 
     const image = await Camera.getPhoto({
@@ -122,11 +121,10 @@ export class ImagenService {
     rutaCarpetaStorage: string
   ): Promise<Imagen> 
   {
-    return new Promise( (resolve,reject) => 
+    return new Promise((resolve) => 
     {
       let carpeta = rutaCarpetaStorage;
       // Se sube imagen a Base de Datos
-  
       const imagenDB = this.crear(imagen);
   
       imagenDB.then(async () => 
@@ -157,24 +155,30 @@ export class ImagenService {
     imagenes: Array<Imagen>,
     rutaCarpetaStorage: string
   ): Promise<Array<Imagen>> {
-    let carpeta = rutaCarpetaStorage;
-    // Se sube imagen a Base de Datos
-    imagenes.forEach((imagen) => 
+
+    return new Promise((resolve) =>
     {
-      this.crear(imagen).then(() => 
+      let carpeta = rutaCarpetaStorage;
+      // Se sube imagen a Base de Datos
+      imagenes.forEach((imagen) => 
       {
-          // Se guarda imagen en el Storage
-          this.guardarImagen(imagen, carpeta)
-            .then((snapshot) =>
-            {
-              snapshot.ref.getDownloadURL().then((res) => (imagen.url = res)) // Se asigna URL del Storage
-            })
-            .catch((error) => console.error("Firebase Storage:", error))
-            .finally(() => this.actualizar(imagen));
+        const imagenDB = this.crear(imagen);
+
+        imagenDB.then(async () => 
+        {
+            // Se guarda imagen en el Storage
+          const imagenStorage = await this.guardarImagen(imagen, carpeta)
+          const URL = await imagenStorage.ref.getDownloadURL();
+
+          imagen.url = URL;
+          imagen.rutaStorage = imagenStorage.ref.child(`${rutaCarpetaStorage}/${imagen.id}`).toString();
         })
         .catch(console.error);
-    });
-    return imagenes;
+
+      });
+      resolve(imagenes);
+    })
+    
   }
 
   private async guardarImagen(imagen: Imagen, carpeta: string) {

@@ -12,6 +12,7 @@ export class MenuMesaPage implements OnInit, DoCheck {
   opcion: string = 'Listado';
   listado: Mesa[] = MesaService.mesas;
   mesaElegida: Mesa = new Mesa();
+  
 
   constructor(private router: Router, private mesaService: MesaService) { }
 
@@ -28,18 +29,27 @@ export class MenuMesaPage implements OnInit, DoCheck {
       this.listado = mesas;
       console.log(this.listado);
     });
+    this.mesaElegida = new Mesa();
   }
 
+  /**
+   * Metodo para seleccionar modo del form para ABM
+   * @param event Evento con el valor que determina modo del form
+   */
   seleccionarOpcion(event)
   {
     console.log(event.detail.value);
     this.opcion = event.detail.value;
   }
 
-  elegirMesa(event)
+  /**
+   * Método para recibir mesa seleccionada
+   * @param mesa Mesa seleccionada desde listado 
+   */
+  elegirMesa(mesa)
   {
-    console.log(event);
-    this.mesaElegida = event;
+    console.log(mesa);
+    this.mesaElegida = mesa;
   }
 
 }

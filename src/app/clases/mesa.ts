@@ -19,12 +19,10 @@ export class Mesa implements IEscaneable
     codigoQR: string;
     isAvailable: boolean;
     isActive: boolean;
-    estadoPedido: string;
-    cliente: Cliente;
 
     public static CrearMesa(id: string, numero: number, comensales: number, tipo: TipoMesa, 
                             foto: Imagen, codigoQR: string, isAvailable: boolean,
-                            isActive: boolean, estadoPedido: string, cliente:Cliente)
+                            isActive: boolean)
     {
         let mesa = new Mesa();
 
@@ -36,8 +34,6 @@ export class Mesa implements IEscaneable
         mesa.codigoQR = codigoQR;
         mesa.isAvailable = isAvailable;
         mesa.isActive = isActive;
-        mesa.estadoPedido = estadoPedido;
-        mesa.cliente = cliente;
 
         return mesa;
     }
