@@ -25,7 +25,7 @@ export class ListadoEmpleadosComponent implements OnInit
    * Método para enviar empleado seleccionado
    * @param empleado Empleado seleccionado
    */
-  seleccionarMesa(empleado: Empleado)
+  seleccionarEmpleado(empleado: Empleado)
   {
     this.seleccionarEmpleadoEmitter.emit(empleado);
   }

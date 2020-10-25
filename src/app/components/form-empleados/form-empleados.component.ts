@@ -90,7 +90,7 @@ export class FormEmpleadosComponent implements OnInit
     }
   }
 
-  //TODO: do this method generic for all forms
+  //TODO: do this method generic for all components
   // Toast para notificaciones
   async presentToast(message: string, duration?: number)
   {

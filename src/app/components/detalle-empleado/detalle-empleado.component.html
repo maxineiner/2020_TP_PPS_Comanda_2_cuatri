@@ -1,0 +1,25 @@
+<div class="ion-activatable card-empleado">
+  <ion-card mode="ios" color="dark">
+    <ion-card-header>
+      <ion-card-title>Empleado:{{ empleado.nombre }} {{ empleado.apellido }}</ion-card-title>
+    </ion-card-header>
+
+    <!-- TODO: show images-->
+    <!--ion-img [src]="empleado.foto.url"></ion-img-->
+
+    <ion-card-content>
+      <ion-chip color="success" mode="ios" outline="true">
+        <ion-label>Tipo:{{ empleado.tipo }}</ion-label>
+      </ion-chip>
+      <ion-chip color="success" mode="ios" outline="true">
+        <ion-label>DNI:{{ empleado.dni }}</ion-label>
+      </ion-chip>
+      <ion-chip color="success" mode="ios" outline="true">
+        <ion-label>CUIL:{{ empleado.cuil }}</ion-label>
+      </ion-chip>
+    </ion-card-content>
+    <ion-button (click)="sacarFoto()" size="large" expand="block" fill="solid" color="success">
+      Sacar foto
+    </ion-button>
+  </ion-card>
+</div>

@@ -10,8 +10,11 @@ import { FormProductoComponent } from './form-producto/form-producto.component';
 import { ListadoProductosComponent } from './listado-productos/listado-productos.component';
 import { PipesModule } from '../pipes/pipes.module';
 import { DetalleMesaComponent } from './detalle-mesa/detalle-mesa.component';
+
+// Empleados
 import { FormEmpleadosComponent } from './form-empleados/form-empleados.component';
 import { ListadoEmpleadosComponent } from './listado-empleados/listado-empleados.component';
+import { DetalleEmpleadoComponent } from './detalle-empleado/detalle-empleado.component';
 
 
 @NgModule({
@@ -23,8 +26,11 @@ import { ListadoEmpleadosComponent } from './listado-empleados/listado-empleados
     ListadoMesasComponent,
     FormProductoComponent,
     ListadoProductosComponent,
+
+    // Empleados
     FormEmpleadosComponent,
-    ListadoEmpleadosComponent
+    ListadoEmpleadosComponent,
+    DetalleEmpleadoComponent
   ],
   imports: [
     CommonModule,
@@ -41,8 +47,11 @@ import { ListadoEmpleadosComponent } from './listado-empleados/listado-empleados
     HeaderComponent,
     FormMesasComponent,
     ListadoMesasComponent,
+
+    // Empleados
     FormEmpleadosComponent,
-    ListadoEmpleadosComponent
+    ListadoEmpleadosComponent,
+    DetalleEmpleadoComponent
   ]
 })
 export class ComponentsModule { }
