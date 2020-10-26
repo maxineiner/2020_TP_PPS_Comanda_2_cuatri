@@ -17,7 +17,11 @@ const routes: Routes = [
   {
     path: 'menu-mesa',
     loadChildren: () => import('./pages/menu-mesa/menu-mesa.module').then(m => m.MenuMesaPageModule)
+  },  {
+    path: 'qr-ingreso-local',
+    loadChildren: () => import('./pages/qr-ingreso-local/qr-ingreso-local.module').then( m => m.QrIngresoLocalPageModule)
   },
+
 ];
 @NgModule({
   imports: [
