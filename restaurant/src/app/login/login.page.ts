@@ -70,8 +70,7 @@ export class LoginPage implements OnInit {
             if (usuario.estado === EstadoUsuario.APROBADO) {
               localStorage.setItem('perfil', usuario.perfil); // PATO
               if (usuario.perfil === TipoUsuario.CLIENTE_REGISTRADO || usuario.perfil === TipoUsuario.CLIENTE_ANONIMO) { // Clientes
-                this.moveTo('clientes');
-                
+                this.moveTo('clientes');               
                 console.log('actualize clientes');
               } else { // Personal
                 this.moveTo('home');
