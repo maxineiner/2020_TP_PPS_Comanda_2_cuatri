@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { ModalController, ToastController } from '@ionic/angular';
 import { CodigoQRService } from 'src/app/services/codigo-qr.service';
-import { MenuMesaPage } from '../menu-mesa/menu-mesa.page';
 
 @Component({
   selector: 'app-tab1',
@@ -20,6 +19,7 @@ export class Tab1Page
     this.presentToast(scan);
   }
 
+
   async presentToast(message)
   {
     const toast = await this.toastController.create({
@@ -28,6 +28,4 @@ export class Tab1Page
     });
     toast.present();
   }
-
-
 }

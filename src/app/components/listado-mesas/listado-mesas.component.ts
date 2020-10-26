@@ -1,4 +1,4 @@
-import { Component, DoCheck, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { LoadingController } from '@ionic/angular';
 import { Mesa } from 'src/app/clases/mesa';
 
@@ -7,11 +7,12 @@ import { Mesa } from 'src/app/clases/mesa';
   templateUrl: './listado-mesas.component.html',
   styleUrls: ['./listado-mesas.component.scss'],
 })
-export class ListadoMesasComponent implements OnInit {
+export class ListadoMesasComponent implements OnInit
+{
   @Input() mesas: Mesa[] = [];
   @Output() elegirMesa: EventEmitter<Mesa> = new EventEmitter<Mesa>();
 
-  constructor(private loadingController: LoadingController) 
+  constructor(private loadingController: LoadingController)
   { }
 
   ngOnInit() 
