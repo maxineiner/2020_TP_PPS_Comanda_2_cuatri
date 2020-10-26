@@ -21,9 +21,15 @@
           <table style="width: 100%;">
             <tr>
               <td>
+<<<<<<< HEAD
                 <!-- <button class="btn" style="height: 40px;width: 40px;color: white;border-radius: 5px;">
                   <ion-icon name="chevron-back-outline" routerLink="/home"></ion-icon>
                 </button> -->
+=======
+                <button class="btn" (click)="volver()" style="height: 40px;width: 40px;color: white;border-radius: 5px;">
+                  <ion-icon name="chevron-back-outline"></ion-icon>
+                </button>
+>>>>>>> 9afe4833d4923471987d22a8822cc60c5b253139
               </td>
               <td align="margin-left">
                 <h1 style="padding-left: 10%;"> Formulario para {{getTipoAlta()}}</h1>
@@ -38,7 +44,7 @@
               <td *ngIf="mostrarSegunAlta('qr')" style="width:50%;" align="center">
                 <button class="btn" style="width: 90%;height: 50px;"
                   (click)="scanQrAltaUsuarios()" expand="block">
-                  <ion-icon name="qr-code-outline"></ion-icon> QR
+                  <ion-icon name="qr-code-outline"></ion-icon> DNI
                 </button>
               </td>
               <td style="width:50%;" align="center">
@@ -135,9 +141,10 @@
                 <ion-label position="floating" class="lbl">CUIL</ion-label>
                 <ion-input type="text" formControlName="cuil" name="cuil"></ion-input>
               </ion-item>
-              <label style="color: red;"
-                [hidden]="(formUsuario.controls.cuil.valid && validacionAuxCuil(formUsuario.controls.dni.value)) || formUsuario.controls.cuil.pristine">CUIL
-                INVALIDO</label>
+              <ion-label style="color: red;"
+                [hidden]="(formUsuario.controls.cuil.valid && validacionAuxCuil(formUsuario.controls.dni.value)) || formUsuario.controls.cuil.pristine">
+                ¡CUIL inválido!
+              </ion-label>
             </div>
             <br>
             <!-- <div class="divTipoAltaUsuarios" *ngIf="mostrarSegunAlta('tipo')">

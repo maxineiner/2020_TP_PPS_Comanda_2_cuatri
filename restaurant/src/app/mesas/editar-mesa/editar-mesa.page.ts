@@ -42,6 +42,7 @@ export class EditarMesaPage implements OnInit {
     this.formMesa.controls.foto.setValue(this.mesa.foto);
   }
 
+
   dismiss() {
     this.modalCtrl.dismiss();
   }

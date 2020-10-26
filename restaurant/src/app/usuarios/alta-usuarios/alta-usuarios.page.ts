@@ -12,6 +12,7 @@ import { UtilsService } from 'src/app/servicios/utils.service';
 import { NotificationService } from 'src/app/servicios/notification.service';
 import { Notificacion } from 'src/app/clases/notificacion';
 import { from } from 'rxjs';
+import { Location } from '@angular/common';
 @Component({
   selector: 'app-alta-usuarios',
   templateUrl: './alta-usuarios.page.html',
@@ -35,7 +36,8 @@ export class AltaUsuariosPage implements OnInit {
     public db: AngularFirestore,
     public scanner: BarcodeScanner,
     public authService: AuthService,
-    public notificationService: NotificationService
+    public notificationService: NotificationService,
+    public location: Location
   ) {
     this.usuarios = db.collection('usuarios').valueChanges();
     this.usuarios.subscribe(usuarios => this.listaUsuarios = usuarios, error => console.log(error));
@@ -63,6 +65,10 @@ export class AltaUsuariosPage implements OnInit {
       console.log(reject);
     });
 
+  }
+
+  volver() {
+    this.location.back();
   }
 
 
@@ -177,7 +183,8 @@ export class AltaUsuariosPage implements OnInit {
         break;
 
       case 'EMPLEADO':
-        if (this.formUsuario.controls.correo.valid &&
+        if (
+          this.formUsuario.controls.correo.valid &&
           this.formUsuario.controls.clave.valid &&
           this.formUsuario.controls.clave.value === this.formUsuario.controls.clave2.value &&
           this.formUsuario.controls.nombre.valid &&
@@ -335,22 +342,16 @@ export class AltaUsuariosPage implements OnInit {
     switch (localStorage.getItem('tipoDeAlta')) {
       case "DUEÑO":
         return "Dueños";
-        break;
-        case "SUPERVISOR":
+      case "SUPERVISOR":
         return "Supervisores";
-        break;
       case "CLIENTE_REGISTRADO":
         return "cliente registrado";
-        break;
       case "CLIENTE_ANONIMO":
-        return 'cliente anónimo';
-        break;
+        return 'cliente anónimo';      
         case "EMPLEADO":
           return 'Empleado';
-          break;
       default:
         return "ERROR";
-        break;
     }
   }
 }
