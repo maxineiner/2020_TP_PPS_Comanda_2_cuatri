@@ -35,9 +35,16 @@ export class MesaService
    */
   public actualizar(mesa: Mesa): Promise<any>
   {
-    this.escanerQR.generar(mesa, mesa.id); //Generacion de QR
+    return new Promise((resolve, reject) =>
+    {
+      //Generacion de QR
+      // this.escanerQR.generar(mesa, mesa.id).then(() => 
+      // {
+      // }).catch(error => reject(error));
+      this.firebase.database.ref('mesas/' + mesa.id).update(mesa);
+      resolve;
+    })
 
-    return this.firebase.database.ref('mesas/' + mesa.id).update(mesa);
   }
 
   /**
