@@ -1,88 +1,93 @@
 import { Injectable } from '@angular/core';
-import { QRScanner, QRScannerStatus } from '@ionic-native/qr-scanner/ngx';
-import { Platform } from '@ionic/angular';
 import { IEscaneable } from '../interfaces/IEscaneable';
+import { BarcodeScanner, BarcodeScannerOptions } from '@ionic-native/barcode-scanner/ngx';
+import { ImagenService } from './imagen.service';
+import { Imagen } from '../clases/imagen';
+
+
+export enum Formato
+{
+  PDF_417 = "PDF_417", // Formato del DNI
+  QR_CODE = "QR_CODE"  // Formato de QR común 
+}
 
 @Injectable({
   providedIn: 'root'
 })
 export class CodigoQRService
 {
-  private escanerQRref: any;
 
-  /**
-   * Se le adiciona al backbutton la funcion de cancelar el escaneo
-   * si se presiona para retornar a la pagina anterior
-   * 
-   * @param platform Instancia del dispositivo donde se ejecuta el código (Web, Native)
-   * @param escanerQR (Instancia del plugin de lector QR)
-   */
-  constructor(private platform: Platform, private escanerQR: QRScanner) 
-  {
-    this.platform.backButton.subscribeWithPriority(0, () =>
-    {
-      document.getElementsByTagName("body")[0].style.opacity = "1";
-      this.escanerQRref.unsubscribe();
-    });
-  }
+  constructor(private barcodeScanner: BarcodeScanner,
+    private imagenService: ImagenService)
+  { }
 
   /**
    * Método para leer un código QR
-   * @returns Data contenida por código QR
+   * @param prompt Mensaje para mostrar al Usuario
+   * @param formats Formato de lectura : PDF_417 , QR_CODE
+   * @returns Retorna la informacion del QR como string
    */
-  public escanear() 
+  public async escanear(prompt, formats) 
   {
     console.log("Leer QR");
-    let data = "";
+    let scannerOpts: BarcodeScannerOptions = {
+      prompt,
+      formats,
+      showTorchButton: true,
+    };
 
-    this.escanerQR.prepare().then((status: QRScannerStatus) => 
-    {
-      if (status.authorized)
-      {
-        this.escanerQR.show();
-        // Transparencia del layout para escaner
-        document.getElementsByTagName("body")[0].style.opacity = "0";
+    const scan = await this.barcodeScanner.scan(scannerOpts);
 
-        this.escanerQRref = this.escanerQR.scan().subscribe((scan) =>
-        {
-          // Información del QR decodificado
-          console.log(scan);
-          data = scan;
-
-          this.escanerQR.show();
-          document.getElementsByTagName("body")[0].style.opacity = "1";
-
-          this.escanerQR.hide();
-          this.escanerQRref.unsubscribe();
-        },
-          (error) => console.log(error));
-      }
-    })
-    return data;
+    return scan;
   }
 
   /**
    * Método para generar QR
-   * - !Se debe mejorar funcionalidad e integrar con DB -
    * @param elemento Objeto con data para generar QR
    * @param id UID que identificará al objeto
    */
-  public generar(elemento: IEscaneable, id: string)
+  public async generar(elemento: IEscaneable, id: string)
   {
-    // The text to store within the QR code (URL encoded, PHP programmers may use urlencode()).
     let data = `BEGIN:${elemento.constructor.name}ID%3A${id}`;
 
-    elemento.codigoQR = `http://api.qrserver.com/v1/create-qr-code/?data=${data}&size=66x66&format=svg`;
-
-    console.log(elemento);
+    // Se genera el código QR
+    const ruta = `http://api.qrserver.com/v1/create-qr-code/?data=${data}&size=300x300&format=svg`;
+    // Se convierte URL del código en string BASE64
+    const base64 = await this.convertirUrlABase64(ruta, "image/jpeg");
+    // Se crea Imagen y se guarda en Storage
+    let imagen = Imagen.CrearImagen(id, base64.slice(23), "_", new Date().toUTCString(), "_");
+    const imagenQR = await this.imagenService.guardarImagen(imagen, "qr-mesas");
+    // Se asocia URL del código QR 
+    elemento.codigoQR = await imagenQR.ref.getDownloadURL();
   }
 
   /**
-   * Método para otorgar permisos a plugin 
-   * - !Este método es opcional pero requiere testear en dispositivo
+   * Método para convertir URL de imagen en string base64
+   * @param url Ruta de la imagen para convertir en base64
+   * @param outputFormat Formato de la imagen
    */
-  public configurar()
+  convertirUrlABase64(url, outputFormat)
   {
-    this.escanerQR.openSettings();
+    return new Promise<string>((resolve, reject) =>
+    {
+      let img = new Image();
+      img.crossOrigin = 'Anonymous';
+      img.onload = function ()
+      {
+        let canvas = <HTMLCanvasElement>document.createElement('CANVAS');
+        let ctx = canvas.getContext('2d');
+        let dataURL: string;
+
+        canvas.height = img.height;
+        canvas.width = img.width;
+        ctx.drawImage(img, 0, 0);
+        dataURL = canvas.toDataURL(outputFormat);
+        //callback(dataURL);
+        canvas = null;
+        resolve(dataURL);
+      };
+      img.src = url;
+    });
   }
+
 }

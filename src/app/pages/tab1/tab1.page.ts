@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ModalController, ToastController } from '@ionic/angular';
 import { CodigoQRService } from 'src/app/services/codigo-qr.service';
 
 @Component({
@@ -8,12 +9,23 @@ import { CodigoQRService } from 'src/app/services/codigo-qr.service';
 })
 export class Tab1Page
 {
-  constructor(private escanerQR: CodigoQRService) { }
+  constructor(private escanerQR: CodigoQRService,
+    private toastController: ToastController) { }
 
   escanear()
   {
-    let scan = this.escanerQR.escanear();
+    let scan = this.escanerQR.escanear("Escanee el DNI", 'QR_CODE');
 
-    console.log(scan);
+    this.presentToast(scan);
+  }
+
+
+  async presentToast(message)
+  {
+    const toast = await this.toastController.create({
+      message,
+      duration: 2000
+    });
+    toast.present();
   }
 }
