@@ -1,7 +1,5 @@
-enum TipoProducto {
-    Comida,
-    Bebida
-  }
+import { TipoEmpleado } from './empleado';
+
 export class Producto {
     public id: string;
     public nombre: string;
@@ -9,7 +7,7 @@ export class Producto {
     public fotos: Array<any>;
     public minutosDeElaboracion: string;
     public precio: number;
-    public tipo: string;
+    public tipo: TipoEmpleado;
     public codigoQr: string;
     public isActive:boolean;
 
@@ -22,7 +20,7 @@ export class Producto {
     
 
     public static CrearProducto(id: string, nombre: string, descripcion: string,
-        fotos: Array<any>, minutosDeElaboracion: string,precio: number,tipo: string,
+        fotos: Array<any>, minutosDeElaboracion: string,precio: number,tipo: TipoEmpleado,
         codigoQr: string) :Producto {
         let producto = new Producto();
         
