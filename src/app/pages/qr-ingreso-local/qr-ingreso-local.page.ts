@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastController } from '@ionic/angular';
+import { Cliente } from 'src/app/clases/cliente';
 import { Mesa } from 'src/app/clases/mesa';
 import { IListaEspera } from 'src/app/interfaces/IListaEspera';
 import { CodigoQRService } from 'src/app/services/codigo-qr.service';
@@ -40,7 +41,7 @@ export class QrIngresoLocalPage implements OnInit
         //Buscar usuario actual del servicio de usuarios o auth o donde lo pongan y verificar con los datos que se guarden (seguramente el email) y perfil
         let usuarioLogueado = JSON.parse(sessionStorage.getItem("usuario"));
 
-        if (usuarioLogueado.perfil == "cliente" || usuarioLogueado.perfil == "clienteAnonimo")
+        if (usuarioLogueado instanceof Cliente)//si es un cliente...
         {
           //puede ser cliente o anonimo 
           //ademas puede tener una mesa reservada o no
@@ -64,7 +65,7 @@ export class QrIngresoLocalPage implements OnInit
             //verifico si ya esta en la lista de espera (en caso de que escanee dos veces)
             this.listaEspera.forEach(lista =>
             {
-              if (lista.correo == usuarioLogueado.correo)
+              if (lista.cliente.dni == usuarioLogueado.dni) ///Deberia verificar por correo que es individual por usuario. Si es anonimo (ver las opciones de FireAuth para usuarios anonimos).
               {
                 estaEnLista = true;
               }
@@ -74,17 +75,15 @@ export class QrIngresoLocalPage implements OnInit
               this.presentToast("Usted ya se encuentra en lista de espera", 2000);
             } else
             {
-              // lo pongo en la lista
-              let datos: any = { 'correo': usuarioLogueado.correo, 'perfil': usuarioLogueado.perfil, 'estado': "confirmacionMozo" };
+              // lo pongo en la lista con sus datos
+              let datos: any = { 'cliente':usuarioLogueado};
               //Pushear la lista a la base
-              // Le muestro la lista de espera
-              this.router.navigateByUrl('/list-confirmar-cliente-mesa');
+              //Y lo mando a la page de encuestas de antiguos usuario
             }
           }
         } else// Es un empleado
         {
-          
-          this.router.navigateByUrl('/est-satisfaccion');
+          //
         }
       } else //No es un codigo de ingreso
       {

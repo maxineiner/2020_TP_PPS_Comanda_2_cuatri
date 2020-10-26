@@ -1,5 +1,7 @@
+import { Cliente } from '../clases/cliente';
+
 export interface IListaEspera
 {
-    correo: string;
-    
+    cliente:Cliente
+
 }
