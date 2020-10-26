@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-toolbar color="warning">
+  <ion-toolbar color="success">
     <ion-buttons slot="start">
       <ion-button (click)="dismiss()">
         <ion-icon name="close-outline"></ion-icon>
@@ -11,10 +11,10 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="background ion-padding">
+<ion-content class="fondoEditarUsuario">
   <ion-grid>
     <ion-row>
-      <ion-col class="ion-align-self-center" size="12">
+      <ion-col class="ion-align-self-center" size="10">
         <ion-list-header>
           <ion-text color="light">
             <h2 class="lblNombreAltaUsuarios">Foto perfil </h2>
@@ -57,13 +57,13 @@
       <label class="lblErrorCuilAltaUsuarios"
         [hidden]="(formUsuario.controls.cuil.valid && validacionAuxCuil(formUsuario.controls.dni.value)) || formUsuario.controls.cuil.pristine">CUIL
         INVALIDO</label>
-    </div>
+    </div><br>
 
     <div class="divTipoAltaUsuarios">
       <ion-select class="listTipoAltaUsuarios" [formControl]="formUsuario.controls.tipo">
         <ion-select-option *ngFor="let tipo of tipoUsuario">{{ tipo }}</ion-select-option>
       </ion-select>
-    </div>
-    <ion-button type="submit" class="btnSubmitAltaUsuarios" color="warning" expand="block">Editar</ion-button>
+    </div><br>
+    <ion-button  type="submit" class="btnSubmitAltaUsuarios" color="warning" expand="block" >Editar</ion-button>
   </form>
 </ion-content>

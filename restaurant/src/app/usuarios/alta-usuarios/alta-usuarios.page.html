@@ -9,8 +9,8 @@
   </ion-toolbar>
 </ion-header> -->
 
-<!--app-toolbar [titulo]="'Nuevo '.concat(getTipoAlta())" [backBtn]="'inicio'" [usuario]="null">
-</app-toolbar-->
+<app-toolbar [titulo]="'Nuevo '.concat(getTipoAlta())" [backBtn]="'inicio'" [usuario]="null">
+</app-toolbar>
 
 <ion-content >
   <body style="width: 100%; height: 100%;" class="fondo" style="background-color: rebeccapurple;">
@@ -21,9 +21,9 @@
           <table style="width: 100%;">
             <tr>
               <td>
-                <button class="btn" style="height: 40px;width: 40px;color: white;border-radius: 5px;">
-                  <ion-icon name="chevron-back-outline" defaultHref="/"></ion-icon>
-                </button>
+                <!-- <button class="btn" style="height: 40px;width: 40px;color: white;border-radius: 5px;">
+                  <ion-icon name="chevron-back-outline" routerLink="/home"></ion-icon>
+                </button> -->
               </td>
               <td align="margin-left">
                 <h1 style="padding-left: 10%;"> Formulario para {{getTipoAlta()}}</h1>
@@ -122,7 +122,7 @@
 
               <ion-item>
                 <ion-label position="floating" class="lbl">DNI</ion-label>
-                <ion-input type="number" formControlName="dni" name="dni"></ion-input>
+                <ion-input type="text" formControlName="dni" name="dni"></ion-input>
               </ion-item>
               <ion-label style="color: red;"
               [hidden]="formUsuario.controls.dni.valid || formUsuario.controls.dni.pristine">
@@ -133,29 +133,51 @@
             <div class="divCuilAltaUsuarios" *ngIf="mostrarSegunAlta('cuil')">
               <ion-item>
                 <ion-label position="floating" class="lbl">CUIL</ion-label>
-                <ion-input type="number" formControlName="cuil" name="cuil"></ion-input>
+                <ion-input type="text" formControlName="cuil" name="cuil"></ion-input>
               </ion-item>
               <label style="color: red;"
                 [hidden]="(formUsuario.controls.cuil.valid && validacionAuxCuil(formUsuario.controls.dni.value)) || formUsuario.controls.cuil.pristine">CUIL
                 INVALIDO</label>
             </div>
             <br>
-            <div class="divTipoAltaUsuarios" *ngIf="mostrarSegunAlta('tipo')">
+            <!-- <div class="divTipoAltaUsuarios" *ngIf="mostrarSegunAlta('tipo')">
               <select class="listTipoAltaUsuarios" formControlName="tipo">
                 <option value="MOZO">MOZO</option>
                 <option value="COCINERO">COCINERO</option>
                 <option value="BARTENDER">BARTENDER</option>
                 <option value="METRE">METRE</option>
               </select>
-            </div>
-    
-            <!-- <button type="button" class="btnVolverAltaUsuarios" (click)="volverAltaUsuarios()">Volver</button>
-              <button type="button" class="btnQrAltaUsuarios" (click)="scanQrAltaUsuarios()">QR</button>
-              <button class="btnFotoAltaUsuarios" type="button" (click)="tomarFotoAltaUsuarios()">FOTO</button> -->
-            <button class="btn" style="width: 100%;height: 50px;"  type="submit" expand="block">ENVIAR</button>
+            </div><br> -->
+
+            <ion-item *ngIf="mostrarSegunAlta('tipo')">
+              <ion-label class="lbl">Tipo empleado</ion-label>
+              <ion-select formControlName="tipo">
+                <ion-select-option value="MOZO">Mozo</ion-select-option>
+                <ion-select-option value="COCINERO">Cocinero</ion-select-option>
+                <ion-select-option value="BARTENDER">Bartender</ion-select-option>
+                <ion-select-option value="METRE">Metre</ion-select-option>
+              </ion-select>
+            </ion-item>
+
+
+            <ion-grid>
+              <ion-row>      
+                <ion-col size="6">
+                  <button type="button" class="btnQrAltaUsuarios" (click)="scanQrAltaUsuarios()">QR</button>
+                </ion-col>
+                <ion-col size="6">
+                  <button class="btnFotoAltaUsuarios" type="button" (click)="tomarFotoAltaUsuarios()">FOTO</button><br>
+                </ion-col>
+              </ion-row>
+            </ion-grid>       
+
+            <button class="btnEnviar" style="width: 100%;height: 50px;"  type="submit" expand="block">ENVIAR</button>
           </form>
         </ion-card-content>
       </ion-card>
     </div>
   </body>
 </ion-content>
+
+
+

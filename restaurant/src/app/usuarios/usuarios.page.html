@@ -52,19 +52,19 @@
     </ion-row>
   </ion-grid>
 
-  <ion-list color=“transparent”>
+  <ion-list>
     <ion-list-header color="light">
       PENDIENTES
     </ion-list-header>
 
     <ion-item  *ngIf="listaPendientes && listaPendientes.length === 0">
       <ion-label class="ion-text-wrap">
-        No hay usuarios pendientes para confirmar
+        <ion-badge color="light">  No hay usuarios pendientes para confirmar</ion-badge>    
       </ion-label>
     </ion-item>
 
     <ion-item-sliding *ngFor="let usuario of listaPendientes">
-      <ion-item >
+      <ion-item color="warning" >
         <ion-avatar slot="start">
           <img src="{{usuarioService.obtenerFoto(usuario)}}">
         </ion-avatar>
@@ -93,7 +93,7 @@
 
     <ion-item color="warning" *ngIf="listaAprobados && listaAprobados.length === 0">
       <ion-label class="ion-text-wrap">
-        No hay usuarios aprobados por el momento
+        <ion-badge color="light">No hay usuarios aprobados por el momento</ion-badge>      
       </ion-label>
     </ion-item>
 

@@ -345,6 +345,9 @@ export class AltaUsuariosPage implements OnInit {
       case "CLIENTE_ANONIMO":
         return 'cliente anónimo';
         break;
+        case "EMPLEADO":
+          return 'Empleado';
+          break;
       default:
         return "ERROR";
         break;

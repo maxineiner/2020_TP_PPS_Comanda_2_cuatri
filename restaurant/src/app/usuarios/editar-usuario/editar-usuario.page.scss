@@ -4,13 +4,17 @@
     outline: none;
 }
 
+.fondoEditarUsuario{
+    --background: url(../../../assets/fondo_oscuro.jpg) 0 0/100% 100% no-repeat;
+  }
+
 .btnVolverAltaUsuarios{ 
     width: 25vw; 
     height: 4vh;
     top: 96vh;
     left: 0vw;
     color: grey;
-    background-color:  rgb(255,215,0);
+    background-color:  #2dd36f;
     border-radius: 10px;
     font-size: 2vh;
     font-family:Helvetica, sans-serif;
@@ -18,12 +22,18 @@
 }
   
 .btnFotoAltaUsuarios:active{
-    background-color: rgb(218,165,32);
+    background-color: #35f381;
 }
 
 .btnSubmitAltaUsuarios{ 
-    margin-top: 20px;
-    height: 7vh;
+    // margin-top: 20px;
+    // height: 7vh;
+
+    --font-size: 2vh !important;
+    --border-radius: 100px !important;  
+    font-family: cursive !important;
+    font-weight: bold;
+
     /*width: 25vw; 
     height: 4vh;
     top: 96vh;
@@ -37,7 +47,7 @@
 }
   
 .btnFotoAltaUsuarios:active{
-    background-color: rgb(218,165,32);
+    background-color: #35f381;
 }
 
 .btnFotoAltaUsuarios{ 
@@ -46,7 +56,7 @@
     top: 96vh;
     left: 50;
     color: grey;
-    background-color:  rgb(255,215,0);
+    background-color:  #2dd36f;
     border-radius: 10px;
     font-size: 2vh;
     font-family:Helvetica, sans-serif;
@@ -54,7 +64,7 @@
 }
 
 .btnFotoAltaUsuarios:active{
-    background-color: rgb(218,165,32);
+    background-color: #35f381;
 }
 
 .btnQrAltaUsuarios{ 
@@ -63,7 +73,7 @@
     top: 96vh;
     left: 25vw;
     color: grey;
-    background-color:  rgb(255,215,0);
+    background-color:  #2dd36f;
     border-radius: 10px;
     font-size: 2vh;
     font-family:Helvetica, sans-serif;
@@ -71,7 +81,7 @@
 }
 
 .btnQrAltaUsuarios:active{
-    background-color: rgb(218,165,32);
+    background-color: #35f381;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -85,7 +95,7 @@
     top: 0%;
     left: 0%;
     border-radius: 10px;
-    background-color: rgb(255,215,0);
+    background-color: #2dd36f;
     color:  grey;
     text-align: center;
     vertical-align: middle;
@@ -134,7 +144,7 @@
     top: 0%;
     left: 0%;
     border-radius: 10px;
-    background-color: rgb(255,215,0);
+    background-color: #2dd36f;
     color:  grey;
     text-align: center;
     vertical-align: middle;
@@ -150,7 +160,7 @@
     top: 0%;
     left: 0%;
     border-radius: 10px;
-    background-color: rgb(255,215,0);
+    background-color: #2dd36f;
     color:  grey;
     text-align: center;
     vertical-align: middle;
@@ -230,14 +240,16 @@
     top: 0%;
     left: 0%;
     border-radius: 10px;
-    background-color: rgb(255,215,0);
-    color:  grey;
+    background-color: #2dd36f;
+    color:  black;
     text-align: center;
     vertical-align: middle;
     line-height: 5vh; 
     font-size: 3vh;
-    /*font-family:Helvetica, sans-serif;
-    font-weight:bold;*/
+    border: solid;
+    padding: 1%;
+    font-family: cursive;
+    // font-weight:bold;
 }
 
 .inpNombreAltaUsuarios{
@@ -245,14 +257,13 @@
     height: 40%;
     top: 40%;
     left: 0%;
-    color: grey;
+    color: white;
     background-color: rgba(255, 255, 255, 0);
     text-align: center;
     border: 0px;
     border-bottom: 3px solid grey;
     font-size: 3vh;
-    /*font-family:Helvetica, sans-serif;
-    font-weight:bold;*/
+    font-family: cursive;
 }
 
 .lblErrorNombreAltaUsuarios{
@@ -267,8 +278,7 @@
     vertical-align: middle;
     line-height: 4vh; 
     font-size: 2vh;
-    /*font-family:Helvetica, sans-serif;
-    font-weight:bold;*/
+    font-family: cursive;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -279,14 +289,13 @@
     top: 0%;
     left: 0%;
     border-radius: 10px;
-    background-color: rgb(255,215,0);
-    color:  grey;
+    background-color: #2dd36f;
+    color:  black;
     text-align: center;
     vertical-align: middle;
     line-height: 5vh; 
     font-size: 3vh;
-    /*font-family:Helvetica, sans-serif;
-    font-weight:bold;*/
+    font-family: cursive;
 }
 
 .inpApellidoAltaUsuarios{
@@ -294,14 +303,13 @@
     height: 40%;
     top: 40%;
     left: 0%;
-    color: grey;
+    color: white;
     background-color: rgba(255, 255, 255, 0);
     text-align: center;
     border: 0px;
     border-bottom: 3px solid grey;
     font-size: 3vh;
-    /*font-family:Helvetica, sans-serif;
-    font-weight:bold;*/
+    font-family: cursive;
 }
 
 .lblErrorApellidoAltaUsuarios{
@@ -311,13 +319,12 @@
     left: 0%;
     border-radius: 10px;
     background-color: rgb(255, 0, 0);
-    color:  grey;
+    color:  black;
     text-align: center;
     vertical-align: middle;
     line-height: 4vh; 
     font-size: 2vh;
-    /*font-family:Helvetica, sans-serif;
-    font-weight:bold;*/
+    font-family: cursive;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -328,14 +335,13 @@
     top: 0%;
     left: 0%;
     border-radius: 10px;
-    background-color: rgb(255,215,0);
-    color:  grey;
+    background-color: #2dd36f;
+    color:  black;
     text-align: center;
     vertical-align: middle;
     line-height: 5vh; 
     font-size: 3vh;
-    /*font-family:Helvetica, sans-serif;
-    font-weight:bold;*/
+    font-family: cursive;
 }
 
 .inpDniAltaUsuarios{
@@ -343,14 +349,13 @@
     height: 40%;
     top: 40%;
     left: 0%;
-    color: grey;
+    color: white;
     background-color: rgba(255, 255, 255, 0);
     text-align: center;
     border: 0px;
     border-bottom: 3px solid grey;
     font-size: 3vh;
-    /*font-family:Helvetica, sans-serif;
-    font-weight:bold;*/
+    font-family: cursive;
 }
 
 .lblErrorDniAltaUsuarios{
@@ -365,8 +370,7 @@
     vertical-align: middle;
     line-height: 4vh; 
     font-size: 2vh;
-    /*font-family:Helvetica, sans-serif;
-    font-weight:bold;*/
+    font-family: cursive;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -377,14 +381,13 @@
     top: 0%;
     left: 0%;
     border-radius: 10px;
-    background-color: rgb(255,215,0);
-    color:  grey;
+    background-color: #2dd36f;
+    color:  black;
     text-align: center;
     vertical-align: middle;
     line-height: 5vh; 
     font-size: 3vh;
-    /*font-family:Helvetica, sans-serif;
-    font-weight:bold;*/
+    font-family: cursive;
 }
 
 .inpCuilAltaUsuarios{
@@ -392,14 +395,13 @@
     height: 40%;
     top: 40%;
     left: 0%;
-    color: grey;
+    color: white;
     background-color: rgba(255, 255, 255, 0);
     text-align: center;
     border: 0px;
     border-bottom: 3px solid grey;
     font-size: 3vh;
-    /*font-family:Helvetica, sans-serif;
-    font-weight:bold;*/
+    font-family: cursive;
 }
 
 .lblErrorCuilAltaUsuarios{
@@ -414,8 +416,7 @@
     vertical-align: middle;
     line-height: 4vh; 
     font-size: 2vh;
-    /*font-family:Helvetica, sans-serif;
-    font-weight:bold;*/
+    font-family: cursive;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -426,16 +427,16 @@
     top: 0%;
     left: 0%;
     border-radius: 10px;
-    background-color: rgb(255,215,0);
+    background-color: #2dd36f;
     border: 0px;
-    color:  grey;
+    color:  black;
     text-align: center;
     vertical-align: middle;
     line-height: 5vh; 
     font-size: 3vh;
-    /*font-family:Helvetica, sans-serif;
-    font-weight:bold;*/
+    font-family: cursive;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
+
 
