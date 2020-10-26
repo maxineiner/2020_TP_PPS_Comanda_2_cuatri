@@ -1,20 +1,22 @@
 import { Injectable } from "@angular/core";
 import { Imagen } from "../clases/imagen";
-import {
-  Plugins,
-  CameraResultType,
-  CameraSource,
-  Capacitor,
-} from "@capacitor/core";
+import
+  {
+    Plugins,
+    CameraResultType,
+    CameraSource,
+    Capacitor,
+  } from "@capacitor/core";
 import { AngularFireStorage } from "@angular/fire/storage";
 import { ToastController } from "@ionic/angular";
 import { UploadMetadata } from "@angular/fire/storage/interfaces";
-import {
-  MediaCapture,
-  MediaFile,
-  CaptureError,
-  CaptureImageOptions,
-} from "@ionic-native/media-capture/ngx";
+import
+  {
+    MediaCapture,
+    MediaFile,
+    CaptureError,
+    CaptureImageOptions,
+  } from "@ionic-native/media-capture/ngx";
 import { AngularFireDatabase } from "@angular/fire/database";
 import * as firebase from 'firebase';
 
@@ -24,25 +26,30 @@ declare const window: any;
 @Injectable({
   providedIn: "root",
 })
-export class ImagenService {
+export class ImagenService
+{
   constructor(
     private storage: AngularFireStorage,
     private firebaseDB: AngularFireDatabase,
     private toastController: ToastController,
     private mediaCapture: MediaCapture
-  ) {}
+  ) { }
 
   /** Permite sacar multiples fotos y devuelve un array de Imagenes*/
-  async tomarFotos(cantidadDeFotos: number) {
+  async tomarFotos(cantidadDeFotos: number)
+  {
     let options: CaptureImageOptions = { limit: cantidadDeFotos };
     let fotos: Array<Imagen>;
     await this.mediaCapture.captureImage(options).then(
-      async (data: MediaFile[]) => {
-        await this.convertirMediaFileAImagen(data).then((imagenes) => {
+      async (data: MediaFile[]) =>
+      {
+        await this.convertirMediaFileAImagen(data).then((imagenes) =>
+        {
           fotos = imagenes;
-        });        
+        });
       },
-      (err: CaptureError) => {
+      (err: CaptureError) =>
+      {
         console.error("Error al sacar fotos ", err);
       }
     );
@@ -53,14 +60,17 @@ export class ImagenService {
    */
   private async convertirMediaFileAImagen(
     data: MediaFile[]
-  ): Promise<Array<Imagen>> {
+  ): Promise<Array<Imagen>>
+  {
     var fotos: Array<any> = new Array();
     var i, len;
-    for (i = 0, len = data.length; i < len; i += 1) {
+    for (i = 0, len = data.length; i < len; i += 1)
+    {
       let imagen: Imagen = new Imagen();
       imagen.url = window.Ionic.WebView.convertFileSrc(data[i].fullPath);
       imagen.fecha = new Date().toUTCString();
-      this.convertirArchivoABase64(data[i].fullPath, function (imgbase) {
+      this.convertirArchivoABase64(data[i].fullPath, function (imgbase)
+      {
         imagen.base64 = imgbase;
       });
       fotos.push(imagen);
@@ -72,15 +82,20 @@ export class ImagenService {
    * @path string con la ruta local hacia el archivo
    * @callback function recibe como primer parámetro el la imagen base64
    */
-  convertirArchivoABase64(path, callback) {
+  convertirArchivoABase64(path, callback)
+  {
     window.resolveLocalFileSystemURL(path, archivoEncontrado, fail);
-    function fail(e) {
+    function fail(e)
+    {
       console.error("No se pudo acceder al archivo en este dispositivo");
     }
-    function archivoEncontrado(archivo) {
-      archivo.file(function (file) {
+    function archivoEncontrado(archivo)
+    {
+      archivo.file(function (file)
+      {
         var reader = new FileReader();
-        reader.onloadend = function (e) {
+        reader.onloadend = function (e)
+        {
           var content = this.result;
           callback(content);
         };
@@ -91,23 +106,24 @@ export class ImagenService {
   /**
    * Subir foto del almacenamiento del dispositivo
    */
-  async sacarFoto(): Promise<Imagen> {
+  async sacarFoto(): Promise<Imagen>
+  {
     let imagen: Imagen = new Imagen();
 
     const image = await Camera.getPhoto({
-        quality: 90,
-        resultType: CameraResultType.Base64,
-        correctOrientation: true,
-        source: CameraSource.Prompt,
-        promptLabelHeader: "Subir foto",
-        promptLabelCancel: "Cancelar",
-        promptLabelPhoto: "Subir desde galería",
-        promptLabelPicture: "Nueva foto",
-      })
+      quality: 90,
+      resultType: CameraResultType.Base64,
+      correctOrientation: true,
+      source: CameraSource.Prompt,
+      promptLabelHeader: "Subir foto",
+      promptLabelCancel: "Cancelar",
+      promptLabelPhoto: "Subir desde galería",
+      promptLabelPicture: "Nueva foto",
+    })
 
     imagen.base64 = image.base64String;
     imagen.fecha = new Date().toUTCString();
-      
+
     return imagen;
   }
 
@@ -126,21 +142,21 @@ export class ImagenService {
       let carpeta = rutaCarpetaStorage;
       // Se sube imagen a Base de Datos
       const imagenDB = this.crear(imagen);
-  
-      imagenDB.then(async () => 
-        {
-          console.log("Imagen en DB");
-          // Se guarda imagen en el Storage
-          const imagenStorage = await this.guardarImagen(imagen, carpeta);       
-          const URL = await imagenStorage.ref.getDownloadURL();
-              
-          imagen.url = URL;           
-          imagen.rutaStorage = imagenStorage.ref.child(`${rutaCarpetaStorage}/${imagen.id}`).toString();
 
-          console.log(imagen);
-          
-          resolve(imagen);
-        })
+      imagenDB.then(async () => 
+      {
+        console.log("Imagen en DB");
+        // Se guarda imagen en el Storage
+        const imagenStorage = await this.guardarImagen(imagen, carpeta);
+        const URL = await imagenStorage.ref.getDownloadURL();
+
+        imagen.url = URL;
+        imagen.rutaStorage = imagenStorage.ref.child(`${rutaCarpetaStorage}/${imagen.id}`).toString();
+
+        console.log(imagen);
+
+        resolve(imagen);
+      })
         .catch(console.error);
     });
 
@@ -154,7 +170,8 @@ export class ImagenService {
   public async crearArrayImagenes(
     imagenes: Array<Imagen>,
     rutaCarpetaStorage: string
-  ): Promise<Array<Imagen>> {
+  ): Promise<Array<Imagen>>
+  {
 
     return new Promise((resolve) =>
     {
@@ -166,22 +183,23 @@ export class ImagenService {
 
         imagenDB.then(async () => 
         {
-            // Se guarda imagen en el Storage
+          // Se guarda imagen en el Storage
           const imagenStorage = await this.guardarImagen(imagen, carpeta)
           const URL = await imagenStorage.ref.getDownloadURL();
 
           imagen.url = URL;
           imagen.rutaStorage = imagenStorage.ref.child(`${rutaCarpetaStorage}/${imagen.id}`).toString();
         })
-        .catch(console.error);
+          .catch(console.error);
 
       });
       resolve(imagenes);
     })
-    
+
   }
 
-  private async guardarImagen(imagen: Imagen, carpeta: string) {
+  public async guardarImagen(imagen: Imagen, carpeta: string)
+  {
     console.log("Guardar imagen-----------------------");
     const metadata: UploadMetadata = {
       contentType: "image/jpeg",
@@ -195,18 +213,21 @@ export class ImagenService {
   /**
    * Crea una referencia en la carpeta imagenes de la base de datos (Realtime data base), y devuelve el parametro imagen pero con el id de referencia
    */
-  private crear(imagen: Imagen) {
+  private crear(imagen: Imagen)
+  {
     return this.firebaseDB.database.ref("imagenes")
-                .push()
-                .then((snapshot) =>{
-                  imagen.id = snapshot.key;
-                  console.log('Creado correctamente');
-                  this.actualizar(imagen);
-                })
-                .catch(() => console.info("No se pudo realizar alta"));
+      .push()
+      .then((snapshot) =>
+      {
+        imagen.id = snapshot.key;
+        console.log('Creado correctamente');
+        this.actualizar(imagen);
+      })
+      .catch(() => console.info("No se pudo realizar alta"));
   }
 
-  public actualizar(imagen: Imagen): Promise<any> {
+  public actualizar(imagen: Imagen): Promise<any>
+  {
     return this.firebaseDB.database
       .ref("imagenes/" + imagen.id)
       .update(imagen)
@@ -214,7 +235,8 @@ export class ImagenService {
       .catch(() => console.info("No se pudo actualizar"));
   }
 
-  public borrar(imagen: Imagen): Promise<any> {
+  public borrar(imagen: Imagen): Promise<any>
+  {
     return this.firebaseDB.database
       .ref("imagenes/" + imagen.id)
       .remove()
@@ -222,7 +244,8 @@ export class ImagenService {
       .catch(() => console.info("No se pudo realizar la baja."));
   }
 
-  private async presentToast(message) {
+  private async presentToast(message)
+  {
     const toast = await this.toastController.create({
       message,
       duration: 2000,
