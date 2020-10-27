@@ -16,6 +16,7 @@ import { FormEmpleadosComponent } from './form-empleados/form-empleados.componen
 import { ListadoEmpleadosComponent } from './listado-empleados/listado-empleados.component';
 import { DetalleEmpleadoComponent } from './detalle-empleado/detalle-empleado.component';
 import { FormJefesComponent } from './form-jefes/form-jefes.component';
+import { ListadoJefesComponent } from './listado-jefes/listado-jefes.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { FormJefesComponent } from './form-jefes/form-jefes.component';
     ListadoEmpleadosComponent,
     DetalleEmpleadoComponent,
     FormJefesComponent,
+    ListadoJefesComponent
   ],
   imports: [
     CommonModule,
@@ -54,6 +56,7 @@ import { FormJefesComponent } from './form-jefes/form-jefes.component';
     ListadoEmpleadosComponent,
     DetalleEmpleadoComponent,
     FormJefesComponent,
+    ListadoJefesComponent
   ]
 })
 export class ComponentsModule { }
