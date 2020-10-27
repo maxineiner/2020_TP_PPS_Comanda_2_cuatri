@@ -1,0 +1,25 @@
+<div class="ion-activatable card-jefe">
+  <ion-card mode="ios" color="dark">
+    <ion-card-header>
+      <ion-card-title>Jefe: {{ jefe.nombre }} {{ jefe.apellido }}</ion-card-title>
+    </ion-card-header>
+
+    <!-- TODO: show images-->
+    <!--ion-img [src]="jefe.foto.url"></ion-img-->
+
+    <ion-card-content>
+      <ion-chip color="success" mode="ios" outline="true">
+        <ion-label>Tipo:{{ jefe.tipo }}</ion-label>
+      </ion-chip>
+      <ion-chip color="success" mode="ios" outline="true">
+        <ion-label>DNI:{{ jefe.dni }}</ion-label>
+      </ion-chip>
+      <ion-chip color="success" mode="ios" outline="true">
+        <ion-label>CUIL:{{ jefe.cuil }}</ion-label>
+      </ion-chip>
+    </ion-card-content>
+    <ion-button (click)="sacarFoto()" size="large" expand="block" fill="solid" color="success">
+      Sacar foto
+    </ion-button>
+  </ion-card>
+</div>
