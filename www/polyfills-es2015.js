@@ -6145,8 +6145,8 @@ window.__Zone_disable_customElements = true;
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /home/aleksei/workspace/Trabajo_Practico_2_PPS/comandera/src/polyfills.ts */"./src/polyfills.ts");
-module.exports = __webpack_require__(/*! /home/aleksei/workspace/Trabajo_Practico_2_PPS/comandera/node_modules/@angular-devkit/build-angular/src/angular-cli-files/models/jit-polyfills.js */"./node_modules/@angular-devkit/build-angular/src/angular-cli-files/models/jit-polyfills.js");
+__webpack_require__(/*! /home/aleksei/workspace/Trabajo_Practico_2_PPS/2020_TP_PPS_Comanda_2_cuatri/src/polyfills.ts */"./src/polyfills.ts");
+module.exports = __webpack_require__(/*! /home/aleksei/workspace/Trabajo_Practico_2_PPS/2020_TP_PPS_Comanda_2_cuatri/node_modules/@angular-devkit/build-angular/src/angular-cli-files/models/jit-polyfills.js */"./node_modules/@angular-devkit/build-angular/src/angular-cli-files/models/jit-polyfills.js");
 
 
 /***/ })

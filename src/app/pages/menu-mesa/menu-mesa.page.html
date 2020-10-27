@@ -17,11 +17,11 @@
 
 <ion-content>
 
- 
-  <app-listado-mesas *ngIf="opcion == 'Listado'" 
-                    [mesas]="listado" (elegirMesa)="elegirMesa($event)"></app-listado-mesas>
-  
+
+  <app-listado-mesas *ngIf="opcion == 'Listado'" [mesas]="listado" (elegirMesa)="elegirMesa($event)">
+  </app-listado-mesas>
+
   <app-form-mesas *ngIf="opcion != 'Listado'" [opcion]="opcion" [mesa]="mesaElegida"></app-form-mesas>
-  
+
 
 </ion-content>

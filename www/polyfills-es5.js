@@ -20302,7 +20302,7 @@
     /***/
     function _(module, exports, __webpack_require__) {
       __webpack_require__(
-      /*! /home/aleksei/workspace/Trabajo_Practico_2_PPS/comandera/node_modules/@angular-devkit/build-angular/src/angular-cli-files/models/es5-polyfills.js */
+      /*! /home/aleksei/workspace/Trabajo_Practico_2_PPS/2020_TP_PPS_Comanda_2_cuatri/node_modules/@angular-devkit/build-angular/src/angular-cli-files/models/es5-polyfills.js */
       "./node_modules/@angular-devkit/build-angular/src/angular-cli-files/models/es5-polyfills.js");
 
       __webpack_require__(
@@ -20310,15 +20310,15 @@
       "./node_modules/zone.js/dist/zone-legacy.js");
 
       __webpack_require__(
-      /*! /home/aleksei/workspace/Trabajo_Practico_2_PPS/comandera/node_modules/@angular-devkit/build-angular/src/angular-cli-files/models/jit-polyfills.js */
+      /*! /home/aleksei/workspace/Trabajo_Practico_2_PPS/2020_TP_PPS_Comanda_2_cuatri/node_modules/@angular-devkit/build-angular/src/angular-cli-files/models/jit-polyfills.js */
       "./node_modules/@angular-devkit/build-angular/src/angular-cli-files/models/jit-polyfills.js");
 
       __webpack_require__(
-      /*! /home/aleksei/workspace/Trabajo_Practico_2_PPS/comandera/node_modules/@angular-devkit/build-angular/src/angular-cli-files/models/es5-jit-polyfills.js */
+      /*! /home/aleksei/workspace/Trabajo_Practico_2_PPS/2020_TP_PPS_Comanda_2_cuatri/node_modules/@angular-devkit/build-angular/src/angular-cli-files/models/es5-jit-polyfills.js */
       "./node_modules/@angular-devkit/build-angular/src/angular-cli-files/models/es5-jit-polyfills.js");
 
       module.exports = __webpack_require__(
-      /*! /home/aleksei/workspace/Trabajo_Practico_2_PPS/comandera/src/polyfills.ts */
+      /*! /home/aleksei/workspace/Trabajo_Practico_2_PPS/2020_TP_PPS_Comanda_2_cuatri/src/polyfills.ts */
       "./src/polyfills.ts");
       /***/
     }

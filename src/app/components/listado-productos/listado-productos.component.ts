@@ -1,19 +1,20 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { LoadingController } from '@ionic/angular';
+import { LoadingController, ModalController } from '@ionic/angular';
 import { Producto } from "../../clases/producto";
 @Component({
   selector: 'app-listado-productos',
   templateUrl: './listado-productos.component.html',
   styleUrls: ['./listado-productos.component.scss'],
 })
-export class ListadoProductosComponent implements OnInit {
+export class ListadoProductosComponent implements OnInit
+{
 
   @Input() productos: Producto[] = [];
   @Output() elegirProducto: EventEmitter<Producto> = new EventEmitter<Producto>();
 
-  constructor(private loadingController: LoadingController) { }
+  constructor(private loadingController: LoadingController, private modalController: ModalController) { }
 
-  ngOnInit() {this.presentLoading('Cargando productos...', 2000);}
+  ngOnInit() { this.presentLoading('Cargando productos...', 2000); }
 
   seleccionarProducto(producto: Producto)
   {
@@ -29,4 +30,5 @@ export class ListadoProductosComponent implements OnInit {
     });
     await loading.present();
   }
+
 }
