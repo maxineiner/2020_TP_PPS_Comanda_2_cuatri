@@ -11,11 +11,13 @@ import { ListadoProductosComponent } from './listado-productos/listado-productos
 import { PipesModule } from '../pipes/pipes.module';
 import { DetalleMesaComponent } from './detalle-mesa/detalle-mesa.component';
 
-// Empleados
+// Usuarios
 import { FormEmpleadosComponent } from './form-empleados/form-empleados.component';
 import { ListadoEmpleadosComponent } from './listado-empleados/listado-empleados.component';
 import { DetalleEmpleadoComponent } from './detalle-empleado/detalle-empleado.component';
-
+import { FormJefesComponent } from './form-jefes/form-jefes.component';
+import { ListadoJefesComponent } from './listado-jefes/listado-jefes.component';
+import { DetalleJefeComponent } from './detalle-jefe/detalle-jefe.component';
 
 @NgModule({
   declarations: [
@@ -27,10 +29,13 @@ import { DetalleEmpleadoComponent } from './detalle-empleado/detalle-empleado.co
     FormProductoComponent,
     ListadoProductosComponent,
 
-    // Empleados
+    // Usuarios
     FormEmpleadosComponent,
     ListadoEmpleadosComponent,
-    DetalleEmpleadoComponent
+    DetalleEmpleadoComponent,
+    FormJefesComponent,
+    ListadoJefesComponent,
+    DetalleJefeComponent
   ],
   imports: [
     CommonModule,
@@ -48,10 +53,13 @@ import { DetalleEmpleadoComponent } from './detalle-empleado/detalle-empleado.co
     FormMesasComponent,
     ListadoMesasComponent,
 
-    // Empleados
+    // Usuarios
     FormEmpleadosComponent,
     ListadoEmpleadosComponent,
-    DetalleEmpleadoComponent
+    DetalleEmpleadoComponent,
+    FormJefesComponent,
+    ListadoJefesComponent,
+    DetalleJefeComponent
   ]
 })
 export class ComponentsModule { }
