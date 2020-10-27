@@ -1,0 +1,9 @@
+<ion-list *ngFor="let pedido of pedidos">
+
+  <ion-item (click)="seleccionarPedido(pedido)">
+
+    <app-detalle-pedido [pedido]="pedido"></app-detalle-pedido>
+
+  </ion-item>
+
+</ion-list>

@@ -38,11 +38,11 @@ export class MesaService
     return new Promise((resolve, reject) =>
     {
       //Generacion de QR
-      // this.escanerQR.generar(mesa, mesa.id).then(() => 
-      // {
-      // }).catch(error => reject(error));
-      this.firebase.database.ref('mesas/' + mesa.id).update(mesa);
-      resolve;
+      this.escanerQR.generar(mesa, mesa.id).then(() => 
+      {
+        this.firebase.database.ref('mesas/' + mesa.id).update(mesa);
+        resolve;
+      }).catch(error => reject(error));
     })
 
   }

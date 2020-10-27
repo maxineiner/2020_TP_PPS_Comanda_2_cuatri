@@ -75,9 +75,7 @@ export class FormMesasComponent implements OnInit
             this.mesaService
                 .crear(this.mesa)
                 .then(() => this.presentToast('Alta exitosa', 2000))
-                .catch(() =>
-                    this.presentToast('No se pudo realizar el alta', 2000)
-                )
+                .catch(() => this.presentToast('No se pudo realizar el alta', 2000));
         } else
         {
             this.presentToast('Mesa existente', 2000)
@@ -104,8 +102,7 @@ export class FormMesasComponent implements OnInit
                 this.mesa.foto = imagenGuardada
             }
             // Se actualiza Mesa en DB
-            this.mesaService
-                .actualizar(this.mesa)
+            this.mesaService.actualizar(this.mesa)
                 .then(() => this.presentToast('Modificación exitosa', 2000))
                 .catch(() => this.presentToast('No se pudo modificar', 2000))
         }
@@ -121,12 +118,9 @@ export class FormMesasComponent implements OnInit
         {
             // TODO: Borrar imagen de DB y Storage
             // this.imagenService.borrar(this.mesa.foto)
-            this.mesaService
-                .borrar(this.mesa)
+            this.mesaService.borrar(this.mesa)
                 .then(() => this.presentToast('Baja realizada', 2000))
-                .catch(() =>
-                    this.presentToast('No se pudo realizar baja', 2000)
-                )
+                .catch(() => this.presentToast('No se pudo realizar baja', 2000));
         }
     }
 

@@ -26,6 +26,14 @@ const routes: Routes = [
     path: 'qr-ingreso-local',
     loadChildren: () => import('./pages/qr-ingreso-local/qr-ingreso-local.module').then(m => m.QrIngresoLocalPageModule)
   },
+  {
+    path: 'carta',
+    loadChildren: () => import('./pages/carta/carta.module').then(m => m.CartaPageModule)
+  },  {
+    path: 'menu-pedidos',
+    loadChildren: () => import('./pages/menu-pedidos/menu-pedidos.module').then( m => m.MenuPedidosPageModule)
+  },
+
 ];
 @NgModule({
   imports: [
