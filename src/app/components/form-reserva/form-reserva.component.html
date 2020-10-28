@@ -1,4 +1,4 @@
-<form [formGroup]="registroForm">
+<form [formGroup]="reservaForm">
 
   <ion-list mode="ios" lines="none">
 
@@ -10,19 +10,21 @@
     </ion-list-header>
     <ion-item>
       <ion-label>Fecha</ion-label>
-      <ion-datetime displayFormat="DD MM YY" placeholder="Seleccione Fecha" cancelText="Cancelar" doneText="Confirmar"></ion-datetime>
+      <ion-datetime displayFormat="DD MM YY" placeholder="Seleccione Fecha" cancelText="Cancelar" doneText="Confirmar"
+        formControlName="fecha"></ion-datetime>
     </ion-item>
 
     <ion-item>
       <ion-label>Hora</ion-label>
-      <ion-datetime display-format="HH:mm" cancelText="Cancelar" doneText="Confirmar"
-      pickerFormat="HH:mm" placeholder="Seleccione Hora"></ion-datetime>
+      <ion-datetime display-format="HH:mm" cancelText="Cancelar" doneText="Confirmar" formControlName="hora"
+        [disabled]="reservaForm.controls['fecha'].invalid" pickerFormat="HH:mm" placeholder="Seleccione Hora">
+      </ion-datetime>
     </ion-item>
-    
 
-    <ion-select class="round" 
-      placeholder="Seleccione Mesa" okText="Confirmar" cancelText="Cancelar">
-      <ion-select-option *ngFor="let mesa of mesas" [value]='mesa.numero'> <!-- Validar que la mesa este disponible para ese dia y para ese horario -->
+    <!-- Validar que la mesa este disponible para ese dia y para ese horario -->
+    <ion-select class="round" placeholder="Seleccione Mesa" okText="Confirmar" cancelText="Cancelar"
+      [disabled]="reservaForm.controls['fecha'].invalid">
+      <ion-select-option *ngFor="let mesa of mesas" [value]='mesa'>
         Mesa: {{mesa.numero}} Cant.: {{mesa.comensales}}
       </ion-select-option>
     </ion-select>
@@ -32,17 +34,17 @@
   </ion-list>
 
   <!-- Se muestra accion segun tipo de llamado al formulario -->
-  <ion-button (click)="crearMesa()" color="dark" expand="block" type="submit" [disabled]="registroForm.pristine || registroForm.invalid"
-    *ngIf="opcion == 'Alta'">
+  <ion-button (click)="crearReserva()" color="dark" expand="block" type="submit"
+    [disabled]="reservaForm.pristine || reservaForm.invalid" *ngIf="opcion == 'Alta'">
     Crear
   </ion-button>
 
-  <ion-button (click)="modificarMesa()" color="dark" expand="block" type="submit" [disabled]="registroForm.pristine || registroForm.invalid"
-    *ngIf="opcion == 'Modificación'">
+  <ion-button (click)="modificarReserva()" color="dark" expand="block" type="submit"
+    [disabled]="reservaForm.pristine || reservaForm.invalid" *ngIf="opcion == 'Modificación'">
     Modificar
   </ion-button>
 
-  <ion-button (click)="borrarMesa()" color="dark" expand="block" type="submit" *ngIf="opcion == 'Baja'">
+  <ion-button (click)="borrarReserva()" color="dark" expand="block" type="submit" *ngIf="opcion == 'Baja'">
     Eliminar
   </ion-button>
 

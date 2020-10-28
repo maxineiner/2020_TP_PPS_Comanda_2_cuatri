@@ -39,11 +39,6 @@ import { DetallePedidoComponent } from './detalle-pedido/detalle-pedido.componen
     //Reservas
     FormReservaComponent,
     ListadoReservasComponent,
-
-    // Empleados
-    // Producto
-    FormProductoComponent,
-    ListadoProductosComponent,
     // Usuarios
     FormEmpleadosComponent,
     ListadoEmpleadosComponent,
@@ -73,8 +68,6 @@ import { DetallePedidoComponent } from './detalle-pedido/detalle-pedido.componen
     //Reservas
     FormReservaComponent,
     ListadoReservasComponent,
-
-    // Empleados
     // Producto
     ListadoProductosComponent,
     FormProductoComponent,

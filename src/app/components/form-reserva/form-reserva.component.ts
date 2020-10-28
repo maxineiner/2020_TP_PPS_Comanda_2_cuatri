@@ -24,7 +24,7 @@ export class FormReservaComponent
   @Input() opcion: OpcionForm;
   @Input() reserva: Reserva;
   
-  registroForm: FormGroup;
+  reservaForm: FormGroup;
   mesas:Array<Mesa>;
   cliente:Usuario;
 
@@ -53,7 +53,7 @@ export class FormReservaComponent
     {
       if (this.reserva && this.opcion != OpcionForm.ALTA)
       {
-        this.registroForm.setValue({
+        this.reservaForm.setValue({
           mesa: this.reserva.mesa,
           cliente: this.reserva.cliente,
           pedido: this.reserva.pedido,
@@ -62,15 +62,15 @@ export class FormReservaComponent
         });
       } else
       {
-        this.registroForm.reset();
+        this.reservaForm.reset();
       }
 
       if (this.opcion == OpcionForm.BAJA)
       {
-        this.registroForm.disable();
+        this.reservaForm.disable();
       } else
       {
-        this.registroForm.enable();
+        this.reservaForm.enable();
       }
     } catch (error)
     {
@@ -80,7 +80,7 @@ export class FormReservaComponent
 
   crearForm()
   {
-    this.registroForm = this.fb.group({
+    this.reservaForm = this.fb.group({
       mesa: ["", Validators.required],
       cliente: ["", Validators.required],
       pedido: ["", [Validators.required],
@@ -92,20 +92,20 @@ export class FormReservaComponent
 
   crear()
   {
-    this.reserva = new Reserva(this.registroForm.value);
+    this.reserva = new Reserva(this.reservaForm.value);
     this.reservaService.crear(this.reserva).then(data =>
     {
 
     })
   }
 
-  modificarProducto()
+  modificarReserva()
   {
     console.log("Modificando Reserva-------");
-    this.reserva.mesa = this.registroForm.get("mesa").value;
-    this.reserva.cliente = this.registroForm.get("cliente").value;
-    this.reserva.fecha = this.registroForm.get("fecha").value;
-    this.reserva.hora = this.registroForm.get("hora").value;
+    this.reserva.mesa = this.reservaForm.get("mesa").value;
+    this.reserva.cliente = this.reservaForm.get("cliente").value;
+    this.reserva.fecha = this.reservaForm.get("fecha").value;
+    this.reserva.hora = this.reservaForm.get("hora").value;
 
     this.reservaService
       .actualizar(this.reserva)
@@ -117,7 +117,7 @@ export class FormReservaComponent
       .catch(() => this.presentToast("No se pudo modificar", 2000));
   }
 
-  borrarProducto()
+  borrarReserva()
   {
     console.log("Baja de reserva------");
     if (this.reserva)
@@ -128,7 +128,7 @@ export class FormReservaComponent
         .then(() =>
         {
           this.presentToast("Baja realizada", 2000);
-          this.registroForm.reset();
+          this.reservaForm.reset();
         })
         .catch(() => this.presentToast("No se pudo realizar baja", 2000));
     }
