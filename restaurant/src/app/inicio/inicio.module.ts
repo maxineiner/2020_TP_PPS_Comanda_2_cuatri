@@ -14,6 +14,8 @@ import { Usuario } from '../clases/usuario';
 import { MesasComponent } from '../altas/mesas/mesas.component';
 import { Mesa } from '../clases/mesa';
 import { MenuPrincipalComponent } from '../menu-principal/menu-principal.component';
+import { ConfiguracionPage } from '../home/configuracion/configuracion.page';
+import { ConfiguracionPageModule } from '../home/configuracion/configuracion.module';
 //import { HomeComponent } from '../home/home.component';
 //import { BrowserModule } from '@angular/platform-browser';
 
@@ -24,12 +26,14 @@ import { MenuPrincipalComponent } from '../menu-principal/menu-principal.compone
     IonicModule,
     InicioPageRoutingModule,
     FormsModule,
+    ConfiguracionPageModule,
     //BrowserModule
   ],
   declarations: [
     InicioPage,
     ClientesAnonimosComponent,
     ClientesRegistradosComponent,
+    
     // LoginComponent,
     MesasComponent,
     MenuPrincipalComponent,

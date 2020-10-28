@@ -59,7 +59,11 @@ const routes: Routes = [
   {
     path: 'clientes-espera',
     loadChildren: () => import('./home/clientes-espera/clientes-espera.module').then(m => m.ClientesEsperaPageModule)
+  },  {
+    path: 'configuracion',
+    loadChildren: () => import('./home/configuracion/configuracion.module').then( m => m.ConfiguracionPageModule)
   },
+
   /*
   {
     //path: 'finalizados',
