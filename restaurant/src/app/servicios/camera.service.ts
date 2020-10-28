@@ -16,7 +16,7 @@ export class CameraService {
     const retorno = '';
 
     const options: CameraOptions = {
-      quality: 25,
+      quality: 15,
       destinationType: this.camera.DestinationType.DATA_URL,
       encodingType: this.camera.EncodingType.JPEG,
       mediaType: this.camera.MediaType.PICTURE,
