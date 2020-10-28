@@ -15,6 +15,8 @@ import { DetalleMesaComponent } from './detalle-mesa/detalle-mesa.component';
 import { FormEmpleadosComponent } from './form-empleados/form-empleados.component';
 import { ListadoEmpleadosComponent } from './listado-empleados/listado-empleados.component';
 import { DetalleEmpleadoComponent } from './detalle-empleado/detalle-empleado.component';
+import { FormReservaComponent } from './form-reserva/form-reserva.component';
+import { ListadoReservasComponent } from './listado-reservas/listado-reservas.component';
 
 
 @NgModule({
@@ -24,8 +26,12 @@ import { DetalleEmpleadoComponent } from './detalle-empleado/detalle-empleado.co
     DetalleMesaComponent,
     FormMesasComponent,
     ListadoMesasComponent,
+    // Productos
     FormProductoComponent,
     ListadoProductosComponent,
+    //Reservas
+    FormReservaComponent,
+    ListadoReservasComponent,
 
     // Empleados
     FormEmpleadosComponent,
@@ -47,6 +53,9 @@ import { DetalleEmpleadoComponent } from './detalle-empleado/detalle-empleado.co
     HeaderComponent,
     FormMesasComponent,
     ListadoMesasComponent,
+    //Reservas
+    FormReservaComponent,
+    ListadoReservasComponent,
 
     // Empleados
     FormEmpleadosComponent,

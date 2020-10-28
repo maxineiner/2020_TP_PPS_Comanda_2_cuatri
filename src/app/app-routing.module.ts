@@ -21,6 +21,10 @@ const routes: Routes = [
     path: 'qr-ingreso-local',
     loadChildren: () => import('./pages/qr-ingreso-local/qr-ingreso-local.module').then( m => m.QrIngresoLocalPageModule)
   },
+  {
+    path: 'menu-reserva',
+    loadChildren: () => import('./pages/menu-reserva/menu-reserva.module').then( m => m.MenuReservaPageModule)
+  },
 
 ];
 @NgModule({
