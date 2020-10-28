@@ -25,7 +25,7 @@ export class RegisterPage implements OnInit
 
     if (user)
     {
-      console.log('Cliente created!!!');
+      console.log('Cliente creado!!!');
       // this.router.navigateByUrl('/');
     }
   }

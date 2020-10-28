@@ -24,7 +24,7 @@ export class LoginPage implements OnInit
 
     if (clienteLogin)
     {
-      console.log('Cliente logged!');
+      console.log('Cliente logueado!');
       // this.router.navigateByUrl('/home');
     }
   }
