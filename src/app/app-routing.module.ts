@@ -38,17 +38,14 @@ const routes: Routes = [
     path: 'menu-reserva',
     loadChildren: () => import('./pages/menu-reserva/menu-reserva.module').then(m => m.MenuReservaPageModule)
   },
-  //TODO: add paths
-  /*
   {
     path: 'register',
-    loadChildren: () => import('./register/register.module').then(m => m.RegisterPageModule)
+    loadChildren: () => import('./components/register/register.module').then(m => m.RegisterPageModule)
   },
   {
     path: 'login',
-    loadChildren: () => import('./login/login.module').then(m => m.LoginPageModule)
+    loadChildren: () => import('./components/login/login.module').then(m => m.LoginPageModule)
   },
-  */
 ];
 @NgModule({
   imports: [
