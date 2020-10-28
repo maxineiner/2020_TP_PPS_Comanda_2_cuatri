@@ -17,9 +17,21 @@ const routes: Routes = [
   {
     path: 'menu-mesa',
     loadChildren: () => import('./pages/menu-mesa/menu-mesa.module').then(m => m.MenuMesaPageModule)
-  },  {
+  },
+  {
+    path: 'menu-jefe',
+    loadChildren: () => import('./pages/menu-jefe/menu-jefe.module').then(m => m.MenuJefePageModule)
+  },
+  {
     path: 'qr-ingreso-local',
-    loadChildren: () => import('./pages/qr-ingreso-local/qr-ingreso-local.module').then( m => m.QrIngresoLocalPageModule)
+    loadChildren: () => import('./pages/qr-ingreso-local/qr-ingreso-local.module').then(m => m.QrIngresoLocalPageModule)
+  },
+  {
+    path: 'carta',
+    loadChildren: () => import('./pages/carta/carta.module').then(m => m.CartaPageModule)
+  },  {
+    path: 'menu-pedidos',
+    loadChildren: () => import('./pages/menu-pedidos/menu-pedidos.module').then( m => m.MenuPedidosPageModule)
   },
   {
     path: 'menu-reserva',

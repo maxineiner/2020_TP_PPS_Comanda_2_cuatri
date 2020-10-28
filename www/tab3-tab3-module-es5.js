@@ -3,15 +3,15 @@
 
   (window["webpackJsonp"] = window["webpackJsonp"] || []).push([["tab3-tab3-module"], {
     /***/
-    "./node_modules/raw-loader/dist/cjs.js!./src/app/tab3/tab3.page.html":
-    /*!***************************************************************************!*\
-      !*** ./node_modules/raw-loader/dist/cjs.js!./src/app/tab3/tab3.page.html ***!
-      \***************************************************************************/
+    "./node_modules/raw-loader/dist/cjs.js!./src/app/pages/tab3/tab3.page.html":
+    /*!*********************************************************************************!*\
+      !*** ./node_modules/raw-loader/dist/cjs.js!./src/app/pages/tab3/tab3.page.html ***!
+      \*********************************************************************************/
 
     /*! exports provided: default */
 
     /***/
-    function node_modulesRawLoaderDistCjsJsSrcAppTab3Tab3PageHtml(module, __webpack_exports__, __webpack_require__) {
+    function node_modulesRawLoaderDistCjsJsSrcAppPagesTab3Tab3PageHtml(module, __webpack_exports__, __webpack_require__) {
       "use strict";
 
       __webpack_require__.r(__webpack_exports__);
@@ -23,15 +23,15 @@
     },
 
     /***/
-    "./src/app/tab3/tab3-routing.module.ts":
-    /*!*********************************************!*\
-      !*** ./src/app/tab3/tab3-routing.module.ts ***!
-      \*********************************************/
+    "./src/app/pages/tab3/tab3-routing.module.ts":
+    /*!***************************************************!*\
+      !*** ./src/app/pages/tab3/tab3-routing.module.ts ***!
+      \***************************************************/
 
     /*! exports provided: Tab3PageRoutingModule */
 
     /***/
-    function srcAppTab3Tab3RoutingModuleTs(module, __webpack_exports__, __webpack_require__) {
+    function srcAppPagesTab3Tab3RoutingModuleTs(module, __webpack_exports__, __webpack_require__) {
       "use strict";
 
       __webpack_require__.r(__webpack_exports__);
@@ -64,7 +64,7 @@
 
       var _tab3_page__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
       /*! ./tab3.page */
-      "./src/app/tab3/tab3.page.ts");
+      "./src/app/pages/tab3/tab3.page.ts");
 
       var routes = [{
         path: '',
@@ -83,15 +83,15 @@
     },
 
     /***/
-    "./src/app/tab3/tab3.module.ts":
-    /*!*************************************!*\
-      !*** ./src/app/tab3/tab3.module.ts ***!
-      \*************************************/
+    "./src/app/pages/tab3/tab3.module.ts":
+    /*!*******************************************!*\
+      !*** ./src/app/pages/tab3/tab3.module.ts ***!
+      \*******************************************/
 
     /*! exports provided: Tab3PageModule */
 
     /***/
-    function srcAppTab3Tab3ModuleTs(module, __webpack_exports__, __webpack_require__) {
+    function srcAppPagesTab3Tab3ModuleTs(module, __webpack_exports__, __webpack_require__) {
       "use strict";
 
       __webpack_require__.r(__webpack_exports__);
@@ -142,19 +142,19 @@
 
       var _tab3_page__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
       /*! ./tab3.page */
-      "./src/app/tab3/tab3.page.ts");
+      "./src/app/pages/tab3/tab3.page.ts");
       /* harmony import */
 
 
       var _explore_container_explore_container_module__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
       /*! ../explore-container/explore-container.module */
-      "./src/app/explore-container/explore-container.module.ts");
+      "./src/app/pages/explore-container/explore-container.module.ts");
       /* harmony import */
 
 
       var _tab3_routing_module__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
       /*! ./tab3-routing.module */
-      "./src/app/tab3/tab3-routing.module.ts");
+      "./src/app/pages/tab3/tab3-routing.module.ts");
 
       var Tab3PageModule = function Tab3PageModule() {
         _classCallCheck(this, Tab3PageModule);
@@ -171,35 +171,35 @@
     },
 
     /***/
-    "./src/app/tab3/tab3.page.scss":
-    /*!*************************************!*\
-      !*** ./src/app/tab3/tab3.page.scss ***!
-      \*************************************/
+    "./src/app/pages/tab3/tab3.page.scss":
+    /*!*******************************************!*\
+      !*** ./src/app/pages/tab3/tab3.page.scss ***!
+      \*******************************************/
 
     /*! exports provided: default */
 
     /***/
-    function srcAppTab3Tab3PageScss(module, __webpack_exports__, __webpack_require__) {
+    function srcAppPagesTab3Tab3PageScss(module, __webpack_exports__, __webpack_require__) {
       "use strict";
 
       __webpack_require__.r(__webpack_exports__);
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3RhYjMvdGFiMy5wYWdlLnNjc3MifQ== */";
+      __webpack_exports__["default"] = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3BhZ2VzL3RhYjMvdGFiMy5wYWdlLnNjc3MifQ== */";
       /***/
     },
 
     /***/
-    "./src/app/tab3/tab3.page.ts":
-    /*!***********************************!*\
-      !*** ./src/app/tab3/tab3.page.ts ***!
-      \***********************************/
+    "./src/app/pages/tab3/tab3.page.ts":
+    /*!*****************************************!*\
+      !*** ./src/app/pages/tab3/tab3.page.ts ***!
+      \*****************************************/
 
     /*! exports provided: Tab3Page */
 
     /***/
-    function srcAppTab3Tab3PageTs(module, __webpack_exports__, __webpack_require__) {
+    function srcAppPagesTab3Tab3PageTs(module, __webpack_exports__, __webpack_require__) {
       "use strict";
 
       __webpack_require__.r(__webpack_exports__);
@@ -234,10 +234,10 @@
         selector: 'app-tab3',
         template: Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"])(__webpack_require__(
         /*! raw-loader!./tab3.page.html */
-        "./node_modules/raw-loader/dist/cjs.js!./src/app/tab3/tab3.page.html"))["default"],
+        "./node_modules/raw-loader/dist/cjs.js!./src/app/pages/tab3/tab3.page.html"))["default"],
         styles: [Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"])(__webpack_require__(
         /*! ./tab3.page.scss */
-        "./src/app/tab3/tab3.page.scss"))["default"]]
+        "./src/app/pages/tab3/tab3.page.scss"))["default"]]
       })], Tab3Page);
       /***/
     }

@@ -57,6 +57,6 @@
   <ion-button (click)="borrarMesa()" color="dark" expand="block" type="submit" *ngIf="opcion == 'Baja'">
     Eliminar
   </ion-button>
-  <ion-img [src]="mesa.codigoQR"></ion-img>
+  <ion-img *ngIf="mesa.codigoQR" [src]="mesa.codigoQR | safe: 'url'"></ion-img>
 
 </form>

@@ -8,15 +8,16 @@ import { MesaService } from 'src/app/services/mesa.service';
   templateUrl: './menu-mesa.page.html',
   styleUrls: ['./menu-mesa.page.scss'],
 })
-export class MenuMesaPage implements OnInit, DoCheck {
+export class MenuMesaPage implements OnInit, DoCheck
+{
   opcion: string = 'Listado';
   listado: Mesa[] = MesaService.mesas;
   mesaElegida: Mesa = new Mesa();
-  
 
-  constructor(private router: Router, private mesaService: MesaService) { }
+  constructor(private mesaService: MesaService) { }
 
-  ngDoCheck(): void {
+  ngDoCheck(): void
+  {
     this.listado = MesaService.mesas;
   }
 
@@ -24,10 +25,10 @@ export class MenuMesaPage implements OnInit, DoCheck {
   {
     console.log("INIT");
 
-    this.mesaService.leer().then((mesas) =>{
+    this.mesaService.leer().then((mesas) =>
+    {
       console.log(mesas);
       this.listado = mesas;
-      console.log(this.listado);
     });
     this.mesaElegida = new Mesa();
   }

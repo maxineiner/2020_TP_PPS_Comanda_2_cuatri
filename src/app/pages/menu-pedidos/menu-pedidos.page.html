@@ -1,0 +1,26 @@
+<app-header titulo="Menú Pedidos" paginaAnterior='/'></app-header>
+
+<ion-segment value="Listado" (ionChange)="seleccionarOpcion($event)" scrollable color="dark">
+  <ion-segment-button value="Listado">
+    <ion-label>Pedidos</ion-label>
+  </ion-segment-button>
+  <ion-segment-button value="Alta">
+    <ion-label>Alta</ion-label>
+  </ion-segment-button>
+  <ion-segment-button value="Baja" *ngIf="pedidoElegido.isActive">
+    <ion-label>Baja</ion-label>
+  </ion-segment-button>
+  <ion-segment-button value="Modificación" *ngIf="pedidoElegido.isActive">
+    <ion-label>Modificación</ion-label>
+  </ion-segment-button>
+</ion-segment>
+
+<ion-content>
+
+  <app-listado-pedidos *ngIf="opcion == 'Listado'" [pedidos]="pedidos" (elegirPedido)="elegirPedido($event)">
+  </app-listado-pedidos>
+
+  <app-form-pedido *ngIf="opcion != 'Listado'" [opcion]="opcion" [pedido]="pedidoElegido"></app-form-pedido>
+
+
+</ion-content>

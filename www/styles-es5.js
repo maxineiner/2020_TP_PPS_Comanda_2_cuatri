@@ -526,11 +526,11 @@
     /***/
     function _(module, exports, __webpack_require__) {
       __webpack_require__(
-      /*! /home/aleksei/workspace/Trabajo_Practico_2_PPS/comandera/src/theme/variables.scss */
+      /*! /home/aleksei/workspace/Trabajo_Practico_2_PPS/2020_TP_PPS_Comanda_2_cuatri/src/theme/variables.scss */
       "./src/theme/variables.scss");
 
       module.exports = __webpack_require__(
-      /*! /home/aleksei/workspace/Trabajo_Practico_2_PPS/comandera/src/global.scss */
+      /*! /home/aleksei/workspace/Trabajo_Practico_2_PPS/2020_TP_PPS_Comanda_2_cuatri/src/global.scss */
       "./src/global.scss");
       /***/
     }
