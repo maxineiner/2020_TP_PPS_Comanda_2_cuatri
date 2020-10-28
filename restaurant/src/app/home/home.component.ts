@@ -10,6 +10,8 @@ import { TipoUsuario } from 'src/app/enums/tipo-usuario.enum';
 import { Notificacion } from 'src/app/clases/notificacion';
 import { Router } from '@angular/router';
 import { SonidosService } from '../servicios/sonidos.service';
+import { ConfiguracionPage } from './configuracion/configuracion.page';
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -70,6 +72,11 @@ export class HomeComponent implements OnInit {
         this.usuario = datos;
       });
     });*/
+  }
+
+  AbrirOpciones()
+  {
+    this.utilsService.presentModal(ConfiguracionPage);
   }
 
   cerrarSesion(){
