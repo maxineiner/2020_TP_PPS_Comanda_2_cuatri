@@ -20,10 +20,11 @@ app.post("/", (req, res) => {
     }
 
     const transporter = nodemailer.createTransport( {
-        service: "gmail",
+        service: "Gmail",
         auth: {
             user: "caseritoRestauranteComida@gmail.com",
-            pass: ""
+            pass: "caserito1234"
+
         }
     })
 
