@@ -10,6 +10,13 @@
         <ion-card-header style="background-color: #e2e2e2;">
           <table style="width: 100%;">
             <tr>
+
+              <td>
+                <!-- <button class="btn" style="height: 40px;width: 40px;color: white;border-radius: 5px;">
+                  <ion-icon name="chevron-back-outline" routerLink="/home"></ion-icon>
+                </button> -->
+              </td>
+
               <td align="margin-left">
                 <h1 style="padding-left: 10%;"> Formulario para {{getTipoAlta()}}</h1>
               </td>
@@ -126,14 +133,6 @@
               </ion-label>
             </div>
             <br>
-            <!-- <div class="divTipoAltaUsuarios" *ngIf="mostrarSegunAlta('tipo')">
-              <select class="listTipoAltaUsuarios" formControlName="tipo">
-                <option value="MOZO">MOZO</option>
-                <option value="COCINERO">COCINERO</option>
-                <option value="BARTENDER">BARTENDER</option>
-                <option value="METRE">METRE</option>
-              </select>
-            </div><br> -->
             <ion-item *ngIf="mostrarSegunAlta('tipo')">
               <ion-label class="lbl">Tipo empleado</ion-label>
               <ion-select formControlName="tipo">
