@@ -13,6 +13,7 @@ import { NotificationService } from 'src/app/servicios/notification.service';
 import { Notificacion } from 'src/app/clases/notificacion';
 import { from } from 'rxjs';
 import { Location } from '@angular/common';
+import { FirebaseService } from 'src/app/servicios/firebase.service';
 @Component({
   selector: 'app-alta-usuarios',
   templateUrl: './alta-usuarios.page.html',
@@ -37,7 +38,8 @@ export class AltaUsuariosPage implements OnInit {
     public scanner: BarcodeScanner,
     public authService: AuthService,
     public notificationService: NotificationService,
-    public location: Location
+    public location: Location,
+    public firebaseService: FirebaseService
   ) {
     this.usuarios = db.collection('usuarios').valueChanges();
     this.usuarios.subscribe(usuarios => this.listaUsuarios = usuarios, error => console.log(error));
@@ -73,6 +75,7 @@ export class AltaUsuariosPage implements OnInit {
 
 
   onSubmitUsuario(): void {
+    //this.firebaseService.sendEmail(this.usuarios,"Funciono?","Funciono?");
     if (this.errorFomularioAltaUsarios() === false) {
       this.utilsService.presentLoading();
       const nuevoUsuario = new Usuario();
@@ -132,6 +135,7 @@ export class AltaUsuariosPage implements OnInit {
           notificacion.receptor = TipoUsuario.DUEÑO;
           notificacion.receptorSecundario = TipoUsuario.SUPERVISOR;
           this.notificationService.crearNotificacion(notificacion);
+          
           this.volverAltaUsuarios();
         }
         else {
