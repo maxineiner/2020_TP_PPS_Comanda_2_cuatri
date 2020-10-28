@@ -6,6 +6,9 @@ export class Reserva {
     public mesa: Mesa;
     public cliente: Cliente;
     public pedido: any;//Tipo Pedido
+    public isActive:boolean;
+    public fecha:any;
+    public hora:any;
 
     public constructor(init?: Partial<Reserva>) {
         if(init){
@@ -13,9 +16,7 @@ export class Reserva {
         }
     }
 
-    
-
-    public static CrearProducto(id: string, mesa: Mesa, cliente: Cliente,
+    public static CrearReserva(id: string, mesa: Mesa, cliente: Cliente,
         pedido: any) :Reserva {
         let reserva = new Reserva();
         

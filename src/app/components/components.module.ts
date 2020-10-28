@@ -15,6 +15,9 @@ import { DetalleMesaComponent } from './detalle-mesa/detalle-mesa.component';
 import { FormEmpleadosComponent } from './form-empleados/form-empleados.component';
 import { ListadoEmpleadosComponent } from './listado-empleados/listado-empleados.component';
 import { DetalleEmpleadoComponent } from './detalle-empleado/detalle-empleado.component';
+import { FormReservaComponent } from './form-reserva/form-reserva.component';
+import { ListadoReservasComponent } from './listado-reservas/listado-reservas.component';
+
 import { FormJefesComponent } from './form-jefes/form-jefes.component';
 import { ListadoJefesComponent } from './listado-jefes/listado-jefes.component';
 import { DetalleJefeComponent } from './detalle-jefe/detalle-jefe.component';
@@ -30,9 +33,12 @@ import { DetallePedidoComponent } from './detalle-pedido/detalle-pedido.componen
     DetalleMesaComponent,
     FormMesasComponent,
     ListadoMesasComponent,
-    // Producto
+    // Productos
     FormProductoComponent,
     ListadoProductosComponent,
+    //Reservas
+    FormReservaComponent,
+    ListadoReservasComponent,
     // Usuarios
     FormEmpleadosComponent,
     ListadoEmpleadosComponent,
@@ -59,6 +65,9 @@ import { DetallePedidoComponent } from './detalle-pedido/detalle-pedido.componen
     FormMesasComponent,
     DetalleMesaComponent,
     ListadoMesasComponent,
+    //Reservas
+    FormReservaComponent,
+    ListadoReservasComponent,
     // Producto
     ListadoProductosComponent,
     FormProductoComponent,

@@ -33,6 +33,10 @@ const routes: Routes = [
     path: 'menu-pedidos',
     loadChildren: () => import('./pages/menu-pedidos/menu-pedidos.module').then( m => m.MenuPedidosPageModule)
   },
+  {
+    path: 'menu-reserva',
+    loadChildren: () => import('./pages/menu-reserva/menu-reserva.module').then( m => m.MenuReservaPageModule)
+  },
 
 ];
 @NgModule({
