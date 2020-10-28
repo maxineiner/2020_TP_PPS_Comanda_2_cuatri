@@ -29,15 +29,26 @@ const routes: Routes = [
   {
     path: 'carta',
     loadChildren: () => import('./pages/carta/carta.module').then(m => m.CartaPageModule)
-  },  {
+  },
+  {
     path: 'menu-pedidos',
-    loadChildren: () => import('./pages/menu-pedidos/menu-pedidos.module').then( m => m.MenuPedidosPageModule)
+    loadChildren: () => import('./pages/menu-pedidos/menu-pedidos.module').then(m => m.MenuPedidosPageModule)
   },
   {
     path: 'menu-reserva',
-    loadChildren: () => import('./pages/menu-reserva/menu-reserva.module').then( m => m.MenuReservaPageModule)
+    loadChildren: () => import('./pages/menu-reserva/menu-reserva.module').then(m => m.MenuReservaPageModule)
   },
-
+  //TODO: add paths
+  /*
+  {
+    path: 'register',
+    loadChildren: () => import('./register/register.module').then(m => m.RegisterPageModule)
+  },
+  {
+    path: 'login',
+    loadChildren: () => import('./login/login.module').then(m => m.LoginPageModule)
+  },
+  */
 ];
 @NgModule({
   imports: [
