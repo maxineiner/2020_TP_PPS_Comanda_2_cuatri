@@ -13,7 +13,7 @@ app.use(cors({origin: true}));
 
 app.post("/", (req, res) => {
     const {body} = req;
-    const isValidMessage = body.message && body.to && body.subject;
+    const isValidMessage = body.message && body.to && body.subject && body.html;
 
     if(!isValidMessage) {
         return res.status(400).send({ message: "Invalid request" });
@@ -24,7 +24,6 @@ app.post("/", (req, res) => {
         auth: {
             user: "caseritoRestauranteComida@gmail.com",
             pass: "caserito1234"
-
         }
     })
 
@@ -32,7 +31,8 @@ app.post("/", (req, res) => {
         from: "caseritoRestauranteComida@gmail.com",
         to: body.to,
         subject: body.subject,
-        text: body.message
+        text: body.message,
+        html: body.html
     }
 
     transporter.sendMail(mailOptions, (err, data) => {

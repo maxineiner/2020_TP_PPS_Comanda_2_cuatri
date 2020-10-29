@@ -54,7 +54,7 @@ export class UsuariosPage implements OnInit {
 
   aprobarUsuario(usuario): void {
     this.utilsService.presentLoading();
-    this.fireService.sendEmail(usuario, '¡Usted ha sido aceptado, bienvenido a Coherence Restaurant!', 'Respuesta solicitud registro Coherence Restaurant');
+    this.fireService.sendEmail(usuario, 'Se ha aceptado su solicitud de alta, ya puede disfrutar de nuestros servicios. ¡Gracias por elegirnos!.', 'Caserito Restaurante - Solicitud de alta de usuario');
     this.authService.gestionarUsuario(usuario, EstadoUsuario.APROBADO)
       .then(() => this.utilsService.dismissLoading())
       .catch(err => this.utilsService.dismissLoading());
@@ -62,7 +62,7 @@ export class UsuariosPage implements OnInit {
 
   declinarUsuario(usuario): void {
     this.utilsService.presentLoading();
-    this.fireService.sendEmail(usuario, 'Lo sentimos, pero su solicitud a sido rechazada', 'Respuesta solicitud registro Coherence Restaurant');
+    this.fireService.sendEmail(usuario, 'Lamentablemente no se aceptado su solicitud. Disculpe las molestias.', 'Caserito Restaurante - Solicitud de alta de usuario');
     this.authService.gestionarUsuario(usuario, EstadoUsuario.RECHAZADO)
       .then(() => this.utilsService.dismissLoading())
       .catch(err => this.utilsService.dismissLoading());
