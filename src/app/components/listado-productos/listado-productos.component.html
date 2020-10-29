@@ -1,7 +1,7 @@
 <ion-list *ngFor="let producto of productos">
   <ion-item (click)="seleccionarProducto(producto)">
-    <ion-card>
-      <app-detalle-producto [producto]="producto"></app-detalle-producto>
-    </ion-card>
+
+    <app-detalle-producto [producto]="producto"></app-detalle-producto>
+
   </ion-item>
 </ion-list>

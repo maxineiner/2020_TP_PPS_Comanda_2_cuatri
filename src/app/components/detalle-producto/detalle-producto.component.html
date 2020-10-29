@@ -1,21 +1,34 @@
-<ion-label>
-  <h1>{{producto.nombre}}</h1>
-  <p>
-    <small>Descripción: {{producto.descripcion}}</small>
-  </p>
-  <p>
-    Tiempo de elaboracion: {{producto.minutosDeElaboracion}} minutos
-  </p>
-</ion-label>
+<div class="ion-activatable">
+  <ion-card class="card-producto">
+    <ion-card-content>
 
-<ion-grid>
-  <ion-row>
-    <ion-col *ngFor="let foto of producto.fotos" size="4" (click)="presentPopover($event, foto)">
-      <img style="max-height: 100px;" src="{{foto.url}}" alt="{{producto.nombre}}">
-    </ion-col>
-  </ion-row>
-</ion-grid>
+      <ion-label>
+        <h1>{{producto.nombre}}</h1>
+      </ion-label>
+      <ion-text color="primary" class="ion-text-sm-left">
+        <p>
+          <small>{{producto.descripcion}}</small>
+        </p>
+        <p>
+          Tiempo de elaboracion: {{producto.minutosDeElaboracion}} minutos
+        </p>
+      </ion-text>
 
-<ion-label>
-  <h5>Precio: ${{producto.precio}}</h5>
-</ion-label>
+      <ion-label>
+        <h5>Precio: ${{producto.precio}}</h5>
+      </ion-label>
+
+
+    </ion-card-content>
+
+    <ion-grid>
+      <ion-row>
+        <ion-col *ngFor="let foto of producto.fotos" (click)="presentPopover($event, foto)">
+          <img style="max-height: 80px;" src="{{foto.url}}" alt="{{producto.nombre}}">
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+    <ion-ripple-effect type="bounded"></ion-ripple-effect>
+  </ion-card>
+</div>
