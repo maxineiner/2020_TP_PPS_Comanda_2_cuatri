@@ -14,15 +14,15 @@
 <ion-content class="background">
   <ion-card>
     <ion-card-header>
-      <ion-card-subtitle> MESA #<ion-label color="warning">{{pedido?.mesa.numero}}</ion-label>
+      <ion-card-subtitle> MESA #<ion-label color="success">{{pedido?.mesa.numero}}</ion-label>
       </ion-card-subtitle>
-      <ion-card-title>PEDIDO #<ion-label color="warning">{{pedido?.id.substr(-5)}}</ion-label>
-        <ion-icon class="ion-float-right" color="warning" name="information-circle-outline">
+      <ion-card-title>PEDIDO #<ion-label color="success">{{pedido?.id.substr(-5)}}</ion-label>
+        <ion-icon class="ion-float-right" color="success" name="information-circle-outline">
         </ion-icon>
       </ion-card-title>
     </ion-card-header>
     <ion-card-content>
-      ESTADO <ion-label color="warning">{{pedido?.estado}}</ion-label>
+      ESTADO <ion-label color="success">{{pedido?.estado}}</ion-label>
     </ion-card-content>
     <img src="../../../../../assets/mesa-qr.png" />
   </ion-card>
@@ -44,8 +44,8 @@
   <ion-card *ngIf="pedido?.estado === 'PENDIENTE'" (click)="agregarComida()">
     <ion-card-header>
       <ion-card-subtitle></ion-card-subtitle>
-      <ion-card-title>Agregar <ion-label color="warning">COMIDA</ion-label>
-        <ion-icon class="ion-float-right" color="warning" name="add-circle-outline">
+      <ion-card-title>Agregar <ion-label color="success">COMIDA</ion-label>
+        <ion-icon class="ion-float-right" color="success" name="add-circle-outline">
         </ion-icon>
       </ion-card-title>
     </ion-card-header>
