@@ -24,16 +24,20 @@ import { DetalleJefeComponent } from './detalle-jefe/detalle-jefe.component';
 import { ListadoPedidosComponent } from './listado-pedidos/listado-pedidos.component';
 import { FormPedidoComponent } from './form-pedido/form-pedido.component';
 import { DetallePedidoComponent } from './detalle-pedido/detalle-pedido.component';
+import { FotoComponent } from './foto/foto.component';
+import { DetalleProductoComponent } from './detalle-producto/detalle-producto.component';
 
 @NgModule({
   declarations: [
     SplashComponent,
     HeaderComponent,
+    FotoComponent,
     // Mesa
     DetalleMesaComponent,
     FormMesasComponent,
     ListadoMesasComponent,
     // Productos
+    DetalleProductoComponent,
     FormProductoComponent,
     ListadoProductosComponent,
     //Reservas
@@ -61,6 +65,7 @@ import { DetallePedidoComponent } from './detalle-pedido/detalle-pedido.componen
   exports: [
     SplashComponent,
     HeaderComponent,
+    FotoComponent,
     // Mesa
     FormMesasComponent,
     DetalleMesaComponent,
@@ -69,6 +74,7 @@ import { DetallePedidoComponent } from './detalle-pedido/detalle-pedido.componen
     FormReservaComponent,
     ListadoReservasComponent,
     // Producto
+    DetalleProductoComponent,
     ListadoProductosComponent,
     FormProductoComponent,
     // Usuarios

@@ -7,7 +7,8 @@ import { ProductoService } from 'src/app/services/producto.service';
   templateUrl: './menu-producto.page.html',
   styleUrls: ['./menu-producto.page.scss'],
 })
-export class MenuProductoPage implements OnInit {
+export class MenuProductoPage implements OnInit
+{
 
   opcion: string = 'Listado';
   listado: Producto[];
@@ -15,24 +16,29 @@ export class MenuProductoPage implements OnInit {
 
   constructor(private productoService: ProductoService) { }
 
-  ngDoCheck(): void {
-
+  ngDoCheck(): void 
+  {
+    this.listado = ProductoService.productos;
   }
 
-  ngOnInit() {
+  ngOnInit()
+  {
     console.log("INIT");
-    this.productoService.traerTodos().then(data => {
+    this.productoService.traerTodos().then(data =>
+    {
       console.log(data);
       this.listado = data;
     });
   }
 
-  seleccionarOpcion(event) {
+  seleccionarOpcion(event)
+  {
     console.log(event.detail.value);
     this.opcion = event.detail.value;
   }
 
-  elegirProducto(event) {
+  elegirProducto(event)
+  {
     console.log(event);
     this.productoElegido = event;
   }

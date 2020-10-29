@@ -1,5 +1,5 @@
 <div class="ion-activatable card-mesa">
-  <ion-card mode="ios" color="dark">
+  <ion-card color="dark">
     <ion-card-header>
       <ion-card-title>Mesa:{{ mesa.numero }}</ion-card-title>
     </ion-card-header>
@@ -14,9 +14,9 @@
         <ion-label>Personas:{{ mesa.comensales }}</ion-label>
       </ion-chip>
     </ion-card-content>
-    <ion-button (click)="reservar()" size="large" expand="block" 
-                fill="solid"  color="success">
+    <ion-button (click)="reservar()" size="large" expand="block" fill="solid" color="success">
       Reservar
     </ion-button>
+    <ion-ripple-effect type="bounded"></ion-ripple-effect>
   </ion-card>
 </div>
