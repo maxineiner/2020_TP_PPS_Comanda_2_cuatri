@@ -23,3 +23,10 @@ export class Cliente extends Usuario
     return cliente;
   }
 }
+
+//FIXME: esta clase es solo para testear el login y el registro
+export class ClienteLogin
+{
+  email: string;
+  password: string;
+}
