@@ -91,10 +91,15 @@ export class FormPedidoComponent implements OnInit
     console.log(data);
   }
 
-  removerProducto(producto)
+  removerPlato(index: number)
   {
-    const nuevaLista = this.pedido.productos.filter(p => p.id != producto.id);
+    const nuevaLista = this.pedido.productos.filter((p, i) => i != index);
     this.pedido.productos = nuevaLista;
+  }
+
+  entregarPlato(index: number)
+  {
+    console.log(this.pedido.productos[index]);
   }
 
   // Toast para notificaciones

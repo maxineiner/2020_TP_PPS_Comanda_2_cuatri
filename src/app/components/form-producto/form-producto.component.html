@@ -1,15 +1,22 @@
 <form class="modal-content animate container" [formGroup]="registroForm" novalidate>
-  <div class="form-group">
+  <!-- <div class="form-group">
     <label>Nombre:</label>
     <input class="form-control" formControlName="nombre" type="text">
-  </div>
-  <div
-    *ngIf="registroForm.controls['nombre'].invalid && (registroForm.controls['nombre'].dirty || registroForm.controls['nombre'].touched)"
-    class="alert alert-danger">
-    <div *ngIf="registroForm.controls['nombre'].errors.required">
-      Nombre es requerido.
+  </div> -->
+  <ion-item>
+    <ion-label>Nombre</ion-label>
+    <ion-input class="form-control" formControlName="nombre" type="text" required>
+    </ion-input>
+    <div
+      *ngIf="registroForm.controls['nombre'].invalid && (registroForm.controls['nombre'].dirty || registroForm.controls['nombre'].touched)"
+      class="alert alert-danger">
+      <div *ngIf="registroForm.controls['nombre'].errors.required">
+        Nombre es requerido.
+      </div>
     </div>
-  </div>
+  </ion-item>
+
+
   <div class="form-group">
     <label>Descripcion:</label>
     <input class="form-control" formControlName="descripcion" type="text">
@@ -49,30 +56,28 @@
       El precio solo debe contener numeros.
     </div>
   </div>
-  <ion-button color="dark" center (click)=tomarFotos() *ngIf="opcion != 'Baja'" [disabled]="fotos.length == 3">
-    <ion-icon slot="start" name="camera"></ion-icon>
-    Tomar Fotos
-  </ion-button>
-<!--   <ion-button color="dark" center (click)=subirFoto() *ngIf="opcion != 'Baja'" [disabled]="fotos.length == 3">
-    <ion-icon slot="start" name="camera"></ion-icon>
-    Tomar Fotos
-  </ion-button> -->
 
-  <ion-grid *ngIf="fotos">
+
+  <ion-grid>
     <ion-row>
-      <ion-col *ngFor="let foto of fotos">
-        <img src="{{foto.url}}">
+      <ion-col *ngFor="let foto of imgPreview; let i=index" size="4">
+        <ion-button *ngIf="!foto" (click)="subirFoto(i)" size="small">
+          Foto {{i+1}}
+          <ion-icon slot="end" name="camera"></ion-icon>
+        </ion-button>
+        <img *ngIf="foto" [src]="foto | safe: 'url'" (click)="subirFoto(i)">
       </ion-col>
     </ion-row>
   </ion-grid>
-  
-  <ion-button (click)="registrar()" color="dark" expand="block" type="submit" [disabled]="registroForm.pristine || registroForm.invalid"
-    *ngIf="opcion == 'Alta'">
+
+
+  <ion-button (click)="registrar()" color="dark" expand="block" type="submit"
+    [disabled]="registroForm.pristine || registroForm.invalid" *ngIf="opcion == 'Alta'">
     Crear
   </ion-button>
 
-  <ion-button (click)="modificarProducto()" color="dark" expand="block" type="submit" [disabled]="registroForm.pristine || registroForm.invalid"
-    *ngIf="opcion == 'Modificación'">
+  <ion-button (click)="modificarProducto()" color="dark" expand="block" type="submit"
+    [disabled]="registroForm.pristine || registroForm.invalid" *ngIf="opcion == 'Modificación'">
     Modificar
   </ion-button>
 

@@ -40,8 +40,7 @@ export class MesaService
       //Generacion de QR
       this.escanerQR.generar(mesa, mesa.id).then(() => 
       {
-        this.firebase.database.ref('mesas/' + mesa.id).update(mesa);
-        resolve;
+        resolve(this.firebase.database.ref('mesas/' + mesa.id).update(mesa));
       }).catch(error => reject(error));
     })
 

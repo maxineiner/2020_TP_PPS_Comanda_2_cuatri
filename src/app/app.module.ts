@@ -19,7 +19,6 @@ import { AngularFireStorageModule } from '@angular/fire/storage';
 // Plugins
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
-import { MediaCapture } from '@ionic-native/media-capture/ngx';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
 
 @NgModule({
@@ -44,7 +43,6 @@ import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
     BarcodeScanner,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     AngularFireDatabase,
-    MediaCapture
   ],
   bootstrap: [AppComponent]
 })

@@ -1,0 +1,21 @@
+<ion-label>
+  <h1>{{producto.nombre}}</h1>
+  <p>
+    <small>Descripción: {{producto.descripcion}}</small>
+  </p>
+  <p>
+    Tiempo de elaboracion: {{producto.minutosDeElaboracion}} minutos
+  </p>
+</ion-label>
+
+<ion-grid>
+  <ion-row>
+    <ion-col *ngFor="let foto of producto.fotos" size="4" (click)="presentPopover($event, foto)">
+      <img style="max-height: 100px;" src="{{foto.url}}" alt="{{producto.nombre}}">
+    </ion-col>
+  </ion-row>
+</ion-grid>
+
+<ion-label>
+  <h5>Precio: ${{producto.precio}}</h5>
+</ion-label>
