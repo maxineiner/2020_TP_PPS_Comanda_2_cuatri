@@ -1,0 +1,48 @@
+<body class="fondo">
+  <ion-header class="ion-no-border" translucent="true">
+    <ion-card
+      style="background: none;--background:none;backdrop-filter: blur(10px) brightness(0.7);border-radius: 10px;height: 60px;">
+      <table style="width:100%;">
+        <tr>
+          <td style="width: 10%;padding-left: 4%;">
+            <button class="btn-icon" (click)="dismiss()">
+              <ion-icon name="chevron-back-outline"></ion-icon>
+            </button>
+          </td>
+          <td style="width: 50%;padding-left: 4%;">
+            <ion-text color="light">
+              <label style="font-size: 18px;"><b>Configuraciones</b></label>
+            </ion-text>
+          </td>
+          <td style="height: 60px;">
+          </td>
+        </tr>
+      </table>
+    </ion-card>
+  </ion-header>
+  <ion-content style="--background:none">
+    <div align="center">
+      <br>
+      <div style="background-color: black;width:90%;border-radius: 10px;">
+        <h4><b style="color: white;"> Efectos de sonido </b></h4>
+      </div>
+      <button [class]="sonidos.sonido ? 'btn-config-on' : 'btn-config-off'" (click)="BtnAudio()" style="width: 90%;">
+        <table style="margin-left: 15%;">
+          <tr>
+            <td>
+              <ion-icon [name]="sonidos.sonido ? 'volume-high-outline' : 'volume-mute-outline'"></ion-icon>
+            </td>
+            <td>
+              <div *ngIf="sonidos.sonido">
+                Activado
+              </div>
+              <div *ngIf="!sonidos.sonido">
+                Desactivado
+              </div>
+            </td>
+          </tr>
+        </table>
+      </button>
+    </div>
+  </ion-content>
+</body>
