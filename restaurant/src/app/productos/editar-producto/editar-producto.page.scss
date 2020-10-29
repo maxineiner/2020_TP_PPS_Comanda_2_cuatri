@@ -7,10 +7,36 @@ ion-slides {
 
 ///////////////////////////////
 
+.titulo  {
+  color: black;
+  border-radius: 5px;
+  background-color: #2ac568;
+} 
+
+.subtitulo  {
+  color: black;
+  border-radius: 5px;
+  background-color: #2ac568;
+} 
+
 .lbl {
   font-size: 25px;
   font-family: cursive;
 }
+
+.btnAtras {
+  height: 40px;
+  width: 40px;
+  color: black;
+  border-radius: 5px;
+  background-color: #2ac568;
+}
+// .titulo {
+//   display: revert;
+//   text-align: center;
+//   vertical-align: middle;
+//   color: black;
+// }
 
 .btn {
   border-radius: 100px;
@@ -58,7 +84,7 @@ ion-slides {
 
 .btn-tertiary {
   border-radius: 100px;
-  background-color: #cecece;
+  background-color: black;
   font-family: cursive;
   height: 50px;
 }
@@ -73,6 +99,6 @@ ion-slides {
 
 .btn-iconBack {
   background: none;
-  color: white;
+  color: black;
   font-size: 35px;
 }

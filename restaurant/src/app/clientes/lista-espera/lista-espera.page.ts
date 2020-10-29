@@ -37,6 +37,8 @@ export class ListaEsperaPage implements OnInit {
     });
   }
 
+
+
   obtenerEstado() {
     this.utilsService.presentLoading();
     this.pedidoService.obtenerPedidosActivos(this.usuario).subscribe(pedidos => {

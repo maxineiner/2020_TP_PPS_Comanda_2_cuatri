@@ -1,26 +1,21 @@
+
+
 <ion-content>
   <body class="fondo divScroll">
-    <ion-card style="border-radius: 10px; margin-top: 5%">
-      <ion-card-header style="background-color: #e2e2e2">
+    <ion-card style="border-radius: 10px; margin-top: 10%">
+      <ion-card-header style="background-color: #2ac568">
         <table style="width: 100%">
           <tr>
             <td>
               <button
-                class="btn"
-                (click)="dismiss()"
-                style="
-                  height: 40px;
-                  width: 40px;
-                  color: white;
-                  border-radius: 5px;
-                "
-              >
+                class="btnAtras"
+                (click)="dismiss()">
                 <ion-icon name="chevron-back-outline"></ion-icon>
               </button>
             </td>
             <td style="text-align: center">
-              <h2>Editar Producto:</h2>
-              <h2>{{ producto?.nombre }}</h2>
+              <h1 class="titulo">Editar Producto</h1>
+              <h2 class="subtitulo">{{ producto?.nombre }}</h2>
             </td>
           </tr>
         </table>

@@ -14,10 +14,10 @@
 <ion-content class="background">
   <!--ESPERANDO MESA-->
   <ion-card class="ion-text-center" *ngIf="!pedido" color="light">
-    <img src="../../../../../assets/mesa-qr.png" />
-    <ion-spinner color="warning" name="crescent"></ion-spinner>
+    <img src="../../../assets/mesa-qr.jpg" />
+    <ion-spinner color="success" name="crescent"></ion-spinner>
     <ion-text color="dark">
-      <h1>Lista <ion-label color="warning">de espera</ion-label>
+      <h1>Lista <ion-label color="success">de espera</ion-label>
       </h1>
     </ion-text>
 
@@ -29,10 +29,10 @@
 
   <!--MESA LISTA-->
   <ion-card class="ion-text-center" *ngIf="pedido" color="light">
-    <img src="../../../../../assets/mesa-qr.png" />
-    <ion-icon class="feed" color="warning" name="checkbox-outline"></ion-icon>
+    <img src="../../../assets/mesa-qr.jpg" />
+    <ion-icon class="feed" color="success" name="checkbox-outline"></ion-icon>
     <ion-text color="dark">
-      <h1>Mesa <ion-label color="warning">preparada!</ion-label>
+      <h1>Mesa <ion-label color="success">preparada!</ion-label>
       </h1>
     </ion-text>
     <ion-text color="dark">

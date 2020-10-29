@@ -5,6 +5,13 @@
   font-family: cursive;
 }
 
+.titulo {
+  display: revert;
+  text-align: center;
+  vertical-align: middle;
+  color: black;
+}
+
 .btn {
   border-radius: 100px;
   background-color: #2ac568;
@@ -12,11 +19,12 @@
   font-size: 20px;
   height: 70px;
   width: 100%;
+  margin-bottom: 5px;
 }
 
 .btn:hover {
   background-color: #37ff87;
-  height: 100px;
+  height: 70px;
 }
 
 .btn:focus {
@@ -307,23 +315,7 @@ ion-input, ion-select {
   font-weight:bold;*/
 }
 
-/*button {
-  color: grey;
-  background-color:  rgb(255,215,0);
-  border-radius: 10px;
-  box-shadow: 0 10px 	rgb(218,165,32);
-  font-size: 5vh;
-  font-family:Helvetica, sans-serif;
-  font-weight:bold;
-  min-width: 20vw;
-  margin-right: 5vw;
-  margin-bottom: 5vh;
-}
 
-button:active {
-  transform: translate(0px, 5px);
-  box-shadow: 0 5px rgb(218,165,32);
-}*/
 
 .btnVolverAltaProductos{
   position: absolute; 
