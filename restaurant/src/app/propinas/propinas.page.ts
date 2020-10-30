@@ -3,6 +3,7 @@ import { UtilsService } from 'src/app/servicios/utils.service';
 import { PropinaService } from 'src/app/servicios/propina.service';
 import { Propina } from 'src/app/clases/propina';
 import { EditarPropinaPage } from './editar-propina/editar-propina.page';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-propinas',
@@ -14,11 +15,16 @@ export class PropinasPage implements OnInit {
 
   constructor(
     public propinaService: PropinaService,
-    private utilsService: UtilsService
+    private utilsService: UtilsService,
+    private location:Location
   ) { }
 
   ngOnInit() {
     this.obtenerPropinas();
+  }
+
+  public volver(): void {
+    this.location.back();
   }
 
   obtenerPropinas() {

@@ -24,10 +24,10 @@
     </ion-card>
   </ion-header>
 
-  <ion-content style="--background:none;" >
+  <ion-content  style="--background:none;">
     <br>
     <div
-      style="width: 100%;padding-left: 3%;padding-right: 3%;backdrop-filter: blur(15px) brightness(0.7);border-radius: 20px;" align="center">
+      style="width: 100%;backdrop-filter: blur(15px) brightness(0.7);border-radius: 20px;" align="center">
       <ion-list-header color="translucent">
         <div align="center" style="width: 100%;">
           <br>
@@ -41,7 +41,7 @@
           No hay mesas cargadas
         </h2>
       </div>
-      <ion-item-sliding *ngFor="let mesa of listaMesas" style="--background: none;width: 100%;border-radius: 10px;">
+      <ion-item *ngFor="let mesa of listaMesas" style="--background: none;width: 100%;border-radius: 10px;">
         <div style="background-color: rgb(209, 209, 209);width: 100%;border-radius: 10px;margin-top: 3%;">
           <ion-item style="--background: none;width: 100%;">
             <table style="width: 100%;">
@@ -73,7 +73,7 @@
                 <td style="width: 26%;" align="center">
                   <h3>
                     <ion-badge class="{{(mesa.estado === 'LIBRE') ? 'libre' : 'ocupada'}}"
-                      style="width: 80%;height: 100%;">
+                      style="width: 90%;height: 100%;">
                       <b>{{mesa.estado}}</b>
                     </ion-badge>
                     <!--ion-badge color="{{(mesa.estado === 'LIBRE') ? 'success' : 'light'}}">{{mesa.estado}}</ion-badge-->
@@ -96,7 +96,7 @@
             </table>
           </ion-item>
         </div>
-      </ion-item-sliding>
+      </ion-item>
       <br>
     </div>
   </ion-content>
