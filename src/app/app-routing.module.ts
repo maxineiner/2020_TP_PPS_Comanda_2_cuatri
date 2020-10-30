@@ -11,6 +11,10 @@ const routes: Routes = [
     loadChildren: () => import('./pages/menu-producto/menu-producto.module').then(m => m.MenuProductoPageModule)
   },
   {
+    path: 'menu-cliente',
+    loadChildren: () => import('./pages/menu-cliente/menu-cliente.module').then(m => m.MenuClientePageModule)
+  },
+  {
     path: 'menu-empleado',
     loadChildren: () => import('./pages/menu-empleado/menu-empleado.module').then(m => m.MenuEmpleadoPageModule)
   },
@@ -45,7 +49,8 @@ const routes: Routes = [
   {
     path: 'login',
     loadChildren: () => import('./components/login/login.module').then(m => m.LoginPageModule)
-  },
+  }
+
 ];
 @NgModule({
   imports: [
