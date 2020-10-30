@@ -41,6 +41,10 @@ const routes: Routes = [
     loadChildren: () => import('./usuarios/alta-usuarios/alta-usuarios.module').then( m => m.AltaUsuariosPageModule)
   },
   {
+    path: 'pendientes',
+    loadChildren: () => import('./home/pendientes/pendientes.module').then( m => m.PendientesPageModule)
+  },
+  {
     path: 'editar-usuario',
     loadChildren: () => import('./usuarios/editar-usuario/editar-usuario.module').then( m => m.EditarUsuarioPageModule)
   },
@@ -59,10 +63,16 @@ const routes: Routes = [
   {
     path: 'clientes-espera',
     loadChildren: () => import('./home/clientes-espera/clientes-espera.module').then(m => m.ClientesEsperaPageModule)
-  },  {
+  },
+  {
     path: 'configuracion',
     loadChildren: () => import('./home/configuracion/configuracion.module').then( m => m.ConfiguracionPageModule)
   },
+  {
+    path: 'mozo',
+    loadChildren: () => import('./mozo/mozo.module').then( m => m.MozoPageModule)
+  },
+
 
   /*
   {
