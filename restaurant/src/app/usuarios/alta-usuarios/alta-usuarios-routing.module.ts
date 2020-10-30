@@ -7,7 +7,11 @@ const routes: Routes = [
   {
     path: '',
     component: AltaUsuariosPage
-  }
+  }, 
+  {
+    path: 'clientes',
+    loadChildren: () => import('../../clientes/clientes.module').then( m => m.ClientesPageModule)
+  },
 ];
 
 @NgModule({
