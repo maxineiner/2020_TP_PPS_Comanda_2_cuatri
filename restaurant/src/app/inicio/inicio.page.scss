@@ -11,6 +11,13 @@
     background-size: cover;
     display: flex;
   }
+
+  .badge{
+    color: white;
+    background-color: black;
+    height: 20px;
+    border-radius: 5px;
+  }
   
   .logoSplash{
       height: 40vh;
@@ -58,13 +65,12 @@
     font-family: cursive;
     border-radius: 100px;
     border: solid;
-    /*color: grey;
-    background-color:  rgb(255,215,0);
-    border-radius: 10px;
-    box-shadow: 0 10px 	rgb(218,165,32);
-    font-size: 3vh;
-    font-family:Helvetica, sans-serif;
-    font-weight:bold;*/
+    outline: none;
+  }
+
+  .btnClienteAnonimoInicio:hover, .btnClienteRegistradoInicio:hover, .btnLoginInicio:hover{
+    background-color: #000000;
+    color: white;
   }
   
   .btnClienteRegistradoInicio{
