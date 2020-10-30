@@ -4,6 +4,7 @@ import { PropinaService } from 'src/app/servicios/propina.service';
 import { Propina } from 'src/app/clases/propina';
 import { EditarPropinaPage } from './editar-propina/editar-propina.page';
 import { Location } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-propinas',
@@ -16,7 +17,7 @@ export class PropinasPage implements OnInit {
   constructor(
     public propinaService: PropinaService,
     private utilsService: UtilsService,
-    private location:Location
+    private router:Router
   ) { }
 
   ngOnInit() {
@@ -24,7 +25,7 @@ export class PropinasPage implements OnInit {
   }
 
   public volver(): void {
-    this.location.back();
+    this.router.navigateByUrl('/home')
   }
 
   obtenerPropinas() {
