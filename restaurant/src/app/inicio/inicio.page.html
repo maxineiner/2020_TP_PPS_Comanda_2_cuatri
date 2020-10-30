@@ -1,28 +1,56 @@
-<ion-content>
-  <div class="fondo">
+<body class="fondo">
+  <ion-content style="--background:none;">
+    <div class="header">
+      <br>
+      <table style="width: 100%;" align="center">
+        <tr >
+          <td colspan="3" align="center">
+            <h1 style="font-size: 45px;">Caserito</h1>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="3" align="center">
+            <div style="width: 60px;">
+              <img src="../../../assets/spinner.png">
+            </div>
+            <br>
+          </td>
+        </tr>
 
-      <button type="button"  class="btnClienteRegistradoInicio"
-      (click)="manejadoraInicio('CLIENTE_REGISTRADO')">Registrarme</button>
-     <button type="button"  class="btnClienteAnonimoInicio" 
-      (click)="manejadoraInicio('CLIENTE_ANONIMO')">Ingreso<br>sin registro</button>
-     <button type="button"  class="btnLoginInicio" 
-      (click)="manejadoraInicio('LOGIN')">Ya estoy registrado</button>
-  
-    <div class="loadingInicio">
-      <img src="../../../assets/spinner.png">
+        <tr style="font-size: 13px;">
+          <td align="center">
+            <ion-label>TOMADIN FEDERICO</ion-label>
+          </td>
+          <td align="center">
+            <ion-label>CARBONE LUCAS</ion-label>
+          </td>
+          <td align="center">
+            <ion-label>SANCHEZ LUCAS</ion-label>
+          </td>
+        </tr>
+      </table>
+      <br>
+      <br>
     </div>
-    <label class="divTitulo">Caserito</label>
-    <label class="divNombres">
-      <p>
-        <ion-badge class="badge">TOMADIN FEDERICO</ion-badge>
-      </p>
-      <p>
-        <ion-badge class="badge">CARBONE LUCAS</ion-badge>
-      </p>
-      <p>
-        <ion-badge class="badge">SANCHEZ LUCAS</ion-badge>
-      </p>
-    </label>
-  
-  </div>
-</ion-content>
+
+    <br>
+    <br>
+    <br>
+    <div class="content">
+      <button type="button" class="btn" (click)="manejadoraInicio('CLIENTE_REGISTRADO')">Registrarme</button>
+      <br>
+      <br>
+      <br>
+      <button type="button" class="btn" (click)="manejadoraInicio('CLIENTE_ANONIMO')">Ingreso<br>sin registro</button>
+      <br>
+      <br>
+      <br>
+      <button type="button" class="btn-secondary" (click)="manejadoraInicio('LOGIN')"><b>Ya estoy registrado</b></button>
+    </div>
+
+
+
+
+
+  </ion-content>
+</body>
