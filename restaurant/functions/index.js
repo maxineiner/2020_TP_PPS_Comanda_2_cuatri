@@ -45,3 +45,4 @@ app.post("/", (req, res) => {
 });
 
 module.exports.mailer = functions.https.onRequest(app);
+

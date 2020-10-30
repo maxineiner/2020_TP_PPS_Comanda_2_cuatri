@@ -1,11 +1,11 @@
 <ion-header>
-  <ion-toolbar color="warning">
+  <ion-toolbar color="success">
     <ion-buttons slot="start">
       <ion-button (click)="atras()">
         <ion-icon name="close-outline"></ion-icon>
       </ion-button>
     </ion-buttons>
-    <ion-title class="ion-text-center">
+    <ion-title class="titulo">
       Pedido
     </ion-title>
   </ion-toolbar>
@@ -24,14 +24,14 @@
     <ion-card-content>
       ESTADO <ion-label color="success">{{pedido?.estado}}</ion-label>
     </ion-card-content>
-    <img src="../../../../../assets/mesa-qr.png" />
+    <img src="../../../assets/mesa-qr.jpg" />
   </ion-card>
 
   <ion-card (click)="verDetalle()">
     <ion-card-header>
       <ion-card-subtitle></ion-card-subtitle>
-      <ion-card-title>Ver <ion-label color="warning">DETALLE</ion-label>
-        <ion-icon class="ion-float-right" color="warning" name="reader-outline">
+      <ion-card-title>Ver <ion-label color="success">DETALLE</ion-label>
+        <ion-icon class="ion-float-right" color="success" name="reader-outline">
         </ion-icon>
       </ion-card-title>
     </ion-card-header>
@@ -100,8 +100,8 @@
   <ion-card (click)="chatear('MOZO')">
     <ion-card-header>
       <ion-card-subtitle></ion-card-subtitle>
-      <ion-card-title>Consultar al <ion-label color="warning">MOZO</ion-label>
-        <ion-icon class="ion-float-right" color="warning" name="chatbox-outline">
+      <ion-card-title>Consultar al <ion-label color="success">MOZO</ion-label>
+        <ion-icon class="ion-float-right" color="success" name="chatbox-outline">
         </ion-icon>
       </ion-card-title>
     </ion-card-header>
@@ -116,7 +116,7 @@
   <ion-toolbar>
     <ion-title class="ion-text-center">
       TOTAL:
-      <ion-text color="warning">$ {{calcularTotalFinal()|number:'1.2-2'}}</ion-text>
+      <ion-text color="danger">$ {{calcularTotalFinal()|number:'1.2-2'}}</ion-text>
     </ion-title>
   </ion-toolbar>
 </ion-footer>
