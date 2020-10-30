@@ -4,86 +4,75 @@
   outline: none;
 }
 
-.fondoHome{
-  //background-image: url("src/assets/fondoLogin.jpg");
+.lbl{
+  font-size: 25px;
+  font-family: cursive;
+}
+
+.btn{
+  border-radius: 100px;
+  background-color: #2ac568;
+  font-family: cursive;
+  font-size: 20px;
+  height: 70px;
+  width: 100%;
+}
+
+
+.btn:hover{
+  background-color: #37ff87;
+  height: 100px;
+}
+
+.btn:focus {
+  outline: 0 !important;
+}
+
+.fondo{
+  background: url("../../../assets/splash.jpg");
   background-position: center center;
   background-repeat: no-repeat;
   background-size: cover;
-  width: 100vw;
-  height: 100vh;
-  display: flex;
-  align-items: center;
-  text-align: center;
-  justify-content: center;
+  padding: 5%;
+}
+.divScroll{
+  overflow-y: auto;
+  height: 100%;
 }
 
-.loadingContainerPropina{
-  width: 100vw;
-  height: 100vh;
-  position: absolute;
-  background-color: rgba(0, 0, 0, 0.678);
-  z-index: 299;
-}
-
-.loadingPropina{
-  width: 100px;
-  height: 100px;
-  position: fixed;
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  margin: auto;
-  z-index: 300;
-  animation: spinHome 2s linear infinite;
-  background-color: gold;
+.btn-secondary{
   border-radius: 100px;
+  background-color: #ffd000;
+  font-family: cursive;
+  height: 50px;
 }
 
-@keyframes spinHome{
-  from{transform: rotate(0deg);}
-  to{transform: rotate(360deg);}
+.btn-secondary:hover{
+  background-color: #ddb400;
 }
 
-.lblTitulo {
-  border-radius: 10px;
-  background-color: rgb(255,215,0);
-  color:  grey;
-  text-align: center;
-  vertical-align: middle;
-  line-height: 5vh; 
-  font-size: 3vh;
+.btn-secondary:focus {
+  outline: 0 !important;
 }
 
-.lblError {
-  border-radius: 10px;
-  background-color: rgb(255,215,0);
-  color:  red;
-  display: block;
+.btn-tertiary{
+  border-radius: 100px;
+  background-color: #cecece;
+  font-family: cursive;
+  height: 50px;
 }
 
-ion-input, ion-select {
-  color: grey;
-  border-bottom: 3px solid grey;
-  font-size: 3vh;
+
+.btn-tertiary:hover{
+  background-color: #b9b9b9;
 }
 
-.btnVolverAltaPropinas{
-  position: absolute; 
-  width: 25vw; 
-  height: 4vh;
-  top: 96vh;
-  left: 0vw;
-  color: grey;
-  background-color:  rgb(255,215,0);
-  border-radius: 10px;
-  font-size: 2vh;
+.btn-tertiary:focus {
+  outline: 0 !important;
 }
 
-.btnSubmitAltaPropinas{
-  position: absolute; 
-  width: 90vw; 
-  height: 10vh;
-  bottom: 0;
-  left: 5vw;
+.btn-iconBack{
+  background: none;
+  color: white;
+  font-size: 35px;
 }
