@@ -1,56 +1,86 @@
-<app-toolbar [titulo]="'Propinas'" [backBtn]="'home'" [usuario]="null">
-</app-toolbar>
+<body class="fondo">
+  <ion-header class="ion-no-border" translucent="true">
+    <ion-card class="toolbar-card">
+      <table style="width:100%;">
+        <tr>
+          <td class="toolbar-btn-back">
+            <button class="btn-icon" (click)="volver()">
+              <ion-icon name="chevron-back-outline"></ion-icon>
+            </button>
+          </td>
+          <td class="toolbar-title">
+            <ion-text>
+              <label><b>Gestión de propinas</b></label>
+            </ion-text>
+          </td>
+          <td style="height: 60px;">
+            <button class="btn" (click)="agregarPropina()">
+              <b>Agregar propina</b>
+            </button>
+          </td>
+        </tr>
+      </table>
+    </ion-card>
+  </ion-header>
 
-<ion-content class="background">
+  <ion-content class="content">
 
-  <ion-grid class="ion-no-padding">
-    <ion-row>
-      <ion-col>
-        <ion-button color="warning" (click)="agregarPropina()" size="block">
-          <ion-icon name="wallet-outline"></ion-icon> Agregar PROPINA
-        </ion-button>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
-
-  <!-- PROPINAS -->
-  <ion-list color=“transparent”>
-    <ion-list-header color="light">
-      PROPINAS
-    </ion-list-header>
-
-    <ion-item color="warning" *ngIf="listaPropinas && listaPropinas.length === 0">
-      <ion-label class="ion-text-wrap">
-        No hay propinas cargadas
-      </ion-label>
-    </ion-item>
-
-    <ion-item-sliding *ngFor="let propina of listaPropinas">
-      <ion-item color="warning">
-        <ion-label color="light">
-          <p>
-            <ion-badge color="light">
-              <ion-icon name="calculator-outline"></ion-icon>
-              {{propina.porcentaje}}
-            </ion-badge>
-            <ion-badge color="dark">
-              <ion-icon name="information-circle-outline"></ion-icon>
-              {{propina.satisfaccion}}
-            </ion-badge>
-          </p>
-        </ion-label>
-      </ion-item>
-
-      <ion-item-options side="end">
-        <ion-item-option color="light" (click)="editarPropina(propina)">
-          <ion-icon slot="icon-only" name="create-outline"></ion-icon>
-        </ion-item-option>
-        <ion-item-option color="danger" (click)="eliminarPropina(propina)">
-          <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
-        </ion-item-option>
-      </ion-item-options>
-    </ion-item-sliding>
-
-  </ion-list>
-
-</ion-content>
+    <div class="container-list"  align="center">
+      <!-- PROPINAS -->
+      <ion-list-header color="translucent">
+        <div align="center" style="width: 100%;">
+          <br>
+          <b style="color: white;">LISTA DE PROPINAS</b>
+        </div>
+      </ion-list-header>
+      
+  
+        <div *ngIf="listaPropinas && listaPropinas.length === 0" class="list-empty" align="center">
+          <h2>
+            No hay propinas cargadas
+          </h2>
+        </div>
+        
+        <ion-item *ngFor="let propina of listaPropinas" class="list-item">
+          <div class="container-item">
+            <ion-item style="--background: none;width: 100%;">
+              <table style="width: 100%;">
+                <tr>
+                  <td style="width: 26%;">
+                    <h2 style="padding-left: 5%;"><b>{{propina.porcentaje}}%</b></h2>
+                  </td>
+                  <td style="width: 26%;" align="center">
+                    <h3>
+                      <ion-badge class="badge-{{propina.satisfaccion}}">
+                        <b>{{propina.satisfaccion}}</b>
+                      </ion-badge>
+                    </h3>
+                  </td>
+                  <td align="center">
+                    <table>
+                      <tr>
+                        <td>
+                          <button class="btn-icon" style="color: rgb(0, 0, 0);" (click)="editarPropina(propina)">
+                            <ion-icon slot="icon-only" name="create-outline"></ion-icon>
+                          </button>
+                        </td>
+                        <td>
+                          <button class="btn-icon" style="color: red;" (click)="eliminarPropina(propina)">
+                            <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+                          </button>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+                <tr>
+                </tr>
+              </table>
+            </ion-item>
+          </div>
+        </ion-item>
+        <br>
+        <br>
+      </div>
+  </ion-content>
+</body>

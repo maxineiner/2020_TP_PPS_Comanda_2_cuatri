@@ -8,13 +8,13 @@
               <ion-icon name="log-out-outline"></ion-icon>
             </button>
           </td>
-          <td style="width: 70%;padding-left: 4%;">
+          <td style="width: 70%;padding-left: 4%;height: 60px">
             <ion-text class="ion-text-center" color="light">
               <label style="font-size: 18px;">Bienvenido! <b>{{usuario?.nombre}}</b></label>
             </ion-text>
           </td>
-          <td style="height: 60px;">
-            <img [src]="usuarioService.mostrarFoto(usuario.foto)" (click)="AbrirOpciones()" style="width:70%;height: 60px;border-radius: 10px;margin-left:30%" alt="">
+          <td style="height: 60px;width:70%;">
+            <img [src]="usuarioService.mostrarFoto(usuario.foto)" (click)="AbrirOpciones()" class="btn-foto-perfil" alt="">
           </td>
         </tr>
       </table>

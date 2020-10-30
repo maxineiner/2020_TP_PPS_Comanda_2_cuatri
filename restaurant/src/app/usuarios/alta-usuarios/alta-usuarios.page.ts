@@ -48,7 +48,7 @@ export class AltaUsuariosPage implements OnInit {
   ngOnInit() {
     this.formUsuario = this.fb.group
       ({
-        correo: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(25), Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')]],
+        correo: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(50), Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')]],
         clave: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(6), Validators.pattern('[0-9]*')]],
         clave2: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(6), Validators.pattern('[0-9]*')]],
         nombre: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(16), Validators.pattern('[a-zA-Z ]*')]],
