@@ -18,7 +18,7 @@ import { ToolbarModule } from 'src/app/toolbar/toolbar.module';
     ReactiveFormsModule,
     IonicModule,
     AltaUsuariosPageRoutingModule,
-    ToolbarModule 
+    ToolbarModule
   ],
   declarations: [AltaUsuariosPage]
 })

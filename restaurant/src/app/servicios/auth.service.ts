@@ -30,7 +30,7 @@ export class AuthService {
 
   signUp(usuario: Usuario) {
     return new Promise<any>((resolve, reject) => {
-      let call = this.afAuth.signInAnonymously();
+      let call =  this.afAuth.signInAnonymously();
       if (usuario.perfil !== TipoUsuario.CLIENTE_ANONIMO) {
         call = this.afAuth.createUserWithEmailAndPassword(usuario.correo, usuario.clave);
       }

@@ -139,6 +139,7 @@ export class AltaUsuariosPage implements OnInit {
           this.volverAltaUsuarios();
         }
         else {
+          console.log("esoty aca con el cliente anonimo");
           this.utilsService.showLoadingAndNavigate('clientes');
         }
         console.log(datos);

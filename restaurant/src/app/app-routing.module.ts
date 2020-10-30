@@ -5,12 +5,12 @@ import { ClientesRegistradosComponent } from './altas/clientes-registrados/clien
 import { SupervisorComponent } from './altas/supervisor/supervisor.component';
 import { HomeComponent } from './home/home.component';
 import { InicioPage } from './inicio/inicio.page';
+import { AuthGuard } from './guards/auth.guard';
 
 const routes: Routes = [
-  {
-    path: 'home',
-    component:HomeComponent
-  },
+  { path: '', redirectTo: 'inicio', pathMatch: 'full' },
+  { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
+  { path: 'inicio', component: InicioPage }, 
   {
     path: 'productos',
     loadChildren: () => import('./productos/productos.module').then(m => m.ProductosPageModule)
@@ -18,11 +18,6 @@ const routes: Routes = [
   {
     path: 'inicio',
     loadChildren: () => import('./inicio/inicio.module').then( m => m.InicioPageModule)
-  },
-  {
-    path: '',
-    redirectTo: 'inicio',
-    pathMatch: 'full'
   },
   {
     path: 'mesas',
