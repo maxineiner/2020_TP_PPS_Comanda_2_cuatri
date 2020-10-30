@@ -19,7 +19,7 @@ import { SupervisorComponent } from './altas/supervisor/supervisor.component';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Camera } from '@ionic-native/camera/ngx';
-import { ClientesPipe } from './clientes.pipe';
+
 
 
 import { HttpClientModule } from '@angular/common/http';
@@ -30,7 +30,6 @@ import * as firebase from 'firebase';
 firebase.initializeApp(environment.firebaseConfig);
 
 import { Usuario } from './clases/usuario';
-import { LoginPipe } from './login.pipe';
 import { Vibration } from '@ionic-native/vibration/ngx';
 import { HomeComponent } from './home/home.component';
 import { ToolbarModule } from './toolbar/toolbar.module';
@@ -38,7 +37,7 @@ import { InicioPageModule } from './inicio/inicio.module';
 
 
 @NgModule({
-  declarations: [AppComponent,SupervisorComponent, ClientesPipe, LoginPipe,HomeComponent],
+  declarations: [AppComponent,SupervisorComponent,HomeComponent],
   entryComponents: [],
   imports: [
     AngularFireModule.initializeApp(environment.firebaseConfig),
