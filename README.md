@@ -7,13 +7,13 @@ Para registrar el <strong>grupo completo</strong> con todos sus integrantes: htt
 # "Caserito"
 ### Tienda de comida
 <hr>
-<h3>Icono de CodeFactory</h3>
+<h4>Icono de CodeFactory</h4>
 <img src="restaurant/src/assets/logo_restaurante.png">
 <hr>
-<h3>Splash</h3>
+<h4>Splash</h4>
 <img src="restaurant/src/assets/logo_restaurante.png">
 <hr>
-<h3>Spinner</h3>
+<h4>Spinner</h4>
 <img src="restaurant/src/assets/logo_restaurante.png">
 
 
