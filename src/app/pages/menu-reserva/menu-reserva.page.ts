@@ -37,7 +37,7 @@ export class MenuReservaPage implements OnInit
     this.opcion = event.detail.value;
   }
 
-  elegirProducto(event)
+  elegirReserva(event)
   {
     console.log(event);
     this.reservaElegida = event;

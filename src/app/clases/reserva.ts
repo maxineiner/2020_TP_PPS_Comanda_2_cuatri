@@ -9,6 +9,9 @@ export class Reserva {
     public isActive:boolean;
     public fecha:any;
     public hora:any;
+    public timeStamp;
+    public stringISO;
+    public confirmada;
 
     public constructor(init?: Partial<Reserva>) {
         if(init){
@@ -16,14 +19,18 @@ export class Reserva {
         }
     }
 
-    public static CrearReserva(id: string, mesa: Mesa, cliente: Cliente,
-        pedido: any) :Reserva {
+    public static CrearReserva( mesa: Mesa, cliente: Cliente,
+        fecha:any, hora:any, timeStamp:number,
+        id?: string) :Reserva {
         let reserva = new Reserva();
         
         reserva.id = id;
         reserva.mesa = mesa;
         reserva.cliente = cliente;
-        reserva.pedido = pedido;
+
+        reserva.fecha = fecha;
+        reserva.hora = hora;
+        reserva.timeStamp = timeStamp;
         
 
         return reserva;

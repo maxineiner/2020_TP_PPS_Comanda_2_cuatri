@@ -27,6 +27,7 @@ import { ListadoReservasComponent } from './listado-reservas/listado-reservas.co
 import { ListadoPedidosComponent } from './listado-pedidos/listado-pedidos.component';
 import { FormPedidoComponent } from './form-pedido/form-pedido.component';
 import { DetallePedidoComponent } from './detalle-pedido/detalle-pedido.component';
+import { DetalleReservaComponent } from './detalle-reserva/detalle-reserva.component';
 import { FotoComponent } from './foto/foto.component';
 import { DetalleProductoComponent } from './detalle-producto/detalle-producto.component';
 import { ListaPlatosClienteComponent } from './lista-platos-cliente/lista-platos-cliente.component';
@@ -47,6 +48,7 @@ import { ListaPlatosClienteComponent } from './lista-platos-cliente/lista-platos
     //Reservas
     FormReservaComponent,
     ListadoReservasComponent,
+    DetalleReservaComponent,
     // Usuarios
     FormClientesComponent,
     ListadoClientesComponent,
@@ -81,6 +83,7 @@ import { ListaPlatosClienteComponent } from './lista-platos-cliente/lista-platos
     //Reservas
     FormReservaComponent,
     ListadoReservasComponent,
+    DetalleReservaComponent,
     // Producto
     DetalleProductoComponent,
     ListadoProductosComponent,

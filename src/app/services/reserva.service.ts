@@ -63,7 +63,7 @@ export class ReservaService
         snapshot.forEach((child) =>
         {
           var data: Reserva = child.val();
-          reservas.push(Reserva.CrearReserva(data.id,data.mesa,data.cliente,data.pedido));
+          reservas.push(new Reserva(data));
         });
         ReservaService.reservas = reservas.filter(reserva => reserva.isActive);
         resolve(ReservaService.reservas);
