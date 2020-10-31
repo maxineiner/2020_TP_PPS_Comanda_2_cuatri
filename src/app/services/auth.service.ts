@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { ClienteLogin } from '../clases/cliente';
+import { ClienteAuth } from '../clases/cliente';
+import { ClienteService } from './cliente.service';
 
 @Injectable({
   providedIn: 'root'
@@ -8,16 +9,16 @@ import { ClienteLogin } from '../clases/cliente';
 export class AuthService
 {
   public isLogged: boolean = false
-  constructor(public afAuth: AngularFireAuth)
+  constructor(public afAuth: AngularFireAuth, private clienteService: ClienteService)
   {
     //afAuth.authState.subscribe(user => this.isLogged = user);
   }
 
-  async onLogin(clienteLogin: ClienteLogin)
+  async onLogin(clienteAuth: ClienteAuth)
   {
     try
     {
-      const credential = await this.afAuth.signInWithEmailAndPassword(clienteLogin.email, clienteLogin.password);
+      const credential = await this.afAuth.signInWithEmailAndPassword(clienteAuth.email, clienteAuth.password);
       this.isLogged = true;
       return credential;
     } catch (error)
@@ -26,17 +27,19 @@ export class AuthService
     }
   }
 
-  async onRegister(clienteLogin: ClienteLogin)
+  onRegister(clienteAuth: ClienteAuth)
   {
-    try
+    return new Promise<any>((resolve, reject) =>
     {
-      const credential = await this.afAuth.createUserWithEmailAndPassword(clienteLogin.email, clienteLogin.password);
-      this.isLogged = false;
-      return credential;
-    } catch (error)
-    {
-      console.log('Register failed', error);
-    }
+      this.afAuth.createUserWithEmailAndPassword(clienteAuth.email, clienteAuth.password)
+        .then(response =>
+        {
+          clienteAuth.password = null;
+          this.clienteService.registrar(clienteAuth, response.user.uid);
+          resolve(response);
+        },
+          error => reject(error));
+    });
   }
 
   onLogout()

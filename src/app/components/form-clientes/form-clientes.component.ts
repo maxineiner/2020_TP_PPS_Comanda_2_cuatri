@@ -41,7 +41,7 @@ export class FormClientesComponent implements OnInit
     {
       // Alta de cliente en DB
       this.clienteService
-        .crear(this.cliente)
+        .crearAux(this.cliente)
         .then(() => this.presentToast('Alta exitosa'))
         .catch(() => this.presentToast('No se pudo realizar el alta'))
     }

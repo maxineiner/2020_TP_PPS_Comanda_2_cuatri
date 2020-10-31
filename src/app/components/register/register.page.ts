@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
-import { ClienteLogin } from '../../clases/cliente';
+import { ClienteAuth } from '../../clases/cliente';
 
 @Component({
   selector: 'app-register',
@@ -10,7 +9,7 @@ import { ClienteLogin } from '../../clases/cliente';
 })
 export class RegisterPage implements OnInit
 {
-  clienteLogin: ClienteLogin = new ClienteLogin
+  clienteAuth: ClienteAuth = new ClienteAuth
 
   // constructor(private authService: AuthService, private router: Router) { }
   constructor(private authService: AuthService) { }
@@ -21,7 +20,7 @@ export class RegisterPage implements OnInit
 
   async onRegister()
   {
-    const user = await this.authService.onRegister(this.clienteLogin);
+    const user = await this.authService.onRegister(this.clienteAuth);
 
     if (user)
     {
