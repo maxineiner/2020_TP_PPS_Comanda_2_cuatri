@@ -32,7 +32,7 @@ Para registrar el <strong>grupo completo</strong> con todos sus integrantes: htt
 
 
 
-<a href="https://docs.google.com/spreadsheets/d/1C5TlboQ4kwM8ISqbjtcPCJSgXAjIX555JuIrCkci7Nk/edit#gid=0" target="_blank" ><img src = "flujo_trabajo.png"></a>
+<a href="https://docs.google.com/spreadsheets/d/1C5TlboQ4kwM8ISqbjtcPCJSgXAjIX555JuIrCkci7Nk/edit#gid=0" target="_blank"><img src = "flujo_trabajo.png"></a>
 
 <h3> Código Qr - diagrama tentativo -</h3>
   <img src="https://github.com/maxineiner/2020_TP_PPS_Comanda_1_cuatri/blob/master/Diagrama_QR_MESA.jpg" >
