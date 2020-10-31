@@ -1,0 +1,20 @@
+<div class="ion-activatable card-reserva">
+  <ion-card mode="ios" color="dark" style="margin-bottom: 0;">
+    <ion-card-header>
+      <ion-card-title>Reserva: {{reserva.cliente.nombre}}</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+      <ion-chip color="success" mode="ios" outline="true">
+        <ion-label>Reservado para {{reserva.fecha}} </ion-label>
+      </ion-chip>
+      <ion-chip color="success" mode="ios" outline="true">        
+        <ion-label>A las {{reserva.hora}} hs</ion-label>
+      </ion-chip>
+      <ion-chip color="success" mode="ios" outline="true">
+        <ion-label>Mesa Seleccionada: {{reserva.mesa.numero}}</ion-label>
+      </ion-chip>      <!-- <app-detalle-mesa  [mesa]='reserva.mesa'></app-detalle-mesa> -->
+    </ion-card-content>
+  </ion-card>
+  
+</div>

@@ -1,12 +1,5 @@
 <ion-list *ngFor="let reserva of reservas">
   <ion-item (click)="seleccionarReserva(reserva)">
-    <ion-card>
-      <h1>Reserva: {{reserva.cliente.nombre}}</h1>
-      <p>
-        <small>Descripción: reservado para {{reserva.fecha}} a las {{reserva.hora}}</small>
-      </p>
-      <p>Mesa Seleccionada: {{reserva.mesaSeleccionada}}
-      </p>
-    </ion-card>
+    <app-detalle-reserva [reserva]="reserva"></app-detalle-reserva>
   </ion-item>
 </ion-list>
