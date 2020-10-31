@@ -5,6 +5,7 @@ import { Producto } from 'src/app/clases/producto';
 import { CartaPage } from 'src/app/pages/carta/carta.page';
 import { PedidoService } from 'src/app/services/pedido.service';
 import { ProductoService } from 'src/app/services/producto.service';
+import { ListaPlatosClienteComponent } from '../lista-platos-cliente/lista-platos-cliente.component';
 import { ListadoProductosComponent } from '../listado-productos/listado-productos.component';
 
 enum OpcionForm
@@ -91,16 +92,11 @@ export class FormPedidoComponent implements OnInit
     console.log(data);
   }
 
-  removerPlato(index: number)
+  actualizarPlatos(productos)
   {
-    const nuevaLista = this.pedido.productos.filter((p, i) => i != index);
-    this.pedido.productos = nuevaLista;
+    this.pedido.productos = productos;
   }
 
-  entregarPlato(index: number)
-  {
-    console.log(this.pedido.productos[index]);
-  }
 
   // Toast para notificaciones
   async presentToast(message, duration)
@@ -110,6 +106,17 @@ export class FormPedidoComponent implements OnInit
       duration,
     })
     toast.present();
+  }
+
+  async mostrarPlatos()
+  {
+    const modal = await this.modalController.create({
+      component: ListaPlatosClienteComponent,
+      componentProps: { productos: this.pedido.productos }
+    });
+
+    await modal.present();
+
   }
 
 }

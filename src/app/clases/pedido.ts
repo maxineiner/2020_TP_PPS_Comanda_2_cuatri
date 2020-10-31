@@ -2,7 +2,8 @@ import { Producto } from './producto';
 
 export enum EstadoPedido
 {
-    PENDIENTE = "Pendiente", // Estado inicial
+    SOLICITADO = "Solicitado", // Cliente solicita pedido 
+    PENDIENTE = "Pendiente", // Pedido confirmado por mozo 
     EN_PROGRESO = "En progreso", // Recibido por cocina y barra
     ENTREGADO = "Entregado", // Recibido en mesa
     CERRADO = "Cerrado", // Cobrado
@@ -18,7 +19,7 @@ export class Pedido
 
     constructor()
     {
-        this.estado = EstadoPedido.PENDIENTE;
+        this.estado = EstadoPedido.SOLICITADO;
         this.productos = [];
     }
 

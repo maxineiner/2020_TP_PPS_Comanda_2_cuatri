@@ -1,0 +1,43 @@
+<ion-header>
+  <ion-toolbar color="warning">
+    <ion-buttons slot="start">
+      <ion-button (click)="cerrar()" expand="block">
+        <ion-icon size="large" slot="icon-only" name="arrow-back-circle"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Detalle del pedido</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-list>
+
+
+    <ion-item-sliding *ngFor="let producto of productos; let i = index">
+
+      <ion-item-options side="start">
+        <ion-item-option (click)="removerPlato(i)" color="danger">
+          <ion-icon slot="icon-only" name="close-circle"></ion-icon>
+        </ion-item-option>
+      </ion-item-options>
+
+      <ion-item-options side="end">
+        <ion-item-option (click)="entregarPlato(i)" color="success">
+          <ion-icon slot="icon-only" name="checkmark"></ion-icon>
+        </ion-item-option>
+      </ion-item-options>
+
+      <ion-item>
+
+        <ion-label>
+          <h3>{{producto.nombre}}</h3>
+          <p>$ {{producto.precio}}</p>
+        </ion-label>
+        <ion-thumbnail slot="end">
+          <img [src]="producto.fotos[0].url" />
+        </ion-thumbnail>
+
+      </ion-item>
+
+    </ion-item-sliding>
+  </ion-list>
+</ion-content>

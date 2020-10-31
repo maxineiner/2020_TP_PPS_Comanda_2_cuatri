@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { IEscaneable } from '../interfaces/IEscaneable';
-import { BarcodeScanner, BarcodeScannerOptions } from '@ionic-native/barcode-scanner/ngx';
 import { ImagenService } from './imagen.service';
 import { Imagen } from '../clases/imagen';
+import { BarcodeScanner, BarcodeScannerOptions, BarcodeScanResult } from '@ionic-native/barcode-scanner/ngx/'
 
 
 export enum Formato
@@ -17,8 +17,7 @@ export enum Formato
 export class CodigoQRService
 {
 
-  constructor(private barcodeScanner: BarcodeScanner,
-    private imagenService: ImagenService)
+  constructor(private barcodeScanner: BarcodeScanner, private imagenService: ImagenService)
   { }
 
   /**
@@ -27,7 +26,7 @@ export class CodigoQRService
    * @param formats Formato de lectura : PDF_417 , QR_CODE
    * @returns Retorna la informacion del QR como string
    */
-  public async escanear(prompt, formats) 
+  public async escanear(prompt, formats): Promise<BarcodeScanResult>
   {
     console.log("Leer QR");
     let scannerOpts: BarcodeScannerOptions = {

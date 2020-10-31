@@ -29,6 +29,7 @@ import { FormPedidoComponent } from './form-pedido/form-pedido.component';
 import { DetallePedidoComponent } from './detalle-pedido/detalle-pedido.component';
 import { FotoComponent } from './foto/foto.component';
 import { DetalleProductoComponent } from './detalle-producto/detalle-producto.component';
+import { ListaPlatosClienteComponent } from './lista-platos-cliente/lista-platos-cliente.component';
 
 @NgModule({
   declarations: [
@@ -59,7 +60,8 @@ import { DetalleProductoComponent } from './detalle-producto/detalle-producto.co
     //Pedidos
     ListadoPedidosComponent,
     FormPedidoComponent,
-    DetallePedidoComponent
+    DetallePedidoComponent,
+    ListaPlatosClienteComponent
   ],
   imports: [
     CommonModule,
@@ -96,7 +98,8 @@ import { DetalleProductoComponent } from './detalle-producto/detalle-producto.co
     //Pedidos
     ListadoPedidosComponent,
     FormPedidoComponent,
-    DetallePedidoComponent
+    DetallePedidoComponent,
+    ListaPlatosClienteComponent
   ]
 })
 export class ComponentsModule { }

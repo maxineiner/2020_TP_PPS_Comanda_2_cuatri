@@ -1,27 +1,15 @@
-<div class="ion-activatable">
-  <ion-card class="card-pedido">
-    <ion-card-content>
-      <ion-list *ngFor="let producto of pedido.productos">
-        <ion-item>
-          <ion-label>
-            <h3>{{producto.nombre}}</h3>
-            <p>
-              $ {{producto.precio}}
-            </p>
-          </ion-label>
-          <ion-thumbnail slot="end">
-            <img [src]="producto.fotos[0].url" />
-          </ion-thumbnail>
-        </ion-item>
-      </ion-list>
-      <!-- <p>Total:${{producto.valorTotal}}</p> -->
-    </ion-card-content>
-    <ion-button (click)="entregar()" expand="block" color="primary">
-      Entregar
-    </ion-button>
-    <ion-button (click)="recibir()" expand="block" color="success">
-      Recibir
-    </ion-button>
-    <ion-ripple-effect type="bounded"></ion-ripple-effect>
-  </ion-card>
-</div>
+<ion-card (click)="mostrarOpciones()" class="card-pedido">
+
+  <ion-card-header>
+    <ion-card-subtitle>NOMBRE CLIENTE</ion-card-subtitle>
+    <ion-card-title>MESA</ion-card-title>
+  </ion-card-header>
+  <ion-card-content>
+    <ion-label>
+      <h4>Estado:{{pedido.estado}}</h4>
+      <p>
+        HORA DE PEDIDO
+      </p>
+    </ion-label>
+  </ion-card-content>
+</ion-card>

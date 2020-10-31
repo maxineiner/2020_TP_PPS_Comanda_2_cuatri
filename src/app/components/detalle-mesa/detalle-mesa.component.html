@@ -13,10 +13,10 @@
       <ion-chip color="success" mode="ios" outline="true">
         <ion-label>Personas:{{ mesa.comensales }}</ion-label>
       </ion-chip>
+      <ion-chip color="success" mode="ios" outline="true">
+        <ion-label>Disponible:{{ mesa.isAvailable }}</ion-label>
+      </ion-chip>
     </ion-card-content>
-    <ion-button (click)="reservar()" size="large" expand="block" fill="solid" color="success">
-      Reservar
-    </ion-button>
     <ion-ripple-effect type="bounded"></ion-ripple-effect>
   </ion-card>
 </div>
