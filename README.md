@@ -7,6 +7,11 @@ Para registrar el <strong>grupo completo</strong> con todos sus integrantes: htt
 # "Caserito"
 ### Tienda de comida
 <hr>
+## Icono de CodeFactory
+<img src="restaurant/src/assets/logo_restaurante.png">
+## Splash
+<img src="restaurant/src/assets/logo_restaurante.png">
+## Spinner
 <img src="restaurant/src/assets/logo_restaurante.png">
 
 
