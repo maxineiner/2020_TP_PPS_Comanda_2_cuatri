@@ -3,7 +3,8 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Producto } from "src/app/clases/producto";
 import { ImagenService } from "src/app/services/imagen.service";
 import { ProductoService } from "src/app/services/producto.service";
-import { ToastController } from "@ionic/angular";
+import { LoadingController, ToastController } from "@ionic/angular";
+import { Imagen } from 'src/app/clases/imagen';
 
 enum OpcionForm
 {
@@ -30,18 +31,22 @@ export class FormProductoComponent
 
   confirmaClave;
   EstadoRegistro;
-  fotos: Array<any> = [];
+  fotos: Imagen[] = new Array<Imagen>(3);
+  imgPreview: string[] = new Array<string>(3);
 
   registroForm: FormGroup;
+
   constructor(
     private fb: FormBuilder,
     private productoService: ProductoService,
     private imagenService: ImagenService,
-    private toastController: ToastController
+    private toastController: ToastController,
+    private loadingController: LoadingController
   )
   {
     this.crearForm();
   }
+
   ngOnChanges()
   {
     this.rellenarFormulario();
@@ -98,48 +103,48 @@ export class FormProductoComponent
     });
   }
 
-  registrar()
+
+  async subirFoto(index: number)
   {
-    this.imagenService
-      .crearArrayImagenes(this.fotos, "/productos")
-      .then((data) =>
+    const foto = await this.imagenService.sacarFoto();
+
+    this.imgPreview[index] = `data:image/jpeg;base64,${foto.base64}`;
+
+    let imagen = new Imagen();
+    imagen.base64 = foto.base64;
+    imagen.fecha = foto.fecha;
+
+    this.fotos[index] = imagen;
+    console.log(this.fotos);
+  }
+
+  async registrar()
+  {
+    this.presentLoading("Guardando...", 5000);
+    const imagenesGuardadas = await this.imagenService.crearArrayImagenes(this.fotos, "/productos");
+
+    console.log(imagenesGuardadas);
+    this.registroForm.get("fotos").setValue(imagenesGuardadas);
+
+    this.productoService.registrar(new Producto(this.registroForm.value))
+      .then(() =>
       {
-        console.log(data);
-        this.registroForm.get("fotos").setValue(data);
-        this.productoService
-          .registrar(new Producto(this.registroForm.value))
-          .then((data) =>
-          {
-            this.presentToast("Alta exitosa", 2000);
-            console.log("Registrado correctamente.");
-          })
-          .catch((error) =>
-          {
-            this.presentToast("No se pudo realizar el alta", 2000);
-            console.error("No se pudo realizar el alta.", error);
-          });
+        this.presentToast("Alta exitosa", 2000);
+        console.log("Registrado correctamente.");
       })
-      .catch((error) => console.error(error));
+      .catch((error) =>
+      {
+        this.presentToast("No se pudo realizar el alta", 2000);
+        console.error("No se pudo realizar el alta.", error);
+      });
   }
 
-  tomarFotos()
-  {
-    this.imagenService.tomarFotos(1).then((data) =>
-    {
-      this.fotos = data;
-    });
-  }
-  subirFoto()
-  {
-    this.imagenService.sacarFoto().then((data) =>
-    {
-      this.fotos.push(data);
-    });
-  }
 
-  modificarProducto()
+
+  async modificarProducto()
   {
     console.log("Modificando Producto-------");
+
     this.producto.nombre = this.registroForm.get("nombre").value;
     this.producto.descripcion = this.registroForm.get("descripcion").value;
     this.producto.minutosDeElaboracion = this.registroForm.get(
@@ -183,4 +188,15 @@ export class FormProductoComponent
     });
     toast.present();
   }
+
+  async presentLoading(message, duration)
+  {
+    const loading = await this.loadingController.create({
+      message,
+      duration,
+      spinner: 'bubbles'
+    });
+    await loading.present();
+  }
+
 }

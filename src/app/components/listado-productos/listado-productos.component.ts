@@ -1,6 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { LoadingController, ModalController } from '@ionic/angular';
+import { LoadingController, ModalController, PopoverController } from '@ionic/angular';
+import { Imagen } from 'src/app/clases/imagen';
 import { Producto } from "../../clases/producto";
+import { FotoComponent } from '../foto/foto.component';
 @Component({
   selector: 'app-listado-productos',
   templateUrl: './listado-productos.component.html',
@@ -30,5 +32,7 @@ export class ListadoProductosComponent implements OnInit
     });
     await loading.present();
   }
+
+
 
 }

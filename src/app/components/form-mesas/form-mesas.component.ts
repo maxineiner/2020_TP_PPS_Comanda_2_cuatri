@@ -52,9 +52,9 @@ export class FormMesasComponent implements OnInit
 
         this.imgPreview = `data:image/jpeg;base64,${foto.base64}`
 
-        this.auxiliarFoto = new Imagen()
-        this.auxiliarFoto.base64 = foto.base64
-        this.auxiliarFoto.fecha = foto.fecha
+        this.auxiliarFoto = new Imagen();
+        this.auxiliarFoto.base64 = foto.base64;
+        this.auxiliarFoto.fecha = foto.fecha;
     }
 
     /**
@@ -69,14 +69,14 @@ export class FormMesasComponent implements OnInit
                 this.auxiliarFoto,
                 '/mesas'
             )
-            this.mesa.foto = imagenGuardada
+            this.mesa.foto = imagenGuardada;
 
             // Alta de mesa en DB
-            this.mesaService
-                .crear(this.mesa)
+            this.mesaService.crear(this.mesa)
                 .then(() => this.presentToast('Alta exitosa', 2000))
                 .catch(() => this.presentToast('No se pudo realizar el alta', 2000));
-        } else
+        }
+        else
         {
             this.presentToast('Mesa existente', 2000)
         }

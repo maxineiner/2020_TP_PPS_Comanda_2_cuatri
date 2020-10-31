@@ -1,0 +1,42 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Registro</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-item>
+    <ion-label>
+      Nombre
+    </ion-label>
+    <ion-input type="text" [(ngModel)]="clienteAuth.nombre"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label>
+      Apellido
+    </ion-label>
+    <ion-input type="text" [(ngModel)]="clienteAuth.apellido"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label>
+      DNI
+    </ion-label>
+    <ion-input type="text" [(ngModel)]="clienteAuth.dni"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label>
+      Email
+    </ion-label>
+    <ion-input type="text" [(ngModel)]="clienteAuth.email"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label>
+      Contraseña
+    </ion-label>
+    <ion-input type="password" [(ngModel)]="clienteAuth.password"></ion-input>
+  </ion-item>
+  <ion-item-divider>
+    <ion-button size="large" (click)="onRegister()">Registro</ion-button>
+    <!-- ion-button size="large" routerLink="/login">Login</ion-button -->
+  </ion-item-divider>
+</ion-content>

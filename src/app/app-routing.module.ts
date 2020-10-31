@@ -11,6 +11,10 @@ const routes: Routes = [
     loadChildren: () => import('./pages/menu-producto/menu-producto.module').then(m => m.MenuProductoPageModule)
   },
   {
+    path: 'menu-cliente',
+    loadChildren: () => import('./pages/menu-cliente/menu-cliente.module').then(m => m.MenuClientePageModule)
+  },
+  {
     path: 'menu-empleado',
     loadChildren: () => import('./pages/menu-empleado/menu-empleado.module').then(m => m.MenuEmpleadoPageModule)
   },
@@ -29,14 +33,23 @@ const routes: Routes = [
   {
     path: 'carta',
     loadChildren: () => import('./pages/carta/carta.module').then(m => m.CartaPageModule)
-  },  {
+  },
+  {
     path: 'menu-pedidos',
-    loadChildren: () => import('./pages/menu-pedidos/menu-pedidos.module').then( m => m.MenuPedidosPageModule)
+    loadChildren: () => import('./pages/menu-pedidos/menu-pedidos.module').then(m => m.MenuPedidosPageModule)
   },
   {
     path: 'menu-reserva',
-    loadChildren: () => import('./pages/menu-reserva/menu-reserva.module').then( m => m.MenuReservaPageModule)
+    loadChildren: () => import('./pages/menu-reserva/menu-reserva.module').then(m => m.MenuReservaPageModule)
   },
+  {
+    path: 'register',
+    loadChildren: () => import('./components/register/register.module').then(m => m.RegisterPageModule)
+  },
+  {
+    path: 'login',
+    loadChildren: () => import('./components/login/login.module').then(m => m.LoginPageModule)
+  }
 
 ];
 @NgModule({
