@@ -19,9 +19,9 @@ export class AppComponent {
     private modalCtrl: ModalController,
     private router: Router
   ) {
-    platform.ready().then(() => {
+  /*   platform.ready().then(() => {
       this.presentModal().then(() => this.router.navigate(['/tabs']));
-    });
+    }); */
   }
 
   initializeApp() {

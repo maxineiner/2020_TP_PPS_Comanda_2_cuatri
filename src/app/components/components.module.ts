@@ -24,6 +24,7 @@ import { DetalleJefeComponent } from './detalle-jefe/detalle-jefe.component';
 import { ListadoPedidosComponent } from './listado-pedidos/listado-pedidos.component';
 import { FormPedidoComponent } from './form-pedido/form-pedido.component';
 import { DetallePedidoComponent } from './detalle-pedido/detalle-pedido.component';
+import { DetalleReservaComponent } from './detalle-reserva/detalle-reserva.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { DetallePedidoComponent } from './detalle-pedido/detalle-pedido.componen
     //Reservas
     FormReservaComponent,
     ListadoReservasComponent,
+    DetalleReservaComponent,
     // Usuarios
     FormEmpleadosComponent,
     ListadoEmpleadosComponent,
@@ -68,6 +70,7 @@ import { DetallePedidoComponent } from './detalle-pedido/detalle-pedido.componen
     //Reservas
     FormReservaComponent,
     ListadoReservasComponent,
+    DetalleReservaComponent,
     // Producto
     ListadoProductosComponent,
     FormProductoComponent,
