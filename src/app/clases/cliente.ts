@@ -1,8 +1,15 @@
 import { Usuario } from './usuario';
 
+export enum EstadoAceptacion
+{
+  Pendiente = 'Pendiente',
+  Aceptado = 'Aceptado',
+  Rechazado = 'Rechazado'
+}
+
 export class Cliente extends Usuario
 {
-  isAccepted: boolean;
+  isAccepted: EstadoAceptacion;
 
   public static CrearCliente(
     id: string,
@@ -12,7 +19,7 @@ export class Cliente extends Usuario
     foto: string,
     email: string,
     isActive: boolean,
-    isAccepted: boolean
+    isAccepted: EstadoAceptacion
   )
   {
     let cliente = new Cliente();
