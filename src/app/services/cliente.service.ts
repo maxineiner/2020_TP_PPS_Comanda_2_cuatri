@@ -18,7 +18,7 @@ export class ClienteService
     //TODO: eliminar cuando tenga implementado la carga de imagenes
     cliente.foto = "-"
     cliente.isActive = true;
-    cliente.isAccepted = EstadoAceptacion.Pendiente;
+    cliente.estado = EstadoAceptacion.Pendiente;
     console.log(cliente)
 
     return this.firebase.database
@@ -79,7 +79,7 @@ export class ClienteService
               data.foto,
               data.email,
               data.isActive,
-              data.isAccepted
+              data.estado
             )
           );
         });
