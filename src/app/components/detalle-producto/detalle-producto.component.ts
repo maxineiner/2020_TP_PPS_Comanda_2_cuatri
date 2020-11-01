@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { PopoverController } from '@ionic/angular';
 import { Imagen } from 'src/app/clases/imagen';
 import { Producto } from 'src/app/clases/producto';
+import { UIVisualService } from 'src/app/services/uivisual.service';
 import { FotoComponent } from '../foto/foto.component';
 
 @Component({
@@ -13,25 +14,13 @@ export class DetalleProductoComponent implements OnInit
 {
   @Input() producto: Producto;
 
-  constructor(private popoverController: PopoverController) { }
+  constructor(private popoverController: PopoverController, private UIVisual: UIVisualService) { }
 
   ngOnInit() { }
 
-  async presentPopover(ev: any, foto: Imagen)
+  async verFoto(ev: any, foto: Imagen)
   {
-    console.log(ev);
-
-    const popover = await this.popoverController.create({
-      component: FotoComponent,
-      animated: true,
-      event: ev,
-      translucent: false,
-      componentProps: {
-        img: foto
-      }
-    });
-
-    await popover.present();
+    UIVisualService.verFoto(ev, foto);
   }
 
 }

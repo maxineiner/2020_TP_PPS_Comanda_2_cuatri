@@ -4,6 +4,7 @@ import { Imagen } from 'src/app/clases/imagen'
 import { Mesa } from 'src/app/clases/mesa'
 import { ImagenService } from 'src/app/services/imagen.service'
 import { MesaService } from 'src/app/services/mesa.service'
+import { UIVisualService } from 'src/app/services/uivisual.service'
 
 enum OpcionForm
 {
@@ -33,6 +34,7 @@ export class FormMesasComponent implements OnInit
         private mesaService: MesaService,
         private imagenService: ImagenService,
         private toastController: ToastController,
+        private UIVisual: UIVisualService
 
     ) { }
 
@@ -74,12 +76,12 @@ export class FormMesasComponent implements OnInit
 
             // Alta de mesa en DB
             this.mesaService.crear(this.mesa)
-                .then(() => this.presentToast('Alta exitosa', 2000))
-                .catch(() => this.presentToast('No se pudo realizar el alta', 2000));
+                .then(() => UIVisualService.presentToast('Alta exitosa'))
+                .catch(() => UIVisualService.presentToast('No se pudo realizar el alta'));
         }
         else
         {
-            this.presentToast('Mesa existente', 2000)
+            UIVisualService.presentToast('Mesa existente')
         }
     }
 
@@ -104,8 +106,8 @@ export class FormMesasComponent implements OnInit
             }
             // Se actualiza Mesa en DB
             this.mesaService.actualizar(this.mesa)
-                .then(() => this.presentToast('Modificación exitosa', 2000))
-                .catch(() => this.presentToast('No se pudo modificar', 2000))
+                .then(() => UIVisualService.presentToast('Modificación exitosa'))
+                .catch(() => UIVisualService.presentToast('No se pudo modificar'))
         }
     }
 
@@ -120,20 +122,11 @@ export class FormMesasComponent implements OnInit
             // TODO: Borrar imagen de DB y Storage
             // this.imagenService.borrar(this.mesa.foto)
             this.mesaService.borrar(this.mesa)
-                .then(() => this.presentToast('Baja realizada', 2000))
-                .catch(() => this.presentToast('No se pudo realizar baja', 2000));
+                .then(() => UIVisualService.presentToast('Baja realizada'))
+                .catch(() => UIVisualService.presentToast('No se pudo realizar baja'));
         }
     }
 
-    // Toast para notificaciones
-    async presentToast(message, duration)
-    {
-        const toast = await this.toastController.create({
-            message,
-            duration,
-        })
-        toast.present()
-    }
 
 
 }
