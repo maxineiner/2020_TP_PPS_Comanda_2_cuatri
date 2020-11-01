@@ -3,6 +3,7 @@ import { Component, Input, OnInit } from '@angular/core'
 import { ToastController } from '@ionic/angular'
 import { Cliente } from "src/app/clases/cliente";
 import { ClienteService } from "src/app/services/cliente.service";
+import { AuthService } from "src/app/services/auth.service";
 
 enum OpcionForm
 {
@@ -22,7 +23,7 @@ export class FormClientesComponent implements OnInit
   @Input() cliente: Cliente;
   toastTime = 2000;
 
-  constructor(private clienteService: ClienteService, private toastController: ToastController) { }
+  constructor(private clienteService: ClienteService, private authService: AuthService, private toastController: ToastController) { }
 
   ngOnInit(): void
   {
@@ -39,9 +40,8 @@ export class FormClientesComponent implements OnInit
   {
     if (this.cliente && !this.cliente.id)
     {
-      // Alta de cliente en DB
-      this.clienteService
-        .crearAux(this.cliente)
+      this.authService
+        .onRegister(this.cliente)
         .then(() => this.presentToast('Alta exitosa'))
         .catch(() => this.presentToast('No se pudo realizar el alta'))
     }
