@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { Cliente } from '../../clases/cliente';
-import { ToastController } from '@ionic/angular'
+import { UIVisualService } from "src/app/services/uivisual.service"
 
 @Component({
   selector: 'app-register',
@@ -11,10 +11,9 @@ import { ToastController } from '@ionic/angular'
 export class RegisterPage implements OnInit
 {
   cliente: Cliente = new Cliente
-  toastTime = 2000;
 
   // constructor(private authService: AuthService, private router: Router) { }
-  constructor(private authService: AuthService, private toastController: ToastController) { }
+  constructor(private authService: AuthService, private UIVisual: UIVisualService) { }
 
   ngOnInit()
   {
@@ -26,28 +25,13 @@ export class RegisterPage implements OnInit
     {
       this.authService
         .onRegister(this.cliente)
-        .then(() => this.presentToast('Alta exitosa'))
-        .catch(() => this.presentToast('No se pudo realizar el alta'))
+        .then(() => UIVisualService.presentToast('Alta exitosa'))
+        .catch(() => UIVisualService.presentToast('No se pudo realizar el alta'))
       // this.router.navigateByUrl('/');
     }
     else
     {
-      this.presentToast('Cliente existente')
+      UIVisualService.presentToast('Cliente existente')
     }
-  }
-
-  //TODO: do this method generic for all components
-  // Toast para notificaciones
-  async presentToast(message: string, duration?: number)
-  {
-    if (duration === undefined || duration <= 0)
-    {
-      duration = this.toastTime
-    }
-    const toast = await this.toastController.create({
-      message,
-      duration: this.toastTime,
-    })
-    toast.present()
   }
 }
