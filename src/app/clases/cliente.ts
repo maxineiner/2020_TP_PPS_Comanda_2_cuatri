@@ -9,7 +9,7 @@ export enum EstadoAceptacion
 
 export class Cliente extends Usuario
 {
-  isAccepted: EstadoAceptacion;
+  estado: EstadoAceptacion;
 
   public static CrearCliente(
     id: string,
@@ -19,7 +19,7 @@ export class Cliente extends Usuario
     foto: string,
     email: string,
     isActive: boolean,
-    isAccepted: EstadoAceptacion
+    estado: EstadoAceptacion
   )
   {
     let cliente = new Cliente();
@@ -31,7 +31,7 @@ export class Cliente extends Usuario
     cliente.foto = foto;
     cliente.email = email;
     cliente.isActive = isActive;
-    cliente.isAccepted = isAccepted;
+    cliente.estado = estado;
 
     return cliente;
   }

@@ -2,8 +2,8 @@ import { Usuario } from './usuario';
 
 export enum TipoEmpleado
 {
-  Cocinero = 'Cocinero',
   Bartender = 'Bartender',
+  Cocinero = 'Cocinero',
   Mozo = 'Mozo'
 }
 
