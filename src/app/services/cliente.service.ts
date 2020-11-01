@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { AngularFireDatabase } from "@angular/fire/database";
-import { Cliente } from "../clases/cliente";
+import { Cliente, EstadoAceptacion } from "../clases/cliente";
 
 @Injectable({
   providedIn: "root",
@@ -18,7 +18,7 @@ export class ClienteService
     //TODO: eliminar cuando tenga implementado la carga de imagenes
     cliente.foto = "-"
     cliente.isActive = true;
-    cliente.isAccepted = false;
+    cliente.isAccepted = EstadoAceptacion.Pendiente;
     console.log(cliente)
 
     return this.firebase.database
