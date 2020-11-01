@@ -1,60 +1,61 @@
-<ion-content class="ion-padding-bottom">
+<ion-content class="ion-padding-bottom contenido" color="dark">
   <form #formulario="ngForm">
 
     <ion-list mode="ios" lines="none">
 
-      <ion-list-header>
+      <ion-list-header color="dark">
         <ion-label>{{opcion}} Mesa</ion-label>
       </ion-list-header>
 
-      <ion-item>
+      <ion-item color="dark">
         <ion-label position="floating">Número de mesa</ion-label>
         <ion-input type="number" name="name" [(ngModel)]="mesa.numero" [placeholder]="mesa.numero"
                    [disabled]="opcion == 'Baja'" required>
         </ion-input>
       </ion-item>
 
-      <ion-item>
+      <ion-item color="dark">
         <ion-label position="floating">Capacidad de comensales</ion-label>
         <ion-input type="number" name="comensales" [(ngModel)]="mesa.comensales" [placeholder]="mesa.comensales"
                    [pattern]="emailPattern" [disabled]="opcion == 'Baja'" required>
         </ion-input>
       </ion-item>
+
+      <ion-item color="dark">
+        <ion-label>Tipo de mesa</ion-label>
+        <ion-select value="mesa.estado" multiple="false" name="tipoMesa" [placeholder]="mesa.tipo"
+                    [(ngModel)]="mesa.tipo"
+                    [disabled]="opcion == 'Baja'" [interfaceOptions]="popoverOptions" interface="popover" required>
+          <ion-select-option value="Vip">V.I.P.</ion-select-option>
+          <ion-select-option value="Normal">Normal</ion-select-option>
+          <ion-select-option value="Discapacitados">Discapacitados</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item *ngIf="imgPreview" color="dark">
+        <img [src]="imgPreview | safe: 'url'" alt="Foto de la mesa">
+      </ion-item>
+
+      <ion-item color="dark">
+        <ion-button (click)="sacarFoto()" fill="solid" size="medium" color="dark"
+                    [disabled]="opcion == 'Baja'">
+          Subir foto
+          <ion-icon slot="start" name="camera"></ion-icon>
+        </ion-button>
+
+      </ion-item>
+
+      <ion-item *ngIf="mesa.foto" color="dark">
+        <ion-img [src]="mesa.foto.url"></ion-img>
+      </ion-item>
     </ion-list>
-
-    <ion-item>
-      <ion-label>Tipo de mesa</ion-label>
-      <ion-select value="mesa.estado" multiple="false" name="tipoMesa" [placeholder]="mesa.tipo" [(ngModel)]="mesa.tipo"
-                  [disabled]="opcion == 'Baja'" [interfaceOptions]="popoverOptions" interface="popover" required>
-        <ion-select-option value="Vip">V.I.P.</ion-select-option>
-        <ion-select-option value="Normal">Normal</ion-select-option>
-        <ion-select-option value="Discapacitados">Discapacitados</ion-select-option>
-      </ion-select>
-    </ion-item>
-
-    <ion-item *ngIf="imgPreview">
-      <img [src]="imgPreview | safe: 'url'" alt="Foto de la mesa">
-    </ion-item>
-
-    <ion-item>
-      <ion-button (click)="sacarFoto()" fill="solid" size="medium" color="dark"
-                  [disabled]="opcion == 'Baja'">
-        Subir foto
-        <ion-icon slot="start" name="camera"></ion-icon>
-      </ion-button>
-
-    </ion-item>
-
-    <ion-item *ngIf="mesa.foto">
-      <ion-img [src]="mesa.foto.url"></ion-img>
-    </ion-item>
 
   </form>
 </ion-content>
 <ion-footer>
-  <ion-toolbar class="botones-form">
+  <ion-toolbar class="botones-form" color="dark">
     <!-- Se muestra accion segun tipo de llamado al formulario -->
-    <ion-button (click)="crearMesa()" color="dark" expand="block" size="large"
+    <ion-button (click)="crearMesa()" color="primary" expand="block" size="large"
                 type="submit" [disabled]="formulario.invalid"
                 *ngIf="opcion == 'Alta'">
       Crear
