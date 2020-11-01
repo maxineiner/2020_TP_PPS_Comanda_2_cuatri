@@ -5,6 +5,7 @@ import { Producto } from 'src/app/clases/producto';
 import { CartaPage } from 'src/app/pages/carta/carta.page';
 import { PedidoService } from 'src/app/services/pedido.service';
 import { ProductoService } from 'src/app/services/producto.service';
+import { UIVisualService } from 'src/app/services/uivisual.service';
 import { ListaPlatosClienteComponent } from '../lista-platos-cliente/lista-platos-cliente.component';
 import { ListadoProductosComponent } from '../listado-productos/listado-productos.component';
 
@@ -27,7 +28,7 @@ export class FormPedidoComponent implements OnInit
   @Input() pedido: Pedido = new Pedido();
 
   constructor(private pedidoService: PedidoService, private modalController: ModalController,
-    private toastController: ToastController) { }
+    private toastController: ToastController, private UIVisual: UIVisualService) { }
 
   ngOnInit() 
   {
@@ -45,8 +46,8 @@ export class FormPedidoComponent implements OnInit
     {
       // Alta de mesa en DB
       this.pedidoService.crear(this.pedido)
-        .then(() => this.presentToast('Alta exitosa', 2000))
-        .catch(() => this.presentToast('No se pudo realizar el alta', 2000));
+        .then(() => UIVisualService.presentToast('Alta exitosa'))
+        .catch(() => UIVisualService.presentToast('No se pudo realizar el alta'));
     }
   }
 
@@ -55,8 +56,8 @@ export class FormPedidoComponent implements OnInit
     if (this.pedido)
     {
       this.pedidoService.actualizar(this.pedido)
-        .then(() => this.presentToast('Modificación exitosa', 2000))
-        .catch(() => this.presentToast('No se pudo modificar', 2000));
+        .then(() => UIVisualService.presentToast('Modificación exitosa'))
+        .catch(() => UIVisualService.presentToast('No se pudo modificar'));
     }
     console.log("Modificacion pedido");
     console.log(this.pedido);
@@ -69,8 +70,8 @@ export class FormPedidoComponent implements OnInit
     if (this.pedido)
     {
       this.pedidoService.borrar(this.pedido)
-        .then(() => this.presentToast('Baja realizada', 2000))
-        .catch(() => this.presentToast('No se pudo realizar baja', 2000));
+        .then(() => UIVisualService.presentToast('Baja realizada'))
+        .catch(() => UIVisualService.presentToast('No se pudo realizar baja'));
     }
   }
 
@@ -79,13 +80,7 @@ export class FormPedidoComponent implements OnInit
   {
     console.log("Ver carta");
 
-    const modal = await this.modalController.create({
-      component: CartaPage,
-    });
-
-    await modal.present();
-
-    const { data } = await modal.onDidDismiss<Producto[]>();
+    const data = await UIVisualService.verCarta();
     this.pedido.productos.push(...data);
     this.pedido.calcularTotal();
 
@@ -98,24 +93,9 @@ export class FormPedidoComponent implements OnInit
   }
 
 
-  // Toast para notificaciones
-  async presentToast(message, duration)
-  {
-    const toast = await this.toastController.create({
-      message,
-      duration,
-    })
-    toast.present();
-  }
-
   async mostrarPlatos()
   {
-    const modal = await this.modalController.create({
-      component: ListaPlatosClienteComponent,
-      componentProps: { productos: this.pedido.productos }
-    });
-
-    await modal.present();
+    UIVisualService.verPlatos(this.pedido.productos);
 
   }
 
