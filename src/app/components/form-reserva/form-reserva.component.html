@@ -31,7 +31,7 @@
     <!-- Validar que la mesa este disponible para ese dia y para ese horario -->
     <ion-select class="round" placeholder="Seleccione Mesa" okText="Confirmar" cancelText="Cancelar"
       [disabled]="reservaForm.controls['date'].invalid" formControlName="mesa">
-      <ion-select-option *ngFor="let mesa of mesas" [value]='mesa'>
+      <ion-select-option *ngFor="let mesa of mesasDisponibles" [value]='mesa'>
         Mesa: {{mesa.numero}} Cant.: {{mesa.comensales}}
       </ion-select-option>
     </ion-select>
@@ -39,8 +39,8 @@
   </ion-list>
 
   <!-- Se muestra accion segun tipo de llamado al formulario -->
-  <ion-button (click)="crear()" color="dark" expand="block" type="submit" *ngIf="opcion == 'Alta'">
-    <!-- [disabled]="reservaForm.pristine || reservaForm.invalid" -->
+  <ion-button (click)="crear()" color="dark" expand="block" type="submit" *ngIf="opcion == 'Alta'"
+  [disabled]="reservaForm.controls['mesa'].invalid">
     Crear
   </ion-button>
 
