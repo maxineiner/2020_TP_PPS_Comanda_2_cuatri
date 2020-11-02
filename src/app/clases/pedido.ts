@@ -1,7 +1,10 @@
+import { Cliente } from './cliente';
+import { Mesa } from './mesa';
 import { Producto } from './producto';
 
 export enum EstadoPedido
 {
+    RESERVADO = "Reservado", // Estado de reserva
     SOLICITADO = "Solicitado", // Cliente solicita pedido 
     PENDIENTE = "Pendiente", // Pedido confirmado por mozo 
     EN_PROGRESO = "En progreso", // Recibido por cocina y barra
@@ -13,13 +16,14 @@ export class Pedido
 {
     id: string;
     productos: Producto[];
+    cliente: Cliente;
+    mesa: Mesa;
     valorTotal: number;
     estado: EstadoPedido;
     isActive: boolean;
 
     constructor()
     {
-        this.estado = EstadoPedido.SOLICITADO;
         this.productos = [];
     }
 
@@ -52,6 +56,12 @@ export class Pedido
     {
         switch (this.estado)
         {
+            case EstadoPedido.RESERVADO:
+                this.estado = EstadoPedido.SOLICITADO;
+                break;
+            case EstadoPedido.SOLICITADO:
+                this.estado = EstadoPedido.PENDIENTE;
+                break;
             case EstadoPedido.PENDIENTE:
                 this.estado = EstadoPedido.EN_PROGRESO;
                 break;
