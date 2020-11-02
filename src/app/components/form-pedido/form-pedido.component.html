@@ -1,26 +1,26 @@
-<ion-content class="ion-padding-bottom">
+<ion-content class="ion-padding-bottom contenido" color="dark">
 
   <form #formulario="ngForm">
 
     <ion-list mode="ios">
 
-      <ion-list-header>
+      <ion-list-header color="dark">
         <ion-label>{{opcion}} Pedido</ion-label>
       </ion-list-header>
 
-      <ion-item>
+      <ion-item color="dark">
         <ion-label>MESA ASIGNADA</ion-label>
       </ion-item>
 
-      <ion-item>
+      <ion-item color="dark">
         <ion-label>CLIENTE ASIGNADO</ion-label>
       </ion-item>
 
-      <ion-item>
+      <ion-item color="dark">
         <ion-label>HORA PEDIDO</ion-label>
       </ion-item>
 
-      <ion-item>
+      <ion-item color="dark">
         <ion-label>Total : $ {{pedido.calcularTotal()}}</ion-label>
       </ion-item>
 
@@ -30,19 +30,19 @@
 </ion-content>
 
 <ion-footer>
-  <ion-toolbar class="botones-form">
+  <ion-toolbar class="botones-form" color="dark">
 
-    <ion-button *ngIf="pedido.productos.length > 0" (click)="mostrarPlatos()" expand="block" color="warning"
+    <ion-button *ngIf="pedido.productos.length > 0" (click)="mostrarPlatos()" expand="block" color="dark"
                 size="large">
       Ver Platos
     </ion-button>
 
-    <ion-button (click)="mostrarCarta()" expand="block" color="danger" size="large" *ngIf="opcion != 'Baja'">
+    <ion-button (click)="mostrarCarta()" expand="block" color="warning" size="large" *ngIf="opcion != 'Baja'">
       Ver Carta
     </ion-button>
 
     <!-- Se muestra accion segun tipo de llamado al formulario -->
-    <ion-button (click)="alta()" color="success" expand="block" type="submit" [disabled]="formulario.invalid"
+    <ion-button (click)="alta()" color="tertiary" expand="block" type="submit" [disabled]="formulario.invalid"
                 size="large"
                 *ngIf="opcion == 'Alta'">
       Pedir
