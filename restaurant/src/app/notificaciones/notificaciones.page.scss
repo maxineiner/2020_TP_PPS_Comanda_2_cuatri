@@ -1,0 +1,181 @@
+.bold {
+    font-weight: 700;
+}
+.bold {
+    font-weight: 700;
+}
+
+.lbl{
+    font-size: 25px;
+    font-family: cursive;
+  }
+  
+  .btn{
+    border-radius: 10px;
+    background-color: #2ac568;
+    font-family: cursive;
+    height: 50px;
+    width: 95%;
+    font-size: 15px;
+  }
+  
+  
+  .btn:hover{
+    background-color: #37ff87;
+    height: 40px;
+    width: 90%;
+  }
+  
+  .btn:focus {
+    outline: 0 !important;
+  }
+  
+  .fondo{
+    background: url("../../assets/splash.jpg");
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+  .divScroll{
+    overflow-y: auto;
+    height: 100%;
+  }
+  
+  .btn-secondary{
+    border-radius: 100px;
+    background-color: #ffd000;
+    font-family: cursive;
+    height: 50px;
+  }
+  
+  .btn-secondary:hover{
+    background-color: #ddb400;
+  }
+  
+  .btn-secondary:focus {
+    outline: 0 !important;
+  }
+  
+  .btn-tertiary{
+    border-radius: 100px;
+    background-color: #cecece;
+    font-family: cursive;
+    height: 50px;
+  }
+  
+  
+  .btn-tertiary:hover{
+    background-color: #b9b9b9;
+  }
+  
+  .btn-tertiary:focus {
+    outline: 0 !important;
+  }
+  
+  .btn-icon{
+    background: none;
+    color: white;
+    font-size: 30px;
+    outline: none;
+  }
+
+  .btn-icon:hover{
+    background-color: #afafaf;
+    border-radius: 10px;
+    color: white;
+    font-size: 30px;
+  }
+
+  .ocupada{
+    background-color: #720000;
+  }
+
+  .libre{
+    background-color: #208348;
+  }
+
+  .toolbar-card{
+    background: none;
+    --background:none;
+    backdrop-filter: blur(10px) brightness(0.7);
+    border-radius: 10px;
+    height: 60px;
+  }
+  .toolbar-title{
+    width: 50%;
+    padding-left: 4%;
+    color: white;
+    font-size: 18px;
+  }
+
+  .toolbar-btn-back{
+    width: 10%;
+    padding-left: 4%;
+  }
+
+  .content{
+    --background:none;
+    overflow-y: auto;
+  }
+
+  .container-list{
+    width: 100%;
+    padding-left: 3%;
+    padding-right: 3%;
+    backdrop-filter: blur(15px) brightness(0.7);
+    border-radius: 20px;
+  }
+
+  .list-empty{
+    width: 100%;
+    border-radius: 10px;
+    backdrop-filter: brightness(2);
+    padding: 5%;
+    color: white;
+    overflow-y: auto;
+  }
+
+  .list-item{
+    --background: none;
+    width: 100%;
+    border-radius: 10px;
+    overflow-y: auto;
+  }
+
+  .badge-EXCELENTE{
+    width: 100%;
+    height: 100%;
+    background-color: #15532e;
+  }
+
+  .badge-MALO{
+    width: 100%;
+    height: 100%;
+    background-color: rgb(146, 0, 0);
+  }
+
+  .badge-REGULAR{
+    width: 100%;
+    height: 100%;
+    background-color: rgb(189, 123, 0);
+  }
+
+  .badge-BIEN{
+    width: 100%;
+    height: 100%;
+    background-color: rgb(255, 217, 0);
+    color: black;
+  }
+
+  .badge-MUYBIEN{
+    width: 100%;
+    height: 100%;
+    background-color: #3df9ff;
+  }
+
+  .container-item{
+    background-color: rgb(209, 209, 209);
+    width: 100%;
+    border-radius: 10px;
+    margin-top: 3%;
+  }

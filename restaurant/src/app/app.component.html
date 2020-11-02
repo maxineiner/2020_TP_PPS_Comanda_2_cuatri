@@ -24,5 +24,7 @@
       </p>
     </label>
   </div>
-  <ion-router-outlet></ion-router-outlet>
+  <div [style.display]="splash ? 'none' : 'flex'">
+    <ion-router-outlet ></ion-router-outlet>
+  </div>
 </ion-app>

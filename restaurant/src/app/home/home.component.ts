@@ -79,11 +79,6 @@ export class HomeComponent implements OnInit {
     this.utilsService.presentModal(ConfiguracionPage);
   }
 
-  cerrarSesion(){
-    this.authService.logout();
-    this.sonido.Reproducir('cerrar');
-    this.router.navigateByUrl('/login');
-  }
 
   gestionarUsuarios() {
     this.utilsService.showLoadingAndNavigate('usuarios');

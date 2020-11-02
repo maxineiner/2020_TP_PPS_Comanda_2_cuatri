@@ -28,6 +28,10 @@ const routes: Routes = [
     loadChildren: () => import('./propinas/propinas.module').then(m => m.PropinasPageModule)
   },
   {
+    path: 'notificaciones',
+    loadChildren: () => import('./notificaciones/notificaciones.module').then(m => m.NotificacionesPageModule)
+  },
+  {
     path: 'altaDueñoSupervisor',
     component:SupervisorComponent
   },
