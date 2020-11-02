@@ -5,7 +5,7 @@
       <ion-label>
         <h1>{{producto.nombre}}</h1>
       </ion-label>
-      <ion-text color="primary" class="ion-text-sm-left">
+      <ion-text class="ion-text-sm-left">
         <p>
           <small>{{producto.descripcion}}</small>
         </p>
@@ -23,7 +23,7 @@
 
     <ion-grid>
       <ion-row>
-        <ion-col *ngFor="let foto of producto.fotos" (click)="presentPopover($event, foto)">
+        <ion-col *ngFor="let foto of producto.fotos" (click)="verFoto($event, foto)">
           <img style="max-height: 80px;" src="{{foto.url}}" alt="{{producto.nombre}}">
         </ion-col>
       </ion-row>

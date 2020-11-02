@@ -6,16 +6,13 @@ import { Mesa } from 'src/app/clases/mesa';
   templateUrl: './detalle-mesa.component.html',
   styleUrls: ['./detalle-mesa.component.scss'],
 })
-export class DetalleMesaComponent implements OnInit {
+export class DetalleMesaComponent implements OnInit
+{
   @Input() mesa: Mesa;
 
   constructor() { }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
-  reservar()
-  {
-    console.log("Realizar reserva");
-  }
 
 }

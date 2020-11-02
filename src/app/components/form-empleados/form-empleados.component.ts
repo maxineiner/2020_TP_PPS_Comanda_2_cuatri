@@ -1,8 +1,9 @@
 
 import { Component, Input, OnInit } from '@angular/core'
-import { ToastController } from '@ionic/angular'
 import { Empleado } from "src/app/clases/empleado";
 import { EmpleadoService } from "src/app/services/empleado.service";
+import { AuthService } from "src/app/services/auth.service";
+import { UIVisualService } from "src/app/services/uivisual.service"
 
 enum OpcionForm
 {
@@ -20,16 +21,13 @@ export class FormEmpleadosComponent implements OnInit
 {
   @Input() opcion: OpcionForm;
   @Input() empleado: Empleado;
-  toastTime = 2000;
 
   popoverOptions = {
     header: "Seleccione el tipo",
-    // translucent: true,
-    // cancelText: "Cerrar",
     okText: "Guardar",
   };
 
-  constructor(private empleadoService: EmpleadoService, private toastController: ToastController) { }
+  constructor(private empleadoService: EmpleadoService, private authService: AuthService, private UIVisual: UIVisualService) { }
 
   ngOnInit(): void
   {
@@ -46,15 +44,14 @@ export class FormEmpleadosComponent implements OnInit
   {
     if (this.empleado && !this.empleado.id)
     {
-      // Alta de empleado en DB
-      this.empleadoService
-        .crear(this.empleado)
-        .then(() => this.presentToast('Alta exitosa'))
-        .catch(() => this.presentToast('No se pudo realizar el alta'))
+      this.authService
+        .onRegisterEmpleado(this.empleado)
+        .then(() => UIVisualService.presentToast('Alta exitosa'))
+        .catch(() => UIVisualService.presentToast('No se pudo realizar el alta'))
     }
     else
     {
-      this.presentToast('Empleado existente')
+      UIVisualService.presentToast('Empleado existente')
     }
   }
 
@@ -70,8 +67,8 @@ export class FormEmpleadosComponent implements OnInit
       // Se actualiza Mesa en DB
       this.empleadoService
         .actualizar(this.empleado)
-        .then(() => this.presentToast('Modificación exitosa'))
-        .catch(() => this.presentToast('No se pudo modificar'))
+        .then(() => UIVisualService.presentToast('Modificación exitosa'))
+        .catch(() => UIVisualService.presentToast('No se pudo modificar'))
     }
   }
 
@@ -86,23 +83,8 @@ export class FormEmpleadosComponent implements OnInit
     {
       this.empleadoService
         .borradoLogico(this.empleado)
-        .then(() => this.presentToast('Baja realizada'))
-        .catch(() => this.presentToast('No se pudo realizar baja'))
+        .then(() => UIVisualService.presentToast('Baja realizada'))
+        .catch(() => UIVisualService.presentToast('No se pudo realizar baja'))
     }
-  }
-
-  //TODO: do this method generic for all components
-  // Toast para notificaciones
-  async presentToast(message: string, duration?: number)
-  {
-    if (duration === undefined || duration <= 0)
-    {
-      duration = this.toastTime
-    }
-    const toast = await this.toastController.create({
-      message,
-      duration: this.toastTime,
-    })
-    toast.present()
   }
 }

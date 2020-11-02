@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase, AngularFireList } from '@angular/fire/database';
 import { Producto } from "../clases/producto";
+import { CodigoQRService } from './codigo-qr.service';
 
 
 @Injectable({
@@ -14,7 +15,7 @@ export class ProductoService
 
   referenciaProductos: AngularFireList<Producto> = null;
 
-  constructor(private db: AngularFireDatabase)
+  constructor(private db: AngularFireDatabase, private escanerQR: CodigoQRService)
   {
     try
     {
@@ -75,10 +76,13 @@ export class ProductoService
 
   public actualizar(producto: Producto): Promise<any>
   {
-    return this.db.database.ref('productos/' + producto.id)
-      .update(producto)
-      .then(() => console.info("Actualizacion exitosa"))
-      .catch(() => console.info("No se pudo actualizar"));
+    return new Promise((resolve, reject) =>
+    {
+      resolve(this.db.database.ref('productos/' + producto.id)
+        .update(producto)
+        .then(() => console.info("Actualizacion exitosa"))
+        .catch(() => console.info("No se pudo actualizar")));
+    });
   }
 
   eliminar(producto: Producto): Promise<void>

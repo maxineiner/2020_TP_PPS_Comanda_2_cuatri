@@ -1,7 +1,11 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { ClienteAuth } from '../clases/cliente';
+import { Cliente } from '../clases/cliente';
+import { Empleado } from '../clases/empleado';
+import { Jefe } from '../clases/jefe';
 import { ClienteService } from './cliente.service';
+import { EmpleadoService } from './empleado.service';
+import { JefeService } from './jefe.service';
 
 @Injectable({
   providedIn: 'root'
@@ -9,16 +13,20 @@ import { ClienteService } from './cliente.service';
 export class AuthService
 {
   public isLogged: boolean = false
-  constructor(public afAuth: AngularFireAuth, private clienteService: ClienteService)
+  constructor(public afAuth: AngularFireAuth,
+    private clienteService: ClienteService,
+    private empleadoService: EmpleadoService,
+    private jefeService: JefeService)
   {
     //afAuth.authState.subscribe(user => this.isLogged = user);
   }
 
-  async onLogin(clienteAuth: ClienteAuth)
+  //TODO: fix to accept other type of users
+  async onLogin(cliente: Cliente)
   {
     try
     {
-      const credential = await this.afAuth.signInWithEmailAndPassword(clienteAuth.email, clienteAuth.password);
+      const credential = await this.afAuth.signInWithEmailAndPassword(cliente.email, cliente.password);
       this.isLogged = true;
       return credential;
     } catch (error)
@@ -27,15 +35,45 @@ export class AuthService
     }
   }
 
-  onRegister(clienteAuth: ClienteAuth)
+  onRegisterCliente(cliente: Cliente)
   {
     return new Promise<any>((resolve, reject) =>
     {
-      this.afAuth.createUserWithEmailAndPassword(clienteAuth.email, clienteAuth.password)
+      this.afAuth.createUserWithEmailAndPassword(cliente.email, cliente.password)
         .then(response =>
         {
-          clienteAuth.password = null;
-          this.clienteService.registrar(clienteAuth, response.user.uid);
+          cliente.password = null;
+          this.clienteService.crear(cliente, response.user.uid);
+          resolve(response);
+        },
+          error => reject(error));
+    });
+  }
+
+  onRegisterEmpleado(empleado: Empleado)
+  {
+    return new Promise<any>((resolve, reject) =>
+    {
+      this.afAuth.createUserWithEmailAndPassword(empleado.email, empleado.password)
+        .then(response =>
+        {
+          empleado.password = null;
+          this.empleadoService.crear(empleado, response.user.uid);
+          resolve(response);
+        },
+          error => reject(error));
+    });
+  }
+
+  onRegisterJefe(jefe: Jefe)
+  {
+    return new Promise<any>((resolve, reject) =>
+    {
+      this.afAuth.createUserWithEmailAndPassword(jefe.email, jefe.password)
+        .then(response =>
+        {
+          jefe.password = null;
+          this.jefeService.crear(jefe, response.user.uid);
           resolve(response);
         },
           error => reject(error));

@@ -88,8 +88,17 @@ export class MesaService
    * Método para realizar Fetch de una mesa en DB
    * @param id UID del registro a obtener
    */
-  public fetch(id: string)
+  public fetch(id: string): Promise<Mesa>
   {
-    return this.firebase.database.ref(`mesas/${id}`).once('value');
+    return new Promise<Mesa>(resolve =>
+    {
+      this.firebase.database.ref(`mesas/${id}`).once('value').then(snapshot =>
+      {
+        let data = snapshot.val();
+        const mesa = Mesa.CrearMesa(data.id, data.numero, data.comensales, data.tipo,
+          data.foto, data.codigoQR, data.isAvailable, data.isActive);
+        resolve(mesa);
+      });
+    })
   }
 }

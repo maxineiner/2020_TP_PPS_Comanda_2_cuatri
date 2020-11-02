@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
-import { ClienteAuth } from '../../clases/cliente';
+import { Cliente } from '../../clases/cliente';
+import { UIVisualService } from "src/app/services/uivisual.service"
 
 @Component({
   selector: 'app-register',
@@ -9,10 +10,10 @@ import { ClienteAuth } from '../../clases/cliente';
 })
 export class RegisterPage implements OnInit
 {
-  clienteAuth: ClienteAuth = new ClienteAuth
+  cliente: Cliente = new Cliente
 
   // constructor(private authService: AuthService, private router: Router) { }
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService, private UIVisual: UIVisualService) { }
 
   ngOnInit()
   {
@@ -20,13 +21,17 @@ export class RegisterPage implements OnInit
 
   async onRegister()
   {
-    const user = await this.authService.onRegister(this.clienteAuth);
-
-    if (user)
+    if (this.cliente && !this.cliente.id)
     {
-      console.log('Cliente creado!!!');
+      this.authService
+        .onRegisterCliente(this.cliente)
+        .then(() => UIVisualService.presentToast('Alta exitosa'))
+        .catch(() => UIVisualService.presentToast('No se pudo realizar el alta'))
       // this.router.navigateByUrl('/');
     }
+    else
+    {
+      UIVisualService.presentToast('Cliente existente')
+    }
   }
-
 }

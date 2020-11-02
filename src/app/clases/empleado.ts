@@ -2,8 +2,8 @@ import { Usuario } from './usuario';
 
 export enum TipoEmpleado
 {
-  Cocinero = 'Cocinero',
   Bartender = 'Bartender',
+  Cocinero = 'Cocinero',
   Mozo = 'Mozo'
 }
 
@@ -18,6 +18,7 @@ export class Empleado extends Usuario
     apellido: string,
     dni: string,
     foto: string,
+    email: string,
     isActive: boolean,
     tipo: TipoEmpleado,
     cuil: string
@@ -30,6 +31,7 @@ export class Empleado extends Usuario
     empleado.apellido = apellido;
     empleado.dni = dni;
     empleado.foto = foto;
+    empleado.email = email;
     empleado.isActive = isActive;
     empleado.tipo = tipo;
     empleado.cuil = cuil;

@@ -4,43 +4,7 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   {
     path: '',
-    loadChildren: () => import('./pages/tabs/tabs.module').then(m => m.TabsPageModule)
-  },
-  {
-    path: 'menu-producto',
-    loadChildren: () => import('./pages/menu-producto/menu-producto.module').then(m => m.MenuProductoPageModule)
-  },
-  {
-    path: 'menu-cliente',
-    loadChildren: () => import('./pages/menu-cliente/menu-cliente.module').then(m => m.MenuClientePageModule)
-  },
-  {
-    path: 'menu-empleado',
-    loadChildren: () => import('./pages/menu-empleado/menu-empleado.module').then(m => m.MenuEmpleadoPageModule)
-  },
-  {
-    path: 'menu-mesa',
-    loadChildren: () => import('./pages/menu-mesa/menu-mesa.module').then(m => m.MenuMesaPageModule)
-  },
-  {
-    path: 'menu-jefe',
-    loadChildren: () => import('./pages/menu-jefe/menu-jefe.module').then(m => m.MenuJefePageModule)
-  },
-  {
-    path: 'qr-ingreso-local',
-    loadChildren: () => import('./pages/qr-ingreso-local/qr-ingreso-local.module').then(m => m.QrIngresoLocalPageModule)
-  },
-  {
-    path: 'carta',
-    loadChildren: () => import('./pages/carta/carta.module').then(m => m.CartaPageModule)
-  },
-  {
-    path: 'menu-pedidos',
-    loadChildren: () => import('./pages/menu-pedidos/menu-pedidos.module').then(m => m.MenuPedidosPageModule)
-  },
-  {
-    path: 'menu-reserva',
-    loadChildren: () => import('./pages/menu-reserva/menu-reserva.module').then(m => m.MenuReservaPageModule)
+    loadChildren: () => import('./pages/home/home.module').then(m => m.HomePageModule)
   },
   {
     path: 'register',
@@ -49,7 +13,12 @@ const routes: Routes = [
   {
     path: 'login',
     loadChildren: () => import('./components/login/login.module').then(m => m.LoginPageModule)
+  },
+  {
+    path: 'home',
+    loadChildren: () => import('./pages/home/home.module').then(m => m.HomePageModule)
   }
+
 
 ];
 @NgModule({

@@ -1,6 +1,6 @@
-<app-header titulo="Menú Mesa" paginaAnterior='/tabs/tab1'></app-header>
+<app-header titulo="Menú Mesa"></app-header>
 
-<ion-segment value="Listado" (ionChange)="seleccionarOpcion($event)" scrollable color="dark">
+<ion-segment value="Listado" (ionChange)="seleccionarOpcion($event)" scrollable color="primary">
   <ion-segment-button value="Listado">
     <ion-label>Mesas</ion-label>
   </ion-segment-button>
@@ -15,8 +15,7 @@
   </ion-segment-button>
 </ion-segment>
 
-<ion-content>
-
+<ion-content class="fondo">
 
   <app-listado-mesas *ngIf="opcion == 'Listado'" [mesas]="listado" (elegirMesa)="elegirMesa($event)">
   </app-listado-mesas>

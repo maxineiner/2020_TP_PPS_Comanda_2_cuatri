@@ -11,17 +11,18 @@ export class JefeService
 
   constructor(public firebase: AngularFireDatabase) { }
 
-  public crear(jefe: Jefe): Promise<any>
+  public crear(jefe: Jefe, uid: string): Promise<any>
   {
+    jefe.id = uid;
+
     //TODO: eliminar cuando tenga implementado la carga de imagenes
     jefe.foto = "-"
     jefe.isActive = true;
+    console.log(jefe)
 
     return this.firebase.database
-      .ref("jefes")
-      .push()
-      .then((snapshot) => (jefe.id = snapshot.key))
-      .then(() => this.actualizar(jefe))
+      .ref("jefes/" + jefe.id)
+      .set(jefe)
       .catch(console.error);
   }
 
@@ -60,6 +61,7 @@ export class JefeService
               data.apellido,
               data.dni,
               data.foto,
+              data.email,
               data.isActive,
               data.tipo,
               data.cuil

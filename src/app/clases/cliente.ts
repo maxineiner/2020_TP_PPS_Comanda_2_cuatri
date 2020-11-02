@@ -1,14 +1,25 @@
 import { Usuario } from './usuario';
 
+export enum EstadoAceptacion
+{
+  Pendiente = 'Pendiente',
+  Aceptado = 'Aceptado',
+  Rechazado = 'Rechazado'
+}
+
 export class Cliente extends Usuario
 {
+  estado: EstadoAceptacion;
+
   public static CrearCliente(
     id: string,
     nombre: string,
     apellido: string,
     dni: string,
     foto: string,
-    isActive: boolean
+    email: string,
+    isActive: boolean,
+    estado: EstadoAceptacion
   )
   {
     let cliente = new Cliente();
@@ -18,19 +29,10 @@ export class Cliente extends Usuario
     cliente.apellido = apellido;
     cliente.dni = dni;
     cliente.foto = foto;
+    cliente.email = email;
     cliente.isActive = isActive;
+    cliente.estado = estado;
 
     return cliente;
   }
-}
-
-//FIXME: esta clase es solo para testear el login y el registro
-export class ClienteAuth
-{
-  email: string;
-  password: string;
-  nombre: string;
-  apellido: string;
-  dni: string;
-  //foto: string;
 }

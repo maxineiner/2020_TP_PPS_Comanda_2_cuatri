@@ -1,4 +1,4 @@
-<ion-list *ngFor="let producto of productos">
+<ion-list class="contenido" *ngFor="let producto of productos">
   <ion-item (click)="seleccionarProducto(producto)">
 
     <app-detalle-producto [producto]="producto"></app-detalle-producto>

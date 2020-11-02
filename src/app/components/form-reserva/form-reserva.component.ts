@@ -5,8 +5,9 @@ import { Reserva } from '../../clases/reserva';
 import { ToastController } from '@ionic/angular';
 import { MesaService } from '../../services/mesa.service';
 import { Mesa } from '../../clases/mesa';
-import { Cliente } from 'src/app/clases/cliente';
+import { Cliente, EstadoAceptacion } from 'src/app/clases/cliente';
 import { dateFormat } from 'highcharts';
+
 enum OpcionForm
 {
   ALTA = "Alta",
@@ -40,7 +41,7 @@ export class FormReservaComponent
   {
     this.fechaActual = this.getIsoLocalTime(new Date);
     /* this.cliente =   TRAER CLIENTE ACTUAL*/
-    this.cliente = Cliente.CrearCliente('01', 'carlitos', 'gonzales', '123456789', 'none', true);
+    this.cliente = Cliente.CrearCliente('01', 'carlitos', 'gonzales', '123456789', 'none', 'example@gmail.com', true, EstadoAceptacion.Aceptado);
     this.crearForm();
     this.leerReservas();
     this.leerMesas();

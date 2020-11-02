@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { AngularFireDatabase } from "@angular/fire/database";
-import { Cliente, ClienteAuth } from "../clases/cliente";
+import { Cliente, EstadoAceptacion } from "../clases/cliente";
 
 @Injectable({
   providedIn: "root",
@@ -11,44 +11,19 @@ export class ClienteService
 
   constructor(public firebase: AngularFireDatabase) { }
 
-  public registrar(clienteAuth: ClienteAuth, uid: string): Promise<any>
+  public crear(cliente: Cliente, uid: string): Promise<any>
   {
-    console.log(clienteAuth)
-
-    let cliente = new Cliente()
     cliente.id = uid;
-    cliente.nombre = clienteAuth.nombre;
-    cliente.apellido = clienteAuth.apellido;
-    cliente.dni = clienteAuth.dni;
 
-    return this.crear(cliente)
-  }
-
-  public crear(cliente: Cliente): Promise<any>
-  {
     //TODO: eliminar cuando tenga implementado la carga de imagenes
     cliente.foto = "-"
     cliente.isActive = true;
+    cliente.estado = EstadoAceptacion.Pendiente;
     console.log(cliente)
 
     return this.firebase.database
       .ref("clientes/" + cliente.id)
       .set(cliente)
-      .catch(console.error);
-  }
-
-  //TODO: borrar esto, ahora esta asi para soportar el ABM, pero los clientes solo seran creados en el registro
-  public crearAux(cliente: Cliente): Promise<any>
-  {
-    //TODO: eliminar cuando tenga implementado la carga de imagenes
-    cliente.foto = "-"
-    cliente.isActive = true;
-
-    return this.firebase.database
-      .ref("clientes")
-      .push()
-      .then((snapshot) => (cliente.id = snapshot.key))
-      .then(() => this.actualizar(cliente))
       .catch(console.error);
   }
 
@@ -87,7 +62,9 @@ export class ClienteService
               data.apellido,
               data.dni,
               data.foto,
-              data.isActive
+              data.email,
+              data.isActive,
+              data.estado
             )
           );
         });
