@@ -89,6 +89,9 @@ export class PedidosPage implements OnInit, OnDestroy {
   atras(): void {
     this.utilsService.showLoadingAndNavigate('clientes');
   }
+  irAJuegos() {
+    this.utilsService.showLoadingAndNavigate('juegos');
+  }
 
   verEncuesta() {
     const callback = (p: Pedido) => this.guardarEncuesta(p);

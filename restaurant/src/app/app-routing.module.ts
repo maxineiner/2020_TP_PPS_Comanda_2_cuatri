@@ -71,6 +71,19 @@ const routes: Routes = [
     path: 'mozo',
     loadChildren: () => import('./mozo/mozo.module').then( m => m.MozoPageModule)
   },
+  {
+    path: 'ahorcado',
+    loadChildren: () => import('./juegos/ahorcado/ahorcado.module').then( m => m.AhorcadoPageModule)
+  },
+  {
+    path: 'juegos',
+    loadChildren: () => import('./juegos/juegos.module').then( m => m.JuegosPageModule)
+  },
+  {
+    path: 'ahorcado',
+    loadChildren: () => import('./juegos/ahorcado/ahorcado.module').then( m => m.AhorcadoPageModule)
+  },
+
 
 
   /*
