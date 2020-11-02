@@ -11,27 +11,33 @@ import { Router } from '@angular/router';
   templateUrl: 'app.component.html',
   styleUrls: ['app.component.scss']
 })
-export class AppComponent {
+export class AppComponent
+{
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
     private modalCtrl: ModalController,
     private router: Router
-  ) {
-    platform.ready().then(() => {
-      this.presentModal().then(() => this.router.navigate(['/tabs']));
+  )
+  {
+    platform.ready().then(() =>
+    {
+      this.presentModal().then(() => this.router.navigate(['/home']));
     });
   }
 
-  initializeApp() {
-    this.platform.ready().then(() => {
+  initializeApp()
+  {
+    this.platform.ready().then(() =>
+    {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
     });
   }
 
-  async presentModal() {
+  async presentModal()
+  {
     this.statusBar.styleDefault();
 
     const modal = await this.modalCtrl.create({
