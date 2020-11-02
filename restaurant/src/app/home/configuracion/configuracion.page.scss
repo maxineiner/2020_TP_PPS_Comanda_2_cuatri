@@ -81,13 +81,27 @@
 .btn-config-off{
     width: 100%;
     height: 90px;
-    backdrop-filter: blur(15px) brightness(0.7);
+    backdrop-filter: blur(15px) brightness(0.6);
     border-radius: 10px;
     --background:none;
     background: none;
     outline: none;
-    font-size: 40px;
+    font-size: 35px;
+    color: white;
 }
+
+/*
+.btn-config-off:hover{
+  width: 100%;
+  height: 90px;
+  backdrop-filter: blur(10px) brightness(1.7);
+  border-radius: 10px;
+  --background:none;
+  background: none;
+  outline: none;
+  font-size: 35px;
+  color: black;
+}*/
 
 
 .btn-config-on{
@@ -98,5 +112,6 @@
     --background:none;
     background: none;
     outline: none;
-    font-size: 40px;
+    font-size: 35px;
+    color: black;
 }
