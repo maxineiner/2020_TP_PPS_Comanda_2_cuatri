@@ -6,26 +6,12 @@
       <ion-label>{{opcion}} Reserva</ion-label>
       <ion-label><small>Cliente {{cliente.nombre}}</small></ion-label>
     </ion-list-header>
-    <!--     <ion-item>
-      <ion-label>Fecha</ion-label>
-      <ion-datetime displayFormat="DD MM YY" placeholder="Seleccione Fecha" cancelText="Cancelar" doneText="Confirmar"
-        [min]="fechaActual" display-timezone="utc" formControlName="fecha"></ion-datetime>
-    </ion-item>
-
-    <ion-item>
-      <ion-label>Hora</ion-label>
-      <ion-datetime display-format="HH:mm" cancelText="Cancelar" doneText="Confirmar" display-timezone="utc"
-        minuteValues="0,5,10,15,20,25,30,35,40,45,50,55" pickerFormat="HH:mm" placeholder="Seleccione Hora"
-        (ionChange)="leerMesasDisponibles($event)">
-      </ion-datetime>      
-    </ion-item> -->
-    <!--  (click)="leerMesasDisponibles()"[disabled]="reservaForm.controls['fecha'].invalid"formControlName="hora" -->
     <ion-item>
       <ion-label>Fecha y Hora</ion-label>
       <ion-datetime cancelText="Cancelar" doneText="Confirmar" formControlName="date" display-format="D MMM YYYY H:mm"
         [min]="fechaActual" display-timezone="utc" minuteValues="0,5,10,15,20,25,30,35,40,45,50,55"
         pickerFormat="D MMM YYYY H:mm" placeholder="Seleccione Fecha y Hora" (ionChange)="leerMesasDisponibles()">
-      </ion-datetime><!--  (click)="leerMesasDisponibles()"[disabled]="reservaForm.controls['fecha'].invalid" -->
+      </ion-datetime>
     </ion-item>
 
     <!-- Validar que la mesa este disponible para ese dia y para ese horario -->

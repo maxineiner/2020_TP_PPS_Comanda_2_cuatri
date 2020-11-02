@@ -30,7 +30,7 @@ export class FormReservaComponent
   mesasDisponibles: Array<Mesa>;
   reservas: Array<Reserva>;
   cliente: Cliente;
-  fechaActual: string;/*  = new Date().toISOString(); */
+  fechaActual: string;
 
   constructor(
     private fb: FormBuilder,
@@ -119,7 +119,6 @@ export class FormReservaComponent
         timeStamp,
         ''
       )
-      /* reserva.stringISO = date.getFullYear()+'-'+(date.getMonth()+1)+'-'+date.getDate()+'T'+hora+':'+'00'+'Z'; */
       reserva.stringISO = this.reservaForm.controls['date'].value;
       this.reservaService.crear(reserva).then(() => { this.presentToast('Reserva exitosa.', 2000) });
     }
