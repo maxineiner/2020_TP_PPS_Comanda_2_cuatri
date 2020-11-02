@@ -53,7 +53,17 @@
     <ion-card-content>
       Agrega productos a tu pedido.
     </ion-card-content>
-  </ion-card> -->
+  </ion-card>
+   
+    <ion-card  *ngIf="pedido?.estado === 'ENTREGADO'" (click)="irAJuegos()">
+      <ion-card-header>
+        <ion-card-subtitle>Obtené descuentos jugando</ion-card-subtitle>
+        <ion-card-title>Juegos <ion-label color="success">Jugar ahora</ion-label>
+          <ion-icon class="ion-float-right" color="success" name="arrow-forward-outline">
+          </ion-icon>
+        </ion-card-title>
+      </ion-card-header>
+    </ion-card>
 
   <ion-card *ngIf="pedido?.estado === 'ENTREGADO'" (click)="escanearQR()">
     <ion-card-header>

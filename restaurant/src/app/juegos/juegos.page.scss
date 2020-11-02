@@ -1,0 +1,19 @@
+  
+  .btn{
+    border-radius: 100px;
+    background-color: #2ac568;
+    font-family: cursive;
+    height: 90px;
+    width: 100%;
+    border: solid;
+    font-size: 40px;
+  }
+
+  .btn:hover{
+    background-color: #000000;
+    color: white;
+  }
+  
+  .btn:focus {
+    outline: 0 !important;
+  }
