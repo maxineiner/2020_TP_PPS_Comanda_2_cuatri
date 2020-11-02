@@ -27,21 +27,6 @@ export class ClienteService
       .catch(console.error);
   }
 
-  //TODO: borrar esto, ahora esta asi para soportar el ABM, pero los clientes solo seran creados en el registro
-  public crearAux(cliente: Cliente): Promise<any>
-  {
-    //TODO: eliminar cuando tenga implementado la carga de imagenes
-    cliente.foto = "-"
-    cliente.isActive = true;
-
-    return this.firebase.database
-      .ref("clientes")
-      .push()
-      .then((snapshot) => (cliente.id = snapshot.key))
-      .then(() => this.actualizar(cliente))
-      .catch(console.error);
-  }
-
   public actualizar(cliente: Cliente): Promise<any>
   {
     return this.firebase.database

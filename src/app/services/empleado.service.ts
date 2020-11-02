@@ -11,17 +11,18 @@ export class EmpleadoService
 
   constructor(public firebase: AngularFireDatabase) { }
 
-  public crear(empleado: Empleado): Promise<any>
+  public crear(empleado: Empleado, uid: string): Promise<any>
   {
+    empleado.id = uid;
+
     //TODO: eliminar cuando tenga implementado la carga de imagenes
     empleado.foto = "-"
     empleado.isActive = true;
+    console.log(empleado)
 
     return this.firebase.database
-      .ref("empleados")
-      .push()
-      .then((snapshot) => (empleado.id = snapshot.key))
-      .then(() => this.actualizar(empleado))
+      .ref("empleados/" + empleado.id)
+      .set(empleado)
       .catch(console.error);
   }
 

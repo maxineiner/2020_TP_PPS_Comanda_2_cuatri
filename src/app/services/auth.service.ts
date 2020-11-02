@@ -1,7 +1,11 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Cliente } from '../clases/cliente';
+import { Empleado } from '../clases/empleado';
+import { Jefe } from '../clases/jefe';
 import { ClienteService } from './cliente.service';
+import { EmpleadoService } from './empleado.service';
+import { JefeService } from './jefe.service';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +13,10 @@ import { ClienteService } from './cliente.service';
 export class AuthService
 {
   public isLogged: boolean = false
-  constructor(public afAuth: AngularFireAuth, private clienteService: ClienteService)
+  constructor(public afAuth: AngularFireAuth,
+    private clienteService: ClienteService,
+    private empleadoService: EmpleadoService,
+    private jefeService: JefeService)
   {
     //afAuth.authState.subscribe(user => this.isLogged = user);
   }
@@ -28,7 +35,7 @@ export class AuthService
     }
   }
 
-  onRegister(cliente: Cliente)
+  onRegisterCliente(cliente: Cliente)
   {
     return new Promise<any>((resolve, reject) =>
     {
@@ -37,6 +44,36 @@ export class AuthService
         {
           cliente.password = null;
           this.clienteService.crear(cliente, response.user.uid);
+          resolve(response);
+        },
+          error => reject(error));
+    });
+  }
+
+  onRegisterEmpleado(empleado: Empleado)
+  {
+    return new Promise<any>((resolve, reject) =>
+    {
+      this.afAuth.createUserWithEmailAndPassword(empleado.email, empleado.password)
+        .then(response =>
+        {
+          empleado.password = null;
+          this.empleadoService.crear(empleado, response.user.uid);
+          resolve(response);
+        },
+          error => reject(error));
+    });
+  }
+
+  onRegisterJefe(jefe: Jefe)
+  {
+    return new Promise<any>((resolve, reject) =>
+    {
+      this.afAuth.createUserWithEmailAndPassword(jefe.email, jefe.password)
+        .then(response =>
+        {
+          jefe.password = null;
+          this.jefeService.crear(jefe, response.user.uid);
           resolve(response);
         },
           error => reject(error));

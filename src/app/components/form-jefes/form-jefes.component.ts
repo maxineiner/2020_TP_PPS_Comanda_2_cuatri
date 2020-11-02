@@ -1,8 +1,9 @@
 
 import { Component, Input, OnInit } from '@angular/core'
-import { ToastController } from '@ionic/angular'
 import { Jefe } from "src/app/clases/jefe";
 import { JefeService } from "src/app/services/jefe.service";
+import { AuthService } from "src/app/services/auth.service";
+import { UIVisualService } from "src/app/services/uivisual.service"
 
 enum OpcionForm
 {
@@ -20,16 +21,13 @@ export class FormJefesComponent implements OnInit
 {
   @Input() opcion: OpcionForm;
   @Input() jefe: Jefe;
-  toastTime = 2000;
 
   popoverOptions = {
     header: "Seleccione el tipo",
-    // translucent: true,
-    // cancelText: "Cerrar",
     okText: "Guardar",
   };
 
-  constructor(private jefeService: JefeService, private toastController: ToastController) { }
+  constructor(private jefeService: JefeService, private authService: AuthService, private UIVisual: UIVisualService) { }
 
   ngOnInit(): void
   {
@@ -46,15 +44,14 @@ export class FormJefesComponent implements OnInit
   {
     if (this.jefe && !this.jefe.id)
     {
-      // Alta de jefe en DB
-      this.jefeService
-        .crear(this.jefe)
-        .then(() => this.presentToast('Alta exitosa'))
-        .catch(() => this.presentToast('No se pudo realizar el alta'))
+      this.authService
+        .onRegisterJefe(this.jefe)
+        .then(() => UIVisualService.presentToast('Alta exitosa'))
+        .catch(() => UIVisualService.presentToast('No se pudo realizar el alta'))
     }
     else
     {
-      this.presentToast('Jefe existente')
+      UIVisualService.presentToast('Empleado existente')
     }
   }
 
@@ -70,8 +67,8 @@ export class FormJefesComponent implements OnInit
       // Se actualiza Mesa en DB
       this.jefeService
         .actualizar(this.jefe)
-        .then(() => this.presentToast('Modificación exitosa'))
-        .catch(() => this.presentToast('No se pudo modificar'))
+        .then(() => UIVisualService.presentToast('Modificación exitosa'))
+        .catch(() => UIVisualService.presentToast('No se pudo modificar'))
     }
   }
 
@@ -86,23 +83,8 @@ export class FormJefesComponent implements OnInit
     {
       this.jefeService
         .borradoLogico(this.jefe)
-        .then(() => this.presentToast('Baja realizada'))
-        .catch(() => this.presentToast('No se pudo realizar baja'))
+        .then(() => UIVisualService.presentToast('Baja realizada'))
+        .catch(() => UIVisualService.presentToast('No se pudo realizar baja'))
     }
-  }
-
-  //TODO: do this method generic for all components
-  // Toast para notificaciones
-  async presentToast(message: string, duration?: number)
-  {
-    if (duration === undefined || duration <= 0)
-    {
-      duration = this.toastTime
-    }
-    const toast = await this.toastController.create({
-      message,
-      duration: this.toastTime,
-    })
-    toast.present()
   }
 }

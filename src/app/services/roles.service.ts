@@ -7,6 +7,7 @@ import { Usuario } from '../clases/usuario';
 @Injectable({
   providedIn: "root",
 })
+//TODO: do its functions static
 export class RolesService
 {
   isCliente(usuario: Usuario): boolean
