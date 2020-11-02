@@ -40,7 +40,7 @@ export class FormClientesComponent implements OnInit
     if (this.cliente && !this.cliente.id)
     {
       this.authService
-        .onRegister(this.cliente)
+        .onRegisterCliente(this.cliente)
         .then(() => UIVisualService.presentToast('Alta exitosa'))
         .catch(() => UIVisualService.presentToast('No se pudo realizar el alta'))
     }

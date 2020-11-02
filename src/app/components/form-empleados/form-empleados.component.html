@@ -33,6 +33,20 @@
         [disabled]="opcion == 'Baja'" required>
       </ion-input>
     </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Email</ion-label>
+      <ion-input type="text" name="email" [(ngModel)]="empleado.email" [placeholder]="empleado.email"
+        [disabled]="opcion == 'Baja'" required>
+      </ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Contraseña</ion-label>
+      <ion-input type="password" name="password" [(ngModel)]="empleado.password" [placeholder]="empleado.password"
+        [disabled]="opcion == 'Baja'" required>
+      </ion-input>
+    </ion-item>
   </ion-list>
 
   <ion-item>
