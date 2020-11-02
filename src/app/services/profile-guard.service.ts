@@ -4,6 +4,7 @@ import { Cliente } from '../clases/cliente';
 import { Empleado, TipoEmpleado } from '../clases/empleado';
 import { Jefe, TipoJefe } from '../clases/jefe';
 import { Usuario } from '../clases/usuario';
+import { RolesService } from './roles.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,7 @@ import { Usuario } from '../clases/usuario';
 export class ProfileGuardService
 {
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private rolesService: RolesService) { }
 
   /**
    * Método para validar navegación según perfil del Usuario
