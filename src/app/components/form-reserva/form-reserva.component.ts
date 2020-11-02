@@ -27,10 +27,10 @@ export class FormReservaComponent
 
   reservaForm: FormGroup;
   todasLasMesas: Array<Mesa>;
-  mesas: Array<Mesa>;
+  mesasDisponibles: Array<Mesa>;
   reservas: Array<Reserva>;
   cliente: Cliente;
-  fechaActual: string;/*  = new Date().toISOString(); */
+  fechaActual: string;
 
   constructor(
     private fb: FormBuilder,
@@ -39,7 +39,7 @@ export class FormReservaComponent
     private mesasService: MesaService
   )
   {
-    this.fechaActual = this.getIsoLocalTime();
+    this.fechaActual = this.getIsoLocalTime(new Date);
     /* this.cliente =   TRAER CLIENTE ACTUAL*/
     this.cliente = Cliente.CrearCliente('01', 'carlitos', 'gonzales', '123456789', 'none', 'example@gmail.com', true, EstadoAceptacion.Aceptado);
     this.crearForm();
@@ -86,22 +86,30 @@ export class FormReservaComponent
   {
     this.reservaForm = this.fb.group({
       cliente: new FormControl({ value: this.cliente }, Validators.required),
-      date: new FormControl(Date, Validators.required),
+      date: new FormControl('', Validators.required),
       mesa: new FormControl({ value: Mesa }, Validators.required),
     });
   }
 
   crear()
   {
-    this.asignarCliente(this.cliente).then(() =>
+    if (this.asignarCliente(this.cliente))
     {
       let date = this.getDateObject();
-      let hora = date.getHours().toString() + ':' + date.getMinutes().toString();
+      let hora = date.getHours().toString();
+      if (date.getMinutes() < 10)
+      {
+        hora += ':0' + date.getMinutes().toString();
+      }
+      else
+      {
+        hora += ':' + date.getMinutes().toString();
+      }
       let fecha = date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear();
       let timeStamp = this.toTimeStamp(date);
-      console.log(this.toTimeStamp(date));
+      /* console.log(this.toTimeStamp(date));
       console.log(this.toDate(timeStamp));
-      console.log(fecha, hora);
+      console.log(fecha, hora); */
 
       let reserva = Reserva.CrearReserva(
         this.reservaForm.controls['mesa'].value,
@@ -111,8 +119,10 @@ export class FormReservaComponent
         timeStamp,
         ''
       )
+      reserva.stringISO = this.reservaForm.controls['date'].value;
       this.reservaService.crear(reserva).then(() => { this.presentToast('Reserva exitosa.', 2000) });
-    });
+    }
+
   }
   //a pesar de que el usuario no puede elegir los segundos el stringISO que devuelve ion-datetime siempre es distinto
   //entonces creo un nuevo date pasando los segundos y milisigundos como 0.
@@ -120,18 +130,16 @@ export class FormReservaComponent
   {
     let stringISO = this.reservaForm.controls['date'].value;
     let timeStamp = Date.parse(stringISO);
-    let año = Number.parseInt(dateFormat('%Y', timeStamp));
+    let anio = Number.parseInt(dateFormat('%Y', timeStamp));
     let mes = Number.parseInt(dateFormat('%m', timeStamp));
     let dia = Number.parseInt(dateFormat('%e', timeStamp));
     let horas = Number.parseInt(dateFormat('%k', timeStamp));
     let minutos = Number.parseInt(dateFormat('%M', timeStamp));
-
-    console.log(año, mes, dia, horas, minutos);
-    let newDate = new Date(año, mes - 1, dia, horas, minutos, 0, 0);
+    let newDate = new Date(anio, mes - 1, dia, horas, minutos, 0, 0);
     return newDate;
   }
   /**
-   * convierte un objeto Date a timeStamp
+   * convierte un objeto Date a timeStamp expresado en segundos
    * @param date 
    */
   toTimeStamp(date: Date)
@@ -148,24 +156,29 @@ export class FormReservaComponent
   {
     let date = this.getDateObject();
     let timeStamp = this.toTimeStamp(date);
-    let reservasFechaElegida = this.filtrarReservas(timeStamp);
+    let reservasFechaYHoraElegida = this.filtrarReservas(timeStamp);
 
-    this.mesas = this.mesas.filter(mesa =>
+
+    this.mesasDisponibles = this.todasLasMesas.filter(mesa =>
     {
-      console.log(reservasFechaElegida);
-      if (reservasFechaElegida.length >= 1)
+      if (reservasFechaYHoraElegida.length >= 1)
       {
-        reservasFechaElegida.forEach(reserva =>
+        let estaReservada = false;
+        reservasFechaYHoraElegida.forEach(reserva =>
         {
-          /* console.log(mesa);
-          console.log(reserva.mesa); */
+          /*  console.log(mesa);
+           console.log(reserva.mesa); */
           if (reserva.mesa.id == mesa.id)
           {
-            console.log('Mesa', mesa);
-            console.log('Reserva', reserva.mesa);
-            return mesa;
+            /*  console.log('Mesa ocupada', mesa); */
+            estaReservada = true;
           }
         })
+        if (!estaReservada)
+        {
+          return mesa;
+        }
+
       }
       else
       {
@@ -185,19 +198,20 @@ export class FormReservaComponent
   {
     let tiempoPromedioDeOcupacionDeMesa = this.sumarMinutos(timeStamp, 10);
     let tiempoPromedioDeOcupacionDeMesaNegativo = this.restarMinutos(timeStamp, 10);//para no tomen esa mesa antes del tiempo estipulado para que una persona coma
-    console.log('tiempoPromedioDeOcupacionDeMesa', this.obtenerHora(tiempoPromedioDeOcupacionDeMesa));
-    console.log('tiempoPromedioDeOcupacionDeMesaNegativo', this.obtenerHora(tiempoPromedioDeOcupacionDeMesaNegativo));
-    let reservasFechaElegida = this.reservas.filter(reserva =>
+    console.log('tiempoPromedioDeOcupacionDeMesa', this.toDate(tiempoPromedioDeOcupacionDeMesa).toLocaleString());
+    console.log('tiempoPromedioDeOcupacionDeMesaNegativo', this.toDate(tiempoPromedioDeOcupacionDeMesaNegativo).toLocaleString());
+    let reservasFechaYHoraElegida = this.reservas.filter(reserva =>
     {
-      /*       console.log(timeStamp);
-            console.log(reserva.timeStamp); */
-      if (timeStamp == reserva.timeStamp)/* >= tiempoDeReserva && timeStamp <= tiempoPromedioDeOcupacionDeMesa */
+      if (reserva.timeStamp >= tiempoPromedioDeOcupacionDeMesaNegativo && reserva.timeStamp <= tiempoPromedioDeOcupacionDeMesa)
       {
+        /* console.log('tiempoPromedioDeOcupacionDeMesaNegativo', tiempoPromedioDeOcupacionDeMesaNegativo);
+        console.log('tiempoPromedioDeOcupacionDeMesa', tiempoPromedioDeOcupacionDeMesa);
+        console.log(reserva.timeStamp); */
         return reserva;
       }
     })
-    console.log(reservasFechaElegida);
-    return reservasFechaElegida;
+    console.log('Reservas para la FechaYHoraElegida', reservasFechaYHoraElegida);
+    return reservasFechaYHoraElegida;
   }
 
   leerReservas()
@@ -209,29 +223,33 @@ export class FormReservaComponent
   }
   leerMesas()
   {
-    this.mesasService.leer().then(mesas => { this.mesas = mesas; console.log('Mesas', this.mesas) });
+    this.mesasService.leer().then(mesas => { this.todasLasMesas = mesas; console.log('Todas las mesas: ', this.todasLasMesas) });
   }
 
-  obtenerFecha(timeStamp)
+  /**Funcion para agregar minutos a un timeStamp
+  * @param timeStamp TimeStamp
+  * @param minutosAAgregar Minutos a agregar
+  * @returns TimeStamp con los minutos agregados
+  */
+  sumarMinutos(timeStamp, minutosASumar): number
   {
-    let fecha = dateFormat('%d-%m-%Y', timeStamp);
-    /* console.log('fecha', fecha); */
-    return fecha;
+    let nuevoHorario = timeStamp + (minutosASumar * 60);
+    return nuevoHorario;
   }
-  obtenerHora(timeStamp)
+  restarMinutos(timeStamp, minutosARestar): number
   {
-    let hora = dateFormat('%k:%M', timeStamp);
-    /* console.log('hora', hora); */
-    return hora;
+    let nuevoHorario = timeStamp - (minutosARestar * 60);
+    return nuevoHorario;
   }
 
   modificarReserva()
   {
     console.log("Modificando Reserva-------");
     let stringISO = this.reservaForm.controls['date'].value;
-    let timeStamp = Date.parse(stringISO);
-    let fecha = this.obtenerFecha(timeStamp);
-    let hora = this.obtenerHora(timeStamp);
+    let date = this.getDateObject();
+    let hora = date.getHours().toString() + ':' + date.getMinutes().toString();
+    let fecha = date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear();
+    let timeStamp = this.toTimeStamp(date);
     this.reserva.mesa = this.reservaForm.get("mesa").value;
     this.reserva.fecha = fecha;
     this.reserva.hora = hora;
@@ -264,62 +282,35 @@ export class FormReservaComponent
     }
   }
 
-  /**Funcion para agregar minutos a un timeStamp
- * @param timeStamp TimeStamp
- * @param minutosAAgregar Minutos a agregar
- * @returns TimeStamp con los minutos agregados
- */
-  sumarMinutos(timeStamp, minutosASumar): number
+  asignarCliente(cliente: Cliente)
   {
-    let nuevoHorario = timeStamp + (minutosASumar * 60000);
-    return nuevoHorario;
-  }
-  restarMinutos(timeStamp, minutosARestar): number
-  {
-    let nuevoHorario = timeStamp - (minutosARestar * 60000);
-    return nuevoHorario;
-  }
-
-  async asignarCliente(cliente: Cliente)
-  {
-    try
+    this.reservaForm.controls['cliente'].setValue(cliente);
+    if (this.reservaForm.controls['cliente'].value)
     {
-      return new Promise((resolve) =>
-      {
-        this.reservaForm.controls['cliente'].setValue(cliente);
-        if (this.reservaForm.controls['cliente'].value)
-        {
-          resolve();
-        }
-
-      })
-
-    } catch (error)
-    {
-      this.presentToast('Solo un usuario registrado puede hacer una reserva.', 2000);
-      console.error('No se pudo asignar cliente', error);
+      return true;
     }
+    return false;
   }
 
-  getIsoLocalTime()
+  getIsoLocalTime(date)
   {
-    let isoLocalTime = new Date().getFullYear().toString() + '-';
-    if ((new Date().getMonth() + 1) < 10)
+    let isoLocalTime = date.getFullYear().toString() + '-';
+    if ((date.getMonth() + 1) < 10)
     {
-      isoLocalTime += '0' + (new Date().getMonth() + 1) + '-';
+      isoLocalTime += '0' + (date.getMonth() + 1) + '-';
     } else
     {
-      isoLocalTime += (new Date().getMonth() + 1) + '-';
+      isoLocalTime += (date.getMonth() + 1) + '-';
     }
-    if (new Date().getDate() < 10)
+    if (date.getDate() < 10)
     {
-      isoLocalTime += '0' + (new Date().getDate()) + 'T';
+      isoLocalTime += '0' + (date.getDate()) + 'T';
     }
     else
     {
-      isoLocalTime += new Date().getDate() + 'T';
+      isoLocalTime += date.getDate() + 'T';
     }
-    isoLocalTime += new Date().toLocaleTimeString();
+    isoLocalTime += date.toLocaleTimeString();
     console.log('Mi ISOtimeString', isoLocalTime);
     return isoLocalTime;
   }
