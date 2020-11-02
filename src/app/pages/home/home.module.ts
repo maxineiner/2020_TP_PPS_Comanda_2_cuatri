@@ -7,14 +7,20 @@ import { IonicModule } from '@ionic/angular';
 import { HomePageRoutingModule } from './home-routing.module';
 
 import { HomePage } from './home.page';
+import { ComponentsModule } from 'src/app/components/components.module';
+import { MenuEmpleadoPage } from '../menu-empleado/menu-empleado.page';
+import { MenuProductoPage } from '../menu-producto/menu-producto.page';
+import { MenuPedidosPage } from '../menu-pedidos/menu-pedidos.page';
+import { MenuClientePage } from '../menu-cliente/menu-cliente.page';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    HomePageRoutingModule
+    HomePageRoutingModule,
+    ComponentsModule,
   ],
   declarations: [HomePage]
 })
-export class HomePageModule {}
+export class HomePageModule { }

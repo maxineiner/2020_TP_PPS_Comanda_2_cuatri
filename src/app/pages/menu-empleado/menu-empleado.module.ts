@@ -17,6 +17,6 @@ import { ComponentsModule } from 'src/app/components/components.module';
     MenuEmpleadoPageRoutingModule,
     ComponentsModule
   ],
-  declarations: [MenuEmpleadoPage]
+  declarations: [MenuEmpleadoPage],
 })
 export class MenuEmpleadoPageModule { }
