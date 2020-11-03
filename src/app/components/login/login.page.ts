@@ -4,6 +4,7 @@ import { Usuario } from 'src/app/clases/usuario';
 import { JefeService } from 'src/app/services/jefe.service';
 import { EmpleadoService } from 'src/app/services/empleado.service';
 import { ClienteService } from 'src/app/services/cliente.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -16,6 +17,7 @@ export class LoginPage implements OnInit
 
   // constructor(private authService: AuthService, private router: Router) { }
   constructor(private authService: AuthService,
+    private router: Router,
     private jefeService: JefeService,
     private empleadoService: EmpleadoService,
     private clienteService: ClienteService) { }
@@ -61,7 +63,9 @@ export class LoginPage implements OnInit
         console.log("usuario no encontrado")
         // mostrar error en pantalla
       }
-      // this.router.navigateByUrl('/home');
+
+      this.router.navigate(['/home'])
     }
+    console.log(this.authService.usuario)
   }
 }
