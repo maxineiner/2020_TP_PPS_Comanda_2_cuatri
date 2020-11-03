@@ -27,6 +27,7 @@ export class EncuestaPage implements OnInit {
   }
 
   ngOnInit() {
+    console.log(this.pedido);
     if (this.pedido.encuesta) {
       this.formEncuesta.controls.calidad.setValue(this.pedido.encuesta.calidad);
       this.formEncuesta.controls.servicio.setValue(this.pedido.encuesta.servicio);
@@ -34,6 +35,8 @@ export class EncuestaPage implements OnInit {
       this.formEncuesta.controls.comentarios.setValue(this.pedido.encuesta.comentarios);
     }
   }
+
+
 
   dismiss() {
     this.modalCtrl.dismiss();

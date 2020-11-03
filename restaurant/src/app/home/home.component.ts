@@ -11,6 +11,7 @@ import { Notificacion } from 'src/app/clases/notificacion';
 import { Router } from '@angular/router';
 import { SonidosService } from '../servicios/sonidos.service';
 import { ConfiguracionPage } from './configuracion/configuracion.page';
+import { ModalController } from '@ionic/angular';
 
 @Component({
   selector: 'app-home',
@@ -29,7 +30,8 @@ export class HomeComponent implements OnInit {
     public usuarioService: UsuarioService,
     public notificationService: NotificationService,
     private router:Router,
-    private sonido:SonidosService
+    private sonido:SonidosService,
+    private modalCtrl : ModalController,
   ) { }
 
   ngOnInit() {
@@ -77,6 +79,17 @@ export class HomeComponent implements OnInit {
   AbrirOpciones()
   {
     this.utilsService.presentModal(ConfiguracionPage);
+  }
+
+  goToNotificaciones():void {
+    this.utilsService.showLoadingAndNavigate('notificaciones');
+    this.dismiss();
+  }
+
+  dismiss() {
+    // using the injected ModalController this page
+    // can "dismiss" itself and optionally pass back data
+    this.modalCtrl.dismiss()
   }
 
 

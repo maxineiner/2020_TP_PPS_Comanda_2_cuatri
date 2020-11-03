@@ -8,12 +8,17 @@
               <ion-icon name="menu-outline"></ion-icon>
             </button>
           </td>
-          <td style="width: 70%;padding-left: 4%;height: 60px">
+          <td style="padding-left: 4%;height: 60px">
             <ion-text class="ion-text-center" color="light">
-              <label style="font-size: 18px;">Bienvenido! <b>{{usuario?.nombre}}</b></label>
+              <label style="font-size: 18px;">¡Bienvenido! <b>{{usuario?.nombre}}</b></label>
             </ion-text>
           </td>
-          <td style="height: 60px;width:70%;">
+          <td align="center">
+            <button class="btn-notification" (click)="goToNotificaciones()"> 
+              <ion-icon name="notifications-circle-outline"></ion-icon>
+            </button>
+          </td>
+          <td style="height: 60px;width:60px;">
             <img [src]="usuarioService.mostrarFoto(usuario.foto)" class="btn-foto-perfil" alt="">
           </td>
         </tr>

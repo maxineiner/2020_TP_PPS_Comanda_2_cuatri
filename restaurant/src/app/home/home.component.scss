@@ -85,10 +85,9 @@
 }
 
 .btn-foto-perfil{
-  width:70%;
+  width:60px;
   height: 60px;
   border-radius: 10px;
-  margin-left:30%
 }
 
 /*.btn-foto-perfil:hover{
@@ -99,3 +98,15 @@
   margin-top:3%;
   filter: brightness(0.6);
 }*/
+
+.btn-notification{
+  font-size: 30px;
+  --background:none;
+  background:none;
+  color: white;
+  outline: none;
+}
+
+.btn-notification:hover{
+  backdrop-filter: blur(10px) brightness(1.7);
+}

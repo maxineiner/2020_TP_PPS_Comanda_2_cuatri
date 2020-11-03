@@ -7,13 +7,16 @@ import { IonicModule } from '@ionic/angular';
 import { PedidosPageRoutingModule } from './pedidos-routing.module';
 
 import { PedidosPage } from './pedidos.page';
+import { EncuestaPageModule } from './encuesta/encuesta.module';
+
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    PedidosPageRoutingModule
+    PedidosPageRoutingModule,
+
   ],
   declarations: [PedidosPage]
 })
