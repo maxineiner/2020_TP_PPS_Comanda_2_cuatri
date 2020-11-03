@@ -19,6 +19,7 @@ export class ClienteService
     cliente.foto = "-"
     cliente.isActive = true;
     cliente.estado = EstadoAceptacion.Pendiente;
+    cliente.enListaDeEspera = false;
     console.log(cliente)
 
     return this.firebase.database
@@ -64,7 +65,8 @@ export class ClienteService
               data.foto,
               data.email,
               data.isActive,
-              data.estado
+              data.estado,
+              data.enListaDeEspera
             )
           );
         });

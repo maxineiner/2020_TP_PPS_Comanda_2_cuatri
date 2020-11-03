@@ -10,6 +10,7 @@ export enum EstadoAceptacion
 export class Cliente extends Usuario
 {
   estado: EstadoAceptacion;
+  enListaDeEspera:boolean;
 
   public static CrearCliente(
     id: string,
@@ -19,7 +20,8 @@ export class Cliente extends Usuario
     foto: string,
     email: string,
     isActive: boolean,
-    estado: EstadoAceptacion
+    estado: EstadoAceptacion,
+    enListaDeEspera:boolean,
   )
   {
     let cliente = new Cliente();
@@ -32,6 +34,7 @@ export class Cliente extends Usuario
     cliente.email = email;
     cliente.isActive = isActive;
     cliente.estado = estado;
+    cliente.enListaDeEspera = enListaDeEspera;
 
     return cliente;
   }

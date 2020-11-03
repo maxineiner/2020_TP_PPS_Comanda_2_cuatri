@@ -46,7 +46,7 @@ export class FormReservaComponent
   {
     this.fechaActual = this.getIsoLocalTime(new Date);
     /* this.cliente =   TRAER CLIENTE ACTUAL*/
-    this.cliente = Cliente.CrearCliente('01', 'carlitos', 'gonzales', '123456789', 'none', 'example@gmail.com', true, EstadoAceptacion.Aceptado);
+    this.cliente = Cliente.CrearCliente('01', 'carlitos', 'gonzales', '123456789', 'none', 'example@gmail.com', true, EstadoAceptacion.Aceptado,false);
     this.crearForm();
     this.leerPedidos();
     this.leerMesas();
