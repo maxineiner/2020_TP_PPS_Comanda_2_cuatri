@@ -7,6 +7,9 @@ import { MesaService } from '../../services/mesa.service';
 import { Mesa } from '../../clases/mesa';
 import { Cliente, EstadoAceptacion } from 'src/app/clases/cliente';
 import { dateFormat } from 'highcharts';
+import { EstadoPedido, Pedido } from 'src/app/clases/pedido';
+import { PedidoService } from 'src/app/services/pedido.service';
+import { UIVisualService } from 'src/app/services/uivisual.service';
 
 enum OpcionForm
 {
@@ -23,12 +26,12 @@ export class FormReservaComponent
 {
 
   @Input() opcion: OpcionForm;
-  @Input() reserva: Reserva;
+  @Input() pedido: Pedido;
 
   reservaForm: FormGroup;
   todasLasMesas: Array<Mesa>;
   mesasDisponibles: Array<Mesa>;
-  reservas: Array<Reserva>;
+  pedidos: Array<Pedido>;
   cliente: Cliente;
   fechaActual: string;
 
@@ -36,14 +39,16 @@ export class FormReservaComponent
     private fb: FormBuilder,
     private reservaService: ReservaService,
     private toastController: ToastController,
-    private mesasService: MesaService
+    private mesasService: MesaService,
+    private pedidosService: PedidoService,
+    private UIVisual: UIVisualService
   )
   {
     this.fechaActual = this.getIsoLocalTime(new Date);
     /* this.cliente =   TRAER CLIENTE ACTUAL*/
     this.cliente = Cliente.CrearCliente('01', 'carlitos', 'gonzales', '123456789', 'none', 'example@gmail.com', true, EstadoAceptacion.Aceptado);
     this.crearForm();
-    this.leerReservas();
+    this.leerPedidos();
     this.leerMesas();
   }
 
@@ -57,12 +62,12 @@ export class FormReservaComponent
   {
     try
     {
-      if (this.reserva && this.opcion != OpcionForm.ALTA)
+      if (this.pedido && this.opcion != OpcionForm.ALTA)
       {
         this.reservaForm.setValue({
           cliente: this.cliente,
-          mesa: this.reserva.mesa,
-          date: this.reserva.stringISO,
+          mesa: this.pedido.mesa,
+          date: new Date(this.pedido.fechaInicio).toISOString(), // TESTEAR
         });
       } else
       {
@@ -110,17 +115,21 @@ export class FormReservaComponent
       /* console.log(this.toTimeStamp(date));
       console.log(this.toDate(timeStamp));
       console.log(fecha, hora); */
-
-      let reserva = Reserva.CrearReserva(
+      let pedido = Pedido.CrearPedido("_", this.reservaForm.controls['cliente'].value,
         this.reservaForm.controls['mesa'].value,
-        this.reservaForm.controls['cliente'].value,
-        fecha,
-        hora,
-        timeStamp,
-        ''
-      )
-      reserva.stringISO = this.reservaForm.controls['date'].value;
-      this.reservaService.crear(reserva).then(() => { this.presentToast('Reserva exitosa.', 2000) });
+        [], timeStamp, 0, 0, EstadoPedido.RESERVADO, true);
+
+      // let pedido = Reserva.CrearReserva(
+      //   this.reservaForm.controls['mesa'].value,
+      //   this.reservaForm.controls['cliente'].value,
+      //   fecha,
+      //   hora,
+      //   timeStamp,
+      //   ''
+      // )
+      // pedido.stringISO = this.reservaForm.controls['date'].value;
+      // this.reservaService.crear(pedido).then(() => { this.presentToast('Reserva exitosa.', 2000) });
+      this.pedidosService.crear(pedido).then(() => { UIVisualService.presentToast('Reserva exitosa.') });
     }
 
   }
@@ -144,7 +153,7 @@ export class FormReservaComponent
    */
   toTimeStamp(date: Date)
   {
-    return date.getTime() / 1000;
+    return date.getTime() / 1000000;
   }
   toDate(timeStamp)
   {
@@ -164,11 +173,11 @@ export class FormReservaComponent
       if (reservasFechaYHoraElegida.length >= 1)
       {
         let estaReservada = false;
-        reservasFechaYHoraElegida.forEach(reserva =>
+        reservasFechaYHoraElegida.forEach(pedido =>
         {
           /*  console.log(mesa);
-           console.log(reserva.mesa); */
-          if (reserva.mesa.id == mesa.id)
+           console.log(pedido.mesa); */
+          if (pedido.mesa.id == mesa.id)
           {
             /*  console.log('Mesa ocupada', mesa); */
             estaReservada = true;
@@ -192,7 +201,7 @@ export class FormReservaComponent
    * Filtra las reservas que hay para el dia elegido y la hora elegida +- 10 minutos.
    * (podrian ser 40, o el tiempo estipulado para que una persona coma)
    * Luego ya se puede reservar otra vez
-   * @param timeStamp El timeStamp de la reserva que se quiere hacer.
+   * @param timeStamp El timeStamp de la pedido que se quiere hacer.
    */
   filtrarReservas(timeStamp)
   {
@@ -200,27 +209,28 @@ export class FormReservaComponent
     let tiempoPromedioDeOcupacionDeMesaNegativo = this.restarMinutos(timeStamp, 10);//para no tomen esa mesa antes del tiempo estipulado para que una persona coma
     console.log('tiempoPromedioDeOcupacionDeMesa', this.toDate(tiempoPromedioDeOcupacionDeMesa).toLocaleString());
     console.log('tiempoPromedioDeOcupacionDeMesaNegativo', this.toDate(tiempoPromedioDeOcupacionDeMesaNegativo).toLocaleString());
-    let reservasFechaYHoraElegida = this.reservas.filter(reserva =>
+    let reservasFechaYHoraElegida = this.pedidos.filter(pedido =>
     {
-      if (reserva.timeStamp >= tiempoPromedioDeOcupacionDeMesaNegativo && reserva.timeStamp <= tiempoPromedioDeOcupacionDeMesa)
+      if (pedido.fechaInicio >= tiempoPromedioDeOcupacionDeMesaNegativo && pedido.fechaInicio <= tiempoPromedioDeOcupacionDeMesa)
       {
         /* console.log('tiempoPromedioDeOcupacionDeMesaNegativo', tiempoPromedioDeOcupacionDeMesaNegativo);
         console.log('tiempoPromedioDeOcupacionDeMesa', tiempoPromedioDeOcupacionDeMesa);
-        console.log(reserva.timeStamp); */
-        return reserva;
+        console.log(pedido.timeStamp); */
+        return pedido;
       }
     })
     console.log('Reservas para la FechaYHoraElegida', reservasFechaYHoraElegida);
     return reservasFechaYHoraElegida;
   }
 
-  leerReservas()
+  leerPedidos()
   {
-    this.reservaService.leer().then(reservas =>
+    this.pedidosService.leer().then(pedidos =>
     {
-      this.reservas = reservas;
+      this.pedidos = pedidos.filter(pedido => pedido.estado == EstadoPedido.RESERVADO);
     })
   }
+
   leerMesas()
   {
     this.mesasService.leer().then(mesas => { this.todasLasMesas = mesas; console.log('Todas las mesas: ', this.todasLasMesas) });
@@ -245,40 +255,45 @@ export class FormReservaComponent
   modificarReserva()
   {
     console.log("Modificando Reserva-------");
-    let stringISO = this.reservaForm.controls['date'].value;
+
+    // let stringISO = this.reservaForm.controls['date'].value;
     let date = this.getDateObject();
-    let hora = date.getHours().toString() + ':' + date.getMinutes().toString();
-    let fecha = date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear();
+    // let hora = date.getHours().toString() + ':' + date.getMinutes().toString();
+    // let fecha = date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear();
     let timeStamp = this.toTimeStamp(date);
-    this.reserva.mesa = this.reservaForm.get("mesa").value;
-    this.reserva.fecha = fecha;
-    this.reserva.hora = hora;
-    this.reserva.timeStamp = timeStamp;
-    this.reserva.stringISO = stringISO;
-    this.reservaService
-      .actualizar(this.reserva)
-      .then(() =>
-      {
-        this.presentToast("Modificación exitosa", 2000);
-        console.log("Modificado correctamente.");
-      })
-      .catch(() => this.presentToast("No se pudo modificar", 2000));
+
+    this.pedido.mesa = this.reservaForm.get("mesa").value;
+    this.pedido.fechaInicio = timeStamp;
+
+    // this.pedido.fecha = fecha;
+    // this.pedido.hora = hora;
+    // this.pedido.timeStamp = timeStamp;
+    // this.pedido.stringISO = stringISO;
+
+    // this.reservaService
+    //   .actualizar(this.pedido)
+    //   .then(() =>
+    //   {
+    //     this.presentToast("Modificación exitosa", 2000);
+    //     console.log("Modificado correctamente.");
+    //   })
+    //   .catch(() => this.presentToast("No se pudo modificar", 2000));
   }
 
   borrarReserva()
   {
-    console.log("Baja de reserva------");
-    if (this.reserva)
+    console.log("Baja de pedido------");
+    if (this.pedido)
     {
-      this.reserva.isActive = false;
-      this.reservaService
-        .actualizar(this.reserva)
+      this.pedido.isActive = false;
+      this.pedidosService
+        .actualizar(this.pedido)
         .then(() =>
         {
-          this.presentToast("Baja realizada", 2000);
+          UIVisualService.presentToast("Baja realizada");
           this.reservaForm.reset();
         })
-        .catch(() => this.presentToast("No se pudo realizar baja", 2000));
+        .catch(() => UIVisualService.presentToast("No se pudo realizar baja"));
     }
   }
 

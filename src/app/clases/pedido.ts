@@ -19,22 +19,31 @@ export class Pedido
     cliente: Cliente;
     mesa: Mesa;
     valorTotal: number;
+    fechaInicio: number;
+    fechaFin: number;
     estado: EstadoPedido;
     isActive: boolean;
 
     constructor()
     {
+        this.fechaInicio = 0;
+        this.fechaFin = 0;
         this.productos = [];
     }
 
-    public static CrearPedido(id: string, productos: Producto[], valorTotal: number,
-        estado: EstadoPedido, isActive: boolean)
+    public static CrearPedido(id: string, cliente: Cliente, mesa: Mesa, productos: Producto[],
+        fechaInicio: number, fechaFin: number, valorTotal: number, estado: EstadoPedido,
+        isActive: boolean)
     {
         let pedido = new Pedido();
 
         pedido.id = id;
+        pedido.cliente = cliente;
+        pedido.mesa = mesa;
         pedido.productos = productos;
         pedido.valorTotal = valorTotal;
+        pedido.fechaInicio = fechaInicio;
+        pedido.fechaFin = fechaFin;
         pedido.estado = estado;
         pedido.isActive = isActive;
 

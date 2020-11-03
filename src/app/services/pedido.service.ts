@@ -63,8 +63,9 @@ export class PedidoService
         snapshot.forEach((child) =>
         {
           var data: Pedido = child.val();
-          pedidos.push(Pedido.CrearPedido(data.id, data.productos, data.valorTotal, data.estado,
-            data.isActive));
+          pedidos.push(Pedido.CrearPedido(data.id, data.cliente, data.mesa, data.productos,
+            data.fechaInicio, data.fechaFin,
+            data.valorTotal, data.estado, data.isActive));
         });
         PedidoService.pedidos = pedidos.filter(pedido => pedido.isActive);
         resolve(PedidoService.pedidos);
