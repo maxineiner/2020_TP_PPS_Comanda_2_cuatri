@@ -64,7 +64,8 @@ export class ClienteService
               data.foto,
               data.email,
               data.isActive,
-              data.estado
+              data.estado,
+              data.enListaDeEspera
             )
           );
         });

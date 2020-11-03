@@ -1,0 +1,10 @@
+<app-header titulo="Lista de espera" paginaAnterior='/tabs/tab1'></app-header>
+
+<ion-list *ngFor="let cliente of clientes">
+  <ion-item (click)="seleccionarClienteDelListado(cliente)">
+
+    <app-detalle-cliente [cliente]="cliente">
+    </app-detalle-cliente>
+
+  </ion-item>
+</ion-list>
