@@ -74,7 +74,7 @@ export class ClientesPage implements OnInit {
           this.irListaEspera();
         }
         else if (this.pedidosActivos.length > 0 && data.text === this.pedidosActivos[0].mesa.id) {
-          // Si tiene pedidos activos y coincide con el codigo de qr de la mesa asignada lo llevamo al pedido
+         // Si tiene pedidos activos y coincide con el codigo de qr de la mesa asignada lo llevamo al pedido
           this.irPedidoActivo();
         } else {
           // No existe QR o no es de la mesa asignada

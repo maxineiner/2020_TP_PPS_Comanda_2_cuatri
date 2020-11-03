@@ -64,6 +64,7 @@ export class ListaProductoPage implements OnInit {
 
   dismiss() {
     this.modalCtrl.dismiss();
+    console.log(this.pedido.productos);
   }
 
   calcularTotal() {

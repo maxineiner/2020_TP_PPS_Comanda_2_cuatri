@@ -21,8 +21,7 @@
       <ion-row>
         <ion-col size="12" class="botonera">
           <ion-button  *ngFor="let boton of botones" shape="round" fill="outline" size="small"
-          (click)="botonClicked(boton)"
-          [ngClass]="boton.estado">{{boton.letra}}</ion-button>
+          (click)="botonClicked(boton)" [ngClass]="boton.estado">{{boton.letra}}</ion-button>
         </ion-col>
       </ion-row>
     </ion-grid>

@@ -4,7 +4,6 @@ import { AuthService } from 'src/app/servicios/auth.service';
 import { PedidoService } from 'src/app/servicios/pedido.service';
 import { Pedido } from 'src/app/clases/pedido';
 import { Usuario } from 'src/app/clases/usuario';
-import { ChatPage } from '../../chat/chat.page';
 import { ListaProductoPage } from './lista-producto/lista-producto.page';
 import { PedidoDetallePage } from './pedido-detalle/pedido-detalle.page';
 import { EstadoPedido } from 'src/app/enums/estado-pedido.enum';
@@ -13,6 +12,7 @@ import { PropinaService } from 'src/app/servicios/propina.service';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { EncuestaPage } from './encuesta/encuesta.page';
+import { ChatComponent } from 'src/app/chat/chat.component';
 
 @Component({
   selector: 'app-pedidos',
@@ -115,7 +115,7 @@ export class PedidosPage implements OnInit, OnDestroy {
   }
 
   chatear(destinatario: string) {
-    this.utilsService.presentModal(ChatPage, { pedido: this.pedido, receptor: destinatario, user: this.usuario });
+    this.utilsService.presentModal(ChatComponent, { pedido: this.pedido, receptor: destinatario, user: this.usuario });
   }
 
   escanearQR(): void {
