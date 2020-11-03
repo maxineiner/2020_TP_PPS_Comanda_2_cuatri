@@ -1,0 +1,38 @@
+<app-header titulo="Lista de espera" paginaAnterior='/tabs/tab1'></app-header>
+<!-- <ion-grid *ngIf="!clientes">
+  <ion-row justify-content-center align-items-center >
+    <div text-center>
+      <ion-text color="dark"> <h4>NO HAY CLIENTES EN ESPERA</h4>   </ion-text>
+    </div>
+  </ion-row>
+</ion-grid> -->
+<ion-grid *ngIf="clientes">
+  <ion-row justify-content-center align-items-center >
+    <div text-center>
+      <ion-text color="dark"><h4>Hay {{clientes.length}} clientes en espera</h4> </ion-text>
+    </div>
+  </ion-row>
+</ion-grid>
+<ion-list *ngFor="let cliente of clientes">
+  <ion-item>
+
+    <ion-item-sliding>
+      <ion-item-options side="start">
+        <ion-item-option color="danger" expandable (click)="quitarDeLaLista(cliente)">
+          Quitar de la lista
+        </ion-item-option>
+      </ion-item-options>
+
+      <ion-item>
+        <ion-label>{{cliente.nombre}} {{cliente.apellido}}</ion-label>
+      </ion-item>
+
+      <ion-item-options side="end">
+        <ion-item-option color="tertiary" expandable (click)="asignarMesa(cliente)">
+          Asignar Mesa
+        </ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+
+  </ion-item>
+</ion-list>
