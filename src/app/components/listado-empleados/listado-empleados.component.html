@@ -1,8 +1,10 @@
-<ion-list *ngFor="let empleado of empleados">
-  <ion-item (click)="seleccionarEmpleadoDelListado(empleado)">
+<ion-grid fixed>
+  <ion-row class="contenido" *ngFor="let empleado of empleados">
+    <ion-col size="12" size-lg="6" (click)="seleccionarEmpleadoDelListado(empleado)" color="dark"
+             class="ion-justify-content-center">
 
-    <app-detalle-empleado [empleado]="empleado">
-    </app-detalle-empleado>
+      <app-detalle-empleado [empleado]="empleado"></app-detalle-empleado>
 
-  </ion-item>
-</ion-list>
+    </ion-col>
+  </ion-row>
+</ion-grid>

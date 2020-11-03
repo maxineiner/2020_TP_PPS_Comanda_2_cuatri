@@ -1,6 +1,6 @@
-<app-header titulo="Menú Empleado" paginaAnterior='/tabs/tab1'></app-header>
+<app-header titulo="Menú Empleado"></app-header>
 
-<ion-segment value="Listado" (ionChange)="seleccionarOpcion($event)" scrollable color="dark">
+<ion-segment value="Listado" (ionChange)="seleccionarOpcion($event)" scrollable color="success">
   <ion-segment-button value="Listado">
     <ion-label>Empleados</ion-label>
   </ion-segment-button>
@@ -11,14 +11,14 @@
     <ion-label>Baja</ion-label>
   </ion-segment-button>
   <ion-segment-button value="Modificación" *ngIf="empleadoSeleccionado.isActive">
-    <ion-label>Modificación</ion-label>
+    <ion-label>Modificar</ion-label>
   </ion-segment-button>
 </ion-segment>
 
-<ion-content>
+<ion-content class="fondo">
 
   <app-listado-empleados *ngIf="opcion == 'Listado'" [empleados]="listado"
-    (seleccionarEmpleado)="seleccionarEmpleado($event)">
+                         (seleccionarEmpleado)="seleccionarEmpleado($event)">
   </app-listado-empleados>
 
   <app-form-empleados *ngIf="opcion != 'Listado'" [opcion]="opcion" [empleado]="empleadoSeleccionado">

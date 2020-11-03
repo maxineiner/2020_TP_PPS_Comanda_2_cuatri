@@ -1,9 +1,10 @@
-<ion-list *ngFor="let pedido of pedidos" color="dark" class="ion-no-padding contenido">
+<ion-grid fixed>
+  <ion-row class="contenido" *ngFor="let pedido of pedidos">
+    <ion-col size="12" size-lg="6" (click)="seleccionarPedido(pedido)" color="dark"
+             class="ion-justify-content-center">
 
-  <ion-item (click)="seleccionarPedido(pedido)" color="dark" class="contenido">
+      <app-detalle-pedido [pedido]="pedido"></app-detalle-pedido>
 
-    <app-detalle-pedido [pedido]="pedido"></app-detalle-pedido>
-
-  </ion-item>
-
-</ion-list>
+    </ion-col>
+  </ion-row>
+</ion-grid>

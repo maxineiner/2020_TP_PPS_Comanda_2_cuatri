@@ -12,7 +12,7 @@ export class MenuProductoPage implements OnInit
 
   opcion: string = 'Listado';
   listado: Producto[];
-  productoElegido: Producto;
+  productoElegido: Producto = new Producto();
 
   constructor(private productoService: ProductoService) { }
 

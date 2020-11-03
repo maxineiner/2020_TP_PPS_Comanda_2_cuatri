@@ -1,8 +1,14 @@
 <ion-content>
 
-  <app-escanerQR></app-escanerQR>
+  <ion-fab class="ion-margin-bottom" vertical="top" horizontal="end" slot="fixed">
+    <ion-fab-button>
+      <img [src]="icono" alt="icono-app">
+    </ion-fab-button>
+  </ion-fab>
 
 </ion-content>
+
+
 
 <ion-tabs>
 
@@ -12,9 +18,14 @@
       <ion-label>Test</ion-label>
     </ion-tab-button>
 
-    <ion-tab-button tab="menu-empleado">
+    <!-- <ion-tab-button tab="menu-empleado">
       <ion-icon name="accessibility-outline"></ion-icon>
       <ion-label>Empleados</ion-label>
+    </ion-tab-button> -->
+
+    <ion-tab-button (click)="escanear()">
+      <ion-icon name="qr-code-sharp"></ion-icon>
+      <ion-label>Escáner QR</ion-label>
     </ion-tab-button>
 
     <ion-tab-button tab="menu-producto">
