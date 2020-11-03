@@ -8,6 +8,8 @@ import { ClientesPageRoutingModule } from './clientes-routing.module';
 
 import { ClientesPage } from './clientes.page';
 import { ToolbarModule } from '../toolbar/toolbar.module';
+import { EncuestaPageModule } from './pedidos/encuesta/encuesta.module';
+import { PedidosPageModule } from './pedidos/pedidos.module';
 
 @NgModule({
   imports: [
@@ -15,7 +17,8 @@ import { ToolbarModule } from '../toolbar/toolbar.module';
     FormsModule,
     IonicModule,
     ClientesPageRoutingModule,
-    ToolbarModule
+    ToolbarModule,
+    PedidosPageModule
   ],
   declarations: [ClientesPage]
 })

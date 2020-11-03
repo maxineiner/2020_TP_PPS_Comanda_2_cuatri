@@ -34,6 +34,8 @@ import { Vibration } from '@ionic-native/vibration/ngx';
 import { HomeComponent } from './home/home.component';
 import { ToolbarModule } from './toolbar/toolbar.module';
 import { InicioPageModule } from './inicio/inicio.module';
+import { EncuestaPageModule } from './clientes/pedidos/encuesta/encuesta.module';
+import { PedidosPageModule } from './clientes/pedidos/pedidos.module';
 
 
 @NgModule({
@@ -53,7 +55,9 @@ import { InicioPageModule } from './inicio/inicio.module';
     FormsModule,
     ToolbarModule,
     InicioPageModule,
-    ReactiveFormsModule],
+    ReactiveFormsModule,
+    PedidosPageModule
+  ],
   providers: [
     StatusBar,
     SplashScreen,

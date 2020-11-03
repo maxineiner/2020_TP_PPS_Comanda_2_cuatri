@@ -68,8 +68,19 @@ export class ClientesPage implements OnInit {
   }
 
   escanearQR(): void {
+
+    //this.irPedidoActivo();
+
+    
     this.barcodeScanner.scan({ formats: 'QR_CODE' }).then((data) => {
       if (data && !data.cancelled) {
+
+
+        //******************************************************** 
+        //data.text = "iiZq2gV3xne7sCqyzBFR" //HARDCOREADA LA MESA 3
+        //******************************************************** 
+
+
         if (data.text === 'LISTA_DE_ESPERA') { // Si usa el QR de lista de espera lo llevamos a LE
           this.irListaEspera();
         }
