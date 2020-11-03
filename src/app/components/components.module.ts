@@ -31,12 +31,14 @@ import { DetalleReservaComponent } from './detalle-reserva/detalle-reserva.compo
 import { FotoComponent } from './foto/foto.component';
 import { DetalleProductoComponent } from './detalle-producto/detalle-producto.component';
 import { ListaPlatosClienteComponent } from './lista-platos-cliente/lista-platos-cliente.component';
+import { EscanerQRComponent } from './escaner/escaner.component';
 
 @NgModule({
   declarations: [
     SplashComponent,
     HeaderComponent,
     FotoComponent,
+    EscanerQRComponent,
     // Mesa
     DetalleMesaComponent,
     FormMesasComponent,
@@ -76,6 +78,7 @@ import { ListaPlatosClienteComponent } from './lista-platos-cliente/lista-platos
     SplashComponent,
     HeaderComponent,
     FotoComponent,
+    EscanerQRComponent,
     // Mesa
     FormMesasComponent,
     DetalleMesaComponent,
