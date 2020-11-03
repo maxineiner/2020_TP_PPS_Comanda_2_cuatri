@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, DoCheck, OnInit } from '@angular/core';
 import { LoadingController } from '@ionic/angular';
 import { Cliente } from 'src/app/clases/cliente';
 import { ClienteService } from 'src/app/services/cliente.service';
@@ -8,7 +8,7 @@ import { ClienteService } from 'src/app/services/cliente.service';
   templateUrl: './lista-de-espera.page.html',
   styleUrls: ['./lista-de-espera.page.scss'],
 })
-export class ListaDeEsperaPage implements OnInit
+export class ListaDeEsperaPage implements OnInit , DoCheck
 {
 
   clientes: Cliente[] = [];
@@ -22,6 +22,12 @@ export class ListaDeEsperaPage implements OnInit
       this.clientes = clientes.filter(cliente => cliente.enListaDeEspera == true);
     })
   }
+
+  ngDoCheck(): void
+  {
+    this.clientes = ClienteService.clientes;
+  }
+
 
   ngOnInit() 
   {
