@@ -6,14 +6,22 @@
     </div>
   </ion-row>
 </ion-grid> -->
-<ion-grid *ngIf="clientes">
+
+  <ion-toolbar color="light" *ngIf="!asignandoMesa">
+    <ion-title>Hay {{clientes.length}} clientes en espera</ion-title>
+  </ion-toolbar>
+<!-- <ion-content *ngIf="!asignandoMesa">
+  <ion-grid >
   <ion-row justify-content-center align-items-center >
     <div text-center>
-      <ion-text color="dark"><h4>Hay {{clientes.length}} clientes en espera</h4> </ion-text>
+      <ion-text color="dark"><h1>Hay {{clientes.length}} clientes en espera</h1> </ion-text>
     </div>
   </ion-row>
 </ion-grid>
-<ion-list *ngFor="let cliente of clientes">
+</ion-content> -->
+
+<div *ngIf="!asignandoMesa">
+  <ion-list *ngFor="let cliente of clientes">
   <ion-item>
 
     <ion-item-sliding>
@@ -28,11 +36,16 @@
       </ion-item>
 
       <ion-item-options side="end">
-        <ion-item-option color="tertiary" expandable (click)="asignarMesa(cliente)">
+        <ion-item-option color="tertiary" expandable (click)="verMesas(cliente)">
           Asignar Mesa
         </ion-item-option>
       </ion-item-options>
     </ion-item-sliding>
-
   </ion-item>
 </ion-list>
+</div>
+
+<ion-content>
+  <app-listado-mesas *ngIf="asignandoMesa" [mesas]="mesas" (elegirMesa)="asignarMesa($event)">
+</app-listado-mesas>
+</ion-content>
