@@ -52,12 +52,24 @@ export class PedidosPage implements OnInit, OnDestroy {
     this.pedidoService.obtenerPedidosActivos(this.usuario).subscribe(pedidos => {
       this.utilsService.dismissLoading();
       if (pedidos && pedidos.length > 0) { // Si tiene pedidos en cursos
+
         this.pedido = pedidos[0];
       }
     });
   }
 
+  guardarComida(pedido: Pedido) {
+    console.log("GuardarComida()",pedido);
+    this.utilsService.presentLoading();
+    this.pedidoService.actualizarPedido(pedido)
+    .catch(error => alert(error.message))
+    .finally(() => {
+      this.utilsService.dismissLoading();
+    });
+  }
+
   agregarComida() {
+    //const callback = (p: Pedido) => this.guardarComida(p);
     this.utilsService.presentModal(ListaProductoPage, { pedido: this.pedido });
   }
 

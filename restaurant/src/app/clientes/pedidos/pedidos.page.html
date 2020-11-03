@@ -93,7 +93,10 @@
     </ion-card-content>
   </ion-card>
 
-  <ion-card *ngIf="pedido?.estado === 'CONFIRMADO' || pedido?.estado === 'ENTREGADO'" (click)="verEncuesta()">
+
+  <!-- LA ENCUESTA SOLO DEBE REALIZARSE SI EL PEDIDO.ESTADO ESTA ENTREGADO O CONFIRMADO-->
+  <!-- *ngIf="pedido?.estado === 'CONFIRMADO' || pedido?.estado === 'ENTREGADO'" -->
+  <ion-card (click)="verEncuesta()">
     <ion-card-header>
       <ion-card-subtitle></ion-card-subtitle>
       <ion-card-title>Llenar <ion-label color="warning">ENCUESTA</ion-label>
