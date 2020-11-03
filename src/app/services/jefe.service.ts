@@ -78,8 +78,25 @@ export class JefeService
 
   public leerPorID(id: string)
   {
-    return this.firebase.database
-      .ref(`jefes/${id}`)
-      .once('value');
+    return new Promise<Jefe>(resolve =>
+    {
+      this.firebase.database.ref(`jefes/${id}`).once('value').then(snapshot =>
+      {
+        if (snapshot.val() === null || snapshot.val() === undefined)
+        {
+          console.log("Jefe not found")
+          resolve(null)
+        }
+        else 
+        {
+          let data: Jefe = snapshot.val();
+          const jefe = Jefe.CrearJefe(data.id, data.nombre, data.apellido, data.dni,
+            data.foto, data.email, data.isActive, data.tipo, data.cuil);
+          resolve(jefe);
+        }
+      });
+    })
   }
+
+
 }

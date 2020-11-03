@@ -78,8 +78,23 @@ export class EmpleadoService
 
   public leerPorID(id: string)
   {
-    return this.firebase.database
-      .ref(`empleados/${id}`)
-      .once('value');
+    return new Promise<Empleado>(resolve =>
+    {
+      this.firebase.database.ref(`empleados/${id}`).once('value').then(snapshot =>
+      {
+        if (snapshot.val() === null || snapshot.val() === undefined)
+        {
+          console.log("Empleado not found")
+          resolve(null)
+        }
+        else 
+        {
+          let data: Empleado = snapshot.val();
+          const empleado = Empleado.CrearEmpleado(data.id, data.nombre, data.apellido, data.dni,
+            data.foto, data.email, data.isActive, data.tipo, data.cuil);
+          resolve(empleado);
+        }
+      });
+    })
   }
 }

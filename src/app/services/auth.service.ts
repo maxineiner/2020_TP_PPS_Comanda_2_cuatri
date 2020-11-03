@@ -3,6 +3,7 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { Cliente } from '../clases/cliente';
 import { Empleado } from '../clases/empleado';
 import { Jefe } from '../clases/jefe';
+import { Usuario } from '../clases/usuario';
 import { ClienteService } from './cliente.service';
 import { EmpleadoService } from './empleado.service';
 import { JefeService } from './jefe.service';
@@ -21,14 +22,13 @@ export class AuthService
     //afAuth.authState.subscribe(user => this.isLogged = user);
   }
 
-  //TODO: fix to accept other type of users
-  async onLogin(cliente: Cliente)
+  async onLogin(usuario: Usuario)
   {
     try
     {
-      const credential = await this.afAuth.signInWithEmailAndPassword(cliente.email, cliente.password);
+      const credential = await this.afAuth.signInWithEmailAndPassword(usuario.email, usuario.password);
       this.isLogged = true;
-      return credential;
+      return credential.user.uid;
     } catch (error)
     {
       console.log('Login failed', error);

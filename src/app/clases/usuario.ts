@@ -1,6 +1,4 @@
-import { IAuthenticable } from './IAuthenticable';
-
-export abstract class Usuario implements IAuthenticable
+export class Usuario
 {
   id: string;
   nombre: string;

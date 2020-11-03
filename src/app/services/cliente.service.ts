@@ -80,8 +80,23 @@ export class ClienteService
 
   public leerPorID(id: string)
   {
-    return this.firebase.database
-      .ref(`clientes/${id}`)
-      .once('value');
+    return new Promise<Cliente>(resolve =>
+    {
+      this.firebase.database.ref(`clientes/${id}`).once('value').then(snapshot =>
+      {
+        if (snapshot.val() === null || snapshot.val() === undefined)
+        {
+          console.log("Cliente not found")
+          resolve(null)
+        }
+        else 
+        {
+          let data: Cliente = snapshot.val();
+          const cliente = Cliente.CrearCliente(data.id, data.nombre, data.apellido, data.dni,
+            data.foto, data.email, data.isActive, data.estado, data.enListaDeEspera);
+          resolve(cliente);
+        }
+      });
+    })
   }
 }
