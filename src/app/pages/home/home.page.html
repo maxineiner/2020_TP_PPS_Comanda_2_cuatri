@@ -1,10 +1,6 @@
 <ion-content>
 
-  <ion-fab class="ion-margin" vertical="top" horizontal="end" slot="fixed">
-    <ion-fab-button (click)="escanear()">
-      <ion-icon name="qr-code-sharp"></ion-icon>
-    </ion-fab-button>
-  </ion-fab>
+  <app-escanerQR></app-escanerQR>
 
 </ion-content>
 
@@ -13,7 +9,7 @@
   <ion-tab-bar slot="bottom" color="dark">
     <ion-tab-button tab="tab1" color="success">
       <ion-icon name="triangle"></ion-icon>
-      <ion-label>Tab 1</ion-label>
+      <ion-label>Test</ion-label>
     </ion-tab-button>
 
     <ion-tab-button tab="menu-empleado">
@@ -29,6 +25,11 @@
     <ion-tab-button tab="menu-cliente">
       <ion-icon name="person-circle"></ion-icon>
       <ion-label>Clientes</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button tab="menu-pedidos">
+      <ion-icon name="fast-food"></ion-icon>
+      <ion-label>Pedidos</ion-label>
     </ion-tab-button>
 
 

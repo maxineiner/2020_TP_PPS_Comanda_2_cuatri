@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { BarcodeScanResult } from '@ionic-native/barcode-scanner';
-import { CodigoQRService } from 'src/app/services/codigo-qr.service';
+import { Cliente } from 'src/app/clases/cliente';
+import { IAuthenticable } from 'src/app/clases/IAuthenticable';
+import { RolesService } from 'src/app/services/roles.service';
 
 @Component({
   selector: 'app-home',
@@ -10,37 +10,14 @@ import { CodigoQRService } from 'src/app/services/codigo-qr.service';
 })
 export class HomePage implements OnInit
 {
+  // Código de prueba
+  usuario: IAuthenticable = new Cliente();
 
-  constructor(private escanerQR: CodigoQRService, private router: Router) { }
+  constructor(private rolService: RolesService) { }
 
   ngOnInit()
   {
   }
 
-  async escanear()
-  {
-    // Ya debe existir un usuario logueado
-    const scan = await this.escanerQR.escanear("Escanee el código QR", 'QR_CODE');
 
-    this.procesarQR(scan);
-  }
-
-  procesarQR(scan: BarcodeScanResult)
-  {
-    let textoQR = scan.text.split(':');
-    let entidad = textoQR[1];
-    let id = textoQR[2];
-
-    switch (entidad)
-    {
-      case 'Mesa':
-        this.router.navigate(['/info-mesa', id]);
-        break;
-      case 'Producto':
-        break;
-      case 'Ingreso':
-        break;
-
-    }
-  }
 }
