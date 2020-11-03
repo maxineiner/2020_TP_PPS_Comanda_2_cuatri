@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { LoadingController } from '@ionic/angular';
+import { Pedido } from 'src/app/clases/pedido';
 import { Reserva } from 'src/app/clases/reserva';
 
 @Component({
@@ -7,14 +8,15 @@ import { Reserva } from 'src/app/clases/reserva';
   templateUrl: './listado-reservas.component.html',
   styleUrls: ['./listado-reservas.component.scss'],
 })
-export class ListadoReservasComponent implements OnInit {
+export class ListadoReservasComponent implements OnInit
+{
 
-  @Input() reservas: Reserva[] = [];
+  @Input() reservas: Pedido[] = [];
   @Output() elegirReserva: EventEmitter<Reserva> = new EventEmitter<Reserva>();
 
   constructor(private loadingController: LoadingController) { }
 
-  ngOnInit() {this.presentLoading('Cargando reservas...', 2000);}
+  ngOnInit() { this.presentLoading('Cargando reservas...', 2000); }
 
   seleccionarReserva(reserva: Reserva)
   {

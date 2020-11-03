@@ -17,9 +17,9 @@
 
 <ion-content>
 
-  <app-listado-reservas *ngIf="opcion == 'Listado'" [reservas]="listado" (elegirReserva)="elegirReserva($event)">    
+  <app-listado-reservas *ngIf="opcion == 'Listado'" [reservas]="listado" (elegirReserva)="elegirReserva($event)">
   </app-listado-reservas>
-  <app-form-reserva *ngIf="opcion != 'Listado'" [opcion]="opcion" [reserva]="reservaElegida" [opcion]="opcion">    
+  <app-form-reserva *ngIf="opcion != 'Listado'" [opcion]="opcion" [pedido]="reservaElegida" [opcion]="opcion">
   </app-form-reserva>
 
 </ion-content>

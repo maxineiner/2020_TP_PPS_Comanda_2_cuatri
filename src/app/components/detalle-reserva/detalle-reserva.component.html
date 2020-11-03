@@ -6,15 +6,15 @@
 
     <ion-card-content>
       <ion-chip color="success" mode="ios" outline="true">
-        <ion-label>Reservado para {{reserva.fecha}} </ion-label>
+        <ion-label>Reservado para {{reserva.fechaInicio | date: 'shortDate'}} </ion-label>
       </ion-chip>
-      <ion-chip color="success" mode="ios" outline="true">        
-        <ion-label>A las {{reserva.hora}} hs</ion-label>
+      <ion-chip color="success" mode="ios" outline="true">
+        <ion-label>A las {{reserva.fechaInicio | date: 'shortTime'}} hs</ion-label>
       </ion-chip>
       <ion-chip color="success" mode="ios" outline="true">
         <ion-label>Mesa Seleccionada: {{reserva.mesa.numero}}</ion-label>
-      </ion-chip>     
+      </ion-chip>
     </ion-card-content>
   </ion-card>
-  
+
 </div>
