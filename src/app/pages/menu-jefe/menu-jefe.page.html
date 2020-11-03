@@ -1,6 +1,6 @@
-<app-header titulo="Menú Jefe" paginaAnterior='/tabs/tab1'></app-header>
+<app-header titulo="Menú Jefe"></app-header>
 
-<ion-segment value="Listado" (ionChange)="seleccionarOpcion($event)" scrollable color="dark">
+<ion-segment value="Listado" (ionChange)="seleccionarOpcion($event)" scrollable color="success">
   <ion-segment-button value="Listado">
     <ion-label>Jefes</ion-label>
   </ion-segment-button>
@@ -15,7 +15,7 @@
   </ion-segment-button>
 </ion-segment>
 
-<ion-content>
+<ion-content class="fondo">
 
   <app-listado-jefes *ngIf="opcion == 'Listado'" [jefes]="listado" (seleccionarJefe)="seleccionarJefe($event)">
   </app-listado-jefes>

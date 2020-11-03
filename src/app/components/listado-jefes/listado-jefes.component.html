@@ -1,8 +1,10 @@
-<ion-list *ngFor="let jefe of jefes">
-  <ion-item (click)="seleccionarJefeDelListado(jefe)">
+<ion-grid fixed>
+  <ion-row class="contenido" *ngFor="let jefe of jefes">
+    <ion-col size="12" size-lg="6" (click)="seleccionarJefeDelListado(jefe)" color="dark"
+             class="ion-justify-content-center">
 
-    <app-detalle-jefe [jefe]="jefe">
-    </app-detalle-jefe>
+      <app-detalle-jefe [jefe]="jefe"></app-detalle-jefe>
 
-  </ion-item>
-</ion-list>
+    </ion-col>
+  </ion-row>
+</ion-grid>

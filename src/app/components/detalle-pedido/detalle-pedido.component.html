@@ -1,15 +1,23 @@
 <ion-card (click)="mostrarOpciones()" color="dark" class="centrado">
 
   <ion-card-header color="dark">
-    <ion-card-subtitle>NOMBRE CLIENTE</ion-card-subtitle>
-    <ion-card-title>MESA</ion-card-title>
+    <!-- <ion-card-title>Mesa:{{pedido.mesa.numero}}</ion-card-title> -->
+    <ion-card-title>MESA ASIGNADA</ion-card-title>
   </ion-card-header>
 
   <ion-card-content color="dark">
     <ion-label>
       <h4>Estado:{{pedido.estado}}</h4>
+      <!-- <p>
+        Cliente:{{pedido.cliente.nombre}}-{{pedido.cliente.apellido}}
+        DNI:{{pedido.cliente.dni}}
+      </p> -->
       <p>
-        HORA DE PEDIDO
+        CLIENTE DEL PEDIDO
+      </p>
+      <p>
+        Fecha:{{pedido.fechaInicio | date: 'shortDate'}}
+        Hora:{{pedido.fechaInicio | date: 'shortTime'}}
       </p>
     </ion-label>
   </ion-card-content>

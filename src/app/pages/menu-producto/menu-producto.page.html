@@ -1,21 +1,21 @@
-<app-header titulo="Menú" paginaAnterior='/tabs/tab1'></app-header>
+<app-header titulo="Menú"></app-header>
 
-<ion-segment value="Listado" (ionChange)="seleccionarOpcion($event)" scrollable>
+<ion-segment value="Listado" (ionChange)="seleccionarOpcion($event)" scrollable color="success">
   <ion-segment-button value="Listado">
     <ion-label>Productos</ion-label>
   </ion-segment-button>
   <ion-segment-button value="Alta">
     <ion-label>Alta</ion-label>
   </ion-segment-button>
-  <ion-segment-button value="Baja" *ngIf="productoElegido">
+  <ion-segment-button value="Baja" *ngIf="productoElegido.isActive">
     <ion-label>Baja</ion-label>
   </ion-segment-button>
-  <ion-segment-button value="Modificación" *ngIf="productoElegido">
-    <ion-label>Modificación</ion-label>
+  <ion-segment-button value="Modificación" *ngIf="productoElegido.isActive">
+    <ion-label>Modificar</ion-label>
   </ion-segment-button>
 </ion-segment>
 
-<ion-content>
+<ion-content class="fondo">
 
   <app-listado-productos *ngIf="opcion == 'Listado'" [productos]="listado" (elegirProducto)="elegirProducto($event)">
   </app-listado-productos>

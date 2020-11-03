@@ -1,7 +1,10 @@
-<ion-list *ngFor="let mesa of mesas" class="ion-no-padding fondo">
-  <ion-item (click)="seleccionarMesa(mesa)" class="fondo">
+<ion-grid fixed>
+  <ion-row class="contenido" *ngFor="let mesa of mesas">
+    <ion-col size="12" size-lg="6" (click)="seleccionarMesa(mesa)" color="dark"
+             class="ion-justify-content-center">
 
-    <app-detalle-mesa [mesa]="mesa"></app-detalle-mesa>
+      <app-detalle-mesa [mesa]="mesa"></app-detalle-mesa>
 
-  </ion-item>
-</ion-list>
+    </ion-col>
+  </ion-row>
+</ion-grid>

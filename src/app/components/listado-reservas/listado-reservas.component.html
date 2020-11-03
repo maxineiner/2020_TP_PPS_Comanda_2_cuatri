@@ -1,5 +1,10 @@
-<ion-list *ngFor="let reserva of reservas">
-  <ion-item (click)="seleccionarReserva(reserva)">
-    <app-detalle-reserva [reserva]="reserva"></app-detalle-reserva>
-  </ion-item>
-</ion-list>
+<ion-grid fixed>
+  <ion-row class="contenido" *ngFor="let reserva of reservas">
+    <ion-col size="12" size-lg="6" (click)="seleccionarReserva(reserva)" color="dark"
+             class="ion-justify-content-center">
+
+      <app-detalle-reserva [reserva]="reserva"></app-detalle-reserva>
+
+    </ion-col>
+  </ion-row>
+</ion-grid>

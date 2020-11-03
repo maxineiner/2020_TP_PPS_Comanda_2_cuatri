@@ -1,60 +1,63 @@
-<form #formulario="ngForm">
+<ion-content class="ion-padding-bottom contenido" color="dark">
+  <form #formulario="ngForm">
 
-  <ion-list mode="ios" lines="none">
+    <ion-list mode="ios">
 
-    <ion-list-header>
-      <ion-label>{{opcion}} Cliente</ion-label>
-    </ion-list-header>
+      <ion-list-header>
+        <ion-label>{{opcion}} Cliente</ion-label>
+      </ion-list-header>
+
+      <ion-item>
+        <ion-label position="floating">Nombre</ion-label>
+        <ion-input type="text" name="nombre" [(ngModel)]="cliente.nombre" [placeholder]="cliente.nombre"
+                   [disabled]="opcion == 'Baja'" required>
+        </ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating">Apellido</ion-label>
+        <ion-input type="text" name="apellido" [(ngModel)]="cliente.apellido" [placeholder]="cliente.apellido"
+                   [disabled]="opcion == 'Baja'" required>
+        </ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating">DNI</ion-label>
+        <ion-input type="number" name="dni" [(ngModel)]="cliente.dni" [placeholder]="cliente.dni"
+                   [disabled]="opcion == 'Baja'" required>
+        </ion-input>
+      </ion-item>
+    </ion-list>
 
     <ion-item>
-      <ion-label position="floating">Nombre</ion-label>
-      <ion-input type="text" name="nombre" [(ngModel)]="cliente.nombre" [placeholder]="cliente.nombre"
-        [disabled]="opcion == 'Baja'" required>
+      <ion-label position="floating">Email</ion-label>
+      <ion-input type="text" name="email" [(ngModel)]="cliente.email" [placeholder]="cliente.email"
+                 [disabled]="opcion == 'Baja'" required>
       </ion-input>
     </ion-item>
 
     <ion-item>
-      <ion-label position="floating">Apellido</ion-label>
-      <ion-input type="text" name="apellido" [(ngModel)]="cliente.apellido" [placeholder]="cliente.apellido"
-        [disabled]="opcion == 'Baja'" required>
+      <ion-label position="floating">Contraseña</ion-label>
+      <ion-input type="password" name="password" [(ngModel)]="cliente.password" [placeholder]="cliente.password"
+                 [disabled]="opcion == 'Baja'" required>
       </ion-input>
     </ion-item>
 
-    <ion-item>
-      <ion-label position="floating">DNI</ion-label>
-      <ion-input type="number" name="dni" [(ngModel)]="cliente.dni" [placeholder]="cliente.dni"
-        [disabled]="opcion == 'Baja'" required>
-      </ion-input>
-    </ion-item>
-  </ion-list>
 
-  <ion-item>
-    <ion-label position="floating">Email</ion-label>
-    <ion-input type="text" name="email" [(ngModel)]="cliente.email" [placeholder]="cliente.email"
-      [disabled]="opcion == 'Baja'" required>
-    </ion-input>
-  </ion-item>
-
-  <ion-item>
-    <ion-label position="floating">Contraseña</ion-label>
-    <ion-input type="password" name="password" [(ngModel)]="cliente.password" [placeholder]="cliente.password"
-      [disabled]="opcion == 'Baja'" required>
-    </ion-input>
-  </ion-item>
-
+  </form>
   <!-- Se muestra accion segun tipo de llamado al formulario -->
-  <ion-button (click)="altaCliente()" color="dark" expand="block" type="submit" [disabled]="formulario.invalid"
-    *ngIf="opcion == 'Alta'">
+  <ion-button (click)="altaCliente()" color="dark" expand="block" type="submit" size="large"
+              [disabled]="formulario.invalid" *ngIf="opcion == 'Alta'">
     Crear
   </ion-button>
 
-  <ion-button (click)="modificarCliente()" color="dark" expand="block" type="submit" [disabled]="formulario.invalid"
-    *ngIf="opcion == 'Modificación'">
+  <ion-button (click)="modificarCliente()" color="dark" expand="block" type="submit" size="large"
+              [disabled]="formulario.invalid" *ngIf="opcion == 'Modificación'">
     Modificar
   </ion-button>
 
-  <ion-button (click)="borrarCliente()" color="dark" expand="block" type="submit" *ngIf="opcion == 'Baja'">
+  <ion-button (click)="borrarCliente()" color="dark" expand="block" type="submit" size="large"
+              *ngIf="opcion == 'Baja'">
     Eliminar
   </ion-button>
-
-</form>
+</ion-content>

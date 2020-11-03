@@ -1,7 +1,10 @@
-<ion-list class="contenido" *ngFor="let producto of productos">
-  <ion-item (click)="seleccionarProducto(producto)">
+<ion-grid fixed>
+  <ion-row class="contenido" *ngFor="let producto of productos">
+    <ion-col size="12" size-lg="6" (click)="seleccionarProducto(producto)" color="dark"
+             class="ion-justify-content-center">
 
-    <app-detalle-producto [producto]="producto"></app-detalle-producto>
+      <app-detalle-producto [producto]="producto"></app-detalle-producto>
 
-  </ion-item>
-</ion-list>
+    </ion-col>
+  </ion-row>
+</ion-grid>
