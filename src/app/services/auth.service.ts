@@ -37,6 +37,19 @@ export class AuthService
     }
   }
 
+  async onLoginAnonymously()
+  {
+    try
+    {
+      const credential = await this.afAuth.signInAnonymously();
+      this.isLogged = true;
+      return credential.user.uid;
+    } catch (error)
+    {
+      console.log('Login Anonymously failed', error);
+    }
+  }
+
   onRegisterCliente(cliente: Cliente)
   {
     return new Promise<any>((resolve, reject) =>
