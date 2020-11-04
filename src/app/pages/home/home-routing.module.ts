@@ -58,7 +58,7 @@ const routes: Routes = [
       },
       {
         path: 'lista-de-espera',
-        loadChildren: () => import('../lista-de-espera/lista-de-espera.module').then( m => m.ListaDeEsperaPageModule)
+        loadChildren: () => import('../lista-de-espera/lista-de-espera.module').then(m => m.ListaDeEsperaPageModule)
       },
       {
         path: '',

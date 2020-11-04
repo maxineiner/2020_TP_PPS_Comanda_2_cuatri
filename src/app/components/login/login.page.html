@@ -1,25 +1,37 @@
 <ion-header>
-  <ion-toolbar color="primary">
+  <ion-toolbar color="dark">
+    <ion-buttons slot="start">
+      <ion-button (click)="cerrar()">
+        <ion-icon slot="start" name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
     <ion-title>Iniciar Sesión</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content padding>
-  <ion-item>
-    <ion-label>
-      Email
-    </ion-label>
-    <ion-input type="text" [(ngModel)]="usuario.email"></ion-input>
-  </ion-item>
-  <ion-item>
-    <ion-label>
-      Contraseña
-    </ion-label>
-    <ion-input type="password" [(ngModel)]="usuario.password"></ion-input>
-  </ion-item>
-  <ion-item-divider>
-    <ion-button size="large" (click)="onLogin()">Iniciar Sesión</ion-button>
-    <ion-button size="large" (click)="onLoginAnonymously()">Anónimo</ion-button>
-    <!-- ion-button size="large" routerLink="/register">Register</ion-button -->
-  </ion-item-divider>
+<ion-content class="fondo">
+  <div id="container" class="contenido">
+    <form #formulario="ngForm">
+      <ion-list class="ion-no-padding">
+        <ion-item color="dark">
+          <ion-label>
+            Email
+          </ion-label>
+          <ion-input type="email" name="email" [(ngModel)]="usuario.email"></ion-input>
+        </ion-item>
+        <ion-item color="dark">
+          <ion-label>
+            Contraseña
+          </ion-label>
+          <ion-input type="password" name="password" [(ngModel)]="usuario.password"></ion-input>
+        </ion-item>
+        <ion-button size="large" (click)="onLoginAnonymously()" expand="full" color="medium">Anónimo</ion-button>
+
+        <ion-button size="large" (click)="onLogin()" expand="full" color="danger">Iniciar Sesión</ion-button>
+      </ion-list>
+    </form>
+
+  </div>
+
 </ion-content>

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { Cliente } from '../../clases/cliente';
 import { UIVisualService } from "src/app/services/uivisual.service"
+import { ModalController } from '@ionic/angular';
 
 @Component({
   selector: 'app-register',
@@ -13,7 +14,8 @@ export class RegisterPage implements OnInit
   cliente: Cliente = new Cliente
 
   // constructor(private authService: AuthService, private router: Router) { }
-  constructor(private authService: AuthService, private UIVisual: UIVisualService) { }
+  constructor(private authService: AuthService, private UIVisual: UIVisualService,
+              private modalController: ModalController) { }
 
   ngOnInit()
   {
@@ -33,5 +35,10 @@ export class RegisterPage implements OnInit
     {
       UIVisualService.presentToast('Cliente existente')
     }
+  }
+
+  cerrar()
+  {
+    this.modalController.dismiss();
   }
 }
