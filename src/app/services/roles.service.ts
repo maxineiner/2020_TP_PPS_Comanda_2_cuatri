@@ -52,6 +52,15 @@ export class RolesService
     return false;
   }
 
+  isClienteAnonimo(usuario: Usuario): boolean
+  {
+    if (usuario instanceof Cliente)
+    {
+      return usuario.estado == EstadoAceptacion.Anonimo;
+    }
+    return false;
+  }
+
   isEmpleadoBartender(usuario: Usuario): boolean
   {
     if (usuario instanceof Empleado)

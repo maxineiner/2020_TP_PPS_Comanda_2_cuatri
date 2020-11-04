@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-toolbar color="dark">
+  <ion-toolbar color="medium">
     <ion-buttons slot="start">
       <ion-button (click)="cerrar()">
         <ion-icon slot="start" name="arrow-back"></ion-icon>
@@ -13,7 +13,7 @@
 <ion-content class="fondo">
   <div id="container" class="contenido">
     <form #formulario="ngForm">
-      <ion-list class="ion-no-padding">
+      <ion-list class="ion-no-padding" color="dark">
         <ion-item color="dark">
           <ion-label>
             Email
@@ -24,7 +24,7 @@
           <ion-label>
             Contraseña
           </ion-label>
-          <ion-input type="password" name="password" [(ngModel)]="usuario.password"></ion-input>
+          <ion-input type="password" name="password" [min]="6" [(ngModel)]="usuario.password"></ion-input>
         </ion-item>
         <ion-button size="large" (click)="onLoginAnonymously()" expand="full" color="medium">Anónimo</ion-button>
 
