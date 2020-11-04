@@ -6,6 +6,7 @@ import { JefeService } from 'src/app/services/jefe.service';
 import { EmpleadoService } from 'src/app/services/empleado.service';
 import { ClienteService } from 'src/app/services/cliente.service';
 import { Router } from '@angular/router';
+import { ModalController } from '@ionic/angular';
 
 @Component({
   selector: 'app-login',
@@ -21,7 +22,8 @@ export class LoginPage implements OnInit
     private router: Router,
     private jefeService: JefeService,
     private empleadoService: EmpleadoService,
-    private clienteService: ClienteService) { }
+    private clienteService: ClienteService,
+    private modalController: ModalController) { }
 
   ngOnInit()
   {
@@ -41,6 +43,7 @@ export class LoginPage implements OnInit
       this.authService.usuario = cliente
       this.clienteService.crearAnonimo(cliente)
 
+      this.cerrar();
       this.router.navigate(['/home'])
     }
   }
@@ -84,7 +87,13 @@ export class LoginPage implements OnInit
       }
       console.log(this.authService.usuario)
 
+      this.cerrar();
       this.router.navigate(['/home'])
     }
+  }
+
+  cerrar()
+  {
+    this.modalController.dismiss();
   }
 }

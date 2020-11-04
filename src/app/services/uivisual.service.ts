@@ -6,6 +6,8 @@ import { Imagen } from '../clases/imagen';
 import { FotoComponent } from '../components/foto/foto.component';
 import { Producto } from '../clases/producto';
 import { ListaPlatosClienteComponent } from '../components/lista-platos-cliente/lista-platos-cliente.component';
+import { LoginPage } from '../components/login/login.page';
+import { RegisterPage } from '../components/register/register.page';
 
 /**
  * Interfaz para crear dinámicamente botones de un Action Sheet
@@ -119,7 +121,6 @@ export class UIVisualService
   {
     const modal = await UIVisualService.UI.modalController.create({
       component: CartaPage,
-      componentProps: { value: 123 }
     });
 
     await modal.present();
@@ -154,6 +155,7 @@ export class UIVisualService
 
     await popover.present();
   }
+
 
 
 }
