@@ -28,6 +28,16 @@ export class ClienteService
       .catch(console.error);
   }
 
+  public crearAnonimo(cliente: Cliente): Promise<any>
+  {
+    console.log(cliente)
+
+    return this.firebase.database
+      .ref("clientes/" + cliente.id)
+      .set(cliente)
+      .catch(console.error);
+  }
+
   public actualizar(cliente: Cliente): Promise<any>
   {
     return this.firebase.database

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { Usuario } from 'src/app/clases/usuario';
+import { Cliente, EstadoAceptacion } from 'src/app/clases/cliente';
 import { JefeService } from 'src/app/services/jefe.service';
 import { EmpleadoService } from 'src/app/services/empleado.service';
 import { ClienteService } from 'src/app/services/cliente.service';
@@ -24,6 +25,24 @@ export class LoginPage implements OnInit
 
   ngOnInit()
   {
+  }
+
+  async onLoginAnonymously()
+  {
+    const uid = await this.authService.onLoginAnonymously();
+
+    if (uid)
+    {
+      console.log('Cliente anonimo logueado!');
+
+      let cliente = Cliente.CrearCliente(uid, "Anónimo", " ", "0", "-", " ", true, EstadoAceptacion.Anonimo, false)
+      console.log(cliente)
+
+      this.authService.usuario = cliente
+      this.clienteService.crearAnonimo(cliente)
+
+      this.router.navigate(['/home'])
+    }
   }
 
   async onLogin()
@@ -63,9 +82,9 @@ export class LoginPage implements OnInit
         console.log("usuario no encontrado")
         // mostrar error en pantalla
       }
+      console.log(this.authService.usuario)
 
       this.router.navigate(['/home'])
     }
-    console.log(this.authService.usuario)
   }
 }
