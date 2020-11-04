@@ -39,6 +39,7 @@ export class LoginPage implements OnInit
       console.log(cliente)
 
       this.authService.usuario = cliente
+      this.clienteService.crearAnonimo(cliente)
 
       this.router.navigate(['/home'])
     }

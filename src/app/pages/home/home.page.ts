@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { BarcodeScanResult } from '@ionic-native/barcode-scanner';
 import { Cliente } from 'src/app/clases/cliente';
-import { IAuthenticable } from 'src/app/clases/IAuthenticable';
+import { Usuario } from 'src/app/clases/usuario';
 import { CodigoQRService } from 'src/app/services/codigo-qr.service';
 import { RolesService } from 'src/app/services/roles.service';
 
@@ -14,7 +14,7 @@ import { RolesService } from 'src/app/services/roles.service';
 export class HomePage implements OnInit
 {
   // Código de prueba
-  usuario: IAuthenticable = new Cliente();
+  usuario: Usuario = new Cliente();
   icono = '/assets/img/icono.png';
 
   constructor(private rolService: RolesService, private escanerQR: CodigoQRService,
