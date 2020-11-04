@@ -4,7 +4,6 @@ import { AuthService } from 'src/app/servicios/auth.service';
 import { PedidoService } from 'src/app/servicios/pedido.service';
 import { Pedido } from 'src/app/clases/pedido';
 import { Usuario } from 'src/app/clases/usuario';
-import { ChatPage } from '../../chat/chat.page';
 import { ListaProductoPage } from './lista-producto/lista-producto.page';
 import { PedidoDetallePage } from './pedido-detalle/pedido-detalle.page';
 import { EstadoPedido } from 'src/app/enums/estado-pedido.enum';
@@ -13,6 +12,7 @@ import { PropinaService } from 'src/app/servicios/propina.service';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { EncuestaPage } from './encuesta/encuesta.page';
+import { ChatPage } from 'src/app/chat/chat.page';
 
 @Component({
   selector: 'app-pedidos',
@@ -48,11 +48,13 @@ export class PedidosPage implements OnInit, OnDestroy {
   }
 
   obtenerPedido() {
+    console.log('dentro de obtener pedidos')
+
     this.utilsService.presentLoading();
     this.pedidoService.obtenerPedidosActivos(this.usuario).subscribe(pedidos => {
       this.utilsService.dismissLoading();
       if (pedidos && pedidos.length > 0) { // Si tiene pedidos en cursos
-
+     console.log(this.pedido);
         this.pedido = pedidos[0];
       }
     });

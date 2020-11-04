@@ -63,6 +63,7 @@ export class AuthService {
   }
 
   obtenerDetalle(usuario) {
+    console.log('obtener detalle de usuario');
     return this.usuarioService.obtenerUsuario(usuario?.uid);
   }
 

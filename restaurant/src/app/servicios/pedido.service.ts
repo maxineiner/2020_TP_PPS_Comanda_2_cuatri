@@ -115,18 +115,17 @@ export class PedidoService {
 
   // Actualizar pedidos (Class pedido)
   actualizarPedido(pedido: Pedido) {
-    console.log("Pedido antes de actualizarse",pedido);
     pedido.fechaModificado = new Date();
-    /*return this.firebaseService.updateDoc('pedidos', pedido.id, Object.assign({}, pedido)).catch(
+    return this.firebaseService.updateDoc('pedidos', pedido.id, Object.assign({}, pedido)).catch(
       (e)=>{
         alert("Error al subir archivo:"+JSON.stringify(e));
-    });*/
-    //alert("PEDIDO DENTRO DEL CALLBACK: "+JSON.stringify(pedido));
-
-    return this.firebaseService.updateDoc('pedidos', pedido.id, pedido).catch(
-      (e)=>{
-        //alert("Error al subir archivo:"+JSON.stringify(e));
     });
+    // alert("PEDIDO DENTRO DEL CALLBACK: "+JSON.stringify(pedido));
+
+    // return this.firebaseService.updateDoc('pedidos', pedido.id, pedido).catch(
+    //   (e)=>{
+    //     //alert("Error al subir archivo:"+JSON.stringify(e));
+    // });
   }
 
   // Borrar Pedido (id)
