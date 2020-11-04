@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { BarcodeScanResult } from '@ionic-native/barcode-scanner/ngx';
+import { Usuario } from 'src/app/clases/usuario';
 import { CodigoQRService } from 'src/app/services/codigo-qr.service';
+import { RolesService } from 'src/app/services/roles.service';
 
 @Component({
   selector: 'app-escanerQR',
@@ -10,8 +12,10 @@ import { CodigoQRService } from 'src/app/services/codigo-qr.service';
 })
 export class EscanerQRComponent implements OnInit
 {
+  @Input() usuario: Usuario;
 
-  constructor(private escanerQR: CodigoQRService, private router: Router) { }
+  constructor(private escanerQR: CodigoQRService, private router: Router,
+    private rolService: RolesService) { }
 
   ngOnInit() { }
 

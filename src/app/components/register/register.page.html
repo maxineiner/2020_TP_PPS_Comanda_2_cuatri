@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-toolbar color="dark">
+  <ion-toolbar color="medium">
     <ion-buttons slot="start">
       <ion-button (click)="cerrar()">
         <ion-icon slot="start" name="arrow-back"></ion-icon>
@@ -13,38 +13,41 @@
 <ion-content class="fondo">
   <div id="container" class="contenido">
     <form #formulario="ngForm">
-      <ion-list class="ion-no-padding">
+      <ion-list class="ion-no-padding" color="dark">
         <ion-item color="dark">
-          <ion-label>
+          <ion-label position="floating">
             Nombre
           </ion-label>
-          <ion-input type="text" name="nombre" [(ngModel)]="cliente.nombre" type="text"></ion-input>
+          <ion-input type="text" name="nombre" minlength="2" [(ngModel)]="cliente.nombre" type="text"></ion-input>
         </ion-item>
         <ion-item color="dark">
-          <ion-label>
+          <ion-label position="floating">
             Apellido
           </ion-label>
-          <ion-input type="text" name="apellido" [(ngModel)]="cliente.apellido" type="text"></ion-input>
+          <ion-input type="text" name="apellido" minlength="2" [(ngModel)]="cliente.apellido" type="text"></ion-input>
         </ion-item>
         <ion-item color="dark">
-          <ion-label>
+          <ion-label position="floating">
             DNI
           </ion-label>
-          <ion-input type="number" name="dni" [(ngModel)]="cliente.dni"></ion-input>
+          <ion-input type="text" minlength="7" maxlength="8" name="dni" [(ngModel)]="cliente.dni"></ion-input>
         </ion-item>
         <ion-item color="dark">
-          <ion-label>
+          <ion-label position="floating">
             Email
           </ion-label>
-          <ion-input type="email" name="email" [(ngModel)]="cliente.email"></ion-input>
+          <ion-input type="email" name="email" minlength="6" [(ngModel)]="cliente.email"></ion-input>
         </ion-item>
         <ion-item color="dark">
-          <ion-label>
+          <ion-label position="floating">
             Contraseña
           </ion-label>
-          <ion-input type="password" name="password" [(ngModel)]="cliente.password"></ion-input>
+          <ion-input type="password" name="password" minlength="6" [(ngModel)]="cliente.password"></ion-input>
         </ion-item>
-        <ion-button size="large" (click)="onRegister()" expand="full" color="danger">Registro</ion-button>
+        <ion-button size="large" (click)="onRegister()" expand="full" color="danger"
+                    [disabled]="formulario.invalid">
+          Registro
+        </ion-button>
       </ion-list>
     </form>
 

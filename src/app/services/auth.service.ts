@@ -14,7 +14,7 @@ import { JefeService } from './jefe.service';
 export class AuthService
 {
   public isLogged: boolean = false
-  public usuario: Usuario = null
+  public static usuario: Usuario = null
 
   constructor(public afAuth: AngularFireAuth,
     private clienteService: ClienteService,
