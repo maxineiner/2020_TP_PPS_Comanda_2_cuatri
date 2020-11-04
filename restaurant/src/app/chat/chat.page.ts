@@ -7,13 +7,13 @@ import { PedidoService } from '../servicios/pedido.service';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
-
 @Component({
   selector: 'app-chat',
-  templateUrl: './chat.component.html',
-  styleUrls: ['./chat.component.scss'],
+  templateUrl: './chat.page.html',
+  styleUrls: ['./chat.page.scss'],
 })
-export class ChatComponent implements OnInit, OnDestroy {
+export class ChatPage implements OnInit {
+
   @ViewChild(IonContent, { static: true }) content: IonContent;
   @Input() pedido: Pedido;
   @Input() receptor: string;
@@ -26,19 +26,17 @@ export class ChatComponent implements OnInit, OnDestroy {
 
   constructor(
     private pedidos: PedidoService,
-    private modal: ModalController) { }
+    private modal: ModalController
+  ) { }
 
   ngOnInit() {
     this.loading = true;
-    console.log(this.pedido);
     this.pedidos.obtenerPedido(this.pedido.id)
     .pipe(takeUntil(this.desuscribir))
     .subscribe(call => {
       this.loading = false;
       this.listaMensajes = call.mensajes;
     });
-    console.log("esta es la lista de mensajes");
-    console.log(this.listaMensajes);
   }
 
   ngOnDestroy() {
@@ -51,18 +49,13 @@ export class ChatComponent implements OnInit, OnDestroy {
   }
 
   sendMensaje() {
-    const scope = this;
     if (this.msg !== '') {
-      console.log("este es un mensaje");
-      console.log(this.msg);
       const message = {
         text: this.msg,
         created_at: new Date(),
-        user: {                 
-          id: 'zo7DJcoIf9eXTgJLkcE2bPydmjW2',
-          nombre: 'federico'
-          //  id: this.user.id,
-          // nombre: this.user.nombre
+        user: {
+          id: this.user.id,
+          nombre: this.user.nombre
         },
         destinatario: this.receptor
       };
@@ -71,7 +64,7 @@ export class ChatComponent implements OnInit, OnDestroy {
       }
       this.listaMensajes.push(message);
       this.pedido.mensajes = this.listaMensajes;
-      //  scope.content.scrollToBottom(0);
+      // this.content.scrollToBottom(0);
       this.pedidos.actualizarPedido(this.pedido);
       this.msg = '';
     }
@@ -89,4 +82,5 @@ export class ChatComponent implements OnInit, OnDestroy {
   getFecha(fecha: any) {
     return fecha instanceof Date ? fecha : fecha.toDate();
   }
+
 }

@@ -7,7 +7,7 @@ import { Pedido } from 'src/app/clases/pedido';
 import { EstadoPedido } from '../enums/estado-pedido.enum';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { ChatComponent } from '../chat/chat.component';
+import { ChatPage } from '../chat/chat.page';
 
 @Component({
   selector: 'app-mozo',
@@ -47,6 +47,6 @@ export class MozoPage implements OnInit, OnDestroy {
   }
 
   chatear(pedidoActivo: Pedido, destinatario: string) {
-    this.utilsService.presentModal(ChatComponent, { pedido: pedidoActivo, receptor: destinatario, user: this.usuario });
+    this.utilsService.presentModal(ChatPage, { pedido: pedidoActivo, receptor: destinatario, user: this.usuario });
   }
 }

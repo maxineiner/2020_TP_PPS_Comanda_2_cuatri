@@ -1,5 +1,6 @@
 ion-card{
-    --background: #ffffff;
+    --background: #30e278;
+    color: black;
     width: 70%;
 }
 
@@ -12,6 +13,7 @@ ion-card-title{
 ion-card-subtitle{
     font-size: 10px;
     float: right;
+    color: black;
     position: relative;
     /*top: 30px;*/
 }
@@ -24,9 +26,9 @@ ion-card-subtitle{
     top: 35px;
 }
 
-.footer {
+/*.footer {
     position: fixed;
     left: 0;
     bottom: 0;
     width: 100%;
-}
+}*/

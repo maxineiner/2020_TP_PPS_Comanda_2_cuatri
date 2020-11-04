@@ -12,7 +12,7 @@ import { PropinaService } from 'src/app/servicios/propina.service';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { EncuestaPage } from './encuesta/encuesta.page';
-import { ChatComponent } from 'src/app/chat/chat.component';
+import { ChatPage } from 'src/app/chat/chat.page';
 
 @Component({
   selector: 'app-pedidos',
@@ -48,11 +48,13 @@ export class PedidosPage implements OnInit, OnDestroy {
   }
 
   obtenerPedido() {
+    console.log('dentro de obtener pedidos')
+
     this.utilsService.presentLoading();
     this.pedidoService.obtenerPedidosActivos(this.usuario).subscribe(pedidos => {
       this.utilsService.dismissLoading();
       if (pedidos && pedidos.length > 0) { // Si tiene pedidos en cursos
-
+     console.log(this.pedido);
         this.pedido = pedidos[0];
       }
     });
@@ -127,7 +129,7 @@ export class PedidosPage implements OnInit, OnDestroy {
   }
 
   chatear(destinatario: string) {
-    this.utilsService.presentModal(ChatComponent, { pedido: this.pedido, receptor: destinatario, user: this.usuario });
+    this.utilsService.presentModal(ChatPage, { pedido: this.pedido, receptor: destinatario, user: this.usuario });
   }
 
   escanearQR(): void {

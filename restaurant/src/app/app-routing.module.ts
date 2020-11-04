@@ -82,7 +82,11 @@ const routes: Routes = [
   {
     path: 'ahorcado',
     loadChildren: () => import('./juegos/ahorcado/ahorcado.module').then( m => m.AhorcadoPageModule)
+  },  {
+    path: 'chat',
+    loadChildren: () => import('./chat/chat.module').then( m => m.ChatPageModule)
   },
+
 
 
 
