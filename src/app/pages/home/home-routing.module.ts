@@ -67,6 +67,10 @@ const routes: Routes = [
         loadChildren: () => import('../inicio/inicio.module').then(m => m.InicioPageModule)
       },
       {
+        path: 'info-ingreso',
+        loadChildren: () => import('../info-ingreso/info-ingreso.module').then( m => m.InfoIngresoPageModule)
+      },
+      {
         path: '',
         redirectTo: '/home/inicio',
         pathMatch: 'full'

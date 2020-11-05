@@ -41,6 +41,7 @@ export class EscanerQRComponent implements OnInit
       case 'Producto':
         break;
       case 'Ingreso':
+        this.router.navigate(['/home/info-ingreso']);
         break;
 
     }

@@ -18,7 +18,8 @@ export class HomePage implements OnInit
   usuario: Usuario = AuthService.usuario;
   icono = '/assets/img/icono.png';
 
-  constructor(private rolService: RolesService, private escanerQR: CodigoQRService,
+  constructor(
+    private escanerQR: CodigoQRService,
     private router: Router) { }
 
   ngOnInit()
@@ -48,6 +49,7 @@ export class HomePage implements OnInit
       case 'Producto':
         break;
       case 'Ingreso':
+        this.router.navigate(['/home/info-ingreso']);
         break;
 
     }
