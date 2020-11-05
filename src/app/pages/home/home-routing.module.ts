@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { ProfileGuardService } from 'src/app/services/profile-guard.service';
 
 import { HomePage } from './home.page';
 
@@ -7,6 +8,7 @@ const routes: Routes = [
   {
     path: 'home',
     component: HomePage,
+    canActivate: [ProfileGuardService],
     children: [
       {
         path: 'tab1',
@@ -58,7 +60,11 @@ const routes: Routes = [
       },
       {
         path: 'lista-de-espera',
-        loadChildren: () => import('../lista-de-espera/lista-de-espera.module').then( m => m.ListaDeEsperaPageModule)
+        loadChildren: () => import('../lista-de-espera/lista-de-espera.module').then(m => m.ListaDeEsperaPageModule)
+      },
+      {
+        path: 'inicio',
+        loadChildren: () => import('../inicio/inicio.module').then(m => m.InicioPageModule)
       },
       {
         path: 'info-ingreso',
@@ -66,7 +72,7 @@ const routes: Routes = [
       },
       {
         path: '',
-        redirectTo: '/home/tab1',
+        redirectTo: '/home/inicio',
         pathMatch: 'full'
       },
     ]

@@ -20,6 +20,7 @@ import { AngularFireStorageModule } from '@angular/fire/storage';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
+import { ProfileGuardService } from './services/profile-guard.service';
 
 @NgModule({
   declarations: [AppComponent],
@@ -43,6 +44,7 @@ import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
     BarcodeScanner,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     AngularFireDatabase,
+    ProfileGuardService
   ],
   bootstrap: [AppComponent]
 })

@@ -6,6 +6,7 @@ import { JefeService } from 'src/app/services/jefe.service';
 import { EmpleadoService } from 'src/app/services/empleado.service';
 import { ClienteService } from 'src/app/services/cliente.service';
 import { Router } from '@angular/router';
+import { ModalController } from '@ionic/angular';
 
 @Component({
   selector: 'app-login',
@@ -21,7 +22,8 @@ export class LoginPage implements OnInit
     private router: Router,
     private jefeService: JefeService,
     private empleadoService: EmpleadoService,
-    private clienteService: ClienteService) { }
+    private clienteService: ClienteService,
+    private modalController: ModalController) { }
 
   ngOnInit()
   {
@@ -38,9 +40,10 @@ export class LoginPage implements OnInit
       let cliente = Cliente.CrearCliente(uid, "Anónimo", " ", "0", "-", " ", true, EstadoAceptacion.Anonimo, false)
       console.log(cliente)
 
-      this.authService.usuario = cliente
-      this.clienteService.crearAnonimo(cliente)
+      AuthService.usuario = cliente;
+      this.clienteService.crearAnonimo(cliente);
 
+      this.cerrar();
       this.router.navigate(['/home'])
     }
   }
@@ -67,24 +70,30 @@ export class LoginPage implements OnInit
 
       if (cliente)
       {
-        this.authService.usuario = cliente
+        AuthService.usuario = cliente
       }
       else if (empleado)
       {
-        this.authService.usuario = empleado
+        AuthService.usuario = empleado
       }
       else if (jefe)
       {
-        this.authService.usuario = jefe
+        AuthService.usuario = jefe
       }
       else 
       {
         console.log("usuario no encontrado")
         // mostrar error en pantalla
       }
-      console.log(this.authService.usuario)
+      console.log(AuthService.usuario)
 
+      this.cerrar();
       this.router.navigate(['/home'])
     }
+  }
+
+  cerrar()
+  {
+    this.modalController.dismiss();
   }
 }

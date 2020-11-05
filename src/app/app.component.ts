@@ -23,7 +23,7 @@ export class AppComponent
   {
     platform.ready().then(() =>
     {
-      this.presentModal().then(() => this.router.navigate(['/home']));
+      this.presentModal().then(() => this.router.navigate(['/auth-page']));
     });
   }
 

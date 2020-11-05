@@ -9,7 +9,6 @@
 </ion-content>
 
 
-
 <ion-tabs>
 
   <ion-tab-bar slot="bottom" color="dark">
@@ -18,27 +17,26 @@
       <ion-label>Test</ion-label>
     </ion-tab-button>
 
-    <!-- <ion-tab-button tab="menu-empleado">
+    <ion-tab-button tab="menu-empleado" *ngIf="rolService.isJefe(usuario)">
       <ion-icon name="accessibility-outline"></ion-icon>
       <ion-label>Empleados</ion-label>
-    </ion-tab-button> -->
-
-    <ion-tab-button (click)="escanear()">
-      <ion-icon name="qr-code-sharp"></ion-icon>
-      <ion-label>Escáner QR</ion-label>
     </ion-tab-button>
 
-    <ion-tab-button tab="menu-producto">
+    <app-escanerQR [usuario]="usuario"></app-escanerQR>
+
+    <ion-tab-button tab="menu-producto"
+                    *ngIf="rolService.isClienteAceptado(usuario) || 
+                    rolService.isClienteAnonimo(usuario)">
       <ion-icon name="restaurant"></ion-icon>
       <ion-label>Carta</ion-label>
     </ion-tab-button>
 
-    <ion-tab-button tab="menu-cliente">
+    <ion-tab-button tab="menu-cliente" *ngIf="rolService.isJefe(usuario)">
       <ion-icon name="person-circle"></ion-icon>
       <ion-label>Clientes</ion-label>
     </ion-tab-button>
 
-    <ion-tab-button tab="menu-pedidos">
+    <ion-tab-button tab="menu-pedidos" *ngIf="rolService.isJefe(usuario)">
       <ion-icon name="fast-food"></ion-icon>
       <ion-label>Pedidos</ion-label>
     </ion-tab-button>

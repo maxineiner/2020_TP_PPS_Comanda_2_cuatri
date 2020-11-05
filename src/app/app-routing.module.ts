@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { ProfileGuardService } from './services/profile-guard.service';
 
 const routes: Routes = [
   {
@@ -17,11 +18,17 @@ const routes: Routes = [
   {
     path: 'home',
     loadChildren: () => import('./pages/home/home.module').then(m => m.HomePageModule)
-  }
-
+  },
+  {
+    path: 'auth-page',
+    loadChildren: () => import('./pages/auth-page/auth-page.module').then(m => m.AuthPagePageModule)
+  },
 
 
 ];
+
+
+
 @NgModule({
   imports: [
     RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })

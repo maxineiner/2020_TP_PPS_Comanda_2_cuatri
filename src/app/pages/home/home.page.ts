@@ -15,7 +15,7 @@ import { RolesService } from 'src/app/services/roles.service';
 export class HomePage implements OnInit
 {
   // Código de prueba
-  usuario: Usuario = new Cliente();
+  usuario: Usuario = AuthService.usuario;
   icono = '/assets/img/icono.png';
 
   constructor(
@@ -24,6 +24,7 @@ export class HomePage implements OnInit
 
   ngOnInit()
   {
+    this.usuario = AuthService.usuario;
   }
 
   async escanear()

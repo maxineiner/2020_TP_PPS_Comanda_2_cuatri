@@ -1,42 +1,55 @@
 <ion-header>
-  <ion-toolbar color="primary">
+  <ion-toolbar color="medium">
+    <ion-buttons slot="start">
+      <ion-button (click)="cerrar()">
+        <ion-icon slot="start" name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
     <ion-title>Registro</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content padding>
-  <ion-item>
-    <ion-label>
-      Nombre
-    </ion-label>
-    <ion-input type="text" [(ngModel)]="cliente.nombre"></ion-input>
-  </ion-item>
-  <ion-item>
-    <ion-label>
-      Apellido
-    </ion-label>
-    <ion-input type="text" [(ngModel)]="cliente.apellido"></ion-input>
-  </ion-item>
-  <ion-item>
-    <ion-label>
-      DNI
-    </ion-label>
-    <ion-input type="text" [(ngModel)]="cliente.dni"></ion-input>
-  </ion-item>
-  <ion-item>
-    <ion-label>
-      Email
-    </ion-label>
-    <ion-input type="text" [(ngModel)]="cliente.email"></ion-input>
-  </ion-item>
-  <ion-item>
-    <ion-label>
-      Contraseña
-    </ion-label>
-    <ion-input type="password" [(ngModel)]="cliente.password"></ion-input>
-  </ion-item>
-  <ion-item-divider>
-    <ion-button size="large" (click)="onRegister()">Registro</ion-button>
-    <!-- ion-button size="large" routerLink="/login">Login</ion-button -->
-  </ion-item-divider>
+<ion-content class="fondo">
+  <div id="container" class="contenido">
+    <form #formulario="ngForm">
+      <ion-list class="ion-no-padding" color="dark">
+        <ion-item color="dark">
+          <ion-label position="floating">
+            Nombre
+          </ion-label>
+          <ion-input type="text" name="nombre" minlength="2" [(ngModel)]="cliente.nombre" type="text"></ion-input>
+        </ion-item>
+        <ion-item color="dark">
+          <ion-label position="floating">
+            Apellido
+          </ion-label>
+          <ion-input type="text" name="apellido" minlength="2" [(ngModel)]="cliente.apellido" type="text"></ion-input>
+        </ion-item>
+        <ion-item color="dark">
+          <ion-label position="floating">
+            DNI
+          </ion-label>
+          <ion-input type="text" minlength="7" maxlength="8" name="dni" [(ngModel)]="cliente.dni"></ion-input>
+        </ion-item>
+        <ion-item color="dark">
+          <ion-label position="floating">
+            Email
+          </ion-label>
+          <ion-input type="email" name="email" minlength="6" [(ngModel)]="cliente.email"></ion-input>
+        </ion-item>
+        <ion-item color="dark">
+          <ion-label position="floating">
+            Contraseña
+          </ion-label>
+          <ion-input type="password" name="password" minlength="6" [(ngModel)]="cliente.password"></ion-input>
+        </ion-item>
+        <ion-button size="large" (click)="onRegister()" expand="full" color="danger"
+                    [disabled]="formulario.invalid">
+          Registro
+        </ion-button>
+      </ion-list>
+    </form>
+
+  </div>
 </ion-content>
