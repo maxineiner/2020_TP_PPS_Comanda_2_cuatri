@@ -61,6 +61,10 @@ const routes: Routes = [
         loadChildren: () => import('../lista-de-espera/lista-de-espera.module').then( m => m.ListaDeEsperaPageModule)
       },
       {
+        path: 'info-ingreso',
+        loadChildren: () => import('../info-ingreso/info-ingreso.module').then( m => m.InfoIngresoPageModule)
+      },
+      {
         path: '',
         redirectTo: '/home/tab1',
         pathMatch: 'full'

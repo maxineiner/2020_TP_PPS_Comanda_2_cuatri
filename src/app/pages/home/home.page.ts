@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { BarcodeScanResult } from '@ionic-native/barcode-scanner';
 import { Cliente } from 'src/app/clases/cliente';
 import { Usuario } from 'src/app/clases/usuario';
+import { AuthService } from 'src/app/services/auth.service';
 import { CodigoQRService } from 'src/app/services/codigo-qr.service';
 import { RolesService } from 'src/app/services/roles.service';
 
@@ -17,7 +18,10 @@ export class HomePage implements OnInit
   usuario: Usuario = new Cliente();
   icono = '/assets/img/icono.png';
 
-  constructor(private rolService: RolesService, private escanerQR: CodigoQRService,
+  constructor(
+    private rolService: RolesService,
+    private escanerQR: CodigoQRService,
+    private authService:AuthService,
     private router: Router) { }
 
   ngOnInit()
@@ -46,6 +50,7 @@ export class HomePage implements OnInit
       case 'Producto':
         break;
       case 'Ingreso':
+        this.router.navigate(['/info-ingreso']);
         break;
 
     }
