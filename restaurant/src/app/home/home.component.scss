@@ -16,9 +16,7 @@
   height: 90px;
   width: 100%;
   border: solid;
-  
 }
-
 
 .btn:hover{
   background-color: #37ff87;
@@ -107,6 +105,14 @@
   outline: none;
 }
 
-.btn-notification:hover{
-  backdrop-filter: blur(10px) brightness(1.7);
+// .btn-notification:hover{
+//   backdrop-filter: blur(10px) brightness(1.7);
+// }
+
+.notification {
+  position: absolute !important;
+    margin-right: 50px !important;
+    border-radius: 100px !important;
+    right: 13px !important;
+    background-color: red !important;
 }

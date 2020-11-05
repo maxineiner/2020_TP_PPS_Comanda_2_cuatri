@@ -29,10 +29,31 @@ export class NotificationService {
     }
   }
 
+  obtenerCantidadDeNotificaciones() {
+
+   return  this.firebaseService.getDocs('notificaciones').pipe(
+      map(notificaciones => {
+        return notificaciones.filter(((u) => (u.payload.doc.data() as Notificacion).fechaBaja === null)); }) 
+    )
+  }
+
   obtenerNotificaciones() {
     return this.firebaseService.getDocs('notificaciones').pipe(
       map(users => {
         return users.filter((u) => (u.payload.doc.data() as Notificacion).fechaBaja === null).map(a => {
+          const data = a.payload.doc.data() as Notificacion;
+          const id = a.payload.doc.id;
+          return { id, ...data };
+        });
+      })
+    );
+  }
+
+  obtenerNotificacionesPorIdPedido(idPedido: string) {
+    return this.firebaseService.getDocs('notificaciones').pipe(
+      map(users => {
+        return users.filter((u) => (u.payload.doc.data() as Notificacion).fechaBaja === null && 
+        (u.payload.doc.data() as Notificacion).idPedido === idPedido).map(a => {
           const data = a.payload.doc.data() as Notificacion;
           const id = a.payload.doc.id;
           return { id, ...data };
@@ -78,5 +99,14 @@ export class NotificationService {
   borrarNotificacion(notificacion: Notificacion) {
     notificacion.fechaBaja = new Date();
     return this.firebaseService.updateDoc('notificaciones', notificacion.id, Object.assign({}, notificacion));
+  }
+
+  borrarNotificacionPorIdPedido(idPedido: string) {
+
+    this.obtenerNotificacionesPorIdPedido(idPedido).subscribe(resp => {
+        resp.forEach(item => {
+          this.borrarNotificacion(item);
+        })
+    })
   }
 }

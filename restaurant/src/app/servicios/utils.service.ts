@@ -8,6 +8,7 @@ import {
 } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { FIREBASE_MENSAJES } from '../enums/firebase-errores';
+import { DH_NOT_SUITABLE_GENERATOR } from 'constants';
 
 @Injectable({
   providedIn: 'root'
@@ -48,8 +49,9 @@ export class UtilsService {
     const toast = await this.toastCtrl.create({
       message,
       duration: 4000,
-      position: 'top',
+      position: 'bottom',
       animated: true,
+      color: 'danger',
       cssClass
     });
     await toast.present();

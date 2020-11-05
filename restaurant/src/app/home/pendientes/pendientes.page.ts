@@ -52,7 +52,7 @@ export class PendientesPage implements OnInit {
   }
 
   obtenerPedidosPendiente() {
-    this.utilsService.presentLoading();
+    this.utilsService.presentLoading(); 
     this.pedidoService.obtenerPedidosPendientes().subscribe(pedidos => {
       this.utilsService.dismissLoading();
       if (pedidos) { // Si hay pedidos pendientes
@@ -153,7 +153,8 @@ export class PendientesPage implements OnInit {
   cobrarPedido(pedido: Pedido) {
     // Cerramos el pedido
     pedido.estado = EstadoPedido.TERMINADO;
-    this.utilsService.presentLoading();
+    this.utilsService.presentLoading();  
+    this.notificationService.borrarNotificacionPorIdPedido(pedido.id);
     this.pedidoService.actualizarPedido(pedido).finally(() => {
       this.utilsService.dismissLoading();
     });
