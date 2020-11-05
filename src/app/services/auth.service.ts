@@ -50,6 +50,19 @@ export class AuthService
     }
   }
 
+  async onLoginTesting(email: string, password: string)
+  {
+    try
+    {
+      const credential = await this.afAuth.signInWithEmailAndPassword(email, password);
+      this.isLogged = true;
+      return credential.user.uid;
+    } catch (error)
+    {
+      console.log('Login failed', error);
+    }
+  }
+
   onRegisterCliente(cliente: Cliente)
   {
     return new Promise<any>((resolve, reject) =>

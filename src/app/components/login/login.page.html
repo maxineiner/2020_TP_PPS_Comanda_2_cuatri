@@ -26,7 +26,7 @@
           </ion-label>
           <ion-input type="password" name="password" [min]="6" [(ngModel)]="usuario.password"></ion-input>
         </ion-item>
-        <ion-button size="large" (click)="onLoginAnonymously()" expand="full" color="medium">Anónimo</ion-button>
+        <ion-button size="medium" (click)="onLoginAnonymously()" expand="full" color="medium">Anónimo</ion-button>
 
         <ion-button size="large" (click)="onLogin()" expand="full" color="danger">Iniciar Sesión</ion-button>
       </ion-list>
@@ -35,3 +35,10 @@
   </div>
 
 </ion-content>
+<ion-footer>
+  <ion-toolbar color="dark">
+    <ion-button (click)="mostrarRoles()" expand="full" fill="clear" size="large" color="danger">
+      Login de testing
+    </ion-button>
+  </ion-toolbar>
+</ion-footer>
