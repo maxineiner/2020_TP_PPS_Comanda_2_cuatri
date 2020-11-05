@@ -47,7 +47,7 @@ export class CodigoQRService
    */
   public async generar(elemento: IEscaneable, id: string)
   {
-    let data = `BEGIN:${elemento.constructor.name}ID%3A${id}`;
+    let data = `BEGIN:${elemento.constructor.name}%3A${id}`;
 
     // Se genera el código QR
     const ruta = `http://api.qrserver.com/v1/create-qr-code/?data=${data}&size=300x300&format=svg`;

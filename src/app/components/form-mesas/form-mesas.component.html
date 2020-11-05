@@ -56,7 +56,7 @@
   <ion-toolbar class="botones-form" color="dark">
     <!-- Se muestra accion segun tipo de llamado al formulario -->
     <ion-button (click)="crearMesa()" color="primary" expand="block" size="large"
-                type="submit" [disabled]="formulario.invalid"
+                type="submit" [disabled]="formulario.invalid && !mesa.foto"
                 *ngIf="opcion == 'Alta'">
       Crear
     </ion-button>
