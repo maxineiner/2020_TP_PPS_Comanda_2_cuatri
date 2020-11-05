@@ -12,4 +12,17 @@ export class InfoIngresoPage implements OnInit {
   ngOnInit() {
   }
 
+  verEncuesta(){
+
+  }
+
+
+  ponerseEnLaFila(){
+
+  }
+
+  verListaDeEspera(){
+    
+  }
+
 }

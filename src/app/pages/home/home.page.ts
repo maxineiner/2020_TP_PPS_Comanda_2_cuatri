@@ -19,9 +19,7 @@ export class HomePage implements OnInit
   icono = '/assets/img/icono.png';
 
   constructor(
-    private rolService: RolesService,
     private escanerQR: CodigoQRService,
-    private authService:AuthService,
     private router: Router) { }
 
   ngOnInit()
@@ -50,7 +48,7 @@ export class HomePage implements OnInit
       case 'Producto':
         break;
       case 'Ingreso':
-        this.router.navigate(['/info-ingreso']);
+        this.router.navigate(['/home/info-ingreso']);
         break;
 
     }
