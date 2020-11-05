@@ -22,6 +22,7 @@ export class HomeComponent implements OnInit {
 
   public formHome: FormGroup;
   usuario: Usuario = new Usuario();
+  public numeroNotificaciones: number;
 
   constructor(
     public fb: FormBuilder,
@@ -35,13 +36,15 @@ export class HomeComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    console.log('Se activo ngOnInit de HOME');
     this.authService.currentUser().then((response: firebase.User) => {
       this.authService.obtenerDetalle(response).subscribe(datos => {
         console.log('Se asignaron datos al usuario');
         this.usuario = datos;
         this.notificationService.activarNotificaciones(this.usuario.perfil);
-        
+        console.warn('cantidad notificaciones')
+        this.notificationService.obtenerCantidadDeNotificaciones().subscribe(resp => {
+          this.numeroNotificaciones = resp.length;
+        });
         /*let notificacion = new Notificacion();
         notificacion.idPedido = "27";
         notificacion.mensaje = "sale con fritas";

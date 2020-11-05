@@ -16,6 +16,7 @@
           <td align="center">
             <button class="btn-notification" (click)="goToNotificaciones()"> 
               <ion-icon name="notifications-circle-outline"></ion-icon>
+              <ion-badge class="notification" *ngIf="numeroNotificaciones" color="accent">{{ numeroNotificaciones }}</ion-badge>
             </button>
           </td>
           <td style="height: 60px;width:60px;">
