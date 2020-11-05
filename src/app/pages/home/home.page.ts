@@ -18,41 +18,11 @@ export class HomePage implements OnInit
   usuario: Usuario = AuthService.usuario;
   icono = '/assets/img/icono.png';
 
-  constructor(
-    private escanerQR: CodigoQRService,
-    private router: Router) { }
+  constructor(private rolService: RolesService) { }
 
   ngOnInit()
   {
     this.usuario = AuthService.usuario;
-  }
-
-  async escanear()
-  {
-    // Ya debe existir un usuario logueado
-    const scan = await this.escanerQR.escanear("Escanee el código QR", 'QR_CODE');
-
-    this.procesarQR(scan);
-  }
-
-  procesarQR(scan: BarcodeScanResult)
-  {
-    let textoQR = scan.text.split(':');
-    let entidad = textoQR[1];
-    let id = textoQR[2];
-
-    switch (entidad)
-    {
-      case 'Mesa':
-        this.router.navigate(['/info-mesa', id]);
-        break;
-      case 'Producto':
-        break;
-      case 'Ingreso':
-        this.router.navigate(['/home/info-ingreso']);
-        break;
-
-    }
   }
 
 }

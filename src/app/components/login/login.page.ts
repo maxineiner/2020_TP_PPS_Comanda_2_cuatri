@@ -6,7 +6,7 @@ import { JefeService } from 'src/app/services/jefe.service';
 import { EmpleadoService } from 'src/app/services/empleado.service';
 import { ClienteService } from 'src/app/services/cliente.service';
 import { Router } from '@angular/router';
-import { ModalController } from '@ionic/angular';
+import { ActionSheetController, ModalController } from '@ionic/angular';
 
 @Component({
   selector: 'app-login',
@@ -23,7 +23,8 @@ export class LoginPage implements OnInit
     private jefeService: JefeService,
     private empleadoService: EmpleadoService,
     private clienteService: ClienteService,
-    private modalController: ModalController) { }
+    private modalController: ModalController,
+    private actionSheetController: ActionSheetController) { }
 
   ngOnInit()
   {
@@ -92,8 +93,107 @@ export class LoginPage implements OnInit
     }
   }
 
+  async onLoginTesting(rol: string)
+  {
+    let uid;
+
+    switch (rol)
+    {
+      case "Cliente":
+        uid = await this.authService.onLoginTesting("cliente@mail.com", "111111");
+        AuthService.usuario = await this.clienteService.leerPorID(uid);
+        break;
+      case "Supervisor":
+        uid = await this.authService.onLoginTesting("supervisor@mail.com", "111111");
+        AuthService.usuario = await this.jefeService.leerPorID(uid);
+        break;
+      case "Duenio":
+        uid = await this.authService.onLoginTesting("duenio@mail.com", "111111");
+        AuthService.usuario = await this.jefeService.leerPorID(uid);
+        break;
+      case "Mozo":
+        uid = await this.authService.onLoginTesting("mozo@mail.com", "111111");
+        AuthService.usuario = await this.empleadoService.leerPorID(uid);
+        break;
+      case "Bartender":
+        uid = await this.authService.onLoginTesting("bartender@mail.com", "111111");
+        AuthService.usuario = await this.empleadoService.leerPorID(uid);
+        break;
+      case "Cocinero":
+        uid = await this.authService.onLoginTesting("cocinero@mail.com", "111111");
+        AuthService.usuario = await this.empleadoService.leerPorID(uid);
+        break;
+    }
+
+    console.log(AuthService.usuario);
+    this.cerrar();
+    this.router.navigate(['/home']);
+  }
+
   cerrar()
   {
     this.modalController.dismiss();
   }
+
+  async mostrarRoles()
+  {
+    const actionSheet = await this.actionSheetController.create({
+      header: 'Perfiles',
+      mode: "ios",
+      translucent: true,
+      buttons: [{
+        text: 'Cliente',
+        handler: () =>
+        {
+          this.onLoginTesting("Cliente");
+        }
+      },
+      {
+        text: 'Supervisor',
+        handler: () =>
+        {
+          this.onLoginTesting("Supervisor");
+        }
+      },
+      {
+        text: 'Dueño',
+        handler: () =>
+        {
+          this.onLoginTesting("Duenio");
+        }
+      },
+      {
+        text: 'Mozo',
+        handler: () =>
+        {
+          this.onLoginTesting("Mozo");
+        }
+      },
+      {
+        text: 'Cocinero',
+        handler: () =>
+        {
+          this.onLoginTesting("Cocinero");
+        }
+      },
+      {
+        text: 'Bartender',
+        handler: () =>
+        {
+          this.onLoginTesting("Bartender");
+        }
+      },
+      {
+        text: 'Cerrar',
+        role: 'cancel',
+        handler: () =>
+        {
+          console.log('Cerrar');
+        }
+      }]
+    });
+
+    await actionSheet.present();
+  }
+
 }
