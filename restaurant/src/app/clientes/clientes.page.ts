@@ -71,13 +71,13 @@ export class ClientesPage implements OnInit {
    
 
    
-      this.irPedidoActivo();
+      //this.irPedidoActivo();
 
 
 
     
-    // this.barcodeScanner.scan({ formats: 'QR_CODE' }).then((data) => {
-    //   if (data && !data.cancelled) {
+     this.barcodeScanner.scan({ formats: 'QR_CODE' }).then((data) => {
+       if (data && !data.cancelled) {
 
 
     //     //******************************************************** 
@@ -85,18 +85,18 @@ export class ClientesPage implements OnInit {
     //     //******************************************************** 
 
 
-    //     if (data.text === 'LISTA_DE_ESPERA') { // Si usa el QR de lista de espera lo llevamos a LE
-    //       this.irListaEspera();
-    //     }
-    //     else if (this.pedidosActivos.length > 0 && data.text === this.pedidosActivos[0].mesa.id) {
-    //      // Si tiene pedidos activos y coincide con el codigo de qr de la mesa asignada lo llevamo al pedido
-    //       this.irPedidoActivo();
-    //     } else {
-    //       // No existe QR o no es de la mesa asignada
-    //       this.utilsService.presentAlert('Lo sentimos', '', 'El código escaneado no existe o no es de la mesa asignada');
-    //     }
-    //   }
-    // }, (err) => this.utilsService.handleError(err));
+         if (data.text === 'LISTA_DE_ESPERA') { // Si usa el QR de lista de espera lo llevamos a LE
+           this.irListaEspera();
+         }
+         else if (this.pedidosActivos.length > 0 && data.text === this.pedidosActivos[0].mesa.id) {
+          // Si tiene pedidos activos y coincide con el codigo de qr de la mesa asignada lo llevamo al pedido
+           this.irPedidoActivo();
+         } else {
+           // No existe QR o no es de la mesa asignada
+           this.utilsService.presentAlert('Lo sentimos', '', 'El código escaneado no existe o no es de la mesa asignada');
+         }
+       }
+     }, (err) => this.utilsService.handleError(err));
   }
 
 }
