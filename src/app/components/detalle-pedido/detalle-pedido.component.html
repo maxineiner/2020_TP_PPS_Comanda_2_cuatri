@@ -11,7 +11,11 @@
         <h4>Estado:{{pedido.estado}}</h4>
         <p>
           Cliente:{{pedido.cliente.nombre}}
+        </p>
+        <p>
           Mesa:{{pedido.mesa.numero}}
+        </p>
+        <p>
           Hora de inicio:{{pedido.fechaInicio | date: 'shortTime'}}
         </p>
       </ion-label>
