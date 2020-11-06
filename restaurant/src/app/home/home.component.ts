@@ -12,6 +12,8 @@ import { Router } from '@angular/router';
 import { SonidosService } from '../servicios/sonidos.service';
 import { ConfiguracionPage } from './configuracion/configuracion.page';
 import { ModalController } from '@ionic/angular';
+import { ReturnStatement } from '@angular/compiler';
+import { JsonPipe } from '@angular/common';
 
 @Component({
   selector: 'app-home',
@@ -41,9 +43,14 @@ export class HomeComponent implements OnInit {
         console.log('Se asignaron datos al usuario');
         this.usuario = datos;
         this.notificationService.activarNotificaciones(this.usuario.perfil);
-        console.warn('cantidad notificaciones')
+        console.warn('cantidad notificaciones');
         this.notificationService.obtenerCantidadDeNotificaciones().subscribe(resp => {
+          resp = resp.filter((current)=>{
+            console.log(current.payload.doc.get("receptor"),this.usuario.perfil.toString());
+            return current.payload.doc.get("receptor") == this.usuario.perfil.toString();
+          });
           this.numeroNotificaciones = resp.length;
+          console.log(resp.length);
         });
         /*let notificacion = new Notificacion();
         notificacion.idPedido = "27";

@@ -39,14 +39,14 @@
         </button>
       </div>
   
-      <div *ngIf="usuario && usuario.perfil === 'METRE'">
+      <!--div *ngIf="usuario && (usuario.perfil === 'DUEÑO' || usuario.perfil === 'SUPERVISOR')">
         <br>
         <button class="btn"  size="large" expand="block" color="warning"
           (click)="gestionarUsuarios()">
           <ion-icon class="lbl" slot="start" name="people"></ion-icon>
           <label class="lbl"> Gestionar Clientes</label> 
         </button>
-      </div>
+      </div-->
   
       <div *ngIf="usuario && usuario.perfil === 'METRE'">
         <br>

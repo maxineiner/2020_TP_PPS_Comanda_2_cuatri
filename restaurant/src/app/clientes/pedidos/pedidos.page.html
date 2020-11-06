@@ -27,7 +27,7 @@
     <img src="../../../assets/mesa-qr.jpg" />
   </ion-card>
 
-  <ion-card (click)="verDetalle()">
+  <ion-card (click)="verDetalle()" *ngIf="pedido?.estado !== 'ENTREGADO'">
     <ion-card-header>
       <ion-card-subtitle></ion-card-subtitle>
       <ion-card-title>Ver <ion-label color="success">DETALLE</ion-label>
@@ -55,7 +55,7 @@
     </ion-card-content>
   </ion-card>
    
-    <ion-card  *ngIf="pedido?.estado === 'CONFIRMADO'" (click)="irAJuegos()">
+    <ion-card  *ngIf="pedido?.estado === 'ENTREGADO'" (click)="irAJuegos()">
       <ion-card-header>
         <ion-card-subtitle>Obtené descuentos jugando</ion-card-subtitle>
         <ion-card-title>Juegos <ion-label color="success">Jugar ahora</ion-label>
@@ -68,8 +68,8 @@
   <ion-card *ngIf="pedido?.estado === 'ENTREGADO'" (click)="escanearQR()">
     <ion-card-header>
       <ion-card-subtitle></ion-card-subtitle>
-      <ion-card-title>Adicionar <ion-label color="warning">PROPINA</ion-label>
-        <ion-icon class="ion-float-right" color="warning" name="cash-outline">
+      <ion-card-title>Adicionar <ion-label color="success">PROPINA</ion-label>
+        <ion-icon class="ion-float-right" color="success" name="cash-outline">
         </ion-icon>
       </ion-card-title>
     </ion-card-header>
@@ -82,8 +82,8 @@
   <ion-card *ngIf="pedido?.estado === 'ENTREGADO'" (click)="verDetalle()">
     <ion-card-header>
       <ion-card-subtitle></ion-card-subtitle>
-      <ion-card-title>Pedir <ion-label color="warning">CUENTA</ion-label>
-        <ion-icon class="ion-float-right" color="warning" name="logo-usd">
+      <ion-card-title>Pedir <ion-label color="success">CUENTA</ion-label>
+        <ion-icon class="ion-float-right" color="success" name="logo-usd">
         </ion-icon>
       </ion-card-title>
     </ion-card-header>
@@ -94,13 +94,12 @@
   </ion-card>
 
 
-  <!-- LA ENCUESTA SOLO DEBE REALIZARSE SI EL PEDIDO.ESTADO ESTA ENTREGADO O CONFIRMADO-->
-  <!-- *ngIf="pedido?.estado === 'CONFIRMADO' || pedido?.estado === 'ENTREGADO'" -->
-  <ion-card (click)="verEncuesta()">
+  <!-- LA ENCUESTA SOLO DEBE REALIZARSE SI EL PEDIDO.ESTADO ESTA ENTREGADO-->
+  <ion-card (click)="verEncuesta()" *ngIf="pedido?.estado === 'ENTREGADO'">
     <ion-card-header>
       <ion-card-subtitle></ion-card-subtitle>
-      <ion-card-title>Llenar <ion-label color="warning">ENCUESTA</ion-label>
-        <ion-icon class="ion-float-right" color="warning" name="document-outline">
+      <ion-card-title>Llenar <ion-label color="success">ENCUESTA</ion-label>
+        <ion-icon class="ion-float-right" color="success" name="document-outline">
         </ion-icon>
       </ion-card-title>
     </ion-card-header>
