@@ -125,17 +125,18 @@ export class PendientesPage implements OnInit {
 
     // SI EXISTE ALGUN PRODUCTO DEL SECTOR CORRESPONDIENTE SE CREA LA NOTIFICACION
     if (notificacionCocinero) {
-      this.enviarNotificacion(TipoUsuario.COCINERO);
+      this.enviarNotificacion(TipoUsuario.COCINERO,pedido.id);
     }
     if (notificacionBartender) {
-      this.enviarNotificacion(TipoUsuario.BARTENDER);
+      this.enviarNotificacion(TipoUsuario.BARTENDER,pedido.id);
     }
     // + this.enviarNotificacion(TipoUsuario.MOZO); //SE LE ENVIA NOTIFICACION DE NUEVO PEDIDO
   }
 
-  enviarNotificacion(tipoUsuario: TipoUsuario): void {
+  enviarNotificacion(tipoUsuario: TipoUsuario,pedidoId:string): void {
     const notificacion = new Notificacion();
     notificacion.mensaje = 'Tiene un nuevo pedido';
+    notificacion.idPedido = pedidoId;
     switch (tipoUsuario) {
       case TipoUsuario.COCINERO:
         notificacion.receptor = TipoUsuario.COCINERO;
@@ -151,18 +152,22 @@ export class PendientesPage implements OnInit {
   }
 
   cobrarPedido(pedido: Pedido) {
+    console.log("Se inicia funcion cobrar pedido",JSON.stringify(pedido));
     // Cerramos el pedido
     pedido.estado = EstadoPedido.TERMINADO;
     this.utilsService.presentLoading();  
     this.notificationService.borrarNotificacionPorIdPedido(pedido.id);
     this.pedidoService.actualizarPedido(pedido).finally(() => {
+      console.log("Se actualiza el pedido");
       this.utilsService.dismissLoading();
     });
     // Liberamos la mesa
     // Actualizamos el estado de la mesa luego de crear el pedido
     const m = pedido.mesa as Mesa;
     m.estado = EstadosMesa.LIBRE;
-    this.mesaService.actualizarMesa(m);
+    this.mesaService.actualizarMesa(m).then(()=>{
+      console.log("Se actualiza meza a libre");
+    });
   }
 
   entregarProducto(pedido: Pedido, producto: Producto) {
@@ -186,7 +191,17 @@ export class PendientesPage implements OnInit {
     this.utilsService.presentLoading();
     this.pedidoService.actualizarPedido(pedido).finally(() => {
       this.utilsService.dismissLoading();
+      this.notificarProductoTerminado(pedido);
     });
+  }
+
+  notificarProductoTerminado(pedido:Pedido)
+  {
+    var notificacion = new Notificacion();
+    notificacion.mensaje = "Nuevo producto con pendiente entrega";
+    notificacion.receptor = TipoUsuario.MOZO;
+    notificacion.idPedido = pedido.id;
+    this.notificationService.crearNotificacion(notificacion);
   }
 
   atras(): void {

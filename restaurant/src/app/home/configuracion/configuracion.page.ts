@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ModalController } from '@ionic/angular';
 import { AuthService } from 'src/app/servicios/auth.service';
+import { NotificationService } from 'src/app/servicios/notification.service';
 import { SonidosService } from 'src/app/servicios/sonidos.service';
 import { UtilsService } from 'src/app/servicios/utils.service';
 
@@ -19,7 +20,8 @@ export class ConfiguracionPage implements OnInit {
     private modalCtrl : ModalController,
     public authService:AuthService,
     public sonido:SonidosService,
-    public router:Router
+    public router:Router,
+    public notificaciones:NotificationService
   ) { }
 
   ngOnInit() {
@@ -39,6 +41,7 @@ export class ConfiguracionPage implements OnInit {
     }
   }
   cerrarSesion(){
+    this.notificaciones.desactivarNotificaciones();
     this.authService.logout();
     this.sonido.Reproducir('cerrar');
     this.router.navigateByUrl('/login');

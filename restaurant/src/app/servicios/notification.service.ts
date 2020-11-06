@@ -34,7 +34,7 @@ export class NotificationService {
    return  this.firebaseService.getDocs('notificaciones').pipe(
       map(notificaciones => {
         return notificaciones.filter(((u) => (u.payload.doc.data() as Notificacion).fechaBaja === null)); }) 
-    )
+    );
   }
 
   obtenerNotificaciones() {
@@ -78,6 +78,7 @@ export class NotificationService {
 
   lanzarNotificacion(notificacion: Notificacion) {
     notificacion.firstApparition = false; // SE LO PONE EN FALSE PARA QUE NO VUELVA A APARECER
+    console.log("Se lanza notificacion");
     this.actualizarNotificacion(notificacion).then(data => {
       console.log('Notificacion id = ' + notificacion.id + ' idPedido = ' + notificacion.idPedido);
       this.utilsService.presentToast(notificacion.mensaje, 'toast-info');
@@ -93,6 +94,7 @@ export class NotificationService {
 
   actualizarNotificacion(notificacion: Notificacion) {
     notificacion.fechaModificado = new Date();
+    console.log("Se actualiza notificacion");
     return this.firebaseService.updateDoc('notificaciones', notificacion.id, Object.assign({}, notificacion));
   }
 
