@@ -1,5 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { NavController, AlertController, ModalController } from '@ionic/angular';
+import { Pedido } from 'src/app/clases/pedido';
+import { PedidoService } from 'src/app/servicios/pedido.service';
+import { UtilsService } from 'src/app/servicios/utils.service';
 
 @Component({
   selector: 'app-ahorcado',
@@ -7,6 +10,8 @@ import { NavController, AlertController, ModalController } from '@ionic/angular'
   styleUrls: ['./ahorcado.page.scss'],
 })
 export class AhorcadoPage {
+
+    @Input() pedido: Pedido;
 
   readonly LETRAS = [
     "A", "B", "C", "D", "E", "F", "G",
@@ -23,8 +28,9 @@ palabraAAdivinar: string;
 fallos: Array<string>;
 numFallos: number;
 numAciertos: number;
+cantidadIntentos: number = 0;
 
-constructor(public navCtrl: NavController, public alertCtrl: AlertController, private modalCtrl: ModalController,) {
+constructor(private pedidoService: PedidoService, private utilsService: UtilsService,  public navCtrl: NavController, public alertCtrl: AlertController, private modalCtrl: ModalController,) {
     this.inicializar();
 }
 
@@ -105,6 +111,8 @@ async mostrarMensajeDePerder() {
         buttons: [{
             text: 'Ok',
             handler: () => {
+                this.pedido.juego.cantidadIntentos = 1;
+                this.pedidoService.actualizarPedido(this.pedido);
                 this.inicializar();
             }
         }]
@@ -123,6 +131,15 @@ async mostrarMensajeDeGanar() {
         buttons: [{
             text: 'Ok',
             handler: () => {
+                
+                if (this.pedido.juego.cantidadIntentos === 0) {
+                    this.pedido.juego.cantidadIntentos = 1;
+                    this.pedido.juego.descuento = 10;
+                    this.pedidoService.actualizarPedido(this.pedido).finally(() => {
+                    this.utilsService.presentAlert('Ganaste', '', 'Obtuviste un 10% de descuento es tu pedido');
+
+                });
+            }
                 this.inicializar();
             }
         }]

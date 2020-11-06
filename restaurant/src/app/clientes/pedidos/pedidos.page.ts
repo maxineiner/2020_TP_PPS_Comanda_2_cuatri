@@ -13,6 +13,7 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { EncuestaPage } from './encuesta/encuesta.page';
 import { ChatPage } from 'src/app/chat/chat.page';
+import { AhorcadoPage } from 'src/app/juegos/ahorcado/ahorcado.page';
 
 @Component({
   selector: 'app-pedidos',
@@ -48,8 +49,6 @@ export class PedidosPage implements OnInit, OnDestroy {
   }
 
   obtenerPedido() {
-    console.log('dentro de obtener pedidos')
-
     this.utilsService.presentLoading();
     this.pedidoService.obtenerPedidosActivos(this.usuario).subscribe(pedidos => {
       this.utilsService.dismissLoading();
@@ -104,7 +103,7 @@ export class PedidosPage implements OnInit, OnDestroy {
     this.utilsService.showLoadingAndNavigate('clientes');
   }
   irAJuegos() {
-    this.utilsService.showLoadingAndNavigate('juegos');
+    this.utilsService.presentModal(AhorcadoPage, { pedido: this.pedido });
   }
 
   verEncuesta() {
@@ -124,8 +123,17 @@ export class PedidosPage implements OnInit, OnDestroy {
     }
   }
 
+  calcularDescuentoJuego() {
+    try {
+       return (this.pedido.juego.descuento * this.calcularTotal()) / 100;
+    } catch (error) {
+      return 0;
+    }
+
+  } 
+
   calcularTotalFinal() {
-    return this.calcularTotal() + this.calcularPropina();
+          return this.calcularTotal() + this.calcularPropina() - this.calcularDescuentoJuego();
   }
 
   chatear(destinatario: string) {

@@ -60,6 +60,11 @@ ion-content.background{
     justify-content: center;
   }
 
+  .toast-info {
+    --background: #1e2023;
+    --color: red;
+}
+
   #custom-overlay .imgSplashMovimiento {
     z-index:  9999;
     position: absolute;
