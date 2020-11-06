@@ -36,15 +36,17 @@ export class ClientesEsperaPage implements OnInit {
         this.obtenerPendientes();
         this.obtenerMesasLibres();
       });
-    });
+    })
+    .catch(e => { console.log("ERROR authService: ",e);});
+    
   }
 
   ionViewWillEnter() {
-    /*this.authService.currentUser().then((response: firebase.User) => {
+    this.authService.currentUser().then((response: firebase.User) => {
       this.authService.obtenerDetalle(response).subscribe(datos => {
         this.usuario = datos;
       });
-    });*/
+    });
   }
 
   obtenerMesasLibres() {
@@ -56,6 +58,7 @@ export class ClientesEsperaPage implements OnInit {
   obtenerPendientes() {
     this.utilsService.presentLoading();
     this.listaEsperaService.obtenerLista().subscribe(listado => {
+      console.log("Listado de pendientes",listado);
       this.utilsService.dismissLoading();
       this.listado = listado;
     });
@@ -89,7 +92,7 @@ export class ClientesEsperaPage implements OnInit {
 
     pedido.mesa = { id: mesa.id, numero: mesa.numero };
     pedido.usuario = { id: cliente.id, nombre: cliente.nombre };
-    pedido.juegos.ahorcado.cantidadIntentos = 1
+    //pedido.juegos.ahorcado.cantidadIntentos = 1;
 
     this.utilsService.presentLoading();
     this.pedidoService.crearPedido(pedido).then(resp => {
