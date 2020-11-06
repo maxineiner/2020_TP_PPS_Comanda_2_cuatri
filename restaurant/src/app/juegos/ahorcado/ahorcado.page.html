@@ -1,7 +1,15 @@
-
-<app-toolbar [titulo]="'Juego del ahorcado'" [backBtn]="'juegos'" [usuario]="null">
-</app-toolbar>
-
+<ion-header>
+  <ion-toolbar color="success">
+    <ion-buttons slot="start">
+      <ion-button (click)="dismiss()">
+        <ion-icon name="close-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title class="ion-text-center">
+     Juego ahorcado
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
 <ion-content padding>
   <ion-grid fixed>
     <ion-row>

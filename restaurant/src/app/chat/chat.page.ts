@@ -6,6 +6,10 @@ import { Usuario } from '../clases/usuario';
 import { PedidoService } from '../servicios/pedido.service';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { NotificationService } from 'src/app/servicios/notification.service';
+import { Notificacion } from 'src/app/clases/notificacion';
+import { TipoUsuario } from '../enums/tipo-usuario.enum';
+
 
 @Component({
   selector: 'app-chat',
@@ -26,7 +30,8 @@ export class ChatPage implements OnInit {
 
   constructor(
     private pedidos: PedidoService,
-    private modal: ModalController
+    private modal: ModalController, 
+    private notificationService: NotificationService
   ) { }
 
   ngOnInit() {
@@ -49,7 +54,7 @@ export class ChatPage implements OnInit {
   }
 
   sendMensaje() {
-    if (this.msg !== '') {
+    if (this.msg.trim() !== '') {
       const message = {
         text: this.msg,
         created_at: new Date(),
@@ -62,9 +67,17 @@ export class ChatPage implements OnInit {
       if (!this.listaMensajes) {
         this.listaMensajes = [];
       }
+      if (this.user.perfil !== 'MOZO') {
+        let notificacion = new Notificacion();
+        notificacion.idPedido = this.pedido.id;
+        notificacion.mensaje = 'Nuevo mensaje de cliente mesa nro ' + this.pedido.mesa.numero;
+        notificacion.receptor = TipoUsuario.MOZO;
+        this.notificationService.crearNotificacion(notificacion);
+      }
+
       this.listaMensajes.push(message);
       this.pedido.mensajes = this.listaMensajes;
-      // this.content.scrollToBottom(0);
+      this.content.scrollToBottom(0);
       this.pedidos.actualizarPedido(this.pedido);
       this.msg = '';
     }
@@ -75,7 +88,7 @@ export class ChatPage implements OnInit {
       this.index = index;
       setTimeout(() => {
         this.content.scrollToBottom(0);
-      }, 1000);
+      }, 500);
     }
   }
 
