@@ -1,6 +1,9 @@
 import { Component, DoCheck, OnInit } from '@angular/core';
-import { Pedido } from 'src/app/clases/pedido';
+import { EstadoPedido, Pedido } from 'src/app/clases/pedido';
+import { Usuario } from 'src/app/clases/usuario';
+import { AuthService } from 'src/app/services/auth.service';
 import { PedidoService } from 'src/app/services/pedido.service';
+import { RolesService } from 'src/app/services/roles.service';
 
 @Component({
   selector: 'app-menu-pedidos',
@@ -9,25 +12,26 @@ import { PedidoService } from 'src/app/services/pedido.service';
 })
 export class MenuPedidosPage implements OnInit, DoCheck
 {
+  usuario: Usuario;
   opcion: string = 'Listado';
   pedidos: Pedido[] = PedidoService.pedidos;
   pedidoElegido: Pedido = new Pedido();
 
-  constructor(private pedidoService: PedidoService) { }
+  constructor(private pedidoService: PedidoService, private rolService: RolesService) { }
 
   ngDoCheck(): void
   {
-    this.pedidos = PedidoService.pedidos;
+    this.pedidos = this.filtrarPedidos(PedidoService.pedidos);
   }
 
   ngOnInit()
   {
+    this.usuario = AuthService.usuario;
     console.log("INIT");
 
     this.pedidoService.leer().then((pedidos) =>
     {
-      console.log(pedidos);
-      this.pedidos = pedidos;
+      this.pedidos = this.filtrarPedidos(pedidos);
     });
     this.pedidoElegido = new Pedido();
   }
@@ -50,5 +54,32 @@ export class MenuPedidosPage implements OnInit, DoCheck
   {
     console.log(pedido);
     this.pedidoElegido = pedido;
+  }
+
+  filtrarPedidos(pedidos: Pedido[])
+  {
+    let pedidosFiltrados = [];
+    console.log(pedidos);
+
+    // Pedidos del Cliente logueado
+    if (this.rolService.isClienteAceptado(this.usuario))
+    {
+      pedidosFiltrados = pedidos.filter(pedido => 
+      {
+        if (pedido.cliente)
+        {
+          return pedido.cliente.id === this.usuario.id;
+        }
+      });
+    }
+    else if (this.rolService.isEmpleado(this.usuario)) // Pedidos para empleados
+    {
+      pedidosFiltrados = pedidos.filter(pedido => pedido.estado != EstadoPedido.RESERVADO);
+    }
+    else if (this.rolService.isJefe(this.usuario)) // Pedidos para jefes
+    {
+      pedidosFiltrados = pedidos.filter(pedido => pedido.estado == EstadoPedido.RESERVADO);
+    }
+    return pedidosFiltrados;
   }
 }

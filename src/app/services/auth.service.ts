@@ -114,6 +114,7 @@ export class AuthService
     {
       this.afAuth.signOut();
       this.isLogged = false;
+      AuthService.usuario = null;
     } catch (error)
     {
       console.log('Logout failed', error);

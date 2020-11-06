@@ -4,6 +4,11 @@
     <ion-fab-button color="dark">
       <img [src]="icono" alt="icono-app">
     </ion-fab-button>
+    <ion-fab-list side="start">
+      <ion-fab-button color="tertiary" translucent="true">
+        <ion-icon name="log-out" (click)="cerrarSesion()"></ion-icon>
+      </ion-fab-button>
+    </ion-fab-list>
   </ion-fab>
 
 </ion-content>
@@ -17,16 +22,23 @@
       <ion-label>Test</ion-label>
     </ion-tab-button>
 
-    <ion-tab-button tab="menu-empleado" *ngIf="rolService.isJefe(usuario)">
+    <ion-tab-button tab="menu-empleado" *ngIf="rolService.isJefe(usuario)" color="success">
       <ion-icon name="accessibility-outline"></ion-icon>
       <ion-label>Empleados</ion-label>
+    </ion-tab-button>
+
+
+    <ion-tab-button tab="eye-jefe" *ngIf="rolService.isJefe(usuario)" color="success">
+      <ion-icon name="glasses-outline"></ion-icon>
+      <ion-label>Jefes</ion-label>
     </ion-tab-button>
 
     <app-escanerQR [usuario]="usuario"></app-escanerQR>
 
     <ion-tab-button tab="menu-producto"
                     *ngIf="rolService.isClienteAceptado(usuario) || 
-                    rolService.isClienteAnonimo(usuario)">
+                    rolService.isClienteAnonimo(usuario) ||
+                    rolService.isJefe(usuario)">
       <ion-icon name="restaurant"></ion-icon>
       <ion-label>Carta</ion-label>
     </ion-tab-button>
@@ -36,9 +48,19 @@
       <ion-label>Clientes</ion-label>
     </ion-tab-button>
 
-    <ion-tab-button tab="menu-pedidos" *ngIf="rolService.isJefe(usuario)">
+    <ion-tab-button tab="menu-pedidos">
       <ion-icon name="fast-food"></ion-icon>
       <ion-label>Pedidos</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button tab="lista-de-espera" *ngIf="rolService.isEmpleadoMozo(usuario)">
+      <ion-icon name="hourglass-sharp"></ion-icon>
+      <ion-label>Lista de espera</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button tab="menu-mesa" *ngIf="rolService.isJefe(usuario)">
+      <ion-icon name="storefront-outline"></ion-icon>
+      <ion-label>Mesas</ion-label>
     </ion-tab-button>
 
 

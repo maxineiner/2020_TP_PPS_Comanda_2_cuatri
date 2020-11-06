@@ -4,22 +4,26 @@
   <ion-segment-button value="Listado">
     <ion-label>Productos</ion-label>
   </ion-segment-button>
-  <ion-segment-button value="Alta">
+  <ion-segment-button value="Alta" *ngIf="rolService.isJefe(usuario)">
     <ion-label>Alta</ion-label>
   </ion-segment-button>
-  <ion-segment-button value="Baja" *ngIf="productoElegido.isActive">
+  <ion-segment-button value="Baja" *ngIf="productoElegido.isActive &&  
+                                          rolService.isJefe(usuario)">
     <ion-label>Baja</ion-label>
   </ion-segment-button>
-  <ion-segment-button value="Modificación" *ngIf="productoElegido.isActive">
+  <ion-segment-button value="Modificación" *ngIf="productoElegido.isActive &&  
+                                                  rolService.isJefe(usuario)">
     <ion-label>Modificar</ion-label>
   </ion-segment-button>
 </ion-segment>
 
 <ion-content class="fondo">
 
-  <app-listado-productos *ngIf="opcion == 'Listado'" [productos]="listado" (elegirProducto)="elegirProducto($event)">
+  <app-listado-productos *ngIf="opcion == 'Listado'" [productos]="listado"
+                         (elegirProducto)="elegirProducto($event)">
   </app-listado-productos>
-  <app-form-producto *ngIf="opcion != 'Listado'" [opcion]="opcion" [producto]="productoElegido" [opcion]="opcion">
+  <app-form-producto *ngIf="opcion != 'Listado'" [opcion]="opcion" [producto]="productoElegido"
+                     [opcion]="opcion">
   </app-form-producto>
 
 </ion-content>

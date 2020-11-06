@@ -1,10 +1,22 @@
 <ion-card (click)="mostrarOpciones()" color="dark" class="centrado">
 
   <ion-card-content color="dark">
-    <ion-img [src]="pedido.mesa.foto.url"></ion-img>
-    <ion-label>
-      <h4>Estado:{{pedido.estado}}</h4>
+    <ion-item>
 
-    </ion-label>
+
+      <ion-thumbnail slot="end">
+        <img [src]="pedido.mesa.foto.url" />
+      </ion-thumbnail>
+      <ion-label>
+        <h4>Estado:{{pedido.estado}}</h4>
+        <p>
+          Cliente:{{pedido.cliente.nombre}}
+          Mesa:{{pedido.mesa.numero}}
+          Hora de inicio:{{pedido.fechaInicio | date: 'shortTime'}}
+        </p>
+      </ion-label>
+
+
+    </ion-item>
   </ion-card-content>
 </ion-card>
