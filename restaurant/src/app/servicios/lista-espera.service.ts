@@ -40,11 +40,21 @@ export class ListaEsperaService {
 
   // Agregar a la lista
   agregarALista(lista: ListaEspera) {
+    console.log("Se agrega cliente a la lista de espera!! ",lista);
     return this.firebaseService.addDoc('lista_espera', Object.assign({}, lista));
   }
 
   // Quitamos de la lista
   quitarDeLista(lista: ListaEspera) {
     return this.firebaseService.deleteDoc('lista_espera', lista.id);
+  }
+
+  //SIN TESTEAR
+  QuitarDeListaPorIdCliente(idCliente)
+  {
+    console.log("Cliente a eliminar", idCliente);
+    return this.firebaseService.firestore.collection('lista_espeta', 
+      ref => ref.where("usuario.id","==",idCliente)
+    ).doc().delete();
   }
 }

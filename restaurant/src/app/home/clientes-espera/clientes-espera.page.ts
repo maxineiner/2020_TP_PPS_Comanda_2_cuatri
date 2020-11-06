@@ -30,14 +30,17 @@ export class ClientesEsperaPage implements OnInit {
   ) { }
 
   ngOnInit() {
+
     this.authService.currentUser().then((response: firebase.User) => {
       this.authService.obtenerDetalle(response).subscribe(datos => {
         this.usuario = datos;
+        //this.listaEsperaService.QuitarDeListaPorId("3w7mvpDAhKXAPwXP9cGpZHu4lq62");
         this.obtenerPendientes();
         this.obtenerMesasLibres();
       });
     })
     .catch(e => { console.log("ERROR authService: ",e);});
+
     
   }
 
@@ -86,6 +89,9 @@ export class ClientesEsperaPage implements OnInit {
     const mesa = data.mesa as Mesa;
     const cliente = data.usuario as Usuario;
     const listaE = data.listaE as ListaEspera;
+    console.log("DATOS LISTA DE ESPERA:",listaE);
+    console.log("DATOS LISTA DE ESPERA JSON STRINGFY:",JSON.stringify(listaE));
+
 
     // Creamos el pedido
     const pedido = new Pedido();
@@ -102,6 +108,8 @@ export class ClientesEsperaPage implements OnInit {
       this.mesaService.actualizarMesa(mesa);
 
       // Quitamos de la lista de espera
+      console.log(listaE);
+      console.log(JSON.stringify(listaE));
       this.listaEsperaService.quitarDeLista(listaE);
 
       this.utilsService.dismissLoading();

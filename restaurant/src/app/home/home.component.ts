@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { AuthService } from '../servicios/auth.service';
 import { UtilsService } from 'src/app/servicios/utils.service';
@@ -20,7 +20,7 @@ import { JsonPipe } from '@angular/common';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, OnDestroy {
 
   public formHome: FormGroup;
   usuario: Usuario = new Usuario();
@@ -38,6 +38,7 @@ export class HomeComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.notificationService.desactivarNotificaciones();
     this.authService.currentUser().then((response: firebase.User) => {
       this.authService.obtenerDetalle(response).subscribe(datos => {
         console.log('Se asignaron datos al usuario');
@@ -46,11 +47,11 @@ export class HomeComponent implements OnInit {
         console.warn('cantidad notificaciones');
         this.notificationService.obtenerCantidadDeNotificaciones().subscribe(resp => {
           resp = resp.filter((current)=>{
-            console.log(current.payload.doc.get("receptor"),this.usuario.perfil.toString());
+            //console.log(current.payload.doc.get("receptor"),this.usuario.perfil.toString());
             return current.payload.doc.get("receptor") == this.usuario.perfil.toString();
           });
           this.numeroNotificaciones = resp.length;
-          console.log(resp.length);
+          //console.log(resp.length);
         });
         /*let notificacion = new Notificacion();
         notificacion.idPedido = "27";
@@ -61,6 +62,11 @@ export class HomeComponent implements OnInit {
       });
       // .subscribe(datos => {console.log(datos[0].mensaje)});
     });
+  }
+
+  ngOnDestroy()
+  {
+    this.notificationService.desactivarNotificaciones();
   }
 
   ionViewWillEnter() {
