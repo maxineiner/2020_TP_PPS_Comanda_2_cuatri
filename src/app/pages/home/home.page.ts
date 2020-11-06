@@ -18,11 +18,18 @@ export class HomePage implements OnInit
   usuario: Usuario = AuthService.usuario;
   icono = '/assets/img/icono.png';
 
-  constructor(private rolService: RolesService) { }
+  constructor(private rolService: RolesService, private authService: AuthService, private router: Router) { }
 
   ngOnInit()
   {
     this.usuario = AuthService.usuario;
+  }
+
+  cerrarSesion()
+  {
+    this.authService.onLogout();
+    this.router.navigate(['/auth-page']);
+
   }
 
 }
