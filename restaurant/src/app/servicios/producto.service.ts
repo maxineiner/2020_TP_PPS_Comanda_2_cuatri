@@ -19,6 +19,12 @@ export class ProductoService {
     return foto;
   }
 
+    // Obtiene foto del producto o una default
+    obtenerFotoDefault() {
+      let foto =  '../../assets/defaultFoto.png';
+      return foto;
+    }
+
   // Obtiene todos los productos
   obtenerProductos() {
     return this.firebaseService.getDocs('productos').pipe(
