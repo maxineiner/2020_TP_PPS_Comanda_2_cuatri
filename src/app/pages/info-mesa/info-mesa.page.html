@@ -1,8 +1,25 @@
-<ion-content>
-
-  <!-- Aca debería ir el componente con la reserva actual -->
-  <app-detalle-mesa [mesa]="mesa"></app-detalle-mesa>
-  <ion-button (click)="verEncuesta()" expand="block" fill="clear" shape="round">
-    Realizar encuesta
-  </ion-button>
+<ion-content class="fondo">
+  <ion-grid fixed id="container">
+    <ion-row *ngIf="pedido">
+      <ion-col size="12" class="ion-justify-content-center">
+        <!-- Aca debería ir el componente con la reserva actual -->
+        <app-detalle-reserva [reserva]="pedido"></app-detalle-reserva>
+        <app-detalle-pedido [pedido]="pedido"></app-detalle-pedido>
+        <ion-button (click)="verEncuesta()" expand="block" fill="clear" shape="round">
+          Realizar encuesta
+        </ion-button>
+      </ion-col>
+    </ion-row>
+    <ion-row *ngIf="!pedido">
+      <ion-col size="12">
+        <div id="container">
+          <ion-label>
+            <h1>
+              <strong></strong>No se ha encontrado reserva para esta mesa</strong>
+            </h1>
+          </ion-label>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>

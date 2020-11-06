@@ -33,14 +33,21 @@ export class EscanerQRComponent implements OnInit
     let entidad = textoQR[1];
     let id = textoQR[2];
 
+    console.log(textoQR);
+    console.log(`Entidad: ${entidad}`);
+    console.log(`ID: ${id}`);
+
     switch (entidad)
     {
       case 'Mesa':
-        this.router.navigate(['/info-mesa', id]);
+        console.log(entidad);
+        this.router.navigate(['/home/info-mesa', id]);
         break;
       case 'Producto':
+        console.log(entidad);
         break;
       case 'Ingreso':
+        console.log(entidad);
         this.router.navigate(['/home/info-ingreso']);
         break;
 
