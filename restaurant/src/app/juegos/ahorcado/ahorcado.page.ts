@@ -111,7 +111,7 @@ async mostrarMensajeDePerder() {
         buttons: [{
             text: 'Ok',
             handler: () => {
-                this.pedido.juego.cantidadIntentos = 1;
+                this.pedido.juegos.ahorcado.cantidadIntentos = 1;
                 this.pedidoService.actualizarPedido(this.pedido);
                 this.inicializar();
             }
@@ -132,9 +132,9 @@ async mostrarMensajeDeGanar() {
             text: 'Ok',
             handler: () => {
                 
-                if (this.pedido.juego.cantidadIntentos === 0) {
-                    this.pedido.juego.cantidadIntentos = 1;
-                    this.pedido.juego.descuento = 10;
+                if (this.pedido.juegos.ahorcado.cantidadIntentos === 0) {
+                    this.pedido.juegos.ahorcado.cantidadIntentos = 1;
+                    this.pedido.juegos.ahorcado.descuento = 10;
                     this.pedidoService.actualizarPedido(this.pedido).finally(() => {
                     this.utilsService.presentAlert('Ganaste', '', 'Obtuviste un 10% de descuento es tu pedido');
 

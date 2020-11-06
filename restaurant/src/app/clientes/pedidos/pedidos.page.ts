@@ -125,7 +125,7 @@ export class PedidosPage implements OnInit, OnDestroy {
 
   calcularDescuentoJuego() {
     try {
-       return (this.pedido.juego.descuento * this.calcularTotal()) / 100;
+       return (this.pedido.juegos.ahorcado.descuento * this.calcularTotal()) / 100;
     } catch (error) {
       return 0;
     }

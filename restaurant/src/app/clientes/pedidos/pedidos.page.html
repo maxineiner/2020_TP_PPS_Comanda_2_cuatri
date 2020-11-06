@@ -55,7 +55,7 @@
     </ion-card-content>
   </ion-card>
    
-    <ion-card  *ngIf="pedido?.estado === 'CONFIRMADO'" (click)="irAJuegos()">
+    <ion-card  *ngIf="pedido?.estado === 'ENTREGADO'" (click)="irAJuegos()">
       <ion-card-header>
         <ion-card-subtitle>Obtené descuentos jugando</ion-card-subtitle>
         <ion-card-title>Juegos <ion-label color="success">Jugar ahora</ion-label>

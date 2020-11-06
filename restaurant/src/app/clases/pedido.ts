@@ -27,8 +27,5 @@ export class Pedido {
         limpieza: number,
         comentarios?: string
     };
-    public juego?: {
-        descuento?: number;
-        cantidadIntentos?: number; 
-    }
+    public juegos?: { ahorcado: { descuento?: number;  cantidadIntentos?: number; }}
 }
