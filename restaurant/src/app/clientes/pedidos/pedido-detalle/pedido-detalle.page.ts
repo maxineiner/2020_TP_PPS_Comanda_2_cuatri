@@ -43,7 +43,16 @@ export class PedidoDetallePage implements OnInit {
     }
   }
 
+  calcularDescuentoJuego() {
+    try {
+       return (this.pedido.juegos.ahorcado.descuento * this.calcularTotal()) / 100;
+    } catch (error) {
+      return 0;
+    }
+
+  } 
+
   calcularTotalFinal() {
-    return this.calcularTotal() + this.calcularPropina();
+    return this.calcularTotal() + this.calcularPropina() - this.calcularDescuentoJuego();
   }
 }

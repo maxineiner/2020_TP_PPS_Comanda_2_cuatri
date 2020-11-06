@@ -89,7 +89,7 @@ export class ClientesEsperaPage implements OnInit {
 
     pedido.mesa = { id: mesa.id, numero: mesa.numero };
     pedido.usuario = { id: cliente.id, nombre: cliente.nombre };
-    pedido.juego.cantidadIntentos = 1
+    pedido.juegos.ahorcado.cantidadIntentos = 1
 
     this.utilsService.presentLoading();
     this.pedidoService.crearPedido(pedido).then(resp => {
