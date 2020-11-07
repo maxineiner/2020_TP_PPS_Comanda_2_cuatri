@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { BarcodeScanResult } from '@ionic-native/barcode-scanner';
+import { ActionSheetController, MenuController } from '@ionic/angular';
 import { Cliente } from 'src/app/clases/cliente';
 import { Usuario } from 'src/app/clases/usuario';
 import { AuthService } from 'src/app/services/auth.service';
@@ -18,7 +19,8 @@ export class HomePage implements OnInit
   usuario: Usuario = AuthService.usuario;
   icono = '/assets/img/icono.png';
 
-  constructor(private rolService: RolesService, private authService: AuthService, private router: Router) { }
+  constructor(private rolService: RolesService, private authService: AuthService,
+    private router: Router, private actionSheetController: ActionSheetController) { }
 
   ngOnInit()
   {
@@ -29,7 +31,47 @@ export class HomePage implements OnInit
   {
     this.authService.onLogout();
     this.router.navigate(['/auth-page']);
+  }
 
+
+  async mostrarMenu() 
+  {
+    const actionSheet = await this.actionSheetController.create({
+      header: 'Menú',
+      mode: 'ios',
+      translucent: true,
+      buttons: [{
+        text: 'Clientes',
+        icon: 'person-circle',
+        handler: () => this.router.navigate(['/home/menu-cliente'])
+      },
+      {
+        text: 'Empleados',
+        icon: 'accessibility-outline',
+        handler: () => this.router.navigate(['/home/menu-empleado'])
+      },
+      {
+        text: 'Supervisores',
+        icon: 'glasses-outline',
+        handler: () => this.router.navigate(['/home/menu-jefe'])
+      },
+      {
+        text: 'Mesas',
+        icon: 'storefront-outline',
+        handler: () => this.router.navigate(['/home/menu-mesa'])
+      },
+      {
+        text: 'Cerrar',
+        role: 'cancel',
+        handler: () =>
+        {
+          console.log('Cerrar');
+        }
+      }
+      ]
+    });
+
+    await actionSheet.present();
   }
 
 }
