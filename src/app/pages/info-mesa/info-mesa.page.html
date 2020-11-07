@@ -5,6 +5,9 @@
         <!-- Aca debería ir el componente con la reserva actual -->
         <app-detalle-reserva [reserva]="pedido"></app-detalle-reserva>
         <app-detalle-pedido [pedido]="pedido"></app-detalle-pedido>
+        <ion-button (click)="consultarAlMozo()" expand="block" fill="clear" shape="round">
+          Consultar al mozo
+        </ion-button>
         <ion-button (click)="verEncuesta()" expand="block" fill="clear" shape="round">
           Realizar encuesta
         </ion-button>
@@ -15,7 +18,7 @@
         <div id="container">
           <ion-label>
             <h1>
-              <strong>No se ha encontrado reserva para esta mesa</strong>
+              <strong>Usted no está asignado a esta mesa</strong>
             </h1>
           </ion-label>
         </div>
