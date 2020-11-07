@@ -1,6 +1,6 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([["tap-click-9e4a1234-js"],{
 
-/***/ "./node_modules/@ionic/core/dist/esm/tap-click-9e4a1234.js":
+/***/ "OEt5":
 /*!*****************************************************************!*\
   !*** ./node_modules/@ionic/core/dist/esm/tap-click-9e4a1234.js ***!
   \*****************************************************************/
@@ -10,7 +10,7 @@
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "startTapClick", function() { return startTapClick; });
-/* harmony import */ var _helpers_47d562d2_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./helpers-47d562d2.js */ "./node_modules/@ionic/core/dist/esm/helpers-47d562d2.js");
+/* harmony import */ var _helpers_47d562d2_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./helpers-47d562d2.js */ "9t5z");
 
 
 const startTapClick = (config) => {
