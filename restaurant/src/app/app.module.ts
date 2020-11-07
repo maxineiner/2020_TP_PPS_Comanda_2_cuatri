@@ -14,7 +14,6 @@ import { environment } from 'src/environments/environment';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 
-import { SupervisorComponent } from './altas/supervisor/supervisor.component';
 //import { QRScanner } from '@ionic-native/qr-scanner/ngx';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -39,7 +38,7 @@ import { PedidosPageModule } from './clientes/pedidos/pedidos.module';
 
 
 @NgModule({
-  declarations: [AppComponent,SupervisorComponent,HomeComponent],
+  declarations: [AppComponent,HomeComponent],
   entryComponents: [],
   imports: [
     AngularFireModule.initializeApp(environment.firebaseConfig),
