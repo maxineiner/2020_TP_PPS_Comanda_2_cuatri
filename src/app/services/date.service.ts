@@ -14,12 +14,12 @@ export class DateService
    */
   toTimeStamp(date: Date)
   {
-    return date.getTime() / 1000;
+    return date.getTime() / 1000000;
   }
 
   toDate(timeStamp)
   {
-    let date = new Date(timeStamp * 1000);
+    let date = new Date(timeStamp * 1000000);
     return date;
   }
 

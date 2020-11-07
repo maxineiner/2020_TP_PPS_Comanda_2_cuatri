@@ -11,7 +11,7 @@ import { AngularFireStorage } from "@angular/fire/storage";
 import { ToastController } from "@ionic/angular";
 import { UploadMetadata } from "@angular/fire/storage/interfaces";
 import { AngularFireDatabase } from "@angular/fire/database";
-import * as firebase from 'firebase';
+import *  as firebase from 'firebase';
 
 const { Camera } = Plugins;
 
@@ -119,7 +119,7 @@ export class ImagenService
     // Se sube imagen al Firebase Storage
     return this.storage
       .ref(`${carpeta}/${imagen.id}`)
-      .putString(imagen.base64, firebase.storage.StringFormat.BASE64, metadata)
+      .putString(imagen.base64, firebase.default.storage.StringFormat.BASE64, metadata)
   }
 
   /**

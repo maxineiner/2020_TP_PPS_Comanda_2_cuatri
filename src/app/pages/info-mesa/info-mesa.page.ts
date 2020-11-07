@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Mesa } from 'src/app/clases/mesa';
 import { EstadoPedido, Pedido } from 'src/app/clases/pedido';
+import { Usuario } from 'src/app/clases/usuario';
 import { ClienteService } from 'src/app/services/cliente.service';
+import { DateService } from 'src/app/services/date.service';
 import { MesaService } from 'src/app/services/mesa.service';
 import { PedidoService } from 'src/app/services/pedido.service';
 
@@ -13,11 +15,13 @@ import { PedidoService } from 'src/app/services/pedido.service';
 })
 export class InfoMesaPage implements OnInit
 {
+  usuario: Usuario;
   pedido: Pedido;
   horaActual: Date;
 
   constructor(private route: ActivatedRoute, private mesaService: MesaService,
-    private clienteService: ClienteService, private pedidoService: PedidoService) 
+    private clienteService: ClienteService, private pedidoService: PedidoService,
+    private dateService: DateService) 
   {
     // Se recibe id de Mesa asignada y id de Cliente
     // this.route.params.subscribe(params =>
@@ -43,7 +47,13 @@ export class InfoMesaPage implements OnInit
     this.pedido = PedidoService.pedidos.filter(pedido =>
     {
       // Agregar validacion de hora actual
-      return pedido.estado == EstadoPedido.RESERVADO && pedido.mesa.id === id;
+      if (pedido.cliente && pedido.mesa)
+      {
+        return pedido.estado == EstadoPedido.RESERVADO &&
+          this.compararFechas(this.dateService.toDate(pedido.fechaInicio), horaActual) &&
+          pedido.mesa.id === id &&
+          pedido.cliente.id == this.usuario.id;
+      }
     })[0];
   }
 
@@ -52,4 +62,26 @@ export class InfoMesaPage implements OnInit
     console.log("Ver encuesta");
   }
 
+  consultarAlMozo()
+  {
+
+  }
+
+  compararFechas(fechaA: Date, fechaB: Date)
+  {
+    console.log("Fecha A - Fecha pedido");
+    console.log(fechaA);
+    console.log("Fecha B- Fecha actual");
+    console.log(fechaB);
+
+    if (fechaA.getFullYear() == fechaB.getFullYear() &&
+      fechaA.getMonth() === fechaB.getMonth() &&
+      fechaA.getDate() === fechaB.getMonth() &&
+      fechaA.getHours() === fechaB.getHours())
+    {
+      return true;
+    }
+    return false;
+  }
 }
+
