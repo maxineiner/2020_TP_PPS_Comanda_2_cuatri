@@ -1,15 +1,15 @@
 (function () {
-  (window["webpackJsonp"] = window["webpackJsonp"] || []).push([["swipe-back-2c765762-js"], {
+  (window["webpackJsonp"] = window["webpackJsonp"] || []).push([["swipe-back-53c5a7dd-js"], {
     /***/
-    "3wQK":
+    "xaHa":
     /*!******************************************************************!*\
-      !*** ./node_modules/@ionic/core/dist/esm/swipe-back-2c765762.js ***!
+      !*** ./node_modules/@ionic/core/dist/esm/swipe-back-53c5a7dd.js ***!
       \******************************************************************/
 
     /*! exports provided: createSwipeBackGesture */
 
     /***/
-    function wQK(module, __webpack_exports__, __webpack_require__) {
+    function xaHa(module, __webpack_exports__, __webpack_require__) {
       "use strict";
 
       __webpack_require__.r(__webpack_exports__);
@@ -22,21 +22,21 @@
       /* harmony import */
 
 
-      var _helpers_47d562d2_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
-      /*! ./helpers-47d562d2.js */
-      "9t5z");
+      var _helpers_002e4980_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+      /*! ./helpers-002e4980.js */
+      "OMvp");
       /* harmony import */
 
 
-      var _gesture_controller_89173521_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
-      /*! ./gesture-controller-89173521.js */
-      "rxGk");
+      var _gesture_controller_31cb6bb9_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+      /*! ./gesture-controller-31cb6bb9.js */
+      "y08P");
       /* harmony import */
 
 
-      var _index_eea61379_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
-      /*! ./index-eea61379.js */
-      "ItpF");
+      var _index_f49d994d_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+      /*! ./index-f49d994d.js */
+      "iWo5");
 
       var createSwipeBackGesture = function createSwipeBackGesture(el, canStartHandler, onStartHandler, onMoveHandler, onEndHandler) {
         var win = el.ownerDocument.defaultView;
@@ -75,10 +75,10 @@
            */
 
 
-          onEndHandler(shouldComplete, stepValue <= 0 ? 0.01 : Object(_helpers_47d562d2_js__WEBPACK_IMPORTED_MODULE_0__["e"])(0, stepValue, 0.9999), realDur);
+          onEndHandler(shouldComplete, stepValue <= 0 ? 0.01 : Object(_helpers_002e4980_js__WEBPACK_IMPORTED_MODULE_0__["e"])(0, stepValue, 0.9999), realDur);
         };
 
-        return Object(_index_eea61379_js__WEBPACK_IMPORTED_MODULE_2__["createGesture"])({
+        return Object(_index_f49d994d_js__WEBPACK_IMPORTED_MODULE_2__["createGesture"])({
           el: el,
           gestureName: 'goback-swipe',
           gesturePriority: 40,
@@ -94,4 +94,4 @@
     }
   }]);
 })();
-//# sourceMappingURL=swipe-back-2c765762-js-es5.js.map
+//# sourceMappingURL=swipe-back-53c5a7dd-js-es5.js.map

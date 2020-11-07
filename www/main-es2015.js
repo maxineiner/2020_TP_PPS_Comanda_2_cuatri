@@ -1160,7 +1160,7 @@ JefeService = JefeService_1 = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decor
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<ion-tab-button (click)=\"escanear()\"\r\n                *ngIf=\"rolService.isClienteAceptado(usuario) || \r\nrolService.isClienteAnonimo(usuario) || \r\nrolService.isEmpleadoMozo(usuario)\" color=\"success\">\r\n  <ion-icon name=\"qr-code-sharp\"></ion-icon>\r\n  <ion-label>Escáner QR</ion-label>\r\n</ion-tab-button>");
+/* harmony default export */ __webpack_exports__["default"] = ("<ion-tab-button (click)=\"escanear()\"\r\n                *ngIf=\"rolService.isClienteAceptado(usuario) || \r\nrolService.isClienteAnonimo(usuario) || \r\nrolService.isEmpleadoMozo(usuario)\" color=\"success\" class=\"ion-padding-horizontal\">\r\n  <ion-icon name=\"qr-code-sharp\"></ion-icon>\r\n  <ion-label>Escáner QR</ion-label>\r\n</ion-tab-button>");
 
 /***/ }),
 
@@ -3499,8 +3499,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _capacitor_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @capacitor/core */ "gcOT");
 /* harmony import */ var _angular_fire_storage__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/fire/storage */ "Vaw3");
 /* harmony import */ var _angular_fire_database__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/fire/database */ "sSZD");
-/* harmony import */ var firebase__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! firebase */ "iqUP");
-/* harmony import */ var firebase__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(firebase__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var firebase__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! firebase */ "JZFu");
 
 
 
@@ -3585,7 +3584,7 @@ let ImagenService = class ImagenService {
             // Se sube imagen al Firebase Storage
             return this.storage
                 .ref(`${carpeta}/${imagen.id}`)
-                .putString(imagen.base64, firebase__WEBPACK_IMPORTED_MODULE_6__["storage"].StringFormat.BASE64, metadata);
+                .putString(imagen.base64, firebase__WEBPACK_IMPORTED_MODULE_6__["default"].storage.StringFormat.BASE64, metadata);
         });
     }
     /**

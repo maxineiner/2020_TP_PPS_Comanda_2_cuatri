@@ -1,8 +1,8 @@
-(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["keyboard-dd970efc-js"],{
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["keyboard-5742b5da-js"],{
 
-/***/ "SLyW":
+/***/ "nGaW":
 /*!****************************************************************!*\
-  !*** ./node_modules/@ionic/core/dist/esm/keyboard-dd970efc.js ***!
+  !*** ./node_modules/@ionic/core/dist/esm/keyboard-5742b5da.js ***!
   \****************************************************************/
 /*! exports provided: KEYBOARD_DID_CLOSE, KEYBOARD_DID_OPEN, copyVisualViewport, keyboardDidClose, keyboardDidOpen, keyboardDidResize, resetKeyboardAssist, setKeyboardClose, setKeyboardOpen, startKeyboardAssist, trackViewportChanges */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
@@ -30,25 +30,25 @@ let keyboardOpen = false;
  * This is only used for tests
  */
 const resetKeyboardAssist = () => {
-    previousVisualViewport = {};
-    currentVisualViewport = {};
-    keyboardOpen = false;
+  previousVisualViewport = {};
+  currentVisualViewport = {};
+  keyboardOpen = false;
 };
 const startKeyboardAssist = (win) => {
-    startNativeListeners(win);
-    if (!win.visualViewport) {
-        return;
+  startNativeListeners(win);
+  if (!win.visualViewport) {
+    return;
+  }
+  currentVisualViewport = copyVisualViewport(win.visualViewport);
+  win.visualViewport.onresize = () => {
+    trackViewportChanges(win);
+    if (keyboardDidOpen() || keyboardDidResize(win)) {
+      setKeyboardOpen(win);
     }
-    currentVisualViewport = copyVisualViewport(win.visualViewport);
-    win.visualViewport.onresize = () => {
-        trackViewportChanges(win);
-        if (keyboardDidOpen() || keyboardDidResize(win)) {
-            setKeyboardOpen(win);
-        }
-        else if (keyboardDidClose(win)) {
-            setKeyboardClose(win);
-        }
-    };
+    else if (keyboardDidClose(win)) {
+      setKeyboardClose(win);
+    }
+  };
 };
 /**
  * Listen for events fired by native keyboard plugin
@@ -56,16 +56,16 @@ const startKeyboardAssist = (win) => {
  * in one place.
  */
 const startNativeListeners = (win) => {
-    win.addEventListener('keyboardDidShow', ev => setKeyboardOpen(win, ev));
-    win.addEventListener('keyboardDidHide', () => setKeyboardClose(win));
+  win.addEventListener('keyboardDidShow', ev => setKeyboardOpen(win, ev));
+  win.addEventListener('keyboardDidHide', () => setKeyboardClose(win));
 };
 const setKeyboardOpen = (win, ev) => {
-    fireKeyboardOpenEvent(win, ev);
-    keyboardOpen = true;
+  fireKeyboardOpenEvent(win, ev);
+  keyboardOpen = true;
 };
 const setKeyboardClose = (win) => {
-    fireKeyboardCloseEvent(win);
-    keyboardOpen = false;
+  fireKeyboardCloseEvent(win);
+  keyboardOpen = false;
 };
 /**
  * Returns `true` if the `keyboardOpen` flag is not
@@ -80,17 +80,17 @@ const setKeyboardClose = (win) => {
  * scale value.
  */
 const keyboardDidOpen = () => {
-    const scaledHeightDifference = (previousVisualViewport.height - currentVisualViewport.height) * currentVisualViewport.scale;
-    return (!keyboardOpen &&
-        previousVisualViewport.width === currentVisualViewport.width &&
-        scaledHeightDifference > KEYBOARD_THRESHOLD);
+  const scaledHeightDifference = (previousVisualViewport.height - currentVisualViewport.height) * currentVisualViewport.scale;
+  return (!keyboardOpen &&
+    previousVisualViewport.width === currentVisualViewport.width &&
+    scaledHeightDifference > KEYBOARD_THRESHOLD);
 };
 /**
  * Returns `true` if the keyboard is open,
  * but the keyboard did not close
  */
 const keyboardDidResize = (win) => {
-    return keyboardOpen && !keyboardDidClose(win);
+  return keyboardOpen && !keyboardDidClose(win);
 };
 /**
  * Determine if the keyboard was closed
@@ -99,24 +99,24 @@ const keyboardDidResize = (win) => {
  * layout viewport height.
  */
 const keyboardDidClose = (win) => {
-    return keyboardOpen && currentVisualViewport.height === win.innerHeight;
+  return keyboardOpen && currentVisualViewport.height === win.innerHeight;
 };
 /**
  * Dispatch a keyboard open event
  */
 const fireKeyboardOpenEvent = (win, nativeEv) => {
-    const keyboardHeight = nativeEv ? nativeEv.keyboardHeight : win.innerHeight - currentVisualViewport.height;
-    const ev = new CustomEvent(KEYBOARD_DID_OPEN, {
-        detail: { keyboardHeight }
-    });
-    win.dispatchEvent(ev);
+  const keyboardHeight = nativeEv ? nativeEv.keyboardHeight : win.innerHeight - currentVisualViewport.height;
+  const ev = new CustomEvent(KEYBOARD_DID_OPEN, {
+    detail: { keyboardHeight }
+  });
+  win.dispatchEvent(ev);
 };
 /**
  * Dispatch a keyboard close event
  */
 const fireKeyboardCloseEvent = (win) => {
-    const ev = new CustomEvent(KEYBOARD_DID_CLOSE);
-    win.dispatchEvent(ev);
+  const ev = new CustomEvent(KEYBOARD_DID_CLOSE);
+  win.dispatchEvent(ev);
 };
 /**
  * Given a window object, create a copy of
@@ -125,23 +125,23 @@ const fireKeyboardCloseEvent = (win) => {
  * layout viewport states
  */
 const trackViewportChanges = (win) => {
-    previousVisualViewport = Object.assign({}, currentVisualViewport);
-    currentVisualViewport = copyVisualViewport(win.visualViewport);
+  previousVisualViewport = Object.assign({}, currentVisualViewport);
+  currentVisualViewport = copyVisualViewport(win.visualViewport);
 };
 /**
  * Creates a deep copy of the visual viewport
  * at a given state
  */
 const copyVisualViewport = (visualViewport) => {
-    return {
-        width: Math.round(visualViewport.width),
-        height: Math.round(visualViewport.height),
-        offsetTop: visualViewport.offsetTop,
-        offsetLeft: visualViewport.offsetLeft,
-        pageTop: visualViewport.pageTop,
-        pageLeft: visualViewport.pageLeft,
-        scale: visualViewport.scale
-    };
+  return {
+    width: Math.round(visualViewport.width),
+    height: Math.round(visualViewport.height),
+    offsetTop: visualViewport.offsetTop,
+    offsetLeft: visualViewport.offsetLeft,
+    pageTop: visualViewport.pageTop,
+    pageLeft: visualViewport.pageLeft,
+    scale: visualViewport.scale
+  };
 };
 
 
@@ -150,4 +150,4 @@ const copyVisualViewport = (visualViewport) => {
 /***/ })
 
 }]);
-//# sourceMappingURL=keyboard-dd970efc-js-es2015.js.map
+//# sourceMappingURL=keyboard-5742b5da-js-es2015.js.map

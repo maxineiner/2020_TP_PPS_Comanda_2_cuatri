@@ -11,17 +11,17 @@
 
   function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
-  (window["webpackJsonp"] = window["webpackJsonp"] || []).push([["shadow-css-c63963b5-js"], {
+  (window["webpackJsonp"] = window["webpackJsonp"] || []).push([["shadow-css-58508bb5-js"], {
     /***/
-    "YBs9":
+    "6foE":
     /*!******************************************************************!*\
-      !*** ./node_modules/@ionic/core/dist/esm/shadow-css-c63963b5.js ***!
+      !*** ./node_modules/@ionic/core/dist/esm/shadow-css-58508bb5.js ***!
       \******************************************************************/
 
     /*! exports provided: scopeCss */
 
     /***/
-    function YBs9(module, __webpack_exports__, __webpack_require__) {
+    function foE(module, __webpack_exports__, __webpack_require__) {
       "use strict";
 
       __webpack_require__.r(__webpack_exports__);
@@ -32,7 +32,7 @@
         return scopeCss;
       });
       /*
-       Stencil Client Platform v1.17.3 | MIT Licensed | https://stenciljs.com
+       Stencil Client Platform v2.1.2 | MIT Licensed | https://stenciljs.com
        */
 
       /**
@@ -493,4 +493,4 @@
     }
   }]);
 })();
-//# sourceMappingURL=shadow-css-c63963b5-js-es5.js.map
+//# sourceMappingURL=shadow-css-58508bb5-js-es5.js.map

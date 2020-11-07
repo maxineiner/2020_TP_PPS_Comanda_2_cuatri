@@ -2035,7 +2035,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = "<ion-tab-button (click)=\"escanear()\"\r\n                *ngIf=\"rolService.isClienteAceptado(usuario) || \r\nrolService.isClienteAnonimo(usuario) || \r\nrolService.isEmpleadoMozo(usuario)\" color=\"success\">\r\n  <ion-icon name=\"qr-code-sharp\"></ion-icon>\r\n  <ion-label>Escáner QR</ion-label>\r\n</ion-tab-button>";
+      __webpack_exports__["default"] = "<ion-tab-button (click)=\"escanear()\"\r\n                *ngIf=\"rolService.isClienteAceptado(usuario) || \r\nrolService.isClienteAnonimo(usuario) || \r\nrolService.isEmpleadoMozo(usuario)\" color=\"success\" class=\"ion-padding-horizontal\">\r\n  <ion-icon name=\"qr-code-sharp\"></ion-icon>\r\n  <ion-label>Escáner QR</ion-label>\r\n</ion-tab-button>";
       /***/
     },
 
@@ -6236,11 +6236,7 @@
 
       var firebase__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
       /*! firebase */
-      "iqUP");
-      /* harmony import */
-
-
-      var firebase__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(firebase__WEBPACK_IMPORTED_MODULE_6__);
+      "JZFu");
 
       var Camera = _capacitor_core__WEBPACK_IMPORTED_MODULE_3__["Plugins"].Camera;
 
@@ -6448,7 +6444,7 @@
                         contentType: "image/jpeg"
                       }; // Se sube imagen al Firebase Storage
 
-                      return _context35.abrupt("return", this.storage.ref("".concat(carpeta, "/").concat(imagen.id)).putString(imagen.base64, firebase__WEBPACK_IMPORTED_MODULE_6__["storage"].StringFormat.BASE64, metadata));
+                      return _context35.abrupt("return", this.storage.ref("".concat(carpeta, "/").concat(imagen.id)).putString(imagen.base64, firebase__WEBPACK_IMPORTED_MODULE_6__["default"].storage.StringFormat.BASE64, metadata));
 
                     case 3:
                     case "end":

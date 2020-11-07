@@ -1,15 +1,15 @@
 (function () {
-  (window["webpackJsonp"] = window["webpackJsonp"] || []).push([["tap-click-9e4a1234-js"], {
+  (window["webpackJsonp"] = window["webpackJsonp"] || []).push([["tap-click-9f8fd111-js"], {
     /***/
-    "OEt5":
+    "F6zI":
     /*!*****************************************************************!*\
-      !*** ./node_modules/@ionic/core/dist/esm/tap-click-9e4a1234.js ***!
+      !*** ./node_modules/@ionic/core/dist/esm/tap-click-9f8fd111.js ***!
       \*****************************************************************/
 
     /*! exports provided: startTapClick */
 
     /***/
-    function OEt5(module, __webpack_exports__, __webpack_require__) {
+    function F6zI(module, __webpack_exports__, __webpack_require__) {
       "use strict";
 
       __webpack_require__.r(__webpack_exports__);
@@ -22,9 +22,9 @@
       /* harmony import */
 
 
-      var _helpers_47d562d2_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
-      /*! ./helpers-47d562d2.js */
-      "9t5z");
+      var _helpers_002e4980_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+      /*! ./helpers-002e4980.js */
+      "OMvp");
 
       var startTapClick = function startTapClick(config) {
         var lastTouch = -MOUSE_WAIT * 10;
@@ -42,17 +42,17 @@
 
 
         var onTouchStart = function onTouchStart(ev) {
-          lastTouch = Object(_helpers_47d562d2_js__WEBPACK_IMPORTED_MODULE_0__["n"])(ev);
+          lastTouch = Object(_helpers_002e4980_js__WEBPACK_IMPORTED_MODULE_0__["n"])(ev);
           pointerDown(ev);
         };
 
         var onTouchEnd = function onTouchEnd(ev) {
-          lastTouch = Object(_helpers_47d562d2_js__WEBPACK_IMPORTED_MODULE_0__["n"])(ev);
+          lastTouch = Object(_helpers_002e4980_js__WEBPACK_IMPORTED_MODULE_0__["n"])(ev);
           pointerUp(ev);
         };
 
         var onMouseDown = function onMouseDown(ev) {
-          var t = Object(_helpers_47d562d2_js__WEBPACK_IMPORTED_MODULE_0__["n"])(ev) - MOUSE_WAIT;
+          var t = Object(_helpers_002e4980_js__WEBPACK_IMPORTED_MODULE_0__["n"])(ev) - MOUSE_WAIT;
 
           if (lastTouch < t) {
             pointerDown(ev);
@@ -60,7 +60,7 @@
         };
 
         var onMouseUp = function onMouseUp(ev) {
-          var t = Object(_helpers_47d562d2_js__WEBPACK_IMPORTED_MODULE_0__["n"])(ev) - MOUSE_WAIT;
+          var t = Object(_helpers_002e4980_js__WEBPACK_IMPORTED_MODULE_0__["n"])(ev) - MOUSE_WAIT;
 
           if (lastTouch < t) {
             pointerUp(ev);
@@ -99,7 +99,7 @@
           clearTimeout(activeDefer);
           activeDefer = undefined;
 
-          var _Object = Object(_helpers_47d562d2_js__WEBPACK_IMPORTED_MODULE_0__["p"])(ev),
+          var _Object = Object(_helpers_002e4980_js__WEBPACK_IMPORTED_MODULE_0__["p"])(ev),
               x = _Object.x,
               y = _Object.y; // deactivate selected
 
@@ -233,4 +233,4 @@
     }
   }]);
 })();
-//# sourceMappingURL=tap-click-9e4a1234-js-es5.js.map
+//# sourceMappingURL=tap-click-9f8fd111-js-es5.js.map

@@ -248,7 +248,7 @@ NotificationsService = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])(
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<ion-content>\r\n\r\n  <ion-fab class=\"ion-margin-bottom\" vertical=\"top\" horizontal=\"end\" slot=\"fixed\">\r\n    <ion-fab-button color=\"dark\">\r\n      <img [src]=\"icono\" alt=\"icono-app\">\r\n    </ion-fab-button>\r\n    <ion-fab-list side=\"start\">\r\n      <ion-fab-button color=\"tertiary\" translucent=\"true\">\r\n        <ion-icon name=\"log-out\" (click)=\"cerrarSesion()\"></ion-icon>\r\n      </ion-fab-button>\r\n    </ion-fab-list>\r\n  </ion-fab>\r\n\r\n</ion-content>\r\n\r\n\r\n<ion-tabs>\r\n\r\n  <ion-tab-bar slot=\"bottom\" color=\"dark\">\r\n    <ion-tab-button tab=\"tab1\" color=\"success\">\r\n      <ion-icon name=\"triangle\"></ion-icon>\r\n      <ion-label>Test</ion-label>\r\n    </ion-tab-button>\r\n\r\n    <ion-tab-button tab=\"menu-empleado\" *ngIf=\"rolService.isJefe(usuario)\" color=\"success\">\r\n      <ion-icon name=\"accessibility-outline\"></ion-icon>\r\n      <ion-label>Empleados</ion-label>\r\n    </ion-tab-button>\r\n\r\n\r\n    <ion-tab-button tab=\"eye-jefe\" *ngIf=\"rolService.isJefe(usuario)\" color=\"success\">\r\n      <ion-icon name=\"glasses-outline\"></ion-icon>\r\n      <ion-label>Jefes</ion-label>\r\n    </ion-tab-button>\r\n\r\n    <app-escanerQR [usuario]=\"usuario\"></app-escanerQR>\r\n\r\n    <ion-tab-button tab=\"menu-producto\"\r\n                    *ngIf=\"rolService.isClienteAceptado(usuario) || \r\n                    rolService.isClienteAnonimo(usuario) ||\r\n                    rolService.isJefe(usuario)\">\r\n      <ion-icon name=\"restaurant\"></ion-icon>\r\n      <ion-label>Carta</ion-label>\r\n    </ion-tab-button>\r\n\r\n    <ion-tab-button tab=\"menu-cliente\" *ngIf=\"rolService.isJefe(usuario)\">\r\n      <ion-icon name=\"person-circle\"></ion-icon>\r\n      <ion-label>Clientes</ion-label>\r\n    </ion-tab-button>\r\n\r\n    <ion-tab-button tab=\"menu-pedidos\">\r\n      <ion-icon name=\"fast-food\"></ion-icon>\r\n      <ion-label>Pedidos</ion-label>\r\n    </ion-tab-button>\r\n\r\n    <ion-tab-button tab=\"lista-de-espera\" *ngIf=\"rolService.isEmpleadoMozo(usuario)\">\r\n      <ion-icon name=\"hourglass-sharp\"></ion-icon>\r\n      <ion-label>Lista de espera</ion-label>\r\n    </ion-tab-button>\r\n\r\n    <ion-tab-button tab=\"menu-mesa\" *ngIf=\"rolService.isJefe(usuario)\">\r\n      <ion-icon name=\"storefront-outline\"></ion-icon>\r\n      <ion-label>Mesas</ion-label>\r\n    </ion-tab-button>\r\n\r\n\r\n  </ion-tab-bar>\r\n\r\n</ion-tabs>");
+/* harmony default export */ __webpack_exports__["default"] = ("<ion-content>\r\n\r\n  <ion-fab class=\"ion-margin-bottom\" vertical=\"top\" horizontal=\"end\" slot=\"fixed\">\r\n    <ion-fab-button color=\"dark\">\r\n      <img [src]=\"icono\" alt=\"icono-app\">\r\n    </ion-fab-button>\r\n    <ion-fab-list side=\"start\">\r\n      <ion-fab-button color=\"tertiary\" translucent=\"true\">\r\n        <ion-icon name=\"log-out\" (click)=\"cerrarSesion()\"></ion-icon>\r\n      </ion-fab-button>\r\n      <ion-fab-button color=\"success\" translucent=\"true\" [routerLink]=\"['/home/tab1']\">\r\n        <ion-icon name=\"triangle\"></ion-icon>\r\n      </ion-fab-button>\r\n    </ion-fab-list>\r\n  </ion-fab>\r\n\r\n</ion-content>\r\n\r\n\r\n<ion-tabs>\r\n\r\n  <ion-tab-bar slot=\"bottom\" color=\"dark\">\r\n\r\n    <app-escanerQR [usuario]=\"usuario\"></app-escanerQR>\r\n\r\n\r\n    <ion-tab-button tab=\"menu-producto\"\r\n                    *ngIf=\"rolService.isClienteAceptado(usuario) || \r\n                    rolService.isClienteAnonimo(usuario) ||\r\n                    rolService.isJefe(usuario)\">\r\n      <ion-icon name=\"restaurant\"></ion-icon>\r\n      <ion-label>Carta</ion-label>\r\n    </ion-tab-button>\r\n\r\n    <ion-tab-button tab=\"menu-reserva\" *ngIf=\"rolService.isJefe(usuario) || rolService.isClienteAceptado(usuario)\"\r\n                    color=\"success\">\r\n      <ion-icon name=\"color-wand-outline\"></ion-icon>\r\n      <ion-label>Reservas</ion-label>\r\n    </ion-tab-button>\r\n\r\n    <ion-tab-button tab=\"menu-pedidos\" *ngIf=\"rolService.isEmpleado(usuario)\">\r\n      <ion-icon name=\"fast-food\"></ion-icon>\r\n      <ion-label>Pedidos</ion-label>\r\n    </ion-tab-button>\r\n\r\n    <ion-tab-button tab=\"lista-de-espera\" *ngIf=\"rolService.isEmpleadoMozo(usuario)\">\r\n      <ion-icon name=\"hourglass-sharp\"></ion-icon>\r\n      <ion-label>Lista de espera</ion-label>\r\n    </ion-tab-button>\r\n\r\n    <ion-tab-button *ngIf=\"rolService.isJefe(usuario)\" (click)=\"mostrarMenu()\">\r\n      <ion-icon name=\"menu\"></ion-icon>\r\n      <ion-label>Menu</ion-label>\r\n    </ion-tab-button>\r\n\r\n  </ion-tab-bar>\r\n\r\n</ion-tabs>");
 
 /***/ }),
 
@@ -267,9 +267,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _home_page_scss__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./home.page.scss */ "/rnz");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/core */ "fXoL");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/router */ "tyNb");
-/* harmony import */ var src_app_services_auth_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/services/auth.service */ "lGQG");
-/* harmony import */ var src_app_services_notifications_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/services/notifications.service */ "KWWs");
-/* harmony import */ var src_app_services_roles_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/services/roles.service */ "0ceX");
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @ionic/angular */ "TEn/");
+/* harmony import */ var src_app_services_auth_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/services/auth.service */ "lGQG");
+/* harmony import */ var src_app_services_notifications_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/services/notifications.service */ "KWWs");
+/* harmony import */ var src_app_services_roles_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! src/app/services/roles.service */ "0ceX");
+
 
 
 
@@ -279,29 +281,69 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let HomePage = class HomePage {
-    constructor(rolService, authService, router, notifications) {
+    constructor(rolService, authService, router, notifications, actionSheetController) {
         this.rolService = rolService;
         this.authService = authService;
         this.router = router;
         this.notifications = notifications;
+        this.actionSheetController = actionSheetController;
         // Código de prueba
-        this.usuario = src_app_services_auth_service__WEBPACK_IMPORTED_MODULE_5__["AuthService"].usuario;
+        this.usuario = src_app_services_auth_service__WEBPACK_IMPORTED_MODULE_6__["AuthService"].usuario;
         this.icono = '/assets/img/icono.png';
     }
     ngOnInit() {
-        this.usuario = src_app_services_auth_service__WEBPACK_IMPORTED_MODULE_5__["AuthService"].usuario;
+        this.usuario = src_app_services_auth_service__WEBPACK_IMPORTED_MODULE_6__["AuthService"].usuario;
         this.notifications.initPush();
     }
     cerrarSesion() {
         this.authService.onLogout();
         this.router.navigate(['/auth-page']);
     }
+    mostrarMenu() {
+        return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
+            const actionSheet = yield this.actionSheetController.create({
+                header: 'Menú',
+                mode: 'ios',
+                translucent: true,
+                buttons: [{
+                        text: 'Clientes',
+                        icon: 'person-circle',
+                        handler: () => this.router.navigate(['/home/menu-cliente'])
+                    },
+                    {
+                        text: 'Empleados',
+                        icon: 'accessibility-outline',
+                        handler: () => this.router.navigate(['/home/menu-empleado'])
+                    },
+                    {
+                        text: 'Supervisores',
+                        icon: 'glasses-outline',
+                        handler: () => this.router.navigate(['/home/menu-jefe'])
+                    },
+                    {
+                        text: 'Mesas',
+                        icon: 'storefront-outline',
+                        handler: () => this.router.navigate(['/home/menu-mesa'])
+                    },
+                    {
+                        text: 'Cerrar',
+                        role: 'cancel',
+                        handler: () => {
+                            console.log('Cerrar');
+                        }
+                    }
+                ]
+            });
+            yield actionSheet.present();
+        });
+    }
 };
 HomePage.ctorParameters = () => [
-    { type: src_app_services_roles_service__WEBPACK_IMPORTED_MODULE_7__["RolesService"] },
-    { type: src_app_services_auth_service__WEBPACK_IMPORTED_MODULE_5__["AuthService"] },
+    { type: src_app_services_roles_service__WEBPACK_IMPORTED_MODULE_8__["RolesService"] },
+    { type: src_app_services_auth_service__WEBPACK_IMPORTED_MODULE_6__["AuthService"] },
     { type: _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"] },
-    { type: src_app_services_notifications_service__WEBPACK_IMPORTED_MODULE_6__["NotificationsService"] }
+    { type: src_app_services_notifications_service__WEBPACK_IMPORTED_MODULE_7__["NotificationsService"] },
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["ActionSheetController"] }
 ];
 HomePage = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_3__["Component"])({

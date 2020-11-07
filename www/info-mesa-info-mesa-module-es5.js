@@ -86,6 +86,136 @@
     },
 
     /***/
+    "Ig2y":
+    /*!******************************************!*\
+      !*** ./src/app/services/date.service.ts ***!
+      \******************************************/
+
+    /*! exports provided: DateService */
+
+    /***/
+    function Ig2y(module, __webpack_exports__, __webpack_require__) {
+      "use strict";
+
+      __webpack_require__.r(__webpack_exports__);
+      /* harmony export (binding) */
+
+
+      __webpack_require__.d(__webpack_exports__, "DateService", function () {
+        return DateService;
+      });
+      /* harmony import */
+
+
+      var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+      /*! tslib */
+      "mrSG");
+      /* harmony import */
+
+
+      var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+      /*! @angular/core */
+      "fXoL");
+
+      var DateService = /*#__PURE__*/function () {
+        function DateService() {
+          _classCallCheck(this, DateService);
+        }
+        /**
+         * convierte un objeto Date a timeStamp
+         * @param date
+         */
+
+
+        _createClass(DateService, [{
+          key: "toTimeStamp",
+          value: function toTimeStamp(date) {
+            return date.getTime() / 1000000;
+          }
+        }, {
+          key: "toDate",
+          value: function toDate(timeStamp) {
+            var date = new Date(timeStamp * 1000000);
+            return date;
+          }
+          /**
+           * Convierte fecha en formato ISO a objeto Date con fecha local
+           * @param stringISO Fecha en formato ISO string
+           */
+
+        }, {
+          key: "getDateObject",
+          value: function getDateObject(stringISO) {
+            var timeStamp = Date.parse(stringISO);
+            var fecha = new Date(timeStamp);
+            var anio = fecha.getFullYear();
+            var mes = fecha.getMonth();
+            var dia = fecha.getDate();
+            var horas = fecha.getHours();
+            var minutos = fecha.getMinutes();
+            var newDate = new Date(anio, mes - 1, dia, horas, minutos, 0, 0);
+            return newDate;
+          }
+          /**Funcion para agregar minutos a un timeStamp
+          * @param timeStamp TimeStamp
+          * @param minutosAAgregar Minutos a agregar
+          * @returns TimeStamp con los minutos agregados
+          */
+
+        }, {
+          key: "sumarMinutos",
+          value: function sumarMinutos(timeStamp, minutosASumar) {
+            var nuevoHorario = timeStamp + minutosASumar * 60;
+            return nuevoHorario;
+          }
+        }, {
+          key: "restarMinutos",
+          value: function restarMinutos(timeStamp, minutosARestar) {
+            var nuevoHorario = timeStamp - minutosARestar * 60;
+            return nuevoHorario;
+          }
+          /**
+           * Obtiene fecha local en formato ISO string
+           * @param date
+           */
+
+        }, {
+          key: "getIsoLocalTime",
+          value: function getIsoLocalTime(date) {
+            var isoLocalTime = date.getFullYear().toString() + '-';
+
+            if (date.getMonth() + 1 < 10) {
+              isoLocalTime += '0' + (date.getMonth() + 1) + '-';
+            } else {
+              isoLocalTime += date.getMonth() + 1 + '-';
+            }
+
+            if (date.getDate() < 10) {
+              isoLocalTime += '0' + date.getDate() + 'T';
+            } else {
+              isoLocalTime += date.getDate() + 'T';
+            }
+
+            isoLocalTime += date.toLocaleTimeString();
+            console.log('Mi ISOtimeString', isoLocalTime);
+            return isoLocalTime;
+          }
+        }]);
+
+        return DateService;
+      }();
+
+      DateService.ctorParameters = function () {
+        return [];
+      };
+
+      DateService = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
+        providedIn: 'root'
+      })], DateService);
+      /***/
+    },
+
+    /***/
     "PZA/":
     /*!*****************************************************!*\
       !*** ./src/app/pages/info-mesa/info-mesa.page.scss ***!
@@ -121,7 +251,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = "<ion-content class=\"fondo\">\r\n  <ion-grid fixed id=\"container\">\r\n    <ion-row *ngIf=\"pedido\">\r\n      <ion-col size=\"12\" class=\"ion-justify-content-center\">\r\n        <!-- Aca debería ir el componente con la reserva actual -->\r\n        <app-detalle-reserva [reserva]=\"pedido\"></app-detalle-reserva>\r\n        <app-detalle-pedido [pedido]=\"pedido\"></app-detalle-pedido>\r\n        <ion-button (click)=\"verEncuesta()\" expand=\"block\" fill=\"clear\" shape=\"round\">\r\n          Realizar encuesta\r\n        </ion-button>\r\n      </ion-col>\r\n    </ion-row>\r\n    <ion-row *ngIf=\"!pedido\">\r\n      <ion-col size=\"12\">\r\n        <div id=\"container\">\r\n          <ion-label>\r\n            <h1>\r\n              <strong></strong>No se ha encontrado reserva para esta mesa</strong>\r\n            </h1>\r\n          </ion-label>\r\n        </div>\r\n      </ion-col>\r\n    </ion-row>\r\n  </ion-grid>\r\n</ion-content>";
+      __webpack_exports__["default"] = "<ion-content class=\"fondo\">\r\n  <ion-grid fixed id=\"container\">\r\n    <ion-row *ngIf=\"pedido\">\r\n      <ion-col size=\"12\" class=\"ion-justify-content-center\">\r\n        <!-- Aca debería ir el componente con la reserva actual -->\r\n        <app-detalle-reserva [reserva]=\"pedido\"></app-detalle-reserva>\r\n        <app-detalle-pedido [pedido]=\"pedido\"></app-detalle-pedido>\r\n        <ion-button (click)=\"consultarAlMozo()\" expand=\"block\" fill=\"clear\" shape=\"round\">\r\n          Consultar al mozo\r\n        </ion-button>\r\n        <ion-button (click)=\"verEncuesta()\" expand=\"block\" fill=\"clear\" shape=\"round\">\r\n          Realizar encuesta\r\n        </ion-button>\r\n      </ion-col>\r\n    </ion-row>\r\n    <ion-row *ngIf=\"!pedido\">\r\n      <ion-col size=\"12\">\r\n        <div id=\"container\">\r\n          <ion-label>\r\n            <h1>\r\n              <strong>Usted no está asignado a esta mesa</strong>\r\n            </h1>\r\n          </ion-label>\r\n        </div>\r\n      </ion-col>\r\n    </ion-row>\r\n  </ion-grid>\r\n</ion-content>";
       /***/
     },
 
@@ -189,24 +319,31 @@
       /* harmony import */
 
 
-      var src_app_services_mesa_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
+      var src_app_services_date_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
+      /*! src/app/services/date.service */
+      "Ig2y");
+      /* harmony import */
+
+
+      var src_app_services_mesa_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
       /*! src/app/services/mesa.service */
       "R+YK");
       /* harmony import */
 
 
-      var src_app_services_pedido_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
+      var src_app_services_pedido_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
       /*! src/app/services/pedido.service */
       "KG2h");
 
       var InfoMesaPage = /*#__PURE__*/function () {
-        function InfoMesaPage(route, mesaService, clienteService, pedidoService) {
+        function InfoMesaPage(route, mesaService, clienteService, pedidoService, dateService) {
           _classCallCheck(this, InfoMesaPage);
 
           this.route = route;
           this.mesaService = mesaService;
           this.clienteService = clienteService;
-          this.pedidoService = pedidoService; // Se recibe id de Mesa asignada y id de Cliente
+          this.pedidoService = pedidoService;
+          this.dateService = dateService; // Se recibe id de Mesa asignada y id de Cliente
           // this.route.params.subscribe(params =>
           // {
           //   console.log(params['id']);
@@ -226,6 +363,8 @@
           key: "buscarReserva",
           value: function buscarReserva(id) {
             return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
+              var _this = this;
+
               var horaActual;
               return regeneratorRuntime.wrap(function _callee$(_context) {
                 while (1) {
@@ -233,9 +372,11 @@
                     case 0:
                       horaActual = new Date(); // Se debería traer Entidad con información sobre Pedido y Cliente de Mesa
 
-                      this.pedido = src_app_services_pedido_service__WEBPACK_IMPORTED_MODULE_8__["PedidoService"].pedidos.filter(function (pedido) {
+                      this.pedido = src_app_services_pedido_service__WEBPACK_IMPORTED_MODULE_9__["PedidoService"].pedidos.filter(function (pedido) {
                         // Agregar validacion de hora actual
-                        return pedido.estado == src_app_clases_pedido__WEBPACK_IMPORTED_MODULE_5__["EstadoPedido"].RESERVADO && pedido.mesa.id === id;
+                        if (pedido.cliente && pedido.mesa) {
+                          return pedido.estado == src_app_clases_pedido__WEBPACK_IMPORTED_MODULE_5__["EstadoPedido"].RESERVADO && _this.compararFechas(_this.dateService.toDate(pedido.fechaInicio), horaActual) && pedido.mesa.id === id && pedido.cliente.id == _this.usuario.id;
+                        }
                       })[0];
 
                     case 2:
@@ -251,6 +392,23 @@
           value: function verEncuesta() {
             console.log("Ver encuesta");
           }
+        }, {
+          key: "consultarAlMozo",
+          value: function consultarAlMozo() {}
+        }, {
+          key: "compararFechas",
+          value: function compararFechas(fechaA, fechaB) {
+            console.log("Fecha A - Fecha pedido");
+            console.log(fechaA);
+            console.log("Fecha B- Fecha actual");
+            console.log(fechaB);
+
+            if (fechaA.getFullYear() == fechaB.getFullYear() && fechaA.getMonth() === fechaB.getMonth() && fechaA.getDate() === fechaB.getMonth() && fechaA.getHours() === fechaB.getHours()) {
+              return true;
+            }
+
+            return false;
+          }
         }]);
 
         return InfoMesaPage;
@@ -260,11 +418,13 @@
         return [{
           type: _angular_router__WEBPACK_IMPORTED_MODULE_4__["ActivatedRoute"]
         }, {
-          type: src_app_services_mesa_service__WEBPACK_IMPORTED_MODULE_7__["MesaService"]
+          type: src_app_services_mesa_service__WEBPACK_IMPORTED_MODULE_8__["MesaService"]
         }, {
           type: src_app_services_cliente_service__WEBPACK_IMPORTED_MODULE_6__["ClienteService"]
         }, {
-          type: src_app_services_pedido_service__WEBPACK_IMPORTED_MODULE_8__["PedidoService"]
+          type: src_app_services_pedido_service__WEBPACK_IMPORTED_MODULE_9__["PedidoService"]
+        }, {
+          type: src_app_services_date_service__WEBPACK_IMPORTED_MODULE_7__["DateService"]
         }];
       };
 

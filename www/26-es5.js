@@ -40,51 +40,51 @@
       /* harmony import */
 
 
-      var _index_92848855_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
-      /*! ./index-92848855.js */
-      "sxy2");
+      var _index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+      /*! ./index-e806d1f6.js */
+      "A36C");
       /* harmony import */
 
 
-      var _ionic_global_23e7365a_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
-      /*! ./ionic-global-23e7365a.js */
-      "N4tN");
+      var _ionic_global_9d5c8ee3_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+      /*! ./ionic-global-9d5c8ee3.js */
+      "Zgba");
       /* harmony import */
 
 
-      var _helpers_47d562d2_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
-      /*! ./helpers-47d562d2.js */
-      "9t5z");
+      var _helpers_002e4980_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+      /*! ./helpers-002e4980.js */
+      "OMvp");
       /* harmony import */
 
 
-      var _animation_239bd3e5_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
-      /*! ./animation-239bd3e5.js */
-      "L1bk");
+      var _animation_ede2d71c_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+      /*! ./animation-ede2d71c.js */
+      "btv9");
       /* harmony import */
 
 
-      var _cubic_bezier_685f606a_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
-      /*! ./cubic-bezier-685f606a.js */
-      "PLvT");
+      var _cubic_bezier_eea9a7a9_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+      /*! ./cubic-bezier-eea9a7a9.js */
+      "bC4P");
       /* harmony import */
 
 
-      var _index_79d74e0b_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
-      /*! ./index-79d74e0b.js */
-      "PQ8F");
+      var _index_9e3fe806_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+      /*! ./index-9e3fe806.js */
+      "39oe");
       /* harmony import */
 
 
-      var _haptic_7b8ba70a_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
-      /*! ./haptic-7b8ba70a.js */
-      "2c9M");
+      var _haptic_27b3f981_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
+      /*! ./haptic-27b3f981.js */
+      "qULd");
       /* harmony import */
 
 
-      var _spinner_configs_c78e170e_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
-      /*! ./spinner-configs-c78e170e.js */
-      "6i10");
+      var _spinner_configs_cd7845af_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
+      /*! ./spinner-configs-cd7845af.js */
+      "h3R7");
 
       var getRefresherAnimationType = function getRefresherAnimationType(contentEl) {
         var previousSibling = contentEl.previousElementSibling;
@@ -102,8 +102,8 @@
         var spinnerArrowContainer = pullingRefresherIcon.querySelector('.spinner-arrow-container');
         var arrowContainer = pullingRefresherIcon.querySelector('.arrow-container');
         var arrow = arrowContainer ? arrowContainer.querySelector('ion-icon') : null;
-        var baseAnimation = Object(_animation_239bd3e5_js__WEBPACK_IMPORTED_MODULE_3__["c"])().duration(1000).easing('ease-out');
-        var spinnerArrowContainerAnimation = Object(_animation_239bd3e5_js__WEBPACK_IMPORTED_MODULE_3__["c"])().addElement(spinnerArrowContainer).keyframes([{
+        var baseAnimation = Object(_animation_ede2d71c_js__WEBPACK_IMPORTED_MODULE_3__["c"])().duration(1000).easing('ease-out');
+        var spinnerArrowContainerAnimation = Object(_animation_ede2d71c_js__WEBPACK_IMPORTED_MODULE_3__["c"])().addElement(spinnerArrowContainer).keyframes([{
           offset: 0,
           opacity: '0.3'
         }, {
@@ -116,7 +116,7 @@
           offset: 1,
           opacity: '1'
         }]);
-        var circleInnerAnimation = Object(_animation_239bd3e5_js__WEBPACK_IMPORTED_MODULE_3__["c"])().addElement(circle).keyframes([{
+        var circleInnerAnimation = Object(_animation_ede2d71c_js__WEBPACK_IMPORTED_MODULE_3__["c"])().addElement(circle).keyframes([{
           offset: 0,
           strokeDasharray: '1px, 200px'
         }, {
@@ -129,7 +129,7 @@
           offset: 1,
           strokeDasharray: '100px, 200px'
         }]);
-        var circleOuterAnimation = Object(_animation_239bd3e5_js__WEBPACK_IMPORTED_MODULE_3__["c"])().addElement(spinner).keyframes([{
+        var circleOuterAnimation = Object(_animation_ede2d71c_js__WEBPACK_IMPORTED_MODULE_3__["c"])().addElement(spinner).keyframes([{
           offset: 0,
           transform: 'rotate(-90deg)'
         }, {
@@ -143,7 +143,7 @@
          */
 
         if (arrowContainer && arrow) {
-          var arrowContainerAnimation = Object(_animation_239bd3e5_js__WEBPACK_IMPORTED_MODULE_3__["c"])().addElement(arrowContainer).keyframes([{
+          var arrowContainerAnimation = Object(_animation_ede2d71c_js__WEBPACK_IMPORTED_MODULE_3__["c"])().addElement(arrowContainer).keyframes([{
             offset: 0,
             transform: 'rotate(0deg)'
           }, {
@@ -156,7 +156,7 @@
             offset: 1,
             transform: 'rotate(400deg)'
           }]);
-          var arrowAnimation = Object(_animation_239bd3e5_js__WEBPACK_IMPORTED_MODULE_3__["c"])().addElement(arrow).keyframes([{
+          var arrowAnimation = Object(_animation_ede2d71c_js__WEBPACK_IMPORTED_MODULE_3__["c"])().addElement(arrow).keyframes([{
             offset: 0,
             transform: 'translateX(2px) scale(0)'
           }, {
@@ -177,7 +177,7 @@
 
       var createScaleAnimation = function createScaleAnimation(pullingRefresherIcon) {
         var height = pullingRefresherIcon.clientHeight;
-        var spinnerAnimation = Object(_animation_239bd3e5_js__WEBPACK_IMPORTED_MODULE_3__["c"])().addElement(pullingRefresherIcon).keyframes([{
+        var spinnerAnimation = Object(_animation_ede2d71c_js__WEBPACK_IMPORTED_MODULE_3__["c"])().addElement(pullingRefresherIcon).keyframes([{
           offset: 0,
           transform: "scale(0) translateY(-".concat(height + 20, "px)")
         }, {
@@ -189,7 +189,7 @@
 
       var createTranslateAnimation = function createTranslateAnimation(pullingRefresherIcon) {
         var height = pullingRefresherIcon.clientHeight;
-        var spinnerAnimation = Object(_animation_239bd3e5_js__WEBPACK_IMPORTED_MODULE_3__["c"])().addElement(pullingRefresherIcon).keyframes([{
+        var spinnerAnimation = Object(_animation_ede2d71c_js__WEBPACK_IMPORTED_MODULE_3__["c"])().addElement(pullingRefresherIcon).keyframes([{
           offset: 0,
           transform: "translateY(-".concat(height + 20, "px)")
         }, {
@@ -200,7 +200,7 @@
       };
 
       var createSnapBackAnimation = function createSnapBackAnimation(pullingRefresherIcon) {
-        return Object(_animation_239bd3e5_js__WEBPACK_IMPORTED_MODULE_3__["c"])().duration(125).addElement(pullingRefresherIcon).fromTo('transform', 'translateY(var(--ion-pulling-refresher-translate, 100px))', 'translateY(0px)');
+        return Object(_animation_ede2d71c_js__WEBPACK_IMPORTED_MODULE_3__["c"])().duration(125).addElement(pullingRefresherIcon).fromTo('transform', 'translateY(var(--ion-pulling-refresher-translate, 100px))', 'translateY(0px)');
       }; // iOS Native Refresher
       // -----------------------------
 
@@ -210,7 +210,7 @@
       };
 
       var handleScrollWhilePulling = function handleScrollWhilePulling(spinner, ticks, opacity, currentTickToShow) {
-        Object(_index_92848855_js__WEBPACK_IMPORTED_MODULE_0__["c"])(function () {
+        Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["c"])(function () {
           setSpinnerOpacity(spinner, opacity);
           ticks.forEach(function (el, i) {
             return el.style.setProperty('opacity', i <= currentTickToShow ? '0.99' : '0');
@@ -219,7 +219,7 @@
       };
 
       var handleScrollWhileRefreshing = function handleScrollWhileRefreshing(spinner, lastVelocityY) {
-        Object(_index_92848855_js__WEBPACK_IMPORTED_MODULE_0__["c"])(function () {
+        Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["c"])(function () {
           // If user pulls down quickly, the spinner should spin faster
           spinner.style.setProperty('--refreshing-rotation-duration', lastVelocityY >= 1.0 ? '0.5s' : '2s');
           spinner.style.setProperty('opacity', '1');
@@ -232,7 +232,7 @@
         }
 
         var trans = transitionEndAsync(el, 200);
-        Object(_index_92848855_js__WEBPACK_IMPORTED_MODULE_0__["c"])(function () {
+        Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["c"])(function () {
           el.style.setProperty('transition', '0.2s all ease-out');
 
           if (value === undefined) {
@@ -249,7 +249,7 @@
       var shouldUseNativeRefresher = function shouldUseNativeRefresher(referenceEl, mode) {
         var pullingSpinner = referenceEl.querySelector('ion-refresher-content .refresher-pulling ion-spinner');
         var refreshingSpinner = referenceEl.querySelector('ion-refresher-content .refresher-refreshing ion-spinner');
-        return pullingSpinner !== null && refreshingSpinner !== null && (mode === 'ios' && Object(_ionic_global_23e7365a_js__WEBPACK_IMPORTED_MODULE_1__["i"])('mobile') && referenceEl.style.webkitOverflowScrolling !== undefined || mode === 'md');
+        return pullingSpinner !== null && refreshingSpinner !== null && (mode === 'ios' && Object(_ionic_global_9d5c8ee3_js__WEBPACK_IMPORTED_MODULE_1__["i"])('mobile') && referenceEl.style.webkitOverflowScrolling !== undefined || mode === 'md');
       };
 
       var transitionEndAsync = function transitionEndAsync(el) {
@@ -308,10 +308,10 @@
         function Refresher(hostRef) {
           _classCallCheck(this, Refresher);
 
-          Object(_index_92848855_js__WEBPACK_IMPORTED_MODULE_0__["r"])(this, hostRef);
-          this.ionRefresh = Object(_index_92848855_js__WEBPACK_IMPORTED_MODULE_0__["e"])(this, "ionRefresh", 7);
-          this.ionPull = Object(_index_92848855_js__WEBPACK_IMPORTED_MODULE_0__["e"])(this, "ionPull", 7);
-          this.ionStart = Object(_index_92848855_js__WEBPACK_IMPORTED_MODULE_0__["e"])(this, "ionStart", 7);
+          Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["r"])(this, hostRef);
+          this.ionRefresh = Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["e"])(this, "ionRefresh", 7);
+          this.ionPull = Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["e"])(this, "ionPull", 7);
+          this.ionStart = Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["e"])(this, "ionStart", 7);
           this.appliedStyles = false;
           this.didStart = false;
           this.progress = 0;
@@ -399,7 +399,7 @@
         }, {
           key: "checkNativeRefresher",
           value: function checkNativeRefresher() {
-            var useNativeRefresher = shouldUseNativeRefresher(this.el, Object(_ionic_global_23e7365a_js__WEBPACK_IMPORTED_MODULE_1__["b"])(this));
+            var useNativeRefresher = shouldUseNativeRefresher(this.el, Object(_ionic_global_9d5c8ee3_js__WEBPACK_IMPORTED_MODULE_1__["b"])(this));
 
             if (useNativeRefresher && !this.nativeRefresher) {
               var contentEl = this.el.closest('ion-content');
@@ -428,7 +428,7 @@
                     case 0:
                       this.state = state;
 
-                      if (!(Object(_ionic_global_23e7365a_js__WEBPACK_IMPORTED_MODULE_1__["b"])(this) === 'ios')) {
+                      if (!(Object(_ionic_global_9d5c8ee3_js__WEBPACK_IMPORTED_MODULE_1__["b"])(this) === 'ios')) {
                         _context.next = 6;
                         break;
                       }
@@ -486,7 +486,7 @@
                       ticks = pullingSpinner.shadowRoot.querySelectorAll('svg');
                       MAX_PULL = this.scrollEl.clientHeight * 0.16;
                       NUM_TICKS = ticks.length;
-                      Object(_index_92848855_js__WEBPACK_IMPORTED_MODULE_0__["c"])(function () {
+                      Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["c"])(function () {
                         return ticks.forEach(function (el) {
                           return el.style.setProperty('animation', 'none');
                         });
@@ -500,7 +500,7 @@
                             return;
                           }
 
-                        Object(_index_92848855_js__WEBPACK_IMPORTED_MODULE_0__["f"])(function () {
+                        Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["f"])(function () {
                           // PTR should only be active when overflow scrolling at the top
                           var scrollTop = _this.scrollEl.scrollTop;
                           var refresherHeight = _this.el.clientHeight;
@@ -513,14 +513,14 @@
                             if (_this.state === 8
                             /* Refreshing */
                             ) {
-                                var ratio = Object(_helpers_47d562d2_js__WEBPACK_IMPORTED_MODULE_2__["e"])(0, scrollTop / (refresherHeight * 0.5), 1);
-                                Object(_index_92848855_js__WEBPACK_IMPORTED_MODULE_0__["c"])(function () {
+                                var ratio = Object(_helpers_002e4980_js__WEBPACK_IMPORTED_MODULE_2__["e"])(0, scrollTop / (refresherHeight * 0.5), 1);
+                                Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["c"])(function () {
                                   return setSpinnerOpacity(refreshingSpinner, 1 - ratio);
                                 });
                                 return;
                               }
 
-                            Object(_index_92848855_js__WEBPACK_IMPORTED_MODULE_0__["c"])(function () {
+                            Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["c"])(function () {
                               return setSpinnerOpacity(pullingSpinner, 0);
                             });
                             return;
@@ -540,9 +540,9 @@
                           } // delay showing the next tick marks until user has pulled 30px
 
 
-                          var opacity = Object(_helpers_47d562d2_js__WEBPACK_IMPORTED_MODULE_2__["e"])(0, Math.abs(scrollTop) / refresherHeight, 0.99);
-                          var pullAmount = _this.progress = Object(_helpers_47d562d2_js__WEBPACK_IMPORTED_MODULE_2__["e"])(0, (Math.abs(scrollTop) - 30) / MAX_PULL, 1);
-                          var currentTickToShow = Object(_helpers_47d562d2_js__WEBPACK_IMPORTED_MODULE_2__["e"])(0, Math.floor(pullAmount * NUM_TICKS), NUM_TICKS - 1);
+                          var opacity = Object(_helpers_002e4980_js__WEBPACK_IMPORTED_MODULE_2__["e"])(0, Math.abs(scrollTop) / refresherHeight, 0.99);
+                          var pullAmount = _this.progress = Object(_helpers_002e4980_js__WEBPACK_IMPORTED_MODULE_2__["e"])(0, (Math.abs(scrollTop) - 30) / MAX_PULL, 1);
+                          var currentTickToShow = Object(_helpers_002e4980_js__WEBPACK_IMPORTED_MODULE_2__["e"])(0, Math.floor(pullAmount * NUM_TICKS), NUM_TICKS - 1);
                           var shouldShowRefreshingSpinner = _this.state === 8
                           /* Refreshing */
                           || currentTickToShow === NUM_TICKS - 1;
@@ -556,7 +556,7 @@
                               _this.beginRefresh();
 
                               _this.didRefresh = true;
-                              Object(_haptic_7b8ba70a_js__WEBPACK_IMPORTED_MODULE_6__["d"])({
+                              Object(_haptic_27b3f981_js__WEBPACK_IMPORTED_MODULE_6__["d"])({
                                 style: 'light'
                               });
                               /**
@@ -580,8 +580,8 @@
                       this.scrollEl.addEventListener('scroll', this.scrollListenerCallback);
                       _context2.next = 9;
                       return Promise.resolve().then(__webpack_require__.bind(null,
-                      /*! ./index-eea61379.js */
-                      "ItpF"));
+                      /*! ./index-f49d994d.js */
+                      "iWo5"));
 
                     case 9:
                       this.gesture = _context2.sent.createGesture({
@@ -611,7 +611,7 @@
 
                             _this.needsCompletion = false;
                           } else if (_this.didRefresh) {
-                            Object(_index_92848855_js__WEBPACK_IMPORTED_MODULE_0__["f"])(function () {
+                            Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["f"])(function () {
                               return translateElement(_this.elementToTransform, "".concat(_this.el.clientHeight, "px"));
                             });
                           }
@@ -644,12 +644,12 @@
                 while (1) {
                   switch (_context4.prev = _context4.next) {
                     case 0:
-                      circle = Object(_helpers_47d562d2_js__WEBPACK_IMPORTED_MODULE_2__["g"])(pullingSpinner).querySelector('circle');
+                      circle = Object(_helpers_002e4980_js__WEBPACK_IMPORTED_MODULE_2__["g"])(pullingSpinner).querySelector('circle');
                       pullingRefresherIcon = this.el.querySelector('ion-refresher-content .refresher-pulling-icon');
-                      refreshingCircle = Object(_helpers_47d562d2_js__WEBPACK_IMPORTED_MODULE_2__["g"])(refreshingSpinner).querySelector('circle');
+                      refreshingCircle = Object(_helpers_002e4980_js__WEBPACK_IMPORTED_MODULE_2__["g"])(refreshingSpinner).querySelector('circle');
 
                       if (circle !== null && refreshingCircle !== null) {
-                        Object(_index_92848855_js__WEBPACK_IMPORTED_MODULE_0__["c"])(function () {
+                        Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["c"])(function () {
                           circle.style.setProperty('animation', 'none'); // This lines up the animation on the refreshing spinner with the pulling spinner
 
                           refreshingSpinner.style.setProperty('animation-delay', '-655ms');
@@ -659,8 +659,8 @@
 
                       _context4.next = 6;
                       return Promise.resolve().then(__webpack_require__.bind(null,
-                      /*! ./index-eea61379.js */
-                      "ItpF"));
+                      /*! ./index-f49d994d.js */
+                      "iWo5"));
 
                     case 6:
                       this.gesture = _context4.sent.createGesture({
@@ -694,7 +694,7 @@
                             _this2.state = 2
                             /* Pulling */
                             ;
-                            Object(_index_92848855_js__WEBPACK_IMPORTED_MODULE_0__["c"])(function () {
+                            Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["c"])(function () {
                               var animationType = getRefresherAnimationType(contentEl);
                               var animation = createPullingAnimation(animationType, pullingRefresherIcon);
                               ev.data.animation = animation;
@@ -711,7 +711,7 @@
                           } // Since we are using an easing curve, slow the gesture tracking down a bit
 
 
-                          _this2.progress = Object(_helpers_47d562d2_js__WEBPACK_IMPORTED_MODULE_2__["e"])(0, ev.deltaY / 180 * 0.5, 1);
+                          _this2.progress = Object(_helpers_002e4980_js__WEBPACK_IMPORTED_MODULE_2__["e"])(0, ev.deltaY / 180 * 0.5, 1);
                           ev.data.animation.progressStep(_this2.progress);
 
                           _this2.ionPull.emit();
@@ -721,7 +721,7 @@
                             return;
                           }
 
-                          Object(_index_92848855_js__WEBPACK_IMPORTED_MODULE_0__["c"])(function () {
+                          Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["c"])(function () {
                             return _this2.scrollEl.style.removeProperty('--overflow');
                           });
 
@@ -744,12 +744,12 @@
                             return;
                           }
 
-                          var progress = Object(_cubic_bezier_685f606a_js__WEBPACK_IMPORTED_MODULE_4__["g"])([0, 0], [0, 0], [1, 1], [1, 1], _this2.progress)[0];
+                          var progress = Object(_cubic_bezier_eea9a7a9_js__WEBPACK_IMPORTED_MODULE_4__["g"])([0, 0], [0, 0], [1, 1], [1, 1], _this2.progress)[0];
                           var snapBackAnimation = createSnapBackAnimation(pullingRefresherIcon);
 
                           _this2.animations.push(snapBackAnimation);
 
-                          Object(_index_92848855_js__WEBPACK_IMPORTED_MODULE_0__["c"])( /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3() {
+                          Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["c"])( /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3() {
                             return regeneratorRuntime.wrap(function _callee3$(_context3) {
                               while (1) {
                                 switch (_context3.prev = _context3.next) {
@@ -809,17 +809,14 @@
                       this.nativeRefresher = true;
                       pullingSpinner = this.el.querySelector('ion-refresher-content .refresher-pulling ion-spinner');
                       refreshingSpinner = this.el.querySelector('ion-refresher-content .refresher-refreshing ion-spinner');
-                      _context5.next = 7;
-                      return contentEl.componentOnReady();
 
-                    case 7:
-                      if (Object(_ionic_global_23e7365a_js__WEBPACK_IMPORTED_MODULE_1__["b"])(this) === 'ios') {
+                      if (Object(_ionic_global_9d5c8ee3_js__WEBPACK_IMPORTED_MODULE_1__["b"])(this) === 'ios') {
                         this.setupiOSNativeRefresher(pullingSpinner, refreshingSpinner);
                       } else {
                         this.setupMDNativeRefresher(contentEl, pullingSpinner, refreshingSpinner);
                       }
 
-                    case 8:
+                    case 6:
                     case "end":
                       return _context5.stop();
                   }
@@ -870,28 +867,32 @@
 
                     case 7:
                       _context6.next = 9;
-                      return contentEl.getScrollElement();
+                      return contentEl.componentOnReady();
 
                     case 9:
-                      this.scrollEl = _context6.sent;
-                      this.backgroundContentEl = Object(_helpers_47d562d2_js__WEBPACK_IMPORTED_MODULE_2__["g"])(contentEl).querySelector('#background-content');
+                      _context6.next = 11;
+                      return contentEl.getScrollElement();
 
-                      if (!shouldUseNativeRefresher(this.el, Object(_ionic_global_23e7365a_js__WEBPACK_IMPORTED_MODULE_1__["b"])(this))) {
-                        _context6.next = 15;
+                    case 11:
+                      this.scrollEl = _context6.sent;
+                      this.backgroundContentEl = Object(_helpers_002e4980_js__WEBPACK_IMPORTED_MODULE_2__["g"])(contentEl).querySelector('#background-content');
+
+                      if (!shouldUseNativeRefresher(this.el, Object(_ionic_global_9d5c8ee3_js__WEBPACK_IMPORTED_MODULE_1__["b"])(this))) {
+                        _context6.next = 17;
                         break;
                       }
 
                       this.setupNativeRefresher(contentEl);
-                      _context6.next = 19;
+                      _context6.next = 21;
                       break;
 
-                    case 15:
-                      _context6.next = 17;
-                      return Promise.resolve().then(__webpack_require__.bind(null,
-                      /*! ./index-eea61379.js */
-                      "ItpF"));
-
                     case 17:
+                      _context6.next = 19;
+                      return Promise.resolve().then(__webpack_require__.bind(null,
+                      /*! ./index-f49d994d.js */
+                      "iWo5"));
+
+                    case 19:
                       this.gesture = _context6.sent.createGesture({
                         el: contentEl,
                         gestureName: 'refresher',
@@ -914,7 +915,7 @@
                       });
                       this.disabledChanged();
 
-                    case 19:
+                    case 21:
                     case "end":
                       return _context6.stop();
                   }
@@ -963,8 +964,8 @@
                         this.needsCompletion = true; // Do not reset scroll el until user removes pointer from screen
 
                         if (!this.pointerDown) {
-                          Object(_helpers_47d562d2_js__WEBPACK_IMPORTED_MODULE_2__["r"])(function () {
-                            return Object(_helpers_47d562d2_js__WEBPACK_IMPORTED_MODULE_2__["r"])(function () {
+                          Object(_helpers_002e4980_js__WEBPACK_IMPORTED_MODULE_2__["r"])(function () {
+                            return Object(_helpers_002e4980_js__WEBPACK_IMPORTED_MODULE_2__["r"])(function () {
                               return _this4.resetNativeRefresher(_this4.elementToTransform, 32
                               /* Completing */
                               );
@@ -1008,8 +1009,8 @@
                       if (this.nativeRefresher) {
                         // Do not reset scroll el until user removes pointer from screen
                         if (!this.pointerDown) {
-                          Object(_helpers_47d562d2_js__WEBPACK_IMPORTED_MODULE_2__["r"])(function () {
-                            return Object(_helpers_47d562d2_js__WEBPACK_IMPORTED_MODULE_2__["r"])(function () {
+                          Object(_helpers_002e4980_js__WEBPACK_IMPORTED_MODULE_2__["r"])(function () {
+                            return Object(_helpers_002e4980_js__WEBPACK_IMPORTED_MODULE_2__["r"])(function () {
                               return _this5.resetNativeRefresher(_this5.elementToTransform, 16
                               /* Cancelling */
                               );
@@ -1260,7 +1261,7 @@
             }
 
             this.appliedStyles = y > 0;
-            Object(_index_92848855_js__WEBPACK_IMPORTED_MODULE_0__["c"])(function () {
+            Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["c"])(function () {
               if (_this7.scrollEl && _this7.backgroundContentEl) {
                 var scrollStyle = _this7.scrollEl.style;
                 var backgroundStyle = _this7.backgroundContentEl.style;
@@ -1276,8 +1277,8 @@
           value: function render() {
             var _class;
 
-            var mode = Object(_ionic_global_23e7365a_js__WEBPACK_IMPORTED_MODULE_1__["b"])(this);
-            return Object(_index_92848855_js__WEBPACK_IMPORTED_MODULE_0__["h"])(_index_92848855_js__WEBPACK_IMPORTED_MODULE_0__["H"], {
+            var mode = Object(_ionic_global_9d5c8ee3_js__WEBPACK_IMPORTED_MODULE_1__["b"])(this);
+            return Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["h"])(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["H"], {
               slot: "fixed",
               "class": (_class = {}, _defineProperty(_class, mode, true), _defineProperty(_class, "refresher-".concat(mode), true), _defineProperty(_class, 'refresher-native', this.nativeRefresher), _defineProperty(_class, 'refresher-active', this.state !== 1), _defineProperty(_class, 'refresher-pulling', this.state === 2), _defineProperty(_class, 'refresher-ready', this.state === 4), _defineProperty(_class, 'refresher-refreshing', this.state === 8), _defineProperty(_class, 'refresher-cancelling', this.state === 16), _defineProperty(_class, 'refresher-completing', this.state === 32), _class)
             });
@@ -1285,7 +1286,7 @@
         }, {
           key: "el",
           get: function get() {
-            return Object(_index_92848855_js__WEBPACK_IMPORTED_MODULE_0__["i"])(this);
+            return Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["i"])(this);
           }
         }], [{
           key: "watchers",
@@ -1308,68 +1309,68 @@
         function RefresherContent(hostRef) {
           _classCallCheck(this, RefresherContent);
 
-          Object(_index_92848855_js__WEBPACK_IMPORTED_MODULE_0__["r"])(this, hostRef);
+          Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["r"])(this, hostRef);
         }
 
         _createClass(RefresherContent, [{
           key: "componentWillLoad",
           value: function componentWillLoad() {
             if (this.pullingIcon === undefined) {
-              var mode = Object(_ionic_global_23e7365a_js__WEBPACK_IMPORTED_MODULE_1__["b"])(this);
+              var mode = Object(_ionic_global_9d5c8ee3_js__WEBPACK_IMPORTED_MODULE_1__["b"])(this);
               var overflowRefresher = this.el.style.webkitOverflowScrolling !== undefined ? 'lines' : 'arrow-down';
-              this.pullingIcon = _ionic_global_23e7365a_js__WEBPACK_IMPORTED_MODULE_1__["c"].get('refreshingIcon', mode === 'ios' && Object(_ionic_global_23e7365a_js__WEBPACK_IMPORTED_MODULE_1__["i"])('mobile') ? _ionic_global_23e7365a_js__WEBPACK_IMPORTED_MODULE_1__["c"].get('spinner', overflowRefresher) : 'circular');
+              this.pullingIcon = _ionic_global_9d5c8ee3_js__WEBPACK_IMPORTED_MODULE_1__["c"].get('refreshingIcon', mode === 'ios' && Object(_ionic_global_9d5c8ee3_js__WEBPACK_IMPORTED_MODULE_1__["i"])('mobile') ? _ionic_global_9d5c8ee3_js__WEBPACK_IMPORTED_MODULE_1__["c"].get('spinner', overflowRefresher) : 'circular');
             }
 
             if (this.refreshingSpinner === undefined) {
-              var _mode = Object(_ionic_global_23e7365a_js__WEBPACK_IMPORTED_MODULE_1__["b"])(this);
+              var _mode = Object(_ionic_global_9d5c8ee3_js__WEBPACK_IMPORTED_MODULE_1__["b"])(this);
 
-              this.refreshingSpinner = _ionic_global_23e7365a_js__WEBPACK_IMPORTED_MODULE_1__["c"].get('refreshingSpinner', _ionic_global_23e7365a_js__WEBPACK_IMPORTED_MODULE_1__["c"].get('spinner', _mode === 'ios' ? 'lines' : 'circular'));
+              this.refreshingSpinner = _ionic_global_9d5c8ee3_js__WEBPACK_IMPORTED_MODULE_1__["c"].get('refreshingSpinner', _ionic_global_9d5c8ee3_js__WEBPACK_IMPORTED_MODULE_1__["c"].get('spinner', _mode === 'ios' ? 'lines' : 'circular'));
             }
           }
         }, {
           key: "render",
           value: function render() {
             var pullingIcon = this.pullingIcon;
-            var hasSpinner = pullingIcon != null && _spinner_configs_c78e170e_js__WEBPACK_IMPORTED_MODULE_7__["S"][pullingIcon] !== undefined;
-            var mode = Object(_ionic_global_23e7365a_js__WEBPACK_IMPORTED_MODULE_1__["b"])(this);
-            return Object(_index_92848855_js__WEBPACK_IMPORTED_MODULE_0__["h"])(_index_92848855_js__WEBPACK_IMPORTED_MODULE_0__["H"], {
+            var hasSpinner = pullingIcon != null && _spinner_configs_cd7845af_js__WEBPACK_IMPORTED_MODULE_7__["S"][pullingIcon] !== undefined;
+            var mode = Object(_ionic_global_9d5c8ee3_js__WEBPACK_IMPORTED_MODULE_1__["b"])(this);
+            return Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["h"])(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["H"], {
               "class": mode
-            }, Object(_index_92848855_js__WEBPACK_IMPORTED_MODULE_0__["h"])("div", {
+            }, Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["h"])("div", {
               "class": "refresher-pulling"
-            }, this.pullingIcon && hasSpinner && Object(_index_92848855_js__WEBPACK_IMPORTED_MODULE_0__["h"])("div", {
+            }, this.pullingIcon && hasSpinner && Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["h"])("div", {
               "class": "refresher-pulling-icon"
-            }, Object(_index_92848855_js__WEBPACK_IMPORTED_MODULE_0__["h"])("div", {
+            }, Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["h"])("div", {
               "class": "spinner-arrow-container"
-            }, Object(_index_92848855_js__WEBPACK_IMPORTED_MODULE_0__["h"])("ion-spinner", {
+            }, Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["h"])("ion-spinner", {
               name: this.pullingIcon,
               paused: true
-            }), mode === 'md' && this.pullingIcon === 'circular' && Object(_index_92848855_js__WEBPACK_IMPORTED_MODULE_0__["h"])("div", {
+            }), mode === 'md' && this.pullingIcon === 'circular' && Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["h"])("div", {
               "class": "arrow-container"
-            }, Object(_index_92848855_js__WEBPACK_IMPORTED_MODULE_0__["h"])("ion-icon", {
+            }, Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["h"])("ion-icon", {
               name: "caret-back-sharp"
-            })))), this.pullingIcon && !hasSpinner && Object(_index_92848855_js__WEBPACK_IMPORTED_MODULE_0__["h"])("div", {
+            })))), this.pullingIcon && !hasSpinner && Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["h"])("div", {
               "class": "refresher-pulling-icon"
-            }, Object(_index_92848855_js__WEBPACK_IMPORTED_MODULE_0__["h"])("ion-icon", {
+            }, Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["h"])("ion-icon", {
               icon: this.pullingIcon,
               lazy: false
-            })), this.pullingText && Object(_index_92848855_js__WEBPACK_IMPORTED_MODULE_0__["h"])("div", {
+            })), this.pullingText && Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["h"])("div", {
               "class": "refresher-pulling-text",
-              innerHTML: Object(_index_79d74e0b_js__WEBPACK_IMPORTED_MODULE_5__["s"])(this.pullingText)
-            })), Object(_index_92848855_js__WEBPACK_IMPORTED_MODULE_0__["h"])("div", {
+              innerHTML: Object(_index_9e3fe806_js__WEBPACK_IMPORTED_MODULE_5__["s"])(this.pullingText)
+            })), Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["h"])("div", {
               "class": "refresher-refreshing"
-            }, this.refreshingSpinner && Object(_index_92848855_js__WEBPACK_IMPORTED_MODULE_0__["h"])("div", {
+            }, this.refreshingSpinner && Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["h"])("div", {
               "class": "refresher-refreshing-icon"
-            }, Object(_index_92848855_js__WEBPACK_IMPORTED_MODULE_0__["h"])("ion-spinner", {
+            }, Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["h"])("ion-spinner", {
               name: this.refreshingSpinner
-            })), this.refreshingText && Object(_index_92848855_js__WEBPACK_IMPORTED_MODULE_0__["h"])("div", {
+            })), this.refreshingText && Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["h"])("div", {
               "class": "refresher-refreshing-text",
-              innerHTML: Object(_index_79d74e0b_js__WEBPACK_IMPORTED_MODULE_5__["s"])(this.refreshingText)
+              innerHTML: Object(_index_9e3fe806_js__WEBPACK_IMPORTED_MODULE_5__["s"])(this.refreshingText)
             })));
           }
         }, {
           key: "el",
           get: function get() {
-            return Object(_index_92848855_js__WEBPACK_IMPORTED_MODULE_0__["i"])(this);
+            return Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["i"])(this);
           }
         }]);
 

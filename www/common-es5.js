@@ -1,9 +1,9 @@
 (function () {
-  function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
   function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
   function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+  function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
   function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -432,308 +432,246 @@
     },
 
     /***/
-    "2c9M":
-    /*!**************************************************************!*\
-      !*** ./node_modules/@ionic/core/dist/esm/haptic-7b8ba70a.js ***!
-      \**************************************************************/
+    "0/6H":
+    /*!*********************************************************************!*\
+      !*** ./node_modules/@ionic/core/dist/esm/button-active-a6787d69.js ***!
+      \*********************************************************************/
 
-    /*! exports provided: a, b, c, d, h */
+    /*! exports provided: c */
 
     /***/
-    function c9M(module, __webpack_exports__, __webpack_require__) {
+    function H(module, __webpack_exports__, __webpack_require__) {
       "use strict";
 
       __webpack_require__.r(__webpack_exports__);
       /* harmony export (binding) */
 
 
-      __webpack_require__.d(__webpack_exports__, "a", function () {
-        return hapticSelectionStart;
-      });
-      /* harmony export (binding) */
-
-
-      __webpack_require__.d(__webpack_exports__, "b", function () {
-        return hapticSelectionChanged;
-      });
-      /* harmony export (binding) */
-
-
       __webpack_require__.d(__webpack_exports__, "c", function () {
-        return hapticSelection;
+        return createButtonActiveGesture;
       });
-      /* harmony export (binding) */
+      /* harmony import */
 
 
-      __webpack_require__.d(__webpack_exports__, "d", function () {
-        return hapticImpact;
-      });
-      /* harmony export (binding) */
+      var _index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+      /*! ./index-e806d1f6.js */
+      "A36C");
+      /* harmony import */
 
 
-      __webpack_require__.d(__webpack_exports__, "h", function () {
-        return hapticSelectionEnd;
-      });
+      var _index_f49d994d_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+      /*! ./index-f49d994d.js */
+      "iWo5");
+      /* harmony import */
 
-      var HapticEngine = {
-        getEngine: function getEngine() {
-          var win = window;
-          return win.TapticEngine || win.Capacitor && win.Capacitor.isPluginAvailable('Haptics') && win.Capacitor.Plugins.Haptics;
-        },
-        available: function available() {
-          return !!this.getEngine();
-        },
-        isCordova: function isCordova() {
-          return !!window.TapticEngine;
-        },
-        isCapacitor: function isCapacitor() {
-          var win = window;
-          return !!win.Capacitor;
-        },
-        impact: function impact(options) {
-          var engine = this.getEngine();
 
-          if (!engine) {
+      var _haptic_27b3f981_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+      /*! ./haptic-27b3f981.js */
+      "qULd");
+
+      var createButtonActiveGesture = function createButtonActiveGesture(el, isButton) {
+        var currentTouchedButton;
+        var initialTouchedButton;
+
+        var activateButtonAtPoint = function activateButtonAtPoint(x, y, hapticFeedbackFn) {
+          if (typeof document === 'undefined') {
             return;
           }
 
-          var style = this.isCapacitor() ? options.style.toUpperCase() : options.style;
-          engine.impact({
-            style: style
+          var target = document.elementFromPoint(x, y);
+
+          if (!target || !isButton(target)) {
+            clearActiveButton();
+            return;
+          }
+
+          if (target !== currentTouchedButton) {
+            clearActiveButton();
+            setActiveButton(target, hapticFeedbackFn);
+          }
+        };
+
+        var setActiveButton = function setActiveButton(button, hapticFeedbackFn) {
+          currentTouchedButton = button;
+
+          if (!initialTouchedButton) {
+            initialTouchedButton = currentTouchedButton;
+          }
+
+          var buttonToModify = currentTouchedButton;
+          Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["c"])(function () {
+            return buttonToModify.classList.add('ion-activated');
           });
-        },
-        notification: function notification(options) {
-          var engine = this.getEngine();
+          hapticFeedbackFn();
+        };
 
-          if (!engine) {
+        var clearActiveButton = function clearActiveButton() {
+          var dispatchClick = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
+
+          if (!currentTouchedButton) {
             return;
           }
 
-          var style = this.isCapacitor() ? options.style.toUpperCase() : options.style;
-          engine.notification({
-            style: style
+          var buttonToModify = currentTouchedButton;
+          Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["c"])(function () {
+            return buttonToModify.classList.remove('ion-activated');
           });
-        },
-        selection: function selection() {
-          this.impact({
-            style: 'light'
-          });
-        },
-        selectionStart: function selectionStart() {
-          var engine = this.getEngine();
+          /**
+           * Clicking on one button, but releasing on another button
+           * does not dispatch a click event in browsers, so we
+           * need to do it manually here. Some browsers will
+           * dispatch a click if clicking on one button, dragging over
+           * another button, and releasing on the original button. In that
+           * case, we need to make sure we do not cause a double click there.
+           */
 
-          if (!engine) {
-            return;
+          if (dispatchClick && initialTouchedButton !== currentTouchedButton) {
+            currentTouchedButton.click();
           }
 
-          if (this.isCapacitor()) {
-            engine.selectionStart();
-          } else {
-            engine.gestureSelectionStart();
+          currentTouchedButton = undefined;
+        };
+
+        return Object(_index_f49d994d_js__WEBPACK_IMPORTED_MODULE_1__["createGesture"])({
+          el: el,
+          gestureName: 'buttonActiveDrag',
+          threshold: 0,
+          onStart: function onStart(ev) {
+            return activateButtonAtPoint(ev.currentX, ev.currentY, _haptic_27b3f981_js__WEBPACK_IMPORTED_MODULE_2__["a"]);
+          },
+          onMove: function onMove(ev) {
+            return activateButtonAtPoint(ev.currentX, ev.currentY, _haptic_27b3f981_js__WEBPACK_IMPORTED_MODULE_2__["b"]);
+          },
+          onEnd: function onEnd() {
+            clearActiveButton(true);
+            Object(_haptic_27b3f981_js__WEBPACK_IMPORTED_MODULE_2__["h"])();
+            initialTouchedButton = undefined;
           }
-        },
-        selectionChanged: function selectionChanged() {
-          var engine = this.getEngine();
-
-          if (!engine) {
-            return;
-          }
-
-          if (this.isCapacitor()) {
-            engine.selectionChanged();
-          } else {
-            engine.gestureSelectionChanged();
-          }
-        },
-        selectionEnd: function selectionEnd() {
-          var engine = this.getEngine();
-
-          if (!engine) {
-            return;
-          }
-
-          if (this.isCapacitor()) {
-            engine.selectionEnd();
-          } else {
-            engine.gestureSelectionEnd();
-          }
-        }
-      };
-      /**
-       * Trigger a selection changed haptic event. Good for one-time events
-       * (not for gestures)
-       */
-
-      var hapticSelection = function hapticSelection() {
-        HapticEngine.selection();
-      };
-      /**
-       * Tell the haptic engine that a gesture for a selection change is starting.
-       */
-
-
-      var hapticSelectionStart = function hapticSelectionStart() {
-        HapticEngine.selectionStart();
-      };
-      /**
-       * Tell the haptic engine that a selection changed during a gesture.
-       */
-
-
-      var hapticSelectionChanged = function hapticSelectionChanged() {
-        HapticEngine.selectionChanged();
-      };
-      /**
-       * Tell the haptic engine we are done with a gesture. This needs to be
-       * called lest resources are not properly recycled.
-       */
-
-
-      var hapticSelectionEnd = function hapticSelectionEnd() {
-        HapticEngine.selectionEnd();
-      };
-      /**
-       * Use this to indicate success/failure/warning to the user.
-       * options should be of the type `{ style: 'light' }` (or `medium`/`heavy`)
-       */
-
-
-      var hapticImpact = function hapticImpact(options) {
-        HapticEngine.impact(options);
+        });
       };
       /***/
 
     },
 
     /***/
-    "6i10":
-    /*!***********************************************************************!*\
-      !*** ./node_modules/@ionic/core/dist/esm/spinner-configs-c78e170e.js ***!
-      \***********************************************************************/
+    "74mu":
+    /*!*************************************************************!*\
+      !*** ./node_modules/@ionic/core/dist/esm/theme-ff3fc52f.js ***!
+      \*************************************************************/
 
-    /*! exports provided: S */
+    /*! exports provided: c, g, h, o */
 
     /***/
-    function i10(module, __webpack_exports__, __webpack_require__) {
+    function mu(module, __webpack_exports__, __webpack_require__) {
       "use strict";
 
       __webpack_require__.r(__webpack_exports__);
       /* harmony export (binding) */
 
 
-      __webpack_require__.d(__webpack_exports__, "S", function () {
-        return SPINNERS;
+      __webpack_require__.d(__webpack_exports__, "c", function () {
+        return createColorClasses;
+      });
+      /* harmony export (binding) */
+
+
+      __webpack_require__.d(__webpack_exports__, "g", function () {
+        return getClassMap;
+      });
+      /* harmony export (binding) */
+
+
+      __webpack_require__.d(__webpack_exports__, "h", function () {
+        return hostContext;
+      });
+      /* harmony export (binding) */
+
+
+      __webpack_require__.d(__webpack_exports__, "o", function () {
+        return openURL;
       });
 
-      var spinners = {
-        'bubbles': {
-          dur: 1000,
-          circles: 9,
-          fn: function fn(dur, index, total) {
-            var animationDelay = "".concat(dur * index / total - dur, "ms");
-            var angle = 2 * Math.PI * index / total;
-            return {
-              r: 5,
-              style: {
-                'top': "".concat(9 * Math.sin(angle), "px"),
-                'left': "".concat(9 * Math.cos(angle), "px"),
-                'animation-delay': animationDelay
-              }
-            };
-          }
-        },
-        'circles': {
-          dur: 1000,
-          circles: 8,
-          fn: function fn(dur, index, total) {
-            var step = index / total;
-            var animationDelay = "".concat(dur * step - dur, "ms");
-            var angle = 2 * Math.PI * step;
-            return {
-              r: 5,
-              style: {
-                'top': "".concat(9 * Math.sin(angle), "px"),
-                'left': "".concat(9 * Math.cos(angle), "px"),
-                'animation-delay': animationDelay
-              }
-            };
-          }
-        },
-        'circular': {
-          dur: 1400,
-          elmDuration: true,
-          circles: 1,
-          fn: function fn() {
-            return {
-              r: 20,
-              cx: 48,
-              cy: 48,
-              fill: 'none',
-              viewBox: '24 24 48 48',
-              transform: 'translate(0,0)',
-              style: {}
-            };
-          }
-        },
-        'crescent': {
-          dur: 750,
-          circles: 1,
-          fn: function fn() {
-            return {
-              r: 26,
-              style: {}
-            };
-          }
-        },
-        'dots': {
-          dur: 750,
-          circles: 3,
-          fn: function fn(_, index) {
-            var animationDelay = -(110 * index) + 'ms';
-            return {
-              r: 6,
-              style: {
-                'left': "".concat(9 - 9 * index, "px"),
-                'animation-delay': animationDelay
-              }
-            };
-          }
-        },
-        'lines': {
-          dur: 1000,
-          lines: 12,
-          fn: function fn(dur, index, total) {
-            var transform = "rotate(".concat(30 * index + (index < 6 ? 180 : -180), "deg)");
-            var animationDelay = "".concat(dur * index / total - dur, "ms");
-            return {
-              y1: 17,
-              y2: 29,
-              style: {
-                'transform': transform,
-                'animation-delay': animationDelay
-              }
-            };
-          }
-        },
-        'lines-small': {
-          dur: 1000,
-          lines: 12,
-          fn: function fn(dur, index, total) {
-            var transform = "rotate(".concat(30 * index + (index < 6 ? 180 : -180), "deg)");
-            var animationDelay = "".concat(dur * index / total - dur, "ms");
-            return {
-              y1: 12,
-              y2: 20,
-              style: {
-                'transform': transform,
-                'animation-delay': animationDelay
-              }
-            };
-          }
-        }
+      var hostContext = function hostContext(selector, el) {
+        return el.closest(selector) !== null;
       };
-      var SPINNERS = spinners;
+      /**
+       * Create the mode and color classes for the component based on the classes passed in
+       */
+
+
+      var createColorClasses = function createColorClasses(color, cssClassMap) {
+        return typeof color === 'string' && color.length > 0 ? Object.assign(_defineProperty({
+          'ion-color': true
+        }, "ion-color-".concat(color), true), cssClassMap) : cssClassMap;
+      };
+
+      var getClassList = function getClassList(classes) {
+        if (classes !== undefined) {
+          var array = Array.isArray(classes) ? classes : classes.split(' ');
+          return array.filter(function (c) {
+            return c != null;
+          }).map(function (c) {
+            return c.trim();
+          }).filter(function (c) {
+            return c !== '';
+          });
+        }
+
+        return [];
+      };
+
+      var getClassMap = function getClassMap(classes) {
+        var map = {};
+        getClassList(classes).forEach(function (c) {
+          return map[c] = true;
+        });
+        return map;
+      };
+
+      var SCHEME = /^[a-z][a-z0-9+\-.]*:/;
+
+      var openURL = /*#__PURE__*/function () {
+        var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee5(url, ev, direction, animation) {
+          var router;
+          return regeneratorRuntime.wrap(function _callee5$(_context5) {
+            while (1) {
+              switch (_context5.prev = _context5.next) {
+                case 0:
+                  if (!(url != null && url[0] !== '#' && !SCHEME.test(url))) {
+                    _context5.next = 5;
+                    break;
+                  }
+
+                  router = document.querySelector('ion-router');
+
+                  if (!router) {
+                    _context5.next = 5;
+                    break;
+                  }
+
+                  if (ev != null) {
+                    ev.preventDefault();
+                  }
+
+                  return _context5.abrupt("return", router.push(url, direction, animation));
+
+                case 5:
+                  return _context5.abrupt("return", false);
+
+                case 6:
+                case "end":
+                  return _context5.stop();
+              }
+            }
+          }, _callee5);
+        }));
+
+        return function openURL(_x, _x2, _x3, _x4) {
+          return _ref.apply(this, arguments);
+        };
+      }();
       /***/
+
     },
 
     /***/
@@ -911,15 +849,22 @@
       var _ionic_angular__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
       /*! @ionic/angular */
       "TEn/");
+      /* harmony import */
+
+
+      var src_app_services_codigo_qr_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
+      /*! src/app/services/codigo-qr.service */
+      "qko+");
 
       var RegisterPage = /*#__PURE__*/function () {
         // constructor(private authService: AuthService, private router: Router) { }
-        function RegisterPage(authService, UIVisual, modalController) {
+        function RegisterPage(authService, UIVisual, modalController, codigoQRService) {
           _classCallCheck(this, RegisterPage);
 
           this.authService = authService;
           this.UIVisual = UIVisual;
           this.modalController = modalController;
+          this.codigoQRService = codigoQRService;
           this.cliente = new _clases_cliente__WEBPACK_IMPORTED_MODULE_5__["Cliente"]();
         }
 
@@ -929,10 +874,10 @@
         }, {
           key: "onRegister",
           value: function onRegister() {
-            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee5() {
-              return regeneratorRuntime.wrap(function _callee5$(_context5) {
+            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee6() {
+              return regeneratorRuntime.wrap(function _callee6$(_context6) {
                 while (1) {
-                  switch (_context5.prev = _context5.next) {
+                  switch (_context6.prev = _context6.next) {
                     case 0:
                       if (this.cliente && !this.cliente.id) {
                         this.authService.onRegisterCliente(this.cliente).then(function () {
@@ -946,10 +891,38 @@
 
                     case 1:
                     case "end":
-                      return _context5.stop();
+                      return _context6.stop();
                   }
                 }
-              }, _callee5, this);
+              }, _callee6, this);
+            }));
+          }
+        }, {
+          key: "onScanDNI",
+          value: function onScanDNI() {
+            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee7() {
+              var _this2 = this;
+
+              var barcodeQR;
+              return regeneratorRuntime.wrap(function _callee7$(_context7) {
+                while (1) {
+                  switch (_context7.prev = _context7.next) {
+                    case 0:
+                      this.codigoQRService.escanear("Escanee su DNI", "PDF_417").then(function (obj) {
+                        barcodeQR = obj.text;
+                        var barcodeQRData = barcodeQR.split("@");
+                        _this2.cliente.apellido = barcodeQRData[1];
+                        _this2.cliente.nombre = barcodeQRData[2];
+                        _this2.cliente.dni = barcodeQRData[4];
+                        console.log(_this2.cliente);
+                      });
+
+                    case 1:
+                    case "end":
+                      return _context7.stop();
+                  }
+                }
+              }, _callee7, this);
             }));
           }
         }, {
@@ -969,6 +942,8 @@
           type: src_app_services_uivisual_service__WEBPACK_IMPORTED_MODULE_6__["UIVisualService"]
         }, {
           type: _ionic_angular__WEBPACK_IMPORTED_MODULE_7__["ModalController"]
+        }, {
+          type: src_app_services_codigo_qr_service__WEBPACK_IMPORTED_MODULE_8__["CodigoQRService"]
         }];
       };
 
@@ -978,231 +953,6 @@
         styles: [_register_page_scss__WEBPACK_IMPORTED_MODULE_2__["default"]]
       })], RegisterPage);
       /***/
-    },
-
-    /***/
-    "NqGI":
-    /*!**************************************************************************!*\
-      !*** ./node_modules/@ionic/core/dist/esm/framework-delegate-d1eb6504.js ***!
-      \**************************************************************************/
-
-    /*! exports provided: a, d */
-
-    /***/
-    function NqGI(module, __webpack_exports__, __webpack_require__) {
-      "use strict";
-
-      __webpack_require__.r(__webpack_exports__);
-      /* harmony export (binding) */
-
-
-      __webpack_require__.d(__webpack_exports__, "a", function () {
-        return attachComponent;
-      });
-      /* harmony export (binding) */
-
-
-      __webpack_require__.d(__webpack_exports__, "d", function () {
-        return detachComponent;
-      });
-
-      var attachComponent = /*#__PURE__*/function () {
-        var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee6(delegate, container, component, cssClasses, componentProps) {
-          var el;
-          return regeneratorRuntime.wrap(function _callee6$(_context6) {
-            while (1) {
-              switch (_context6.prev = _context6.next) {
-                case 0:
-                  if (!delegate) {
-                    _context6.next = 2;
-                    break;
-                  }
-
-                  return _context6.abrupt("return", delegate.attachViewToDom(container, component, componentProps, cssClasses));
-
-                case 2:
-                  if (!(typeof component !== 'string' && !(component instanceof HTMLElement))) {
-                    _context6.next = 4;
-                    break;
-                  }
-
-                  throw new Error('framework delegate is missing');
-
-                case 4:
-                  el = typeof component === 'string' ? container.ownerDocument && container.ownerDocument.createElement(component) : component;
-
-                  if (cssClasses) {
-                    cssClasses.forEach(function (c) {
-                      return el.classList.add(c);
-                    });
-                  }
-
-                  if (componentProps) {
-                    Object.assign(el, componentProps);
-                  }
-
-                  container.appendChild(el);
-
-                  if (!el.componentOnReady) {
-                    _context6.next = 11;
-                    break;
-                  }
-
-                  _context6.next = 11;
-                  return el.componentOnReady();
-
-                case 11:
-                  return _context6.abrupt("return", el);
-
-                case 12:
-                case "end":
-                  return _context6.stop();
-              }
-            }
-          }, _callee6);
-        }));
-
-        return function attachComponent(_x, _x2, _x3, _x4, _x5) {
-          return _ref.apply(this, arguments);
-        };
-      }();
-
-      var detachComponent = function detachComponent(delegate, element) {
-        if (element) {
-          if (delegate) {
-            var container = element.parentElement;
-            return delegate.removeViewFromDom(container, element);
-          }
-
-          element.remove();
-        }
-
-        return Promise.resolve();
-      };
-      /***/
-
-    },
-
-    /***/
-    "U/uv":
-    /*!*********************************************************************!*\
-      !*** ./node_modules/@ionic/core/dist/esm/button-active-5da929d4.js ***!
-      \*********************************************************************/
-
-    /*! exports provided: c */
-
-    /***/
-    function UUv(module, __webpack_exports__, __webpack_require__) {
-      "use strict";
-
-      __webpack_require__.r(__webpack_exports__);
-      /* harmony export (binding) */
-
-
-      __webpack_require__.d(__webpack_exports__, "c", function () {
-        return createButtonActiveGesture;
-      });
-      /* harmony import */
-
-
-      var _index_92848855_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
-      /*! ./index-92848855.js */
-      "sxy2");
-      /* harmony import */
-
-
-      var _index_eea61379_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
-      /*! ./index-eea61379.js */
-      "ItpF");
-      /* harmony import */
-
-
-      var _haptic_7b8ba70a_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
-      /*! ./haptic-7b8ba70a.js */
-      "2c9M");
-
-      var createButtonActiveGesture = function createButtonActiveGesture(el, isButton) {
-        var currentTouchedButton;
-        var initialTouchedButton;
-
-        var activateButtonAtPoint = function activateButtonAtPoint(x, y, hapticFeedbackFn) {
-          if (typeof document === 'undefined') {
-            return;
-          }
-
-          var target = document.elementFromPoint(x, y);
-
-          if (!target || !isButton(target)) {
-            clearActiveButton();
-            return;
-          }
-
-          if (target !== currentTouchedButton) {
-            clearActiveButton();
-            setActiveButton(target, hapticFeedbackFn);
-          }
-        };
-
-        var setActiveButton = function setActiveButton(button, hapticFeedbackFn) {
-          currentTouchedButton = button;
-
-          if (!initialTouchedButton) {
-            initialTouchedButton = currentTouchedButton;
-          }
-
-          var buttonToModify = currentTouchedButton;
-          Object(_index_92848855_js__WEBPACK_IMPORTED_MODULE_0__["c"])(function () {
-            return buttonToModify.classList.add('ion-activated');
-          });
-          hapticFeedbackFn();
-        };
-
-        var clearActiveButton = function clearActiveButton() {
-          var dispatchClick = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
-
-          if (!currentTouchedButton) {
-            return;
-          }
-
-          var buttonToModify = currentTouchedButton;
-          Object(_index_92848855_js__WEBPACK_IMPORTED_MODULE_0__["c"])(function () {
-            return buttonToModify.classList.remove('ion-activated');
-          });
-          /**
-           * Clicking on one button, but releasing on another button
-           * does not dispatch a click event in browsers, so we
-           * need to do it manually here. Some browsers will
-           * dispatch a click if clicking on one button, dragging over
-           * another button, and releasing on the original button. In that
-           * case, we need to make sure we do not cause a double click there.
-           */
-
-          if (dispatchClick && initialTouchedButton !== currentTouchedButton) {
-            currentTouchedButton.click();
-          }
-
-          currentTouchedButton = undefined;
-        };
-
-        return Object(_index_eea61379_js__WEBPACK_IMPORTED_MODULE_1__["createGesture"])({
-          el: el,
-          gestureName: 'buttonActiveDrag',
-          threshold: 0,
-          onStart: function onStart(ev) {
-            return activateButtonAtPoint(ev.currentX, ev.currentY, _haptic_7b8ba70a_js__WEBPACK_IMPORTED_MODULE_2__["a"]);
-          },
-          onMove: function onMove(ev) {
-            return activateButtonAtPoint(ev.currentX, ev.currentY, _haptic_7b8ba70a_js__WEBPACK_IMPORTED_MODULE_2__["b"]);
-          },
-          onEnd: function onEnd() {
-            clearActiveButton(true);
-            Object(_haptic_7b8ba70a_js__WEBPACK_IMPORTED_MODULE_2__["h"])();
-            initialTouchedButton = undefined;
-          }
-        });
-      };
-      /***/
-
     },
 
     /***/
@@ -1280,6 +1030,109 @@
     },
 
     /***/
+    "ZaV5":
+    /*!**************************************************************************!*\
+      !*** ./node_modules/@ionic/core/dist/esm/framework-delegate-4584ab5a.js ***!
+      \**************************************************************************/
+
+    /*! exports provided: a, d */
+
+    /***/
+    function ZaV5(module, __webpack_exports__, __webpack_require__) {
+      "use strict";
+
+      __webpack_require__.r(__webpack_exports__);
+      /* harmony export (binding) */
+
+
+      __webpack_require__.d(__webpack_exports__, "a", function () {
+        return attachComponent;
+      });
+      /* harmony export (binding) */
+
+
+      __webpack_require__.d(__webpack_exports__, "d", function () {
+        return detachComponent;
+      });
+
+      var attachComponent = /*#__PURE__*/function () {
+        var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee8(delegate, container, component, cssClasses, componentProps) {
+          var el;
+          return regeneratorRuntime.wrap(function _callee8$(_context8) {
+            while (1) {
+              switch (_context8.prev = _context8.next) {
+                case 0:
+                  if (!delegate) {
+                    _context8.next = 2;
+                    break;
+                  }
+
+                  return _context8.abrupt("return", delegate.attachViewToDom(container, component, componentProps, cssClasses));
+
+                case 2:
+                  if (!(typeof component !== 'string' && !(component instanceof HTMLElement))) {
+                    _context8.next = 4;
+                    break;
+                  }
+
+                  throw new Error('framework delegate is missing');
+
+                case 4:
+                  el = typeof component === 'string' ? container.ownerDocument && container.ownerDocument.createElement(component) : component;
+
+                  if (cssClasses) {
+                    cssClasses.forEach(function (c) {
+                      return el.classList.add(c);
+                    });
+                  }
+
+                  if (componentProps) {
+                    Object.assign(el, componentProps);
+                  }
+
+                  container.appendChild(el);
+
+                  if (!el.componentOnReady) {
+                    _context8.next = 11;
+                    break;
+                  }
+
+                  _context8.next = 11;
+                  return el.componentOnReady();
+
+                case 11:
+                  return _context8.abrupt("return", el);
+
+                case 12:
+                case "end":
+                  return _context8.stop();
+              }
+            }
+          }, _callee8);
+        }));
+
+        return function attachComponent(_x5, _x6, _x7, _x8, _x9) {
+          return _ref2.apply(this, arguments);
+        };
+      }();
+
+      var detachComponent = function detachComponent(delegate, element) {
+        if (element) {
+          if (delegate) {
+            var container = element.parentElement;
+            return delegate.removeViewFromDom(container, element);
+          }
+
+          element.remove();
+        }
+
+        return Promise.resolve();
+      };
+      /***/
+
+    },
+
+    /***/
     "aRCn":
     /*!****************************************************************************************************************!*\
       !*** ./node_modules/raw-loader/dist/cjs.js!./src/app/pages/explore-container/explore-container.component.html ***!
@@ -1296,6 +1149,137 @@
 
 
       __webpack_exports__["default"] = "<div id=\"container\">\r\n  <strong>{{ name }}</strong>\r\n  <p>Explore <a target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://ionicframework.com/docs/components\">UI Components</a></p>\r\n</div>";
+      /***/
+    },
+
+    /***/
+    "h3R7":
+    /*!***********************************************************************!*\
+      !*** ./node_modules/@ionic/core/dist/esm/spinner-configs-cd7845af.js ***!
+      \***********************************************************************/
+
+    /*! exports provided: S */
+
+    /***/
+    function h3R7(module, __webpack_exports__, __webpack_require__) {
+      "use strict";
+
+      __webpack_require__.r(__webpack_exports__);
+      /* harmony export (binding) */
+
+
+      __webpack_require__.d(__webpack_exports__, "S", function () {
+        return SPINNERS;
+      });
+
+      var spinners = {
+        'bubbles': {
+          dur: 1000,
+          circles: 9,
+          fn: function fn(dur, index, total) {
+            var animationDelay = "".concat(dur * index / total - dur, "ms");
+            var angle = 2 * Math.PI * index / total;
+            return {
+              r: 5,
+              style: {
+                'top': "".concat(9 * Math.sin(angle), "px"),
+                'left': "".concat(9 * Math.cos(angle), "px"),
+                'animation-delay': animationDelay
+              }
+            };
+          }
+        },
+        'circles': {
+          dur: 1000,
+          circles: 8,
+          fn: function fn(dur, index, total) {
+            var step = index / total;
+            var animationDelay = "".concat(dur * step - dur, "ms");
+            var angle = 2 * Math.PI * step;
+            return {
+              r: 5,
+              style: {
+                'top': "".concat(9 * Math.sin(angle), "px"),
+                'left': "".concat(9 * Math.cos(angle), "px"),
+                'animation-delay': animationDelay
+              }
+            };
+          }
+        },
+        'circular': {
+          dur: 1400,
+          elmDuration: true,
+          circles: 1,
+          fn: function fn() {
+            return {
+              r: 20,
+              cx: 48,
+              cy: 48,
+              fill: 'none',
+              viewBox: '24 24 48 48',
+              transform: 'translate(0,0)',
+              style: {}
+            };
+          }
+        },
+        'crescent': {
+          dur: 750,
+          circles: 1,
+          fn: function fn() {
+            return {
+              r: 26,
+              style: {}
+            };
+          }
+        },
+        'dots': {
+          dur: 750,
+          circles: 3,
+          fn: function fn(_, index) {
+            var animationDelay = -(110 * index) + 'ms';
+            return {
+              r: 6,
+              style: {
+                'left': "".concat(9 - 9 * index, "px"),
+                'animation-delay': animationDelay
+              }
+            };
+          }
+        },
+        'lines': {
+          dur: 1000,
+          lines: 12,
+          fn: function fn(dur, index, total) {
+            var transform = "rotate(".concat(30 * index + (index < 6 ? 180 : -180), "deg)");
+            var animationDelay = "".concat(dur * index / total - dur, "ms");
+            return {
+              y1: 17,
+              y2: 29,
+              style: {
+                'transform': transform,
+                'animation-delay': animationDelay
+              }
+            };
+          }
+        },
+        'lines-small': {
+          dur: 1000,
+          lines: 12,
+          fn: function fn(dur, index, total) {
+            var transform = "rotate(".concat(30 * index + (index < 6 ? 180 : -180), "deg)");
+            var animationDelay = "".concat(dur * index / total - dur, "ms");
+            return {
+              y1: 12,
+              y2: 20,
+              style: {
+                'transform': transform,
+                'animation-delay': animationDelay
+              }
+            };
+          }
+        }
+      };
+      var SPINNERS = spinners;
       /***/
     },
 
@@ -1335,7 +1319,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = "<ion-header>\r\n  <ion-toolbar color=\"medium\">\r\n    <ion-buttons slot=\"start\">\r\n      <ion-button (click)=\"cerrar()\">\r\n        <ion-icon slot=\"start\" name=\"arrow-back\"></ion-icon>\r\n      </ion-button>\r\n    </ion-buttons>\r\n\r\n    <ion-title>Registro</ion-title>\r\n  </ion-toolbar>\r\n</ion-header>\r\n\r\n<ion-content class=\"fondo\">\r\n  <div id=\"container\" class=\"contenido\">\r\n    <form #formulario=\"ngForm\">\r\n      <ion-list class=\"ion-no-padding\" color=\"dark\">\r\n        <ion-item color=\"dark\">\r\n          <ion-label position=\"floating\">\r\n            Nombre\r\n          </ion-label>\r\n          <ion-input type=\"text\" name=\"nombre\" minlength=\"2\" [(ngModel)]=\"cliente.nombre\" type=\"text\"></ion-input>\r\n        </ion-item>\r\n        <ion-item color=\"dark\">\r\n          <ion-label position=\"floating\">\r\n            Apellido\r\n          </ion-label>\r\n          <ion-input type=\"text\" name=\"apellido\" minlength=\"2\" [(ngModel)]=\"cliente.apellido\" type=\"text\"></ion-input>\r\n        </ion-item>\r\n        <ion-item color=\"dark\">\r\n          <ion-label position=\"floating\">\r\n            DNI\r\n          </ion-label>\r\n          <ion-input type=\"text\" minlength=\"7\" maxlength=\"8\" name=\"dni\" [(ngModel)]=\"cliente.dni\"></ion-input>\r\n        </ion-item>\r\n        <ion-item color=\"dark\">\r\n          <ion-label position=\"floating\">\r\n            Email\r\n          </ion-label>\r\n          <ion-input type=\"email\" name=\"email\" minlength=\"6\" [(ngModel)]=\"cliente.email\"></ion-input>\r\n        </ion-item>\r\n        <ion-item color=\"dark\">\r\n          <ion-label position=\"floating\">\r\n            Contraseña\r\n          </ion-label>\r\n          <ion-input type=\"password\" name=\"password\" minlength=\"6\" [(ngModel)]=\"cliente.password\"></ion-input>\r\n        </ion-item>\r\n        <ion-button size=\"large\" (click)=\"onRegister()\" expand=\"full\" color=\"danger\"\r\n                    [disabled]=\"formulario.invalid\">\r\n          Registro\r\n        </ion-button>\r\n      </ion-list>\r\n    </form>\r\n\r\n  </div>\r\n</ion-content>";
+      __webpack_exports__["default"] = "<ion-header>\r\n  <ion-toolbar color=\"medium\">\r\n    <ion-buttons slot=\"start\">\r\n      <ion-button (click)=\"cerrar()\">\r\n        <ion-icon slot=\"start\" name=\"arrow-back\"></ion-icon>\r\n      </ion-button>\r\n    </ion-buttons>\r\n\r\n    <ion-title>Registro</ion-title>\r\n  </ion-toolbar>\r\n</ion-header>\r\n\r\n<ion-content class=\"fondo\">\r\n  <div id=\"container\" class=\"contenido\">\r\n    <form #formulario=\"ngForm\">\r\n      <ion-list class=\"ion-no-padding\" color=\"dark\">\r\n        <ion-item color=\"dark\">\r\n          <ion-label position=\"floating\">\r\n            Nombre\r\n          </ion-label>\r\n          <ion-input type=\"text\" name=\"nombre\" minlength=\"2\" [(ngModel)]=\"cliente.nombre\" type=\"text\"></ion-input>\r\n        </ion-item>\r\n        <ion-item color=\"dark\">\r\n          <ion-label position=\"floating\">\r\n            Apellido\r\n          </ion-label>\r\n          <ion-input type=\"text\" name=\"apellido\" minlength=\"2\" [(ngModel)]=\"cliente.apellido\" type=\"text\"></ion-input>\r\n        </ion-item>\r\n        <ion-item color=\"dark\">\r\n          <ion-label position=\"floating\">\r\n            DNI\r\n          </ion-label>\r\n          <ion-input type=\"text\" minlength=\"7\" maxlength=\"8\" name=\"dni\" [(ngModel)]=\"cliente.dni\"></ion-input>\r\n        </ion-item>\r\n        <ion-item color=\"dark\">\r\n          <ion-label position=\"floating\">\r\n            Email\r\n          </ion-label>\r\n          <ion-input type=\"email\" name=\"email\" minlength=\"6\" [(ngModel)]=\"cliente.email\"></ion-input>\r\n        </ion-item>\r\n        <ion-item color=\"dark\">\r\n          <ion-label position=\"floating\">\r\n            Contraseña\r\n          </ion-label>\r\n          <ion-input type=\"password\" name=\"password\" minlength=\"6\" [(ngModel)]=\"cliente.password\"></ion-input>\r\n        </ion-item>\r\n        <ion-button size=\"large\" (click)=\"onRegister()\" expand=\"full\" color=\"danger\" [disabled]=\"formulario.invalid\">\r\n          Registro\r\n        </ion-button>\r\n      </ion-list>\r\n    </form>\r\n\r\n  </div>\r\n\r\n  <ion-fab vertical=\"bottom\" horizontal=\"end\" slot=\"fixed\">\r\n    <ion-fab-button (click)=\"onScanDNI()\">\r\n      <ion-icon name=\"qr-code\"></ion-icon>\r\n    </ion-fab-button>\r\n  </ion-fab>\r\n\r\n</ion-content>";
       /***/
     },
 
@@ -1360,122 +1344,175 @@
     },
 
     /***/
-    "sPtc":
-    /*!*************************************************************!*\
-      !*** ./node_modules/@ionic/core/dist/esm/theme-5641d27f.js ***!
-      \*************************************************************/
+    "qULd":
+    /*!**************************************************************!*\
+      !*** ./node_modules/@ionic/core/dist/esm/haptic-27b3f981.js ***!
+      \**************************************************************/
 
-    /*! exports provided: c, g, h, o */
+    /*! exports provided: a, b, c, d, h */
 
     /***/
-    function sPtc(module, __webpack_exports__, __webpack_require__) {
+    function qULd(module, __webpack_exports__, __webpack_require__) {
       "use strict";
 
       __webpack_require__.r(__webpack_exports__);
       /* harmony export (binding) */
 
 
-      __webpack_require__.d(__webpack_exports__, "c", function () {
-        return createColorClasses;
+      __webpack_require__.d(__webpack_exports__, "a", function () {
+        return hapticSelectionStart;
       });
       /* harmony export (binding) */
 
 
-      __webpack_require__.d(__webpack_exports__, "g", function () {
-        return getClassMap;
+      __webpack_require__.d(__webpack_exports__, "b", function () {
+        return hapticSelectionChanged;
+      });
+      /* harmony export (binding) */
+
+
+      __webpack_require__.d(__webpack_exports__, "c", function () {
+        return hapticSelection;
+      });
+      /* harmony export (binding) */
+
+
+      __webpack_require__.d(__webpack_exports__, "d", function () {
+        return hapticImpact;
       });
       /* harmony export (binding) */
 
 
       __webpack_require__.d(__webpack_exports__, "h", function () {
-        return hostContext;
-      });
-      /* harmony export (binding) */
-
-
-      __webpack_require__.d(__webpack_exports__, "o", function () {
-        return openURL;
+        return hapticSelectionEnd;
       });
 
-      var hostContext = function hostContext(selector, el) {
-        return el.closest(selector) !== null;
+      var HapticEngine = {
+        getEngine: function getEngine() {
+          var win = window;
+          return win.TapticEngine || win.Capacitor && win.Capacitor.isPluginAvailable('Haptics') && win.Capacitor.Plugins.Haptics;
+        },
+        available: function available() {
+          return !!this.getEngine();
+        },
+        isCordova: function isCordova() {
+          return !!window.TapticEngine;
+        },
+        isCapacitor: function isCapacitor() {
+          var win = window;
+          return !!win.Capacitor;
+        },
+        impact: function impact(options) {
+          var engine = this.getEngine();
+
+          if (!engine) {
+            return;
+          }
+
+          var style = this.isCapacitor() ? options.style.toUpperCase() : options.style;
+          engine.impact({
+            style: style
+          });
+        },
+        notification: function notification(options) {
+          var engine = this.getEngine();
+
+          if (!engine) {
+            return;
+          }
+
+          var style = this.isCapacitor() ? options.style.toUpperCase() : options.style;
+          engine.notification({
+            style: style
+          });
+        },
+        selection: function selection() {
+          this.impact({
+            style: 'light'
+          });
+        },
+        selectionStart: function selectionStart() {
+          var engine = this.getEngine();
+
+          if (!engine) {
+            return;
+          }
+
+          if (this.isCapacitor()) {
+            engine.selectionStart();
+          } else {
+            engine.gestureSelectionStart();
+          }
+        },
+        selectionChanged: function selectionChanged() {
+          var engine = this.getEngine();
+
+          if (!engine) {
+            return;
+          }
+
+          if (this.isCapacitor()) {
+            engine.selectionChanged();
+          } else {
+            engine.gestureSelectionChanged();
+          }
+        },
+        selectionEnd: function selectionEnd() {
+          var engine = this.getEngine();
+
+          if (!engine) {
+            return;
+          }
+
+          if (this.isCapacitor()) {
+            engine.selectionEnd();
+          } else {
+            engine.gestureSelectionEnd();
+          }
+        }
       };
       /**
-       * Create the mode and color classes for the component based on the classes passed in
+       * Trigger a selection changed haptic event. Good for one-time events
+       * (not for gestures)
+       */
+
+      var hapticSelection = function hapticSelection() {
+        HapticEngine.selection();
+      };
+      /**
+       * Tell the haptic engine that a gesture for a selection change is starting.
        */
 
 
-      var createColorClasses = function createColorClasses(color, cssClassMap) {
-        return typeof color === 'string' && color.length > 0 ? Object.assign(_defineProperty({
-          'ion-color': true
-        }, "ion-color-".concat(color), true), cssClassMap) : cssClassMap;
+      var hapticSelectionStart = function hapticSelectionStart() {
+        HapticEngine.selectionStart();
       };
+      /**
+       * Tell the haptic engine that a selection changed during a gesture.
+       */
 
-      var getClassList = function getClassList(classes) {
-        if (classes !== undefined) {
-          var array = Array.isArray(classes) ? classes : classes.split(' ');
-          return array.filter(function (c) {
-            return c != null;
-          }).map(function (c) {
-            return c.trim();
-          }).filter(function (c) {
-            return c !== '';
-          });
-        }
 
-        return [];
+      var hapticSelectionChanged = function hapticSelectionChanged() {
+        HapticEngine.selectionChanged();
       };
+      /**
+       * Tell the haptic engine we are done with a gesture. This needs to be
+       * called lest resources are not properly recycled.
+       */
 
-      var getClassMap = function getClassMap(classes) {
-        var map = {};
-        getClassList(classes).forEach(function (c) {
-          return map[c] = true;
-        });
-        return map;
+
+      var hapticSelectionEnd = function hapticSelectionEnd() {
+        HapticEngine.selectionEnd();
       };
+      /**
+       * Use this to indicate success/failure/warning to the user.
+       * options should be of the type `{ style: 'light' }` (or `medium`/`heavy`)
+       */
 
-      var SCHEME = /^[a-z][a-z0-9+\-.]*:/;
 
-      var openURL = /*#__PURE__*/function () {
-        var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee7(url, ev, direction, animation) {
-          var router;
-          return regeneratorRuntime.wrap(function _callee7$(_context7) {
-            while (1) {
-              switch (_context7.prev = _context7.next) {
-                case 0:
-                  if (!(url != null && url[0] !== '#' && !SCHEME.test(url))) {
-                    _context7.next = 5;
-                    break;
-                  }
-
-                  router = document.querySelector('ion-router');
-
-                  if (!router) {
-                    _context7.next = 5;
-                    break;
-                  }
-
-                  if (ev != null) {
-                    ev.preventDefault();
-                  }
-
-                  return _context7.abrupt("return", router.push(url, direction, animation));
-
-                case 5:
-                  return _context7.abrupt("return", false);
-
-                case 6:
-                case "end":
-                  return _context7.stop();
-              }
-            }
-          }, _callee7);
-        }));
-
-        return function openURL(_x6, _x7, _x8, _x9) {
-          return _ref2.apply(this, arguments);
-        };
-      }();
+      var hapticImpact = function hapticImpact(options) {
+        HapticEngine.impact(options);
+      };
       /***/
 
     }
