@@ -62,7 +62,7 @@ export class UsuariosPage implements OnInit {
 
   declinarUsuario(usuario): void {
     this.utilsService.presentLoading();
-    this.fireService.sendEmail(usuario, 'Lamentablemente no se aceptado su solicitud. Disculpe las molestias.', 'Caserito Restaurante - Solicitud de alta de usuario');
+    this.fireService.sendEmail(usuario, 'Lamentablemente no se ha aceptado su solicitud. Disculpe las molestias.', 'Caserito Restaurante - Solicitud de alta de usuario');
     this.authService.gestionarUsuario(usuario, EstadoUsuario.RECHAZADO)
       .then(() => this.utilsService.dismissLoading())
       .catch(err => this.utilsService.dismissLoading());
