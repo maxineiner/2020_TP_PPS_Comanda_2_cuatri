@@ -116,6 +116,14 @@ export class PedidoService {
   // Actualizar pedidos (Class pedido)
   actualizarPedido(pedido: Pedido) {
     pedido.fechaModificado = new Date();
+
+    //Le quito al pedido las imágenes para agregárselas posteriormente.
+    pedido.productos.forEach(element => {
+      element.fotos = null;
+
+      element.producto.fotos = null;
+    });
+
     return this.firebaseService.updateDoc('pedidos', pedido.id, Object.assign({}, pedido)).catch(
       (e)=>{
         alert("Error al subir archivo:"+JSON.stringify(e));
