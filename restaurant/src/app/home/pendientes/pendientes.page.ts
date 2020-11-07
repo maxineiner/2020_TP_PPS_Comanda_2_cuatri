@@ -152,7 +152,7 @@ export class PendientesPage implements OnInit {
   }
 
   cobrarPedido(pedido: Pedido) {
-    console.log("Se inicia funcion cobrar pedido",JSON.stringify(pedido));
+  //  console.log("Se inicia funcion cobrar pedido",JSON.stringify(pedido));
     // Cerramos el pedido
     pedido.estado = EstadoPedido.TERMINADO;
     this.utilsService.presentLoading();  
@@ -177,7 +177,7 @@ export class PendientesPage implements OnInit {
     if (pedido.productos.every((x) => x.entregado)) {
       pedido.estado = EstadoPedido.ENTREGADO;
     }
-    console.log(pedido);
+   // console.log(pedido);
     this.utilsService.presentLoading();
     this.pedidoService.actualizarPedido(pedido).finally(() => {
       this.utilsService.dismissLoading();
@@ -187,7 +187,7 @@ export class PendientesPage implements OnInit {
   terminarProducto(pedido: Pedido, producto: Producto) {
     const prodIndex = pedido.productos.indexOf(producto);
     pedido.productos[prodIndex].terminado = true;
-    console.log(pedido);
+   // console.log(pedido);
     this.utilsService.presentLoading();
     this.pedidoService.actualizarPedido(pedido).finally(() => {
       this.utilsService.dismissLoading();
