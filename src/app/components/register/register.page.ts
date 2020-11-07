@@ -3,6 +3,7 @@ import { AuthService } from '../../services/auth.service';
 import { Cliente } from '../../clases/cliente';
 import { UIVisualService } from "src/app/services/uivisual.service"
 import { ModalController } from '@ionic/angular';
+import { CodigoQRService } from 'src/app/services/codigo-qr.service';
 
 @Component({
   selector: 'app-register',
@@ -15,7 +16,7 @@ export class RegisterPage implements OnInit
 
   // constructor(private authService: AuthService, private router: Router) { }
   constructor(private authService: AuthService, private UIVisual: UIVisualService,
-              private modalController: ModalController) { }
+    private modalController: ModalController, private codigoQRService: CodigoQRService) { }
 
   ngOnInit()
   {
@@ -35,6 +36,22 @@ export class RegisterPage implements OnInit
     {
       UIVisualService.presentToast('Cliente existente')
     }
+  }
+
+  async onScanDNI()
+  {
+    let barcodeQR: string
+    this.codigoQRService.escanear("Escanee su DNI", "PDF_417").then(obj =>
+    {
+      barcodeQR = obj.text
+      let barcodeQRData = barcodeQR.split("@")
+
+      this.cliente.apellido = barcodeQRData[1]
+      this.cliente.nombre = barcodeQRData[2]
+      this.cliente.dni = barcodeQRData[4]
+
+      console.log(this.cliente)
+    })
   }
 
   cerrar()
