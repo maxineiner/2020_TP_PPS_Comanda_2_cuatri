@@ -1,5 +1,5 @@
-<ion-header>
-  <ion-toolbar color="success">
+<ion-header >
+  <ion-toolbar color="success" class="header">
     <ion-buttons slot="start">
       <ion-button (click)="atras()">
         <ion-icon name="close-outline"></ion-icon>
@@ -11,114 +11,126 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="background">
-  <ion-card>
+<ion-content class="fondo">
+  <ion-card class="card"  >
+    <!-- ESTADO <ion-label color="success">{{pedido?.estado}}</ion-label> -->
+    <div class="lbl-secondary">ESTADO DEL PEDIDO:</div>
+    <ion-label style="color: rgb(0, 121, 36);font-size: 25px;"><b>{{pedido?.estado}}</b></ion-label>
+  </ion-card>
+  <ion-card class="card">
     <ion-card-header>
-      <ion-card-subtitle> MESA #<ion-label color="success">{{pedido?.mesa.numero}}</ion-label>
+      <ion-card-subtitle class="lbl-mesa"> 
+        <b>MESA #{{pedido?.mesa.numero}}</b>
       </ion-card-subtitle>
+      
       <ion-card-title>PEDIDO #<ion-label color="success">{{pedido?.id.substr(-5)}}</ion-label>
         <ion-icon class="ion-float-right" color="success" name="information-circle-outline">
         </ion-icon>
       </ion-card-title>
     </ion-card-header>
-    <ion-card-content>
+    <!-- <ion-card-content>
       ESTADO <ion-label color="success">{{pedido?.estado}}</ion-label>
-    </ion-card-content>
-    <img src="../../../assets/mesa-qr.jpg" />
+    </ion-card-content> -->
+    <img style="border-radius: 20px;" src="../../../assets/mesa-qr.jpg" />
   </ion-card>
 
-  <ion-card (click)="verDetalle()" *ngIf="pedido?.estado !== 'ENTREGADO'">
+  <!-- *ngIf="pedido?.estado !== 'ENTREGADO'" -->
+  <ion-card (click)="verDetalle()"  *ngIf="pedido?.estado !== 'ENTREGADO'" class="card">
     <ion-card-header>
       <ion-card-subtitle></ion-card-subtitle>
-      <ion-card-title>Ver <ion-label color="success">DETALLE</ion-label>
+      <ion-card-title class="lbl-button">Ver <ion-label color="success">DETALLE</ion-label>
         <ion-icon class="ion-float-right" color="success" name="reader-outline">
         </ion-icon>
       </ion-card-title>
     </ion-card-header>
-
-    <ion-card-content>
+    <ion-card-content class="lbl-tertiary">
       Consulta el detalle de tu pedido actual.
     </ion-card-content>
   </ion-card>
 
-  <ion-card *ngIf="pedido?.estado === 'PENDIENTE'" (click)="agregarComida()">
+  <!-- *ngIf="pedido?.estado === 'PENDIENTE'" -->
+  <ion-card  (click)="agregarComida()" *ngIf="pedido?.estado === 'PENDIENTE'" class="card">
     <ion-card-header>
       <ion-card-subtitle></ion-card-subtitle>
-      <ion-card-title>Agregar <ion-label color="success">COMIDA</ion-label>
+      <ion-card-title class="lbl-button">Agregar <ion-label color="success">COMIDA</ion-label>
         <ion-icon class="ion-float-right" color="success" name="add-circle-outline">
         </ion-icon>
       </ion-card-title>
     </ion-card-header>
 
-    <ion-card-content>
+    <ion-card-content class="lbl-tertiary">
       Agrega productos a tu pedido.
     </ion-card-content>
   </ion-card>
    
-    <ion-card  *ngIf="pedido?.estado === 'ENTREGADO'" (click)="irAJuegos()">
+  <!-- *ngIf="pedido?.estado === 'ENTREGADO'" -->
+    <ion-card   (click)="irAJuegos()" *ngIf="pedido?.estado === 'ENTREGADO'" class="card">
       <ion-card-header>
-        <ion-card-subtitle>Obtené descuentos jugando</ion-card-subtitle>
-        <ion-card-title>Juegos <ion-label color="success">Jugar ahora</ion-label>
+        <ion-card-title class="lbl-button">Juegos <ion-label color="success">Jugar ahora</ion-label>
           <ion-icon class="ion-float-right" color="success" name="arrow-forward-outline">
           </ion-icon>
         </ion-card-title>
+        <ion-card-subtitle class="lbl-tertiary">Obtené descuentos jugando</ion-card-subtitle>
       </ion-card-header>
     </ion-card>
 
-  <ion-card *ngIf="pedido?.estado === 'ENTREGADO'" (click)="escanearQR()">
+    <!-- *ngIf="pedido?.estado === 'ENTREGADO'" -->
+  <ion-card  (click)="escanearQR()" *ngIf="pedido?.estado === 'ENTREGADO'" class="card">
     <ion-card-header>
       <ion-card-subtitle></ion-card-subtitle>
-      <ion-card-title>Adicionar <ion-label color="success">PROPINA</ion-label>
+      <ion-card-title class="lbl-button">Adicionar <ion-label color="success">PROPINA</ion-label>
         <ion-icon class="ion-float-right" color="success" name="cash-outline">
         </ion-icon>
       </ion-card-title>
     </ion-card-header>
 
-    <ion-card-content>
+    <ion-card-content class="lbl-tertiary">
       En relación al servicio brindado.
     </ion-card-content>
   </ion-card>
 
-  <ion-card *ngIf="pedido?.estado === 'ENTREGADO'" (click)="verDetalle()">
+  <!-- *ngIf="pedido?.estado === 'ENTREGADO'" -->
+  <ion-card  (click)="verDetalle()" *ngIf="pedido?.estado === 'ENTREGADO'" class="card">
     <ion-card-header>
       <ion-card-subtitle></ion-card-subtitle>
-      <ion-card-title>Pedir <ion-label color="success">CUENTA</ion-label>
+      <ion-card-title class="lbl-button">Pedir <ion-label color="success">CUENTA</ion-label>
         <ion-icon class="ion-float-right" color="success" name="logo-usd">
         </ion-icon>
       </ion-card-title>
     </ion-card-header>
 
-    <ion-card-content>
+    <ion-card-content class="lbl-tertiary">
       Solicitar la cuenta para pagar.
     </ion-card-content>
   </ion-card>
 
 
   <!-- LA ENCUESTA SOLO DEBE REALIZARSE SI EL PEDIDO.ESTADO ESTA ENTREGADO-->
-  <ion-card (click)="verEncuesta()" *ngIf="pedido?.estado === 'ENTREGADO'">
+  <!-- *ngIf="pedido?.estado === 'ENTREGADO'" -->
+  <ion-card (click)="verEncuesta()" *ngIf="pedido?.estado === 'ENTREGADO'" class="card">
     <ion-card-header>
       <ion-card-subtitle></ion-card-subtitle>
-      <ion-card-title>Llenar <ion-label color="success">ENCUESTA</ion-label>
+      <ion-card-title class="lbl-button">Llenar <ion-label color="success">ENCUESTA</ion-label>
         <ion-icon class="ion-float-right" color="success" name="document-outline">
         </ion-icon>
       </ion-card-title>
     </ion-card-header>
 
-    <ion-card-content>
+    <ion-card-content class="lbl-tertiary">
       Completar la encuesta de satisfacción.
     </ion-card-content>
   </ion-card>
 
-  <ion-card (click)="chatear('MOZO')">
+  <ion-card (click)="chatear('MOZO')" class="card">
     <ion-card-header>
       <ion-card-subtitle></ion-card-subtitle>
-      <ion-card-title>Consultar al <ion-label color="success">MOZO</ion-label>
+      <ion-card-title class="lbl-button">Consultar al <ion-label color="success">MOZO</ion-label>
         <ion-icon class="ion-float-right" color="success" name="chatbox-outline">
         </ion-icon>
       </ion-card-title>
     </ion-card-header>
 
-    <ion-card-content>
+    <ion-card-content class="lbl-tertiary">
       Consulta al mozo lo que necesites.
     </ion-card-content>
   </ion-card>
@@ -127,8 +139,9 @@
 <ion-footer color="light">
   <ion-toolbar>
     <ion-title class="ion-text-center">
-      TOTAL:
+      <b class="lbl-primary">TOTAL:
       <ion-text color="danger">$ {{calcularTotalFinal()+ '.00' }}</ion-text>
+      </b>
     </ion-title>
   </ion-toolbar>
 </ion-footer>
