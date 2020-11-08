@@ -78,10 +78,10 @@ export class ProductoService
   {
     return new Promise((resolve, reject) =>
     {
-      resolve(this.db.database.ref('productos/' + producto.id)
-        .update(producto)
-        .then(() => console.info("Actualizacion exitosa"))
-        .catch(() => console.info("No se pudo actualizar")));
+      this.escanerQR.generar(producto, producto.id).then(() => 
+      {
+        resolve(this.db.database.ref('productos/' + producto.id).update(producto));
+      }).catch(error => reject(error));
     });
   }
 

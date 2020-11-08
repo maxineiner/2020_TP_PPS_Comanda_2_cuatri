@@ -1,7 +1,7 @@
 <app-header titulo="Menú Pedidos"></app-header>
 
-<ion-segment value="Listado" (ionChange)="seleccionarOpcion($event)" scrollable color="success">
-  <ion-segment-button value="Listado">
+<ion-segment value="Alta" (ionChange)="seleccionarOpcion($event)" scrollable color="success">
+  <ion-segment-button value="Listado" *ngIf="!rolService.isCliente(usuario)">
     <ion-label>Pedidos</ion-label>
   </ion-segment-button>
   <ion-segment-button value="Alta">

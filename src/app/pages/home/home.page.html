@@ -11,6 +11,9 @@
       <ion-fab-button color="success" translucent="true" [routerLink]="['/home/tab1']">
         <ion-icon name="triangle"></ion-icon>
       </ion-fab-button>
+      <ion-fab-button color="danger" translucent="true" [routerLink]="['/home/inicio']">
+        <ion-icon name="home-sharp"></ion-icon>
+      </ion-fab-button>
     </ion-fab-list>
   </ion-fab>
 
@@ -21,10 +24,7 @@
 
   <ion-tab-bar slot="bottom" color="dark">
 
-    <ion-tab-button tab="menu-producto"
-                    *ngIf="rolService.isClienteAceptado(usuario) || 
-    rolService.isClienteAnonimo(usuario) ||
-    rolService.isJefe(usuario)">
+    <ion-tab-button tab="menu-producto">
       <ion-icon name="restaurant"></ion-icon>
       <ion-label>Carta</ion-label>
     </ion-tab-button>

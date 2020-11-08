@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, DoCheck, OnInit } from '@angular/core';
 import { TipoEmpleado } from 'src/app/clases/empleado';
 import { Producto } from 'src/app/clases/producto';
 import { Usuario } from 'src/app/clases/usuario';
@@ -11,7 +11,7 @@ import { RolesService } from 'src/app/services/roles.service';
   templateUrl: './menu-producto.page.html',
   styleUrls: ['./menu-producto.page.scss'],
 })
-export class MenuProductoPage implements OnInit
+export class MenuProductoPage implements OnInit, DoCheck
 {
   usuario: Usuario;
   opcion: string = 'Platos';
@@ -20,6 +20,12 @@ export class MenuProductoPage implements OnInit
   productoElegido: Producto = new Producto();
 
   constructor(private productoService: ProductoService, private rolService: RolesService) { }
+
+  ngDoCheck(): void
+  {
+    this.platos = ProductoService.productos.filter(producto => producto.tipo == TipoEmpleado.Cocinero);
+    this.bebidas = ProductoService.productos.filter(producto => producto.tipo == TipoEmpleado.Bartender);
+  }
 
   ngOnInit()
   {

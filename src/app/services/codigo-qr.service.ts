@@ -47,7 +47,10 @@ export class CodigoQRService
    */
   public async generar(elemento: IEscaneable, id: string)
   {
+    console.log(elemento);
+
     let data = `BEGIN:${elemento.constructor.name}%3A${id}`;
+    let carpeta = elemento.constructor.name.toLowerCase();
 
     // Se genera el código QR
     const ruta = `http://api.qrserver.com/v1/create-qr-code/?data=${data}&size=300x300&format=svg`;
@@ -55,9 +58,10 @@ export class CodigoQRService
     const base64 = await this.convertirUrlABase64(ruta, "image/jpeg");
     // Se crea Imagen y se guarda en Storage
     let imagen = Imagen.CrearImagen(id, base64.slice(23), "_", new Date().toUTCString(), "_");
-    const imagenQR = await this.imagenService.guardarImagen(imagen, "qr-mesas");
+    const imagenQR = await this.imagenService.guardarImagen(imagen, `qr-${carpeta}`);
     // Se asocia URL del código QR 
     elemento.codigoQR = await imagenQR.ref.getDownloadURL();
+
   }
 
   /**
