@@ -49,6 +49,7 @@ export class FormPedidoComponent implements OnInit
       this.pedidoService.crear(this.pedido)
         .then(() => UIVisualService.presentToast('Alta exitosa'))
         .catch(() => UIVisualService.presentToast('No se pudo realizar el alta'));
+      this.modalController.dismiss();
     }
   }
 

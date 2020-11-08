@@ -1,21 +1,24 @@
 <ion-content class="fondo">
-  <ion-grid fixed id="container">
+  <ion-grid fixed id="container" class="contenido">
     <ion-row *ngIf="pedido">
       <ion-col size="12" class="ion-justify-content-center">
         <!-- Aca debería ir el componente con la reserva actual -->
-        <app-detalle-reserva [reserva]="pedido"></app-detalle-reserva>
-        <app-detalle-pedido [pedido]="pedido"></app-detalle-pedido>
-        <ion-button (click)="consultarAlMozo()" expand="block" fill="clear" shape="round">
+        <app-detalle-reserva [reserva]="pedido" class="ion-no-margin"></app-detalle-reserva>
+        <app-detalle-pedido [pedido]="pedido" class="ion-no-margin"></app-detalle-pedido>
+
+        <ion-button (click)="consultarAlMozo()" expand="full"
+                    class="ion-no-margin" color="tertiary" size="large">
           Consultar al mozo
         </ion-button>
-        <ion-button (click)="verEncuesta()" expand="block" fill="clear" shape="round">
+        <ion-button (click)="verEncuesta()" expand="full"
+                    class="ion-no-margin" color="dark" size="large">
           Realizar encuesta
         </ion-button>
       </ion-col>
     </ion-row>
     <ion-row *ngIf="!pedido">
       <ion-col size="12">
-        <div id="container">
+        <div id="container" class="contenido">
           <ion-label>
             <h1>
               <strong>Usted no está asignado a esta mesa</strong>

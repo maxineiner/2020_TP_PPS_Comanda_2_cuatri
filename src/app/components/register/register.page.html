@@ -44,7 +44,8 @@
           </ion-label>
           <ion-input type="password" name="password" minlength="6" [(ngModel)]="cliente.password"></ion-input>
         </ion-item>
-        <ion-button size="large" (click)="onRegister()" expand="full" color="danger" [disabled]="formulario.invalid">
+        <ion-button size="large" (click)="onRegister()" expand="full" color="danger" [disabled]="formulario.invalid"
+                    class="ion-no-margin">
           Registro
         </ion-button>
       </ion-list>

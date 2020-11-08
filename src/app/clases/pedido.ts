@@ -5,8 +5,8 @@ import { Producto } from './producto';
 export enum EstadoPedido
 {
     RESERVADO = "Reservado", // Estado de reserva
+    ASIGNADO = "Asignado", // Pedido con mesa asignada sin productos
     SOLICITADO = "Solicitado", // Cliente solicita pedido 
-    PENDIENTE = "Pendiente", // Pedido confirmado por mozo 
     EN_PROGRESO = "En progreso", // Recibido por cocina y barra
     ENTREGADO = "Entregado", // Recibido en mesa
     CERRADO = "Cerrado", // Cobrado
@@ -26,6 +26,7 @@ export class Pedido
 
     constructor()
     {
+        console.log("Constructor");
         this.fechaInicio = 0;
         this.fechaFin = 0;
         this.productos = [];
@@ -66,12 +67,12 @@ export class Pedido
         switch (this.estado)
         {
             case EstadoPedido.RESERVADO:
+                this.estado = EstadoPedido.ASIGNADO;
+                break;
+            case EstadoPedido.ASIGNADO:
                 this.estado = EstadoPedido.SOLICITADO;
                 break;
             case EstadoPedido.SOLICITADO:
-                this.estado = EstadoPedido.PENDIENTE;
-                break;
-            case EstadoPedido.PENDIENTE:
                 this.estado = EstadoPedido.EN_PROGRESO;
                 break;
             case EstadoPedido.EN_PROGRESO:

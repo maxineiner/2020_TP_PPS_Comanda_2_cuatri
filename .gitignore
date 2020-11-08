@@ -1,2 +1,9 @@
 node_modules
 typings
+/android
+/www
+/platforms
+android
+www
+platforms
+.vscode
