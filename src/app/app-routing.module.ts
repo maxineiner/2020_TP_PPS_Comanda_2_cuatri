@@ -23,6 +23,10 @@ const routes: Routes = [
     path: 'auth-page',
     loadChildren: () => import('./pages/auth-page/auth-page.module').then(m => m.AuthPagePageModule)
   },
+  {
+    path: 'clientes-pendientes',
+    loadChildren: () => import('./pages/clientes-pendientes/clientes-pendientes.module').then( m => m.ClientesPendientesPageModule)
+  },
 
 
 ];
