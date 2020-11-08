@@ -1,14 +1,14 @@
 <ion-content class="ion-padding-bottom contenido" color="dark">
-  <form  [formGroup]="registroForm" novalidate>
+  <form [formGroup]="registroForm" novalidate>
     <ion-list mode="ios" lines="none">
 
       <ion-item color="dark">
         <ion-label position="floating">Nombre</ion-label>
-        <ion-input type="text" name="name" formControlName="nombre" required>
+        <ion-input type="text" formControlName="nombre" required>
         </ion-input>
         <div
-          *ngIf="registroForm.controls['nombre'].invalid && (registroForm.controls['nombre'].dirty || registroForm.controls['nombre'].touched)"
-          class="alert alert-danger">
+             *ngIf="registroForm.controls['nombre'].invalid && (registroForm.controls['nombre'].dirty || registroForm.controls['nombre'].touched)"
+             class="alert alert-danger">
           <div *ngIf="registroForm.controls['nombre'].errors.required">
             Nombre es requerido.
           </div>
@@ -21,8 +21,8 @@
         <ion-input class="form-control" formControlName="descripcion" type="text" required>
         </ion-input>
         <div
-          *ngIf="registroForm.controls['descripcion'].invalid && (registroForm.controls['descripcion'].dirty || registroForm.controls['descripcion'].touched)"
-          class="alert alert-danger">
+             *ngIf="registroForm.controls['descripcion'].invalid && (registroForm.controls['descripcion'].dirty || registroForm.controls['descripcion'].touched)"
+             class="alert alert-danger">
           <div *ngIf="registroForm.controls['descripcion'].errors.required">
             Descricion es requerida.
           </div>
@@ -34,8 +34,8 @@
         <ion-input type="number" name="name" formControlName="minutosDeElaboracion" required>
         </ion-input>
         <div
-          *ngIf="registroForm.controls['minutosDeElaboracion'].invalid && (registroForm.controls['minutosDeElaboracion'].dirty || registroForm.controls['minutosDeElaboracion'].touched)"
-          class="alert alert-danger">
+             *ngIf="registroForm.controls['minutosDeElaboracion'].invalid && (registroForm.controls['minutosDeElaboracion'].dirty || registroForm.controls['minutosDeElaboracion'].touched)"
+             class="alert alert-danger">
           <div *ngIf="registroForm.controls['minutosDeElaboracion'].errors.required">
             Tiempo de elaboracion es requerido.
           </div>
@@ -50,8 +50,8 @@
         <ion-input type="number" name="name" formControlName="precio" required>
         </ion-input>
         <div
-          *ngIf="registroForm.controls['precio'].invalid && (registroForm.controls['precio'].dirty || registroForm.controls['precio'].touched)"
-          class="alert alert-danger">
+             *ngIf="registroForm.controls['precio'].invalid && (registroForm.controls['precio'].dirty || registroForm.controls['precio'].touched)"
+             class="alert alert-danger">
           <div *ngIf="registroForm.controls['precio'].errors.required">
             Precio es requerido.
           </div>
@@ -63,8 +63,8 @@
 
       <ion-item color="dark" *ngFor="let foto of imgPreview; let i=index">
         <ion-button (click)="subirFoto(i)" fill="solid" size="small" color="dark"
-                    [disabled]="opcion == 'Baja'" >
-                    Foto {{i+1}}
+                    [disabled]="opcion == 'Baja'">
+          Foto {{i+1}}
           <ion-icon slot="start" name="camera"></ion-icon>
         </ion-button>
         <img *ngIf="foto" [src]="foto | safe: 'url'" (click)="subirFoto(i)">
@@ -75,12 +75,12 @@
 
 
     <ion-button (click)="registrar()" color="dark" expand="block" type="submit"
-      [disabled]="registroForm.pristine || registroForm.invalid" *ngIf="opcion == 'Alta'">
+                [disabled]="registroForm.pristine || registroForm.invalid" *ngIf="opcion == 'Alta'">
       Crear
     </ion-button>
 
     <ion-button (click)="modificarProducto()" color="dark" expand="block" type="submit"
-      [disabled]="registroForm.pristine || registroForm.invalid" *ngIf="opcion == 'Modificación'">
+                [disabled]="registroForm.pristine || registroForm.invalid" *ngIf="opcion == 'Modificación'">
       Modificar
     </ion-button>
 

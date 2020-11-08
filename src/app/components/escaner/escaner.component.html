@@ -1,7 +1,7 @@
 <ion-tab-button (click)="escanear()"
                 *ngIf="rolService.isClienteAceptado(usuario) || 
 rolService.isClienteAnonimo(usuario) || 
-rolService.isEmpleadoMozo(usuario)" color="success" class="ion-padding-horizontal">
-  <ion-icon name="qr-code-sharp"></ion-icon>
+rolService.isEmpleadoMozo(usuario)" color="success">
+  <ion-icon name="qr-code-sharp" class="ion-padding-horizontal"></ion-icon>
   <ion-label>Escáner QR</ion-label>
 </ion-tab-button>
