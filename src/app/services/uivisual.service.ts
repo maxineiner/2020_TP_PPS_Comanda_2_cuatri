@@ -105,7 +105,7 @@ export class UIVisualService
         handlers.solicitar.boton = {
           text: 'Hacer pedido',
           icon: 'hand-left-sharp',
-          handler: () => handlers.solicitar.handler(handlers.solicitar.params)
+          handler: () => this.UI.hacerPedido(handlers.solicitar.params)
         }
         if (handlers.solicitar) botonesGenerados.push(handlers.solicitar.boton);
 
@@ -143,7 +143,6 @@ export class UIVisualService
     });
 
     await modal.present();
-
   }
 
   static async verFoto(ev: any, foto: Imagen)
@@ -161,17 +160,9 @@ export class UIVisualService
     await popover.present();
   }
 
-  static async hacerPedido(pedido: Pedido)
+  hacerPedido(pedido: Pedido)
   {
-    const modal = await UIVisualService.UI.modalController.create({
-      component: FormPedidoComponent,
-      componentProps: {
-        opcion: 'Alta',
-        pedido
-      }
-    });
-
-    await modal.present();
+    this.router.navigate(["/home/menu-pedidos"]);
   }
 
 

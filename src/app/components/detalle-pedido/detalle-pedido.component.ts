@@ -46,7 +46,7 @@ export class DetallePedidoComponent implements OnInit
   {
     UIVisualService.presentActionSheet('Cliente', {
       mostrarPlatos: { handler: UIVisualService.verPlatos, params: this.pedido.productos },
-      solicitar: { handler: UIVisualService.hacerPedido, params: this.pedido },
+      solicitar: { handler: "", params: this.pedido },
       confirmar: { handler: null },
       entregar: { handler: null },
       recibir: { handler: null },
@@ -54,11 +54,6 @@ export class DetallePedidoComponent implements OnInit
     })
   }
 
-  hacerPedido()
-  {
 
-
-    this.router.navigate(["/menu-pedidos"]);
-  }
 
 }

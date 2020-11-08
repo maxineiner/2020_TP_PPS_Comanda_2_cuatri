@@ -45,6 +45,7 @@
         </div>
       </ion-item>
 
+
       <ion-item color="dark">
         <ion-label position="floating">Precio:</ion-label>
         <ion-input type="number" name="name" formControlName="precio" required>
@@ -61,15 +62,19 @@
         </div>
       </ion-item>
 
-      <ion-item color="dark" *ngFor="let foto of imgPreview; let i=index">
-        <ion-button (click)="subirFoto(i)" fill="solid" size="small" color="dark"
-                    [disabled]="opcion == 'Baja'">
-          Foto {{i+1}}
-          <ion-icon slot="start" name="camera"></ion-icon>
-        </ion-button>
-        <img *ngIf="foto" [src]="foto | safe: 'url'" (click)="subirFoto(i)">
+      <ion-grid>
+        <ion-row>
+          <ion-col size="4" *ngFor="let foto of imgPreview; let i=index">
+            <ion-button (click)="subirFoto(i)" fill="solid" size="small" color="dark"
+                        [disabled]="opcion == 'Baja'">
+              Foto {{i+1}}
+              <ion-icon slot="start" name="camera"></ion-icon>
+            </ion-button>
+            <img *ngIf="foto" [src]="foto | safe: 'url'" (click)="subirFoto(i)">
+          </ion-col>
+        </ion-row>
+      </ion-grid>
 
-      </ion-item>
 
     </ion-list>
 

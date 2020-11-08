@@ -13,15 +13,16 @@
     </ion-label>
   </ion-segment-button>
 
-  <ion-segment-button value="Alta" *ngIf="rolService.isJefe(usuario)">
+  <ion-segment-button value="Alta" *ngIf="rolService.isEmpleadoBartender(usuario) || 
+                                    rolService.isEmpleadoCocinero(usuario)">
     <ion-label>Alta</ion-label>
   </ion-segment-button>
-  <ion-segment-button value="Baja" *ngIf="productoElegido.isActive &&  
-                                          rolService.isJefe(usuario)">
+  <ion-segment-button value="Baja" *ngIf="rolService.isEmpleadoBartender(usuario) || 
+                                  rolService.isEmpleadoCocinero(usuario)">
     <ion-label>Baja</ion-label>
   </ion-segment-button>
-  <ion-segment-button value="Modificación" *ngIf="productoElegido.isActive &&  
-                                                  rolService.isJefe(usuario)">
+  <ion-segment-button value="Modificación" *ngIf="rolService.isEmpleadoBartender(usuario) || 
+                                           rolService.isEmpleadoCocinero(usuario)">
     <ion-label>Modificar</ion-label>
   </ion-segment-button>
 </ion-segment>

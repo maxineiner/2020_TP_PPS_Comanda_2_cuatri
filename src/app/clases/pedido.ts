@@ -26,7 +26,6 @@ export class Pedido
 
     constructor()
     {
-        console.log("Constructor");
         this.fechaInicio = 0;
         this.fechaFin = 0;
         this.productos = [];

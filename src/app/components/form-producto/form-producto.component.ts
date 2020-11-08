@@ -5,6 +5,10 @@ import { ImagenService } from "src/app/services/imagen.service";
 import { ProductoService } from "src/app/services/producto.service";
 import { LoadingController, ToastController } from "@ionic/angular";
 import { Imagen } from 'src/app/clases/imagen';
+import { AuthService } from 'src/app/services/auth.service';
+import { Usuario } from 'src/app/clases/usuario';
+import { EmpleadoService } from 'src/app/services/empleado.service';
+import { Empleado } from 'src/app/clases/empleado';
 
 enum OpcionForm
 {
@@ -20,10 +24,10 @@ enum OpcionForm
 })
 export class FormProductoComponent
 {
+  usuario: Empleado = <Empleado>AuthService.usuario;
   @Input() opcion: OpcionForm;
   @Input() producto: Producto;
   popoverOptions = {
-    header: "Seleccione el tipo",
     translucent: true,
     cancelText: "Cerrar",
     okText: "Guardar",
@@ -62,6 +66,7 @@ export class FormProductoComponent
           nombre: this.producto.nombre,
           descripcion: this.producto.descripcion,
           minutosDeElaboracion: this.producto.minutosDeElaboracion,
+          tipo: this.producto.tipo,
           precio: this.producto.precio,
           fotos: this.producto.fotos,
         });
@@ -98,6 +103,7 @@ export class FormProductoComponent
           Validators.pattern("^[0-9]*$"),
         ],
       ],
+      tipo: [""],
       precio: ["", [Validators.required, Validators.pattern("^[0-9]*$")]],
       fotos: [""],
     });
@@ -125,6 +131,7 @@ export class FormProductoComponent
 
     console.log(imagenesGuardadas);
     this.registroForm.get("fotos").setValue(imagenesGuardadas);
+    this.registroForm.get("tipo").setValue(this.usuario.tipo);
 
     this.productoService.registrar(new Producto(this.registroForm.value))
       .then(() =>
