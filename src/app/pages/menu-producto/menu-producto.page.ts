@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { TipoEmpleado } from 'src/app/clases/empleado';
 import { Producto } from 'src/app/clases/producto';
 import { Usuario } from 'src/app/clases/usuario';
 import { AuthService } from 'src/app/services/auth.service';
@@ -13,16 +14,12 @@ import { RolesService } from 'src/app/services/roles.service';
 export class MenuProductoPage implements OnInit
 {
   usuario: Usuario;
-  opcion: string = 'Listado';
-  listado: Producto[];
+  opcion: string = 'Platos';
+  platos: Producto[];
+  bebidas: Producto[];
   productoElegido: Producto = new Producto();
 
   constructor(private productoService: ProductoService, private rolService: RolesService) { }
-
-  ngDoCheck(): void 
-  {
-    this.listado = ProductoService.productos;
-  }
 
   ngOnInit()
   {
@@ -33,7 +30,8 @@ export class MenuProductoPage implements OnInit
     this.productoService.traerTodos().then(data =>
     {
       console.log(data);
-      this.listado = data;
+      this.platos = data.filter(producto => producto.tipo == TipoEmpleado.Cocinero);
+      this.bebidas = data.filter(producto => producto.tipo == TipoEmpleado.Bartender);
     });
   }
 
