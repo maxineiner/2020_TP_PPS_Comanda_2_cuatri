@@ -16,7 +16,9 @@
   <!-- PRODUCTOS -->
   <ion-list color=“transparent”>
     <ion-list-header color="light">
-      PRODUCTOS
+      <b>
+        PRODUCTOS
+      </b>
     </ion-list-header>
 
     <ion-item color="warning" *ngIf="pedido?.productos && pedido?.productos.length === 0">
@@ -30,16 +32,16 @@
         <img src="{{productoService.obtenerFoto(p.producto)}}">
       </ion-avatar>
       <ion-label color="light">
-        <h2 class="ion-text-capitalize bold">{{p.producto.nombre}}</h2>
-        <h3>{{p.producto.descripcion}}</h3>
-        <p>Cantidad: {{p.cantidad}}</p>
-        <p>Precio: {{p.producto.precio|currency}}</p>
-        <p>
-          <ion-badge color="light">
+        <h2 class="ion-text-capitalize bold, lbl-primary"><b>{{p.producto.nombre}}</b></h2>
+        <h3 class="lbl-primary">{{p.producto.descripcion}}</h3>
+        <p class="lbl-primary">Cantidad: {{p.cantidad}}</p>
+        <p class="lbl-primary">Precio: {{p.producto.precio|currency}}</p>
+        <p class="lbl-primary">
+          <ion-badge color="light" class="badge">
             <ion-icon name="logo-usd"></ion-icon>
             {{(p.cantidad*p.producto.precio)|number:'1.2-2'}}
           </ion-badge>
-          <ion-badge color="{(p.terminado) ? 'success'  : 'dark'}}">
+          <ion-badge class="badge" color="{(p.terminado) ? 'success'  : 'dark'}}">
             <ion-icon name="time-outline"></ion-icon>
             {{(p.terminado) ? 'Listo'  : 'En Preparación'}}
           </ion-badge>
@@ -55,9 +57,9 @@
      <ion-label color="light">
       <h2 class="ion-text-capitalize bold">JUEGOS</h2>
       <h3>Juego: {{pedido.juegos.ahorcado.nombre}}</h3>
-      <p>Porcentaje: {{pedido.juegos.ahorcado.descuento}}%</p>
-      <p>
-        <ion-badge color="light">
+      <p class="lbl-primary">Porcentaje: {{pedido.juegos.ahorcado.descuento}}%</p>
+      <p class="lbl-primary">
+        <ion-badge color="light" class="badge">
           <ion-icon name="logo-usd"></ion-icon>
           {{calcularDescuentoJuego() |number:'1.2-2'}}
         </ion-badge>
@@ -70,10 +72,10 @@
     <ion-item *ngIf="pedido?.propina" color="success">
       <ion-label color="light">
         <h2 class="ion-text-capitalize bold">PROPINA</h2>
-        <h3>Satisfacción: {{pedido.propina.satisfaccion}}</h3>
-        <p>Porcentaje: {{pedido.propina.porcentaje}}</p>
-        <p>
-          <ion-badge color="light">
+        <h3 class="lbl-primary">Satisfacción: {{pedido.propina.satisfaccion}}</h3>
+        <p class="lbl-primary">Porcentaje: {{pedido.propina.porcentaje}}</p>
+        <p class="lbl-primary">
+          <ion-badge color="light" class="badge">
             <ion-icon name="logo-usd"></ion-icon>
             {{calcularPropina()|number:'1.2-2'}}
           </ion-badge>
@@ -88,9 +90,11 @@
   </ion-button>
   <ion-toolbar>
     <ion-title class="ion-text-center">
-      TOTAL:
-      <!-- <ion-text color="warning">$ {{calcularTotalFinal() + '.00'}}</ion-text> -->
-      <ion-text color="danger">$ {{calcularTotalFinal()|number:'1.2-2'}}</ion-text>
+      <b class="lbl-total">
+        TOTAL:
+        <!-- <ion-text color="warning">$ {{calcularTotalFinal() + '.00'}}</ion-text> -->
+        <ion-text color="danger">$ {{calcularTotalFinal()|number:'1.2-2'}}</ion-text>
+      </b>
     </ion-title>
   </ion-toolbar>
 </ion-footer>
