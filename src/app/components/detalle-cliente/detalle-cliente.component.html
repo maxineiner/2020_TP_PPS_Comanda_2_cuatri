@@ -7,13 +7,19 @@
     <!-- TODO: show images-->
     <!--ion-img [src]="cliente.foto.url"></ion-img-->
 
-    <ion-card-content>
+    <ion-card-content *ngIf="!pendiente">
       <ion-chip color="light" mode="ios" outline="true">
         <ion-label>DNI:{{ cliente.dni }}</ion-label>
       </ion-chip>
     </ion-card-content>
-    <ion-button (click)="sacarFoto()" size="large" expand="block" fill="solid" color="success">
+    <ion-button *ngIf="!pendiente" (click)="sacarFoto()" size="large" expand="block" fill="solid" color="success">
       Sacar foto
+    </ion-button>
+    <ion-button *ngIf="pendiente" (click)="aceptarCliente()" size="large" expand="block" fill="solid" color="success">
+      Aceptar
+    </ion-button>
+    <ion-button *ngIf="pendiente" (click)="rechazarCliente()" size="large" expand="block" fill="solid" color="danger">
+      Rechazar
     </ion-button>
   </ion-card>
 </div>

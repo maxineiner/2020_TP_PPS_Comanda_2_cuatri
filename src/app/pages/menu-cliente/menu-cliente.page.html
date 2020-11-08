@@ -17,8 +17,8 @@
 
 <ion-content class="fondo">
 
-  <app-listado-clientes *ngIf="opcion == 'Listado'" [clientes]="listado"
-                        (seleccionarCliente)="seleccionarCliente($event)">
+  <app-listado-clientes *ngIf="opcion == 'Listado'" [clientes]="listado" [pendientes]="false"
+    (seleccionarCliente)="seleccionarCliente($event)">
   </app-listado-clientes>
 
   <app-form-clientes *ngIf="opcion != 'Listado'" [opcion]="opcion" [cliente]="clienteSeleccionado">

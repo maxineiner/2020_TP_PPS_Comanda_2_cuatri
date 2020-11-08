@@ -9,8 +9,7 @@ import { Cliente, EstadoAceptacion } from '../../clases/cliente';
 })
 export class ClientesPendientesPage implements OnInit, DoCheck
 {
-
-  clientesPendientes: Cliente[] = [];
+  clientesPendientes: Cliente[] = ClienteService.clientes;
 
   constructor(private clienteService: ClienteService) { }
 

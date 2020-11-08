@@ -1,9 +1,8 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>clientes-pendientes</ion-title>
-  </ion-toolbar>
-</ion-header>
+<app-header titulo="Clientes Pendientes"></app-header>
 
-<ion-content>
+<ion-content class="fondo">
+
+  <app-listado-clientes [clientes]="clientesPendientes" [pendientes]="true" (seleccionarCliente)="null">
+  </app-listado-clientes>
 
 </ion-content>
