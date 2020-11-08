@@ -44,10 +44,11 @@ export class ProfileGuardService implements CanActivate
           break;
         case "/home/tab1":
           // Esto cambiaría con el servicio de Roles / Perfiles
-          if (this.rolesService.isJefe(this.usuario))
-          {
-            activar = true;
-          }
+          // if (this.rolesService.isJefe(this.usuario))
+          // {
+          // Se deja habilitado el tab de testing para todos los usuarios
+          activar = true;
+          // }
           break;
         case "/home/tab2":
           if (this.rolesService.isCliente(this.usuario))

@@ -1,9 +1,18 @@
 <app-header titulo="Menú"></app-header>
 
-<ion-segment value="Listado" (ionChange)="seleccionarOpcion($event)" scrollable color="success">
-  <ion-segment-button value="Listado">
-    <ion-label>Productos</ion-label>
+<ion-segment value="Platos" (ionChange)="seleccionarOpcion($event)" scrollable color="success">
+  <ion-segment-button value="Platos">
+    <ion-label>
+      Platos
+    </ion-label>
   </ion-segment-button>
+
+  <ion-segment-button value="Bebidas">
+    <ion-label>
+      Bebidas
+    </ion-label>
+  </ion-segment-button>
+
   <ion-segment-button value="Alta" *ngIf="rolService.isJefe(usuario)">
     <ion-label>Alta</ion-label>
   </ion-segment-button>
@@ -19,11 +28,16 @@
 
 <ion-content class="fondo">
 
-  <app-listado-productos *ngIf="opcion == 'Listado'" [productos]="listado"
+  <app-listado-productos *ngIf="opcion == 'Platos'" [productos]="platos" [opcion]="Platos"
                          (elegirProducto)="elegirProducto($event)">
   </app-listado-productos>
-  <app-form-producto *ngIf="opcion != 'Listado'" [opcion]="opcion" [producto]="productoElegido"
-                     [opcion]="opcion">
+
+  <app-listado-productos *ngIf="opcion == 'Bebidas'" [productos]="bebidas" [opcion]="Bebidas"
+                         (elegirProducto)="elegirProducto($event)">
+  </app-listado-productos>
+
+  <app-form-producto *ngIf="opcion != 'Platos' && opcion != 'Bebidas'" [opcion]="opcion"
+                     [producto]="productoElegido">
   </app-form-producto>
 
 </ion-content>
