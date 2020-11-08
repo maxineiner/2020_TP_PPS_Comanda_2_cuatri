@@ -8,6 +8,9 @@ import { Producto } from '../clases/producto';
 import { ListaPlatosClienteComponent } from '../components/lista-platos-cliente/lista-platos-cliente.component';
 import { LoginPage } from '../components/login/login.page';
 import { RegisterPage } from '../components/register/register.page';
+import { Router } from '@angular/router';
+import { FormPedidoComponent } from '../components/form-pedido/form-pedido.component';
+import { Pedido } from '../clases/pedido';
 
 /**
  * Interfaz para crear dinámicamente botones de un Action Sheet
@@ -15,7 +18,7 @@ import { RegisterPage } from '../components/register/register.page';
 export interface IBotonesGenerados
 {
   mostrarPlatos?: { boton?: ActionSheetButton, handler: any, params?: any },
-  solicitar?: { boton?: ActionSheetButton, handler: any },
+  solicitar?: { boton?: ActionSheetButton, handler: any, params?: any },
   confirmar?: { boton?: ActionSheetButton, handler: any },
   entregar?: { boton?: ActionSheetButton, handler: any },
   recibir?: { boton?: ActionSheetButton, handler: any },
@@ -38,7 +41,8 @@ export class UIVisualService
     private toastController: ToastController,
     private alertController: AlertController,
     private actionSheetController: ActionSheetController,
-    private popoverController: PopoverController) 
+    private popoverController: PopoverController,
+    private router: Router) 
   {
     UIVisualService.UI = this;
   }
@@ -67,6 +71,7 @@ export class UIVisualService
 
   static async presentActionSheet(rol: any, handlers: IBotonesGenerados) 
   {
+    console.log(handlers);
     // TODO: Modificar cuando se implemente servicio de Roles
     let botones = this.generarBotones(rol, handlers);
 
@@ -96,11 +101,11 @@ export class UIVisualService
 
     switch (rol)
     {
-      case 'Usuario':
+      case 'Cliente':
         handlers.solicitar.boton = {
-          text: 'Solicitar',
+          text: 'Hacer pedido',
           icon: 'hand-left-sharp',
-          handler: () => handlers.solicitar.handler()
+          handler: () => handlers.solicitar.handler(handlers.solicitar.params)
         }
         if (handlers.solicitar) botonesGenerados.push(handlers.solicitar.boton);
 
@@ -154,6 +159,19 @@ export class UIVisualService
     });
 
     await popover.present();
+  }
+
+  static async hacerPedido(pedido: Pedido)
+  {
+    const modal = await UIVisualService.UI.modalController.create({
+      component: FormPedidoComponent,
+      componentProps: {
+        opcion: 'Alta',
+        pedido
+      }
+    });
+
+    await modal.present();
   }
 
 

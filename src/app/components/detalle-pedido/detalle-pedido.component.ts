@@ -1,8 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { ActionSheetController, ModalController } from '@ionic/angular';
-import { Pedido } from 'src/app/clases/pedido';
+import { EstadoPedido, Pedido } from 'src/app/clases/pedido';
+import { PedidoService } from 'src/app/services/pedido.service';
 import { UIVisualService } from 'src/app/services/uivisual.service';
-import { ListaPlatosClienteComponent } from '../lista-platos-cliente/lista-platos-cliente.component';
+import { FormPedidoComponent } from '../form-pedido/form-pedido.component';
 
 @Component({
   selector: 'app-detalle-pedido',
@@ -14,33 +16,37 @@ export class DetallePedidoComponent implements OnInit
   @Input() pedido: Pedido;
 
   constructor(private actionSheetController: ActionSheetController,
-    private modalController: ModalController, private UIVisual: UIVisualService) 
+    private modalController: ModalController,
+    private UIVisual: UIVisualService,
+    private pedidoService: PedidoService,
+    private router: Router) 
   {
     //this.pedido.calcularTotal();
   }
 
   ngOnInit() { }
 
-  confirmar()
-  {
-    console.log("Se confirma el pedido");
-  }
 
-  entregar()
-  {
-    console.log("Pedido entregado");
-  }
 
   recibir()
   {
     console.log("Se recibe pedido en la mesa");
+    this.pedido.cambiarEstado();
+    this.pedidoService.actualizar(this.pedido);
+  }
+
+  pagar()
+  {
+    console.log("Pagar pedido");
+    this.pedido.cambiarEstado();
+    this.pedidoService.actualizar(this.pedido);
   }
 
   async mostrarOpciones()
   {
-    UIVisualService.presentActionSheet('Usuario', {
+    UIVisualService.presentActionSheet('Cliente', {
       mostrarPlatos: { handler: UIVisualService.verPlatos, params: this.pedido.productos },
-      solicitar: { handler: this.solicitar() },
+      solicitar: { handler: UIVisualService.hacerPedido, params: this.pedido },
       confirmar: { handler: null },
       entregar: { handler: null },
       recibir: { handler: null },
@@ -48,13 +54,11 @@ export class DetallePedidoComponent implements OnInit
     })
   }
 
-
-
-  solicitar()
+  hacerPedido()
   {
-    console.log("Se solicita el pedido");
+
+
+    this.router.navigate(["/menu-pedidos"]);
   }
-
-
 
 }
