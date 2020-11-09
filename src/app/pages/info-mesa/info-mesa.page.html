@@ -1,39 +1,3 @@
-<!-- <ion-content class="fondo" fullscreen="true" scrollX="true">
-  <ion-grid fixed="true" id="container" class="contenido ion-margin-top">
-    <ion-row *ngIf="pedido">
-      <ion-col size="12">
-
-        <app-detalle-reserva [reserva]="pedido"></app-detalle-reserva>
-
-      </ion-col>
-    </ion-row>
-    <ion-row *ngIf="pedido">
-      <ion-col size="12">
-
-        <app-detalle-pedido [pedido]="pedido" class="ion-no-margin"></app-detalle-pedido>
-
-      </ion-col>
-    </ion-row> -->
-
-<!-- <ion-button (click)="verEncuesta()" expand="full"
-          class="ion-no-margin" color="dark" size="large">
-          Realizar encuesta
-        </ion-button> -->
-<!-- 
-    <ion-row *ngIf="!pedido">
-      <ion-col size="12">
-        <div id="container" class="contenido">
-          <ion-label>
-            <h1>
-              <strong>Usted no está asignado a esta mesa</strong>
-            </h1>
-          </ion-label>
-        </div>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
-</ion-content> -->
-
 <ion-content class="fondo" fullscreen="true" scrollX="true">
 
   <div class="contenido">
@@ -41,11 +5,15 @@
     <app-detalle-reserva *ngIf="pedido" [reserva]="pedido"></app-detalle-reserva>
     <app-detalle-pedido *ngIf="pedido" [pedido]="pedido" class="ion-no-margin"></app-detalle-pedido>
 
-    <ion-label *ngIf="!pedido">
+  </div>
+
+  <div id="container" class="contenido" *ngIf="!pedido">
+    <ion-label>
       <h1>
         <strong>Usted no está asignado a esta mesa</strong>
       </h1>
     </ion-label>
+
   </div>
   <!-- <ion-button (click)="verEncuesta()" expand="full"
           class="ion-no-margin" color="dark" size="large">

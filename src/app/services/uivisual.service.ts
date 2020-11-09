@@ -10,8 +10,9 @@ import { LoginPage } from '../components/login/login.page';
 import { RegisterPage } from '../components/register/register.page';
 import { Router } from '@angular/router';
 import { FormPedidoComponent } from '../components/form-pedido/form-pedido.component';
-import { Pedido } from '../clases/pedido';
+import { EstadoPedido, Pedido } from '../clases/pedido';
 import { SalaChatPage } from '../pages/sala-chat/sala-chat.page';
+import { PedidoService } from './pedido.service';
 
 /**
  * Interfaz para crear dinámicamente botones de un Action Sheet
@@ -20,10 +21,9 @@ export interface IBotonesGenerados
 {
   mostrarPlatos?: { boton?: ActionSheetButton, handler: any, params?: any },
   solicitar?: { boton?: ActionSheetButton, handler: any, params?: any },
-  confirmar?: { boton?: ActionSheetButton, handler: any },
-  entregar?: { boton?: ActionSheetButton, handler: any },
-  recibir?: { boton?: ActionSheetButton, handler: any },
-  cerrar?: { boton?: ActionSheetButton, handler: any },
+  confirmar?: { boton?: ActionSheetButton, handler: any, params?: any },
+  recibir?: { boton?: ActionSheetButton, handler: any, params?: any },
+  cerrar?: { boton?: ActionSheetButton, handler: any, params?: any },
   chat?: { boton?: ActionSheetButton, handler: any },
 }
 
@@ -44,7 +44,8 @@ export class UIVisualService
     private alertController: AlertController,
     private actionSheetController: ActionSheetController,
     private popoverController: PopoverController,
-    private router: Router) 
+    private router: Router,
+    private pedidoService: PedidoService) 
   {
     UIVisualService.UI = this;
   }
@@ -107,7 +108,7 @@ export class UIVisualService
         handlers.solicitar.boton = {
           text: 'Hacer pedido',
           icon: 'hand-left-sharp',
-          handler: () => this.UI.hacerPedido(handlers.solicitar.params)
+          handler: () => this.UI.pedidoService.hacerPedido(handlers.solicitar.params)
         }
         if (handlers.solicitar) botonesGenerados.push(handlers.solicitar.boton);
 
@@ -124,8 +125,44 @@ export class UIVisualService
           handler: () => handlers.chat.handler()
         }
         if (handlers.chat) botonesGenerados.push(handlers.chat.boton);
-        break;
 
+        handlers.recibir.boton = {
+          text: 'Confirmar recepción',
+          icon: 'checkmark-done-sharp',
+          handler: () => this.UI.pedidoService.recibirPedido(handlers.recibir.params)
+        }
+        if (handlers.recibir) botonesGenerados.push(handlers.recibir.boton);
+
+        handlers.cerrar.boton = {
+          text: 'Pagar',
+          icon: 'cash-outline',
+          handler: () => this.UI.pedidoService.pagarPedido(handlers.cerrar.params)
+        }
+        if (handlers.cerrar) botonesGenerados.push(handlers.cerrar.boton);
+
+        break;
+      case 'Mozo':
+        handlers.mostrarPlatos.boton = {
+          text: 'Mostrar Platos',
+          icon: 'fast-food-outline',
+          handler: () => handlers.mostrarPlatos.handler(handlers.mostrarPlatos.params)
+        }
+        if (handlers.mostrarPlatos) botonesGenerados.push(handlers.mostrarPlatos.boton);
+
+        handlers.chat.boton = {
+          text: 'Consultar a mozo',
+          icon: 'chatbubbles-sharp',
+          handler: () => handlers.chat.handler()
+        }
+        if (handlers.chat) botonesGenerados.push(handlers.chat.boton);
+
+        handlers.confirmar.boton = {
+          text: 'Confirmar pedido',
+          icon: 'checkmark-sharp',
+          handler: () => this.UI.pedidoService.aceptarPedido(handlers.confirmar.params)
+        }
+        if (handlers.confirmar) botonesGenerados.push(handlers.confirmar.boton);
+        break;
     }
 
     return botonesGenerados;
@@ -176,11 +213,6 @@ export class UIVisualService
     });
 
     await popover.present();
-  }
-
-  hacerPedido(pedido: Pedido)
-  {
-    this.router.navigate(["/home/menu-pedidos", pedido.id]);
   }
 
 

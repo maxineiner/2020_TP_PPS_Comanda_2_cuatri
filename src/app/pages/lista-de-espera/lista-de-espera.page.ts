@@ -70,12 +70,15 @@ export class ListaDeEsperaPage implements OnInit, DoCheck
   asignarMesa(mesa: Mesa)
   {
     let mensaje = 'Mesa:' + mesa.numero + ' asignada.';
-    this.pedidosService.crear(Pedido.CrearPedido('', this.clienteActual, mesa, null, Date.now(), null, null, EstadoPedido.ASIGNADO, true)).then(() =>
-    {
-      //Se envia push al cliente avisando que es su turno y un redireccionamiento al pedidos page
-      UIVisualService.presentAlert('Mesa Asignada', mensaje);
-      this.asignandoMesa = false;
-    })
+    let fechaActual = new Date().getTime() - (new Date().getTimezoneOffset() * 60000);
+
+    this.pedidosService.crear(Pedido.CrearPedido('', this.clienteActual, mesa, null, fechaActual,
+      null, null, EstadoPedido.ASIGNADO, true)).then(() =>
+      {
+        //Se envia push al cliente avisando que es su turno y un redireccionamiento al pedidos page
+        UIVisualService.presentAlert('Mesa Asignada', mensaje);
+        this.asignandoMesa = false;
+      })
 
   }
 

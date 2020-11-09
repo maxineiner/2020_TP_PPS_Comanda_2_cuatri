@@ -47,10 +47,9 @@ export class DetallePedidoComponent implements OnInit
     UIVisualService.presentActionSheet('Cliente', {
       mostrarPlatos: { handler: UIVisualService.verPlatos, params: this.pedido.productos },
       solicitar: { handler: "", params: this.pedido },
-      confirmar: { handler: null },
-      entregar: { handler: null },
-      recibir: { handler: null },
-      cerrar: { handler: null },
+      confirmar: { handler: "", params: this.pedido },
+      recibir: { handler: "", params: this.pedido },
+      cerrar: { handler: "", params: this.pedido },
       chat: { handler: UIVisualService.verChat }
     })
   }

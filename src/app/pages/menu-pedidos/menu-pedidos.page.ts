@@ -14,7 +14,7 @@ import { RolesService } from 'src/app/services/roles.service';
 export class MenuPedidosPage implements OnInit, DoCheck
 {
   usuario: Usuario;
-  opcion: string = 'Alta';
+  opcion: string = 'Listado';
   pedidos: Pedido[] = PedidoService.pedidos;
   pedidoElegido: Pedido = new Pedido();
 
@@ -46,6 +46,9 @@ export class MenuPedidosPage implements OnInit, DoCheck
     {
       this.pedidos = this.filtrarPedidos(pedidos);
     });
+
+    // Se define tab por defecto para visualizar según perfil de Usuario
+    this.opcion = this.rolService.isCliente(this.usuario) ? 'Alta' : 'Listado';
   }
 
   /**
