@@ -47,7 +47,7 @@ export class InfoMesaPage implements OnInit
 
   buscarReserva(id: string)
   {
-    let fechaActual = Date.now();
+    let fechaActual = new Date(new Date().getTime() - (new Date().getTimezoneOffset() * 60000));
 
     // Se debería traer Entidad con información sobre Pedido y Cliente de Mesa
     if (this.rolService.isCliente(this.usuario))
