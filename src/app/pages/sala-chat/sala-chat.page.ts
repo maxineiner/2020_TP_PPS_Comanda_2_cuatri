@@ -19,7 +19,8 @@ export class SalaChatPage implements OnInit, DoCheck
 
   constructor(private mensajeService: MensajesService, private modalController: ModalController) 
   {
-    this.mensajeService.leer().then(mensajes => this.mensajes = mensajes);
+    this.mensajeService.leer()
+      .then(mensajes => this.mensajes = mensajes.filter(mensaje => mensaje.chatId == this.usuario.id));
   }
 
   ngOnInit()
@@ -28,7 +29,7 @@ export class SalaChatPage implements OnInit, DoCheck
 
   ngDoCheck(): void
   {
-    this.mensajes = MensajesService.mensajes;
+    this.mensajes = MensajesService.mensajes.filter(mensaje => mensaje.id == this.usuario.id);
   }
 
   enviar()
@@ -37,7 +38,8 @@ export class SalaChatPage implements OnInit, DoCheck
 
     if (this.textoAuxiliar)
     {
-      this.mensaje = Mensaje.CrearMensaje('0', this.textoAuxiliar, this.usuario, new Date().toUTCString());
+      this.mensaje = Mensaje.CrearMensaje('0', this.textoAuxiliar, this.usuario,
+        new Date().toUTCString(), this.usuario.id);
       this.textoAuxiliar = null;
     }
   }

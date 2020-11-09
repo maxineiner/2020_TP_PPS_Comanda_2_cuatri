@@ -1,22 +1,43 @@
 <ion-header>
   <ion-toolbar color="success">
-    <ion-title>Carta</ion-title>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content class="fondo">
-
-  <app-listado-productos [productos]="productos" (elegirProducto)="agregar($event)">
-  </app-listado-productos>
-
-</ion-content>
-<ion-footer>
-  <ion-toolbar color="warning">
     <ion-buttons slot="start">
       <ion-button (click)="cerrar()" expand="block">
         <ion-icon size="large" slot="icon-only" name="arrow-back-circle"></ion-icon>
       </ion-button>
     </ion-buttons>
+    <ion-title>Carta</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-segment value="Platos" (ionChange)="seleccionarOpcion($event)" color="success">
+
+  <ion-segment-button value="Platos">
+    <ion-label>
+      Platos
+    </ion-label>
+  </ion-segment-button>
+
+  <ion-segment-button value="Bebidas">
+    <ion-label>
+      Bebidas
+    </ion-label>
+  </ion-segment-button>
+
+</ion-segment>
+
+<ion-content class="fondo">
+
+  <app-listado-productos *ngIf="opcion == 'Platos'" [productos]="platos" [opcion]="opcion"
+                         (elegirProducto)="agregar($event)">
+  </app-listado-productos>
+
+  <app-listado-productos *ngIf="opcion == 'Bebidas'" [productos]="bebidas" [opcion]="opcion"
+                         (elegirProducto)="agregar($event)">
+  </app-listado-productos>
+
+</ion-content>
+<ion-footer>
+  <ion-toolbar color="warning" class="ion-padding-horizontal">
     <ion-label>Seleccionados:{{productosElegidos.length}}</ion-label>
   </ion-toolbar>
 </ion-footer>

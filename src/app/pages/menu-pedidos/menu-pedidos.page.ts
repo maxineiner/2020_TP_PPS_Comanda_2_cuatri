@@ -1,4 +1,5 @@
 import { Component, DoCheck, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { EstadoPedido, Pedido } from 'src/app/clases/pedido';
 import { Usuario } from 'src/app/clases/usuario';
 import { AuthService } from 'src/app/services/auth.service';
@@ -13,11 +14,12 @@ import { RolesService } from 'src/app/services/roles.service';
 export class MenuPedidosPage implements OnInit, DoCheck
 {
   usuario: Usuario;
-  opcion: string = 'Listado';
+  opcion: string = 'Alta';
   pedidos: Pedido[] = PedidoService.pedidos;
   pedidoElegido: Pedido = new Pedido();
 
-  constructor(private pedidoService: PedidoService, private rolService: RolesService) { }
+  constructor(private pedidoService: PedidoService, private rolService: RolesService,
+    private route: ActivatedRoute) { }
 
   ngDoCheck(): void
   {
@@ -26,14 +28,24 @@ export class MenuPedidosPage implements OnInit, DoCheck
 
   ngOnInit()
   {
-    this.usuario = AuthService.usuario;
     console.log("INIT");
 
+    // Se guarda el usuario logueado
+    this.usuario = AuthService.usuario;
+
+    // Se lee pedido recibido para ABM
+    this.route.params.subscribe(params =>
+    {
+      console.log(params['id']);
+      this.pedidoElegido = PedidoService.pedidos.filter(pedido => pedido.id == params['id'])[0];
+      console.log(this.pedidoElegido);
+    });
+
+    // Leer todos los pedidos para listado - Código para mejorar
     this.pedidoService.leer().then((pedidos) =>
     {
       this.pedidos = this.filtrarPedidos(pedidos);
     });
-    this.pedidoElegido = new Pedido();
   }
 
   /**
@@ -59,7 +71,6 @@ export class MenuPedidosPage implements OnInit, DoCheck
   filtrarPedidos(pedidos: Pedido[])
   {
     let pedidosFiltrados = [];
-    console.log(pedidos);
 
     // Pedidos del Cliente logueado
     if (this.rolService.isClienteAceptado(this.usuario))

@@ -8,6 +8,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { CodigoQRService } from 'src/app/services/codigo-qr.service';
 import { NotificationsService } from 'src/app/services/notifications.service';
 import { PedidoService } from 'src/app/services/pedido.service';
+import { ProductoService } from 'src/app/services/producto.service';
 import { RolesService } from 'src/app/services/roles.service';
 
 @Component({
@@ -27,12 +28,14 @@ export class HomePage implements OnInit
     private router: Router,
     private notifications: NotificationsService,
     private actionSheetController: ActionSheetController,
-    private pedidosService: PedidoService
+    private pedidosService: PedidoService,
+    private productoService: ProductoService
   ) { }
 
   ngOnInit()
   {
     this.pedidosService.leer();
+    this.productoService.traerTodos();
     this.usuario = AuthService.usuario;
     this.notifications.initPush();
   }
