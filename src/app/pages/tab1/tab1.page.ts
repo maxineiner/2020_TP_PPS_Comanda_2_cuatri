@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { BarcodeScanResult } from '@ionic-native/barcode-scanner';
 import { ModalController, ToastController } from '@ionic/angular';
 import { CodigoQRService } from 'src/app/services/codigo-qr.service';
+import { SalaChatPage } from '../sala-chat/sala-chat.page';
 
 @Component({
   selector: 'app-tab1',
@@ -13,7 +14,8 @@ export class Tab1Page
 {
   constructor(private escanerQR: CodigoQRService,
     private toastController: ToastController,
-    private router: Router) { }
+    private router: Router,
+    private modalController: ModalController) { }
 
 
   async escanear()
@@ -52,4 +54,16 @@ export class Tab1Page
 
     }
   }
+
+  async verChat()
+  {
+    const modal = await this.modalController.create({
+      component: SalaChatPage,
+    });
+
+    await modal.present();
+  }
+
+
+
 }

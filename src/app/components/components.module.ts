@@ -32,6 +32,7 @@ import { FotoComponent } from './foto/foto.component';
 import { DetalleProductoComponent } from './detalle-producto/detalle-producto.component';
 import { ListaPlatosClienteComponent } from './lista-platos-cliente/lista-platos-cliente.component';
 import { EscanerQRComponent } from './escaner/escaner.component';
+import { ChatComponent } from './chat/chat.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { EscanerQRComponent } from './escaner/escaner.component';
     HeaderComponent,
     FotoComponent,
     EscanerQRComponent,
+    ChatComponent,
     // Mesa
     DetalleMesaComponent,
     FormMesasComponent,
@@ -79,6 +81,7 @@ import { EscanerQRComponent } from './escaner/escaner.component';
     HeaderComponent,
     FotoComponent,
     EscanerQRComponent,
+    ChatComponent,
     // Mesa
     FormMesasComponent,
     DetalleMesaComponent,
