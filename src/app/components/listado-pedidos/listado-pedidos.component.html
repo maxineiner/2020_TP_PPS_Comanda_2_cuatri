@@ -3,7 +3,18 @@
     <ion-col size="12" size-lg="6" (click)="seleccionarPedido(pedido)" color="dark"
              class="ion-justify-content-center">
 
-      <app-detalle-pedido [pedido]="pedido"></app-detalle-pedido>
+      <ion-item>
+        <ion-label>
+          <h1>Mesa:{{pedido.mesa.numero}}</h1>
+          <p>
+            <strong>Cliente: {{pedido.cliente.nombre}}-{{pedido.cliente.apellido}}</strong><br>
+            {{pedido.fechaInicio | date: 'shortDate'}}-{{pedido.fechaInicio | date: 'shortTime' : 'UTC'}}
+          </p>
+        </ion-label>
+        <ion-button (click)="verDetalle(pedido)" expand="block" fill="clear" shape="round">
+          Ver detalle
+        </ion-button>
+      </ion-item>
 
     </ion-col>
   </ion-row>

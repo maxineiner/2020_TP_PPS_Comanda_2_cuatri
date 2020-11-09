@@ -1,29 +1,23 @@
-<div class="ion-no-margin">
-
-  <ion-card color="dark" mode="ios">
-    <ion-card-header>
-      <ion-card-title>Estado:{{pedido.estado}}</ion-card-title>
-    </ion-card-header>
-    <ion-card-content>
+<ion-card color="dark" mode="ios" class="ion-no-margin">
+  <ion-card-header>
+    <ion-card-title>Estado:{{pedido.estado}}</ion-card-title>
+  </ion-card-header>
+  <ion-card-content>
 
 
-      <ion-button (click)="mostrarOpciones()" expand="block" fill="clear"
-                  color="success" size="large" strong="true">
-        <ion-label>Abrir menú</ion-label>
-      </ion-button>
-    </ion-card-content>
-  </ion-card>
+    <ion-button (click)="mostrarOpciones()" expand="block" color="success" size="large" strong="true">
+      <ion-label>Abrir menú</ion-label>
+    </ion-button>
+  </ion-card-content>
+</ion-card>
 
-  <ion-grid>
-    <ion-row>
-      <ion-col class="contenido">
-        <ion-label mode="ios">
-          <h1>Pedido</h1>
-        </ion-label>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
-  <app-pedido-slide [productos]="pedido.productos"></app-pedido-slide>
-
-
-</div>
+<ion-grid>
+  <ion-row>
+    <ion-col class="contenido">
+      <ion-label mode="ios">
+        <h1>Pedido</h1>
+      </ion-label>
+    </ion-col>
+  </ion-row>
+</ion-grid>
+<app-pedido-slide [productos]="pedido.productos"></app-pedido-slide>

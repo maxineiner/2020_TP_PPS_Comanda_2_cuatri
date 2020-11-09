@@ -10,7 +10,7 @@ export class PedidoSlideComponent implements OnInit
 {
   @Input() productos: Producto[] = [];
   slidesOptions = {
-    slidesPerView: 2.3,
+    slidesPerView: 2.8,
     freeMode: true
   };
 
