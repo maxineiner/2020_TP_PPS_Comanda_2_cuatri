@@ -50,13 +50,13 @@ export class DateService
  */
   sumarMinutos(timeStamp, minutosASumar): number
   {
-    let nuevoHorario = timeStamp + (minutosASumar * 60);
+    let nuevoHorario = timeStamp + (minutosASumar * 60000);
     return nuevoHorario;
   }
 
   restarMinutos(timeStamp, minutosARestar): number
   {
-    let nuevoHorario = timeStamp - (minutosARestar * 60);
+    let nuevoHorario = timeStamp - (minutosARestar * 60000);
     return nuevoHorario;
   }
 

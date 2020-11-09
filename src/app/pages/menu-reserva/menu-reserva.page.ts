@@ -1,8 +1,9 @@
 import { Component, DoCheck, OnInit } from '@angular/core';
 import { EstadoPedido, Pedido } from 'src/app/clases/pedido';
-import { Reserva } from 'src/app/clases/reserva';
+import { Usuario } from 'src/app/clases/usuario';
+import { AuthService } from 'src/app/services/auth.service';
 import { PedidoService } from 'src/app/services/pedido.service';
-import { ReservaService } from 'src/app/services/reserva.service';
+import { RolesService } from 'src/app/services/roles.service';
 
 @Component({
   selector: 'app-menu-reserva',
@@ -11,12 +12,12 @@ import { ReservaService } from 'src/app/services/reserva.service';
 })
 export class MenuReservaPage implements OnInit, DoCheck
 {
-
+  usuario: Usuario;
   opcion: string = 'Listado';
   listado: Pedido[];
   reservaElegida: Pedido;
 
-  constructor(private reservaService: ReservaService, private pedidoService: PedidoService) { }
+  constructor(private pedidoService: PedidoService,private rolService: RolesService) { }
 
   ngDoCheck(): void
   {
@@ -25,6 +26,7 @@ export class MenuReservaPage implements OnInit, DoCheck
 
   ngOnInit()
   {
+    this.usuario = AuthService.usuario;
     console.log("INIT");
     this.pedidoService.leer().then(data =>
     {

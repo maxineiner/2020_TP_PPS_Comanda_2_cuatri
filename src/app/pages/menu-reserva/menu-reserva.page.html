@@ -4,13 +4,13 @@
   <ion-segment-button value="Listado">
     <ion-label>Reservas</ion-label>
   </ion-segment-button>
-  <ion-segment-button value="Alta">
+  <ion-segment-button value="Alta" *ngIf="rolService.isClienteAceptado(usuario)">
     <ion-label>Alta</ion-label>
   </ion-segment-button>
-  <ion-segment-button value="Baja" *ngIf="reservaElegida">
+  <ion-segment-button value="Baja" *ngIf="rolService.isClienteAceptado(usuario) && reservaElegida">
     <ion-label>Baja</ion-label>
   </ion-segment-button>
-  <ion-segment-button value="Modificación" *ngIf="reservaElegida">
+  <ion-segment-button value="Modificación" *ngIf="rolService.isClienteAceptado(usuario) && reservaElegida">
     <ion-label>Modificar</ion-label>
   </ion-segment-button>
 </ion-segment>
@@ -19,7 +19,7 @@
 
   <app-listado-reservas *ngIf="opcion == 'Listado'" [reservas]="listado" (elegirReserva)="elegirReserva($event)">
   </app-listado-reservas>
-  <app-form-reserva *ngIf="opcion != 'Listado'" [opcion]="opcion" [pedido]="reservaElegida" [opcion]="opcion">
+  <app-form-reserva *ngIf="opcion != 'Listado'" [pedido]="reservaElegida" [opcion]="opcion">
   </app-form-reserva>
 
 </ion-content>
