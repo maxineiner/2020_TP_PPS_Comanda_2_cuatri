@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { LoadingController, ModalController, ToastController } from '@ionic/angular';
+import { TipoEmpleado } from 'src/app/clases/empleado';
 import { Producto } from 'src/app/clases/producto';
 import { ProductoService } from 'src/app/services/producto.service';
 
@@ -10,8 +11,10 @@ import { ProductoService } from 'src/app/services/producto.service';
 })
 export class CartaPage implements OnInit
 {
-  productos: Producto[] = [];
+  platos: Producto[];
+  bebidas: Producto[];
   productosElegidos: Producto[] = [];
+  opcion: string = 'Platos';
 
   constructor(private modalController: ModalController,
     private productoService: ProductoService,
@@ -24,9 +27,8 @@ export class CartaPage implements OnInit
 
   async generarCarta()
   {
-    this.productos = await this.productoService.traerTodos();
-
-    console.log(this.productos);
+    this.platos = ProductoService.productos.filter(producto => producto.tipo == TipoEmpleado.Cocinero);
+    this.bebidas = ProductoService.productos.filter(producto => producto.tipo == TipoEmpleado.Bartender);
   }
 
 
@@ -40,6 +42,12 @@ export class CartaPage implements OnInit
   public cerrar()
   {
     this.modalController.dismiss(this.productosElegidos);
+  }
+
+  seleccionarOpcion(event)
+  {
+    console.log(event.detail.value);
+    this.opcion = event.detail.value;
   }
 
   async presentToast(message)

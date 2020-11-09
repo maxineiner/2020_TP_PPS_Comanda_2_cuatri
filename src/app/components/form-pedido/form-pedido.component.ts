@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ModalController, ToastController } from '@ionic/angular';
-import { Pedido } from 'src/app/clases/pedido';
+import { EstadoPedido, Pedido } from 'src/app/clases/pedido';
 import { Producto } from 'src/app/clases/producto';
 import { CartaPage } from 'src/app/pages/carta/carta.page';
 import { PedidoService } from 'src/app/services/pedido.service';
@@ -33,23 +33,20 @@ export class FormPedidoComponent implements OnInit
   ngOnInit() 
   {
 
-    if (this.opcion == 'Alta')
-    {
-      this.pedido = new Pedido();
-    }
   }
 
   alta()
   {
     console.log("Alta pedido");
     console.log(this.pedido);
-    if (this.pedido && !this.pedido.id)
+    if (this.pedido)
     {
+      this.pedido.fechaFin = new Date().getTime();
+      this.pedido.estado = EstadoPedido.SOLICITADO;
       // Alta de mesa en DB
-      this.pedidoService.crear(this.pedido)
+      this.pedidoService.actualizar(this.pedido)
         .then(() => UIVisualService.presentToast('Alta exitosa'))
         .catch(() => UIVisualService.presentToast('No se pudo realizar el alta'));
-      this.modalController.dismiss();
     }
   }
 

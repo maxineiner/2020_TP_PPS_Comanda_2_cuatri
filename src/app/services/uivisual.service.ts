@@ -11,6 +11,7 @@ import { RegisterPage } from '../components/register/register.page';
 import { Router } from '@angular/router';
 import { FormPedidoComponent } from '../components/form-pedido/form-pedido.component';
 import { Pedido } from '../clases/pedido';
+import { SalaChatPage } from '../pages/sala-chat/sala-chat.page';
 
 /**
  * Interfaz para crear dinámicamente botones de un Action Sheet
@@ -23,6 +24,7 @@ export interface IBotonesGenerados
   entregar?: { boton?: ActionSheetButton, handler: any },
   recibir?: { boton?: ActionSheetButton, handler: any },
   cerrar?: { boton?: ActionSheetButton, handler: any },
+  chat?: { boton?: ActionSheetButton, handler: any },
 }
 
 /**
@@ -115,6 +117,13 @@ export class UIVisualService
           handler: () => handlers.mostrarPlatos.handler(handlers.mostrarPlatos.params)
         }
         if (handlers.mostrarPlatos) botonesGenerados.push(handlers.mostrarPlatos.boton);
+
+        handlers.chat.boton = {
+          text: 'Consultar a mozo',
+          icon: 'chatbubbles-sharp',
+          handler: () => handlers.chat.handler()
+        }
+        if (handlers.chat) botonesGenerados.push(handlers.chat.boton);
         break;
 
     }
@@ -145,6 +154,15 @@ export class UIVisualService
     await modal.present();
   }
 
+  static async verChat()
+  {
+    const modal = await UIVisualService.UI.modalController.create({
+      component: SalaChatPage,
+    });
+
+    await modal.present();
+  }
+
   static async verFoto(ev: any, foto: Imagen)
   {
     const popover = await UIVisualService.UI.popoverController.create({
@@ -162,7 +180,7 @@ export class UIVisualService
 
   hacerPedido(pedido: Pedido)
   {
-    this.router.navigate(["/home/menu-pedidos"]);
+    this.router.navigate(["/home/menu-pedidos", pedido.id]);
   }
 
 

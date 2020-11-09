@@ -40,7 +40,7 @@ export class Pedido
         pedido.id = id;
         pedido.cliente = cliente;
         pedido.mesa = mesa;
-        pedido.productos = productos;
+        pedido.productos = productos ? productos : [];
         pedido.valorTotal = valorTotal;
         pedido.fechaInicio = fechaInicio;
         pedido.fechaFin = fechaFin;
@@ -54,10 +54,13 @@ export class Pedido
     {
         this.valorTotal = 0;
 
-        this.productos.forEach(producto =>
+        if (this.productos)
         {
-            this.valorTotal = this.valorTotal + producto.precio;
-        });
+            this.productos.forEach(producto =>
+            {
+                this.valorTotal = this.valorTotal + producto.precio;
+            });
+        }
         return this.valorTotal;
     }
 
