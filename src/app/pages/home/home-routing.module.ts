@@ -75,6 +75,10 @@ const routes: Routes = [
         loadChildren: () => import('../info-mesa/info-mesa.module').then(m => m.InfoMesaPageModule)
       },
       {
+        path: 'clientes-pendientes',
+        loadChildren: () => import('../clientes-pendientes/clientes-pendientes.module').then(m => m.ClientesPendientesPageModule)
+      },
+      {
         path: '',
         redirectTo: '/home/inicio',
         pathMatch: 'full'
