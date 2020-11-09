@@ -10,6 +10,12 @@
         </ion-datetime>
       </ion-item>
 
+      <ion-item color="dark" *ngIf="!hayDisponibilidad">
+        <ion-text color="danger">
+          <h1>No hay mesas disponibles</h1>
+        </ion-text>
+      </ion-item>      
+
       <ion-item color="dark">
         <ion-select class="round" placeholder="Seleccione Mesa" okText="Confirmar" cancelText="Cancelar"
         [disabled]="reservaForm.controls['date'].invalid" formControlName="mesa">

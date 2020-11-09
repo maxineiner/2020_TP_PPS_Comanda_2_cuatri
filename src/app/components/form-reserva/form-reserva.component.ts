@@ -33,6 +33,7 @@ export class FormReservaComponent
   pedidos: Array<Pedido>;
   cliente: Cliente;
   fechaActual: string;
+  hayDisponibilidad:boolean = true;
 
   constructor(
     private fb: FormBuilder,
@@ -149,6 +150,13 @@ export class FormReservaComponent
       }
 
     })
+    if(this.mesasDisponibles.length == 0){
+      this.hayDisponibilidad = false;
+    }
+    else
+    {
+      this.hayDisponibilidad = true;
+    }
   }
 
   /**
