@@ -1,8 +1,6 @@
 import { Component, DoCheck, OnInit } from '@angular/core';
 import { EstadoPedido, Pedido } from 'src/app/clases/pedido';
-import { Reserva } from 'src/app/clases/reserva';
 import { PedidoService } from 'src/app/services/pedido.service';
-import { ReservaService } from 'src/app/services/reserva.service';
 
 @Component({
   selector: 'app-menu-reserva',
@@ -16,7 +14,7 @@ export class MenuReservaPage implements OnInit, DoCheck
   listado: Pedido[];
   reservaElegida: Pedido;
 
-  constructor(private reservaService: ReservaService, private pedidoService: PedidoService) { }
+  constructor(private pedidoService: PedidoService) { }
 
   ngDoCheck(): void
   {

@@ -9,7 +9,7 @@
     <ion-item>
       <ion-label>Fecha y Hora</ion-label>
       <ion-datetime cancelText="Cancelar" doneText="Confirmar" formControlName="date" display-format="D MMM YYYY H:mm"
-        [min]="fechaActual" display-timezone="utc" minuteValues="0,5,10,15,20,25,30,35,40,45,50,55"
+        [min]="fechaActual" max="2021-10-10" display-timezone="utc" minuteValues="0,5,10,15,20,25,30,35,40,45,50,55"
         pickerFormat="D MMM YYYY H:mm" placeholder="Seleccione Fecha y Hora" (ionChange)="leerMesasDisponibles()">
       </ion-datetime>
     </ion-item>
