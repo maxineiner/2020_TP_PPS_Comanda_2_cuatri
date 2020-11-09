@@ -1,16 +1,7 @@
 <!-- <app-toolbar [titulo]="'Productos'" [backBtn]="'home'" [usuario]="null">
 </app-toolbar> -->
-<body class="fondo divScroll" style="margin-bottom: 20%;">
   <ion-header class="ion-no-border" translucent="true">
-    <ion-card
-      style="
-        background: none;
-        --background: none;
-        backdrop-filter: blur(10px) brightness(0.7);
-        border-radius: 10px;
-        height: 60px;
-      "
-    >
+    <ion-card>
       <table style="width: 100%">
         <tr>
           <td style="width: 10%; padding-left: 4%">
@@ -33,7 +24,7 @@
     </ion-card>
   </ion-header>
 
-  <ion-content style="--background: none">
+  <ion-content class="background">
     <!-- COMIDAS -->
     <div class="content-list" style="margin-bottom: 3px">
       <!-- <ion-list-header color="translucent">
@@ -49,14 +40,7 @@
           </div>
         </ion-list-header>
 
-        <div
-          style="
-            border-radius: 10px;
-            backdrop-filter: brightness(2);
-            text-align: center;
-          "
-          *ngIf="listaComida && listaComida.length === 0"
-        >
+        <div class="tarjeta-fondo"  *ngIf="listaComida && listaComida.length === 0">
           <h5 style="color: white">No hay comidas cargadas.</h5>
         </div>
 
@@ -231,4 +215,4 @@
       </ion-list>
     </div>
   </ion-content>
-</body>
+
