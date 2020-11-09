@@ -4,6 +4,7 @@ import { Cliente } from '../../clases/cliente';
 import { UIVisualService } from "src/app/services/uivisual.service"
 import { ModalController } from '@ionic/angular';
 import { CodigoQRService } from 'src/app/services/codigo-qr.service';
+import { LoginPage } from '../login/login.page';
 
 @Component({
   selector: 'app-register',
@@ -14,7 +15,6 @@ export class RegisterPage implements OnInit
 {
   cliente: Cliente = new Cliente
 
-  // constructor(private authService: AuthService, private router: Router) { }
   constructor(private authService: AuthService, private UIVisual: UIVisualService,
     private modalController: ModalController, private codigoQRService: CodigoQRService) { }
 
@@ -28,9 +28,13 @@ export class RegisterPage implements OnInit
     {
       this.authService
         .onRegisterCliente(this.cliente)
-        .then(() => UIVisualService.presentToast('Alta exitosa'))
+        .then(() =>
+        {
+          UIVisualService.presentToast('Alta exitosa')
+          this.cerrar();
+          this.presentLoginModal();
+        })
         .catch(() => UIVisualService.presentToast('No se pudo realizar el alta'))
-      // this.router.navigateByUrl('/');
     }
     else
     {
@@ -57,5 +61,15 @@ export class RegisterPage implements OnInit
   cerrar()
   {
     this.modalController.dismiss();
+  }
+
+  async presentLoginModal()
+  {
+    const modal = await this.modalController.create({
+      component: LoginPage,
+    });
+
+    await modal.present();
+
   }
 }
