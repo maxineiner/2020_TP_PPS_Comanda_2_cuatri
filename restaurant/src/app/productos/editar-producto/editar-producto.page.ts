@@ -6,6 +6,7 @@ import { Producto } from 'src/app/clases/producto';
 import { Sectores } from 'src/app/enums/sectores.enum';
 import { UtilsService } from 'src/app/servicios/utils.service';
 import { CameraService } from 'src/app/servicios/camera.service';
+import { VibrationService } from 'src/app/servicios/vibration.service';
 
 @Component({
   selector: 'app-editar-producto',
@@ -32,7 +33,8 @@ export class EditarProductoPage implements OnInit, AfterViewInit {
     private modalCtrl: ModalController,
     private fb: FormBuilder,
     private utilsService: UtilsService,
-    private camera: CameraService
+    private camera: CameraService,
+    private vibrationService: VibrationService
   ) {
     this.slider =
     {
@@ -136,6 +138,7 @@ export class EditarProductoPage implements OnInit, AfterViewInit {
           this.utilsService.handleError(error);
         });
     } else {
+      this.vibrationService.vibrar(500);
       this.formProducto.markAllAsTouched();
     }
   }

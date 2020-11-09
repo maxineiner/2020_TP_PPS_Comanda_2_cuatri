@@ -5,6 +5,7 @@ import { Usuario } from 'src/app/clases/usuario';
 import { UsuarioService } from 'src/app/servicios/usuario.service';
 import { PedidoService } from 'src/app/servicios/pedido.service';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
+import { VibrationService } from '../servicios/vibration.service';
 
 @Component({
   selector: 'app-clientes',
@@ -22,6 +23,7 @@ export class ClientesPage implements OnInit {
     private usuarioService: UsuarioService,
     private pedidoService: PedidoService,
     public barcodeScanner: BarcodeScanner,
+    public vibrationService: VibrationService
   ) { }
 
   ngOnInit() {
@@ -79,6 +81,7 @@ export class ClientesPage implements OnInit {
            this.irPedidoActivo();
          } else {
            // No existe QR o no es de la mesa asignada
+           this.vibrationService.vibrar(500);
            this.utilsService.presentAlert('Lo sentimos', '', 'El código escaneado no existe o no es de la mesa asignada');
          }
        }

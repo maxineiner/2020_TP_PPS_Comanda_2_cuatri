@@ -85,6 +85,7 @@ export const FIREBASE_MENSAJES = {
     'auth/project-not-found': 'No se encontraron proyectos',
     'auth/insufficient-permission': 'La credencial utilizada no tiene acceso al recurso solicitado',
     'auth/internal-error': 'El servidor de autenticación encontró un error inesperado al intentar procesar la solicitud',
-    'auth/admin-restricted-operation': 'Operación restringida solo para administradores'
+    'auth/admin-restricted-operation': 'Operación restringida solo para administradores',
+    'the document cannot be written because it exceeds the maximum size allowed': 'No se puede escribir el documento porque excedió el máximo de cuota permitido en la base de datos'
 
 };
