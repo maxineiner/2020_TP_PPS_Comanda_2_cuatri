@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ModalController } from '@ionic/angular';
 import { Cliente } from 'src/app/clases/cliente';
 import { Mesa } from 'src/app/clases/mesa';
 import { EstadoPedido, Pedido } from 'src/app/clases/pedido';
@@ -9,6 +10,7 @@ import { ClienteService } from 'src/app/services/cliente.service';
 import { DateService } from 'src/app/services/date.service';
 import { MesaService } from 'src/app/services/mesa.service';
 import { PedidoService } from 'src/app/services/pedido.service';
+import { SalaChatPage } from '../sala-chat/sala-chat.page';
 
 @Component({
   selector: 'app-info-mesa',
@@ -21,9 +23,9 @@ export class InfoMesaPage implements OnInit
   pedido: Pedido = new Pedido();
   horaActual: Date;
 
-  constructor(private route: ActivatedRoute, private mesaService: MesaService,
+  constructor(private route: ActivatedRoute, private router: Router, private mesaService: MesaService,
     private clienteService: ClienteService, private pedidoService: PedidoService,
-    private dateService: DateService) 
+    private dateService: DateService, private modalController: ModalController) 
   {
 
     //this.buscarReserva("-MLOssaEI7D5pr7Q8OMl");
@@ -77,10 +79,16 @@ export class InfoMesaPage implements OnInit
     console.log("Ver encuesta");
   }
 
-  consultarAlMozo()
+  async consultarAlMozo()
   {
-    console.log("Chat con el mozo");
+    const modal = await this.modalController.create({
+      component: SalaChatPage,
+    });
+
+    await modal.present();
   }
+
+
 
   compararFechas(fechaA: Date, fechaB: Date)
   {

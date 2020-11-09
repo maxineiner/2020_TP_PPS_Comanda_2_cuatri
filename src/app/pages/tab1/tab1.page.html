@@ -98,9 +98,15 @@
     </ion-item>
 
     <ion-item>
-      <ion-button routerLink="/home/clientes-pendientes" expand="block" fill="clear" shape="round">
-        Clientes-pendientes
+      <ion-button (click)="verChat()" expand="block" fill="clear" shape="round">
+        Chat mozo
       </ion-button>
+    </ion-item>
+
+
+    <ion-button routerLink="/home/clientes-pendientes" expand="block" fill="clear" shape="round">
+      Clientes-pendientes
+    </ion-button>
     </ion-item>
 
   </ion-list>
