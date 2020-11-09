@@ -14,6 +14,7 @@ import { Notificacion } from 'src/app/clases/notificacion';
 import { from } from 'rxjs';
 import { Location } from '@angular/common';
 import { FirebaseService } from 'src/app/servicios/firebase.service';
+import { VibrationService } from 'src/app/servicios/vibration.service';
 @Component({
   selector: 'app-alta-usuarios',
   templateUrl: './alta-usuarios.page.html',
@@ -39,7 +40,8 @@ export class AltaUsuariosPage implements OnInit {
     public authService: AuthService,
     public notificationService: NotificationService,
     public location: Location,
-    public firebaseService: FirebaseService
+    public firebaseService: FirebaseService,
+    private vibrationService: VibrationService
   ) {
     this.usuarios = db.collection('usuarios').valueChanges();
     this.usuarios.subscribe(usuarios => this.listaUsuarios = usuarios, error => console.log(error));
@@ -151,6 +153,7 @@ export class AltaUsuariosPage implements OnInit {
       });
     }
     else {
+      this.vibrationService.vibrar(500);
       this.utilsService.presentToast('Datos Invalidos', 'toast-error');
       this.markAllAsDirtyAltaUsuarios(this.formUsuario);
     }

@@ -8,7 +8,7 @@ import {
 } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { FIREBASE_MENSAJES } from '../enums/firebase-errores';
-import { DH_NOT_SUITABLE_GENERATOR } from 'constants';
+// import { DH_NOT_SUITABLE_GENERATOR } from 'constants';
 
 @Injectable({
   providedIn: 'root'
