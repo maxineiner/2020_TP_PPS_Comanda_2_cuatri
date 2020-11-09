@@ -44,9 +44,7 @@ export class FormReservaComponent
     private rolesService: RolesService
   )
   {
-    console.log('Pedido seleccionado', this.pedido);
     this.fechaActual = this.dateService.getIsoLocalTime(new Date());
-    console.log('ISOStringExample: ', new Date().toISOString());
     if (this.rolesService.isClienteAceptado(AuthService.usuario))//Solo un cliente registrado puede hacer una reserva.
     {
       this.cliente = AuthService.usuario as Cliente;

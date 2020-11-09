@@ -1,42 +1,40 @@
-<form [formGroup]="reservaForm">
+<ion-content class="ion-padding-bottom contenido" color="dark">
+  <form [formGroup]="reservaForm">
+    <ion-list mode="ios" lines="none">
 
-  <ion-list mode="ios" lines="none">
+      <ion-item color="dark">
+        <ion-label position="floating">Fecha y Hora</ion-label>
+        <ion-datetime cancelText="Cancelar" doneText="Confirmar" formControlName="date" display-format="D MMM YYYY H:mm"
+          [min]="fechaActual" max="2021-10-10" display-timezone="utc" minuteValues="0,5,10,15,20,25,30,35,40,45,50,55"
+          pickerFormat="D MMM YYYY H:mm" placeholder="Seleccione Fecha y Hora" (ionChange)="leerMesasDisponibles()">
+        </ion-datetime>
+      </ion-item>
 
-    <ion-list-header>
-      <ion-label>{{opcion}} Reserva</ion-label>
-      <ion-label><small>Cliente {{cliente.nombre}}</small></ion-label>
-    </ion-list-header>
-    <ion-item>
-      <ion-label>Fecha y Hora</ion-label>
-      <ion-datetime cancelText="Cancelar" doneText="Confirmar" formControlName="date" display-format="D MMM YYYY H:mm"
-        [min]="fechaActual" max="2021-10-10" display-timezone="utc" minuteValues="0,5,10,15,20,25,30,35,40,45,50,55"
-        pickerFormat="D MMM YYYY H:mm" placeholder="Seleccione Fecha y Hora" (ionChange)="leerMesasDisponibles()">
-      </ion-datetime>
-    </ion-item>
+      <ion-item color="dark">
+        <ion-select class="round" placeholder="Seleccione Mesa" okText="Confirmar" cancelText="Cancelar"
+        [disabled]="reservaForm.controls['date'].invalid" formControlName="mesa">
+        <ion-select-option *ngFor="let mesa of mesasDisponibles" [value]='mesa'>
+          Mesa: {{mesa.numero}} Cant.: {{mesa.comensales}}
+        </ion-select-option>
+      </ion-select>
+      </ion-item>      
 
-    <!-- Validar que la mesa este disponible para ese dia y para ese horario -->
-    <ion-select class="round" placeholder="Seleccione Mesa" okText="Confirmar" cancelText="Cancelar"
-      [disabled]="reservaForm.controls['date'].invalid" formControlName="mesa">
-      <ion-select-option *ngFor="let mesa of mesasDisponibles" [value]='mesa'>
-        Mesa: {{mesa.numero}} Cant.: {{mesa.comensales}}
-      </ion-select-option>
-    </ion-select>
+    </ion-list>
 
-  </ion-list>
+    <!-- Se muestra accion segun tipo de llamado al formulario -->
+    <ion-button (click)="crear()" color="dark" expand="block" type="submit" *ngIf="opcion == 'Alta'"
+      [disabled]="reservaForm.controls['mesa'].invalid">
+      Crear
+    </ion-button>
 
-  <!-- Se muestra accion segun tipo de llamado al formulario -->
-  <ion-button (click)="crear()" color="dark" expand="block" type="submit" *ngIf="opcion == 'Alta'"
-  [disabled]="reservaForm.controls['mesa'].invalid">
-    Crear
-  </ion-button>
+    <ion-button (click)="modificarReserva()" color="dark" expand="block" type="submit"
+      [disabled]="reservaForm.pristine || reservaForm.invalid" *ngIf="opcion == 'Modificación'">
+      Modificar
+    </ion-button>
 
-  <ion-button (click)="modificarReserva()" color="dark" expand="block" type="submit"
-    [disabled]="reservaForm.pristine || reservaForm.invalid" *ngIf="opcion == 'Modificación'">
-    Modificar
-  </ion-button>
+    <ion-button (click)="borrarReserva()" color="dark" expand="block" type="submit" *ngIf="opcion == 'Baja'">
+      Eliminar
+    </ion-button>
 
-  <ion-button (click)="borrarReserva()" color="dark" expand="block" type="submit" *ngIf="opcion == 'Baja'">
-    Eliminar
-  </ion-button>
-
-</form>
+  </form>
+</ion-content>
