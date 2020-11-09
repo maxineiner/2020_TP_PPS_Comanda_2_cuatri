@@ -33,6 +33,7 @@ import { DetalleProductoComponent } from './detalle-producto/detalle-producto.co
 import { ListaPlatosClienteComponent } from './lista-platos-cliente/lista-platos-cliente.component';
 import { EscanerQRComponent } from './escaner/escaner.component';
 import { ChatComponent } from './chat/chat.component';
+import { PedidoSlideComponent } from './pedido-slide/pedido-slide.component';
 
 @NgModule({
   declarations: [
@@ -67,7 +68,8 @@ import { ChatComponent } from './chat/chat.component';
     ListadoPedidosComponent,
     FormPedidoComponent,
     DetallePedidoComponent,
-    ListaPlatosClienteComponent
+    ListaPlatosClienteComponent,
+    PedidoSlideComponent
   ],
   imports: [
     CommonModule,
@@ -108,7 +110,8 @@ import { ChatComponent } from './chat/chat.component';
     ListadoPedidosComponent,
     FormPedidoComponent,
     DetallePedidoComponent,
-    ListaPlatosClienteComponent
+    ListaPlatosClienteComponent,
+    PedidoSlideComponent
   ]
 })
 export class ComponentsModule { }

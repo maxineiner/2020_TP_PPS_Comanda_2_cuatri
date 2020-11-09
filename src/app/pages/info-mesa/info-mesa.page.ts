@@ -56,7 +56,7 @@ export class InfoMesaPage implements OnInit
       // Agregar validacion de hora actual
       if (pedido.cliente && pedido.mesa)
       {
-        return pedido.estado == EstadoPedido.ASIGNADO &&
+        return pedido.estado == EstadoPedido.SOLICITADO &&
           pedido.mesa.id === id &&
           pedido.cliente.id == this.cliente.id;
       }
@@ -78,16 +78,6 @@ export class InfoMesaPage implements OnInit
   {
     console.log("Ver encuesta");
   }
-
-  async consultarAlMozo()
-  {
-    const modal = await this.modalController.create({
-      component: SalaChatPage,
-    });
-
-    await modal.present();
-  }
-
 
 
   compararFechas(fechaA: Date, fechaB: Date)

@@ -37,7 +37,7 @@ export class MensajesService implements IDatabase<Mensaje>
         snapshot.forEach((child) =>
         {
           var data: Mensaje = child.val();
-          mensajes.push(Mensaje.CrearMensaje(data.id, data.texto, data.usuario, data.fecha));
+          mensajes.push(Mensaje.CrearMensaje(data.id, data.texto, data.usuario, data.fecha, data.chatId));
         });
         MensajesService.mensajes = mensajes;
         resolve(MensajesService.mensajes);
@@ -57,8 +57,8 @@ export class MensajesService implements IDatabase<Mensaje>
     {
       this.firebase.database.ref(`mensajes/${id}`).once('value').then(snapshot =>
       {
-        let data = snapshot.val();
-        const mensaje = Mensaje.CrearMensaje(data.id, data.texto, data.usuario, data.fecha);
+        let data: Mensaje = snapshot.val();
+        const mensaje = Mensaje.CrearMensaje(data.id, data.texto, data.usuario, data.fecha, data.chatId);
         resolve(mensaje);
       });
     })

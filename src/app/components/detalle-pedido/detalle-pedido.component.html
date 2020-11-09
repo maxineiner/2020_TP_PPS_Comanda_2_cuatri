@@ -1,26 +1,29 @@
-<ion-card (click)="mostrarOpciones()" color="dark" class="centrado">
+<div class="ion-no-margin">
 
-  <ion-card-content color="dark">
-    <ion-item>
-
-
-      <ion-thumbnail slot="end">
-        <img [src]="pedido.mesa.foto.url" />
-      </ion-thumbnail>
-      <ion-label>
-        <h4>Estado:{{pedido.estado}}</h4>
-        <p>
-          Cliente:{{pedido.cliente.nombre}}
-        </p>
-        <p>
-          Mesa:{{pedido.mesa.numero}}
-        </p>
-        <p>
-          Hora de inicio:{{pedido.fechaInicio | date: 'shortTime'}}
-        </p>
-      </ion-label>
+  <ion-card color="dark" mode="ios">
+    <ion-card-header>
+      <ion-card-title>Estado:{{pedido.estado}}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
 
 
-    </ion-item>
-  </ion-card-content>
-</ion-card>
+      <ion-button (click)="mostrarOpciones()" expand="block" fill="clear"
+                  color="success" size="large" strong="true">
+        <ion-label>Abrir menú</ion-label>
+      </ion-button>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col class="contenido">
+        <ion-label mode="ios">
+          <h1>Pedido</h1>
+        </ion-label>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <app-pedido-slide [productos]="pedido.productos"></app-pedido-slide>
+
+
+</div>

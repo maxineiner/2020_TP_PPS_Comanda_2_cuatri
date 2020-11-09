@@ -55,6 +55,10 @@ const routes: Routes = [
         loadChildren: () => import('../menu-pedidos/menu-pedidos.module').then(m => m.MenuPedidosPageModule)
       },
       {
+        path: 'menu-pedidos/:id',
+        loadChildren: () => import('../menu-pedidos/menu-pedidos.module').then(m => m.MenuPedidosPageModule)
+      },
+      {
         path: 'menu-reserva',
         loadChildren: () => import('../menu-reserva/menu-reserva.module').then(m => m.MenuReservaPageModule)
       },

@@ -51,6 +51,7 @@ export class DetallePedidoComponent implements OnInit
       entregar: { handler: null },
       recibir: { handler: null },
       cerrar: { handler: null },
+      chat: { handler: UIVisualService.verChat }
     })
   }
 

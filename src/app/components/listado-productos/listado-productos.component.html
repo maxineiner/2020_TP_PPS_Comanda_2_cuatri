@@ -1,9 +1,13 @@
 <ion-grid fixed>
   <ion-row class="contenido" *ngFor="let producto of productos">
-    <ion-col size="12" size-lg="6" (click)="seleccionarProducto(producto)" color="dark"
+    <ion-col size="12" size-lg="6" color="dark"
              class="ion-justify-content-center">
 
       <app-detalle-producto [producto]="producto"></app-detalle-producto>
+      <ion-button (click)="seleccionarProducto(producto)" expand="full" color="dark"
+                  class="ion-no-margin" strong="true">
+        Seleccionar
+      </ion-button>
 
     </ion-col>
   </ion-row>
