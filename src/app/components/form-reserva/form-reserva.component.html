@@ -3,7 +3,7 @@
     <ion-list mode="ios" lines="none">
 
       <ion-item color="dark">
-        <ion-label position="floating">Fecha y Hora</ion-label>
+        <ion-label position="floating">Fecha y Hora de la reserva</ion-label>
         <ion-datetime cancelText="Cancelar" doneText="Confirmar" formControlName="date" display-format="D MMM YYYY H:mm"
           [min]="fechaActual" max="2021-10-10" display-timezone="utc" minuteValues="0,5,10,15,20,25,30,35,40,45,50,55"
           pickerFormat="D MMM YYYY H:mm" placeholder="Seleccione Fecha y Hora" (ionChange)="leerMesasDisponibles()">
