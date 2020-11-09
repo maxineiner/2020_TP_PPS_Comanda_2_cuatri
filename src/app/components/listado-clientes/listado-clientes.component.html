@@ -1,9 +1,9 @@
 <ion-grid fixed>
   <ion-row class="contenido" *ngFor="let cliente of clientes">
     <ion-col size="12" size-lg="6" (click)="seleccionarClienteDelListado(cliente)" color="dark"
-             class="ion-justify-content-center">
+      class="ion-justify-content-center">
 
-      <app-detalle-cliente [cliente]="cliente"></app-detalle-cliente>
+      <app-detalle-cliente [pendiente]="pendientes" [cliente]="cliente"></app-detalle-cliente>
 
     </ion-col>
   </ion-row>

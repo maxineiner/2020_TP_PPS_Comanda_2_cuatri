@@ -79,6 +79,10 @@ const routes: Routes = [
         loadChildren: () => import('../sala-chat/sala-chat.module').then(m => m.SalaChatPageModule)
       },
       {
+        path: 'clientes-pendientes',
+        loadChildren: () => import('../clientes-pendientes/clientes-pendientes.module').then(m => m.ClientesPendientesPageModule)
+      },
+      {
         path: '',
         redirectTo: '/home/inicio',
         pathMatch: 'full'

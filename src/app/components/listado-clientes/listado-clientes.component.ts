@@ -11,6 +11,7 @@ import { Cliente } from 'src/app/clases/cliente';
 export class ListadoClientesComponent implements OnInit
 {
   @Input() clientes: Cliente[] = [];
+  @Input() pendientes: boolean;
   @Output() seleccionarCliente: EventEmitter<Cliente> = new EventEmitter<Cliente>();
   loadingTime = 2000;
 

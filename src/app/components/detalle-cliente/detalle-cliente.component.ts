@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Cliente } from 'src/app/clases/cliente';
+import { Cliente, EstadoAceptacion } from 'src/app/clases/cliente';
+import { ClienteService } from 'src/app/services/cliente.service';
 
 @Component({
   selector: 'app-detalle-cliente',
@@ -9,8 +10,9 @@ import { Cliente } from 'src/app/clases/cliente';
 export class DetalleClienteComponent implements OnInit
 {
   @Input() cliente: Cliente;
+  @Input() pendiente: boolean;
 
-  constructor() { }
+  constructor(private clienteService: ClienteService) { }
 
   ngOnInit() { }
 
@@ -18,5 +20,19 @@ export class DetalleClienteComponent implements OnInit
   sacarFoto()
   {
     console.log("Sacar foto");
+  }
+
+  aceptarCliente()
+  {
+    this.cliente.estado = EstadoAceptacion.Aceptado;
+    this.clienteService.actualizar(this.cliente)
+    console.log(this.cliente)
+  }
+
+  rechazarCliente()
+  {
+    this.cliente.estado = EstadoAceptacion.Rechazado;
+    this.clienteService.actualizar(this.cliente)
+    console.log(this.cliente)
   }
 }
