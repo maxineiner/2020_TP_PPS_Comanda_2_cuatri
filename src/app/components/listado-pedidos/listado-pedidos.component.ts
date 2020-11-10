@@ -1,21 +1,33 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, DoCheck, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
-import { Pedido } from 'src/app/clases/pedido';
-import { UIVisualService } from 'src/app/services/uivisual.service';
+import { EstadoPedido, Pedido } from 'src/app/clases/pedido';
+import { Usuario } from 'src/app/clases/usuario';
+import { AuthService } from 'src/app/services/auth.service';
+import { RolesService } from 'src/app/services/roles.service';
 
 @Component({
   selector: 'app-listado-pedidos',
   templateUrl: './listado-pedidos.component.html',
   styleUrls: ['./listado-pedidos.component.scss'],
 })
-export class ListadoPedidosComponent implements OnInit
+export class ListadoPedidosComponent implements OnInit, DoCheck
 {
+  usuario: Usuario;
   @Input() pedidos: Pedido[];
   @Output() elegirPedido: EventEmitter<Pedido> = new EventEmitter<Pedido>();
+  @Input() opcion: EstadoPedido;
 
-  constructor(private UIVisual: UIVisualService, private router: Router) { }
+  constructor(private router: Router, private rolService: RolesService) { }
 
-  ngOnInit() { }
+  ngDoCheck(): void
+  {
+  }
+
+  ngOnInit() 
+  {
+    // Se guarda el usuario logueado
+    this.usuario = AuthService.usuario;
+  }
 
   seleccionarPedido(pedido)
   {
@@ -27,6 +39,27 @@ export class ListadoPedidosComponent implements OnInit
     this.router.navigate(['/home/info-mesa', pedido.mesa.id]);
   }
 
-
+  filtrarPedido(pedido: Pedido)
+  {
+    // Pedidos del Cliente logueado Reservas o En Progreso
+    if (this.rolService.isClienteAceptado(this.usuario) &&
+      pedido.cliente.id == this.usuario.id &&
+      pedido.estado == this.opcion)
+    {
+      console.log("Cliente");
+      return true;
+    }
+    else if (this.rolService.isEmpleado(this.usuario) && pedido.estado == this.opcion) // Pedidos para empleados
+    {
+      console.log("Empleado");
+      return true;
+    }
+    else if (this.rolService.isJefe(this.usuario) && pedido.estado == this.opcion) // Pedidos para jefes
+    {
+      console.log("Jefe");
+      return true
+    }
+    return false;
+  }
 
 }

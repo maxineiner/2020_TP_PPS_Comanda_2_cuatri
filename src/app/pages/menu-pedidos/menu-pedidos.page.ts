@@ -1,5 +1,6 @@
 import { Component, DoCheck, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { LoadingController } from '@ionic/angular';
 import { EstadoPedido, Pedido } from 'src/app/clases/pedido';
 import { Usuario } from 'src/app/clases/usuario';
 import { AuthService } from 'src/app/services/auth.service';
@@ -14,24 +15,31 @@ import { RolesService } from 'src/app/services/roles.service';
 export class MenuPedidosPage implements OnInit, DoCheck
 {
   usuario: Usuario;
-  opcion: string = 'Listado';
+  opcion: string;
   pedidos: Pedido[] = PedidoService.pedidos;
   pedidoElegido: Pedido = new Pedido();
+  modo: string = 'Listado';
 
-  constructor(private pedidoService: PedidoService, private rolService: RolesService,
-    private route: ActivatedRoute) { }
+  constructor(private rolService: RolesService, private route: ActivatedRoute) { }
 
   ngDoCheck(): void
   {
-    this.pedidos = this.filtrarPedidos(PedidoService.pedidos);
+    this.pedidos = PedidoService.pedidos;
   }
 
   ngOnInit()
   {
     console.log("INIT");
+    this.pedidos = PedidoService.pedidos;
+
 
     // Se guarda el usuario logueado
     this.usuario = AuthService.usuario;
+
+    // Se define tab por defecto para visualizar según perfil de Usuario
+    if (this.rolService.isCliente(this.usuario)) this.opcion = 'Alta';
+    else if (this.rolService.isEmpleado(this.usuario)) this.opcion = EstadoPedido.EN_PROGRESO;
+    else if (this.rolService.isJefe(this.usuario)) this.opcion = EstadoPedido.CERRADO;
 
     // Se lee pedido recibido para ABM
     this.route.params.subscribe(params =>
@@ -41,14 +49,7 @@ export class MenuPedidosPage implements OnInit, DoCheck
       console.log(this.pedidoElegido);
     });
 
-    // Leer todos los pedidos para listado - Código para mejorar
-    this.pedidoService.leer().then((pedidos) =>
-    {
-      this.pedidos = this.filtrarPedidos(pedidos);
-    });
 
-    // Se define tab por defecto para visualizar según perfil de Usuario
-    this.opcion = this.rolService.isCliente(this.usuario) ? 'Alta' : 'Listado';
   }
 
   /**
@@ -59,6 +60,20 @@ export class MenuPedidosPage implements OnInit, DoCheck
   {
     console.log(event.detail.value);
     this.opcion = event.detail.value;
+    switch (this.opcion)
+    {
+      case 'Alta':
+      case 'Baja':
+      case "Modificar":
+        this.modo = "ABM";
+        break;
+      case "Solicitado":
+      case "En progreso":
+      case "Entregado":
+      case "Cerrado":
+        this.modo = "Listado";
+        break;
+    }
   }
 
   /**
@@ -71,29 +86,5 @@ export class MenuPedidosPage implements OnInit, DoCheck
     this.pedidoElegido = pedido;
   }
 
-  filtrarPedidos(pedidos: Pedido[])
-  {
-    let pedidosFiltrados = [];
 
-    // Pedidos del Cliente logueado
-    if (this.rolService.isClienteAceptado(this.usuario))
-    {
-      pedidosFiltrados = pedidos.filter(pedido => 
-      {
-        if (pedido.cliente)
-        {
-          return pedido.cliente.id === this.usuario.id;
-        }
-      });
-    }
-    else if (this.rolService.isEmpleado(this.usuario)) // Pedidos para empleados
-    {
-      pedidosFiltrados = pedidos.filter(pedido => pedido.estado != EstadoPedido.RESERVADO);
-    }
-    else if (this.rolService.isJefe(this.usuario)) // Pedidos para jefes
-    {
-      pedidosFiltrados = pedidos.filter(pedido => pedido.estado == EstadoPedido.RESERVADO);
-    }
-    return pedidosFiltrados;
-  }
 }

@@ -1,27 +1,52 @@
-<app-header titulo="Menú Pedidos"></app-header>
+<app-header titulo="Pedidos"></app-header>
 
-<ion-segment (ionChange)="seleccionarOpcion($event)" scrollable color="success">
-  <ion-segment-button value="Listado" *ngIf="!rolService.isCliente(usuario)">
-    <ion-label>Pedidos</ion-label>
+<ion-segment value="opcion" (ionChange)="seleccionarOpcion($event)" scrollable color="success">
+
+  <!-- <ion-segment-button value="Reservado" *ngIf="rolService.isCliente(usuario) || 
+                                                rolService.isJefe(usuario)">
+    <ion-icon name="calendar-sharp"></ion-icon>
+  </ion-segment-button> -->
+
+  <ion-segment-button value="En progreso" *ngIf="rolService.isCliente(usuario) || 
+                                                  rolService.isEmpleado(usuario)">
+    <ion-icon name="time-sharp"></ion-icon>
   </ion-segment-button>
+
+  <ion-segment-button value="Solicitado" *ngIf="rolService.isEmpleadoMozo(usuario)">
+    <ion-icon name="hand-left-sharp"></ion-icon>
+  </ion-segment-button>
+
+  <ion-segment-button value="Entregado" *ngIf="rolService.isEmpleadoMozo(usuario)">
+    <ion-icon name="restaurant-sharp"></ion-icon>
+  </ion-segment-button>
+
+  <ion-segment-button value="Cerrado" *ngIf="rolService.isEmpleadoMozo(usuario) || 
+                                              rolService.isJefe(usuario)">
+    <ion-icon name="cash-sharp"></ion-icon>
+  </ion-segment-button>
+
   <ion-segment-button value="Alta" *ngIf="rolService.isCliente(usuario)">
-    <ion-label>Alta</ion-label>
+    <ion-icon slot="icon-only" name="add"></ion-icon>
   </ion-segment-button>
-  <ion-segment-button value="Baja" *ngIf="pedidoElegido && pedidoElegido.isActive">
-    <ion-label>Baja</ion-label>
+  <ion-segment-button value="Baja" *ngIf="rolService.isCliente(usuario) && 
+                                          pedidoElegido && 
+                                          pedidoElegido.isActive">
+    <ion-icon slot="icon-only" name="trash-sharp"></ion-icon>
   </ion-segment-button>
-  <ion-segment-button value="Modificación" *ngIf="pedidoElegido && pedidoElegido.isActive">
-    <ion-label>Modificar</ion-label>
+  <ion-segment-button value="Modificar" *ngIf="rolService.isCliente(usuario) && 
+                                                  pedidoElegido && 
+                                                  pedidoElegido.isActive">
+    <ion-icon slot="icon-only" name="create-sharp"></ion-icon>
   </ion-segment-button>
 </ion-segment>
 
 <ion-content class="fondo">
 
-  <app-listado-pedidos *ngIf="opcion == 'Listado'" [pedidos]="pedidos"
-                       (elegirPedido)="elegirPedido($event)">
+  <app-listado-pedidos *ngIf="modo == 'Listado'" [pedidos]="pedidos"
+                       (elegirPedido)="elegirPedido($event)" [opcion]="opcion">
   </app-listado-pedidos>
 
-  <app-form-pedido *ngIf="opcion != 'Listado'" [opcion]="opcion" [pedido]="pedidoElegido"></app-form-pedido>
+  <app-form-pedido *ngIf="modo == 'ABM'" [opcion]="opcion" [pedido]="pedidoElegido"></app-form-pedido>
 
 
 </ion-content>

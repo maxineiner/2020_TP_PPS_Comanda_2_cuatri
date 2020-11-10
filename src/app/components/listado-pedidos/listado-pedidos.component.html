@@ -1,11 +1,15 @@
+<ion-item color="dark">
+  <ion-label>Estado : {{opcion}}</ion-label>
+</ion-item>
 <ion-grid fixed>
   <ion-row class="contenido" *ngFor="let pedido of pedidos">
     <ion-col size="12" size-lg="6" (click)="seleccionarPedido(pedido)" color="dark"
-             class="ion-justify-content-center">
+             class="ion-justify-content-center" *ngIf="filtrarPedido(pedido)">
 
       <ion-item>
         <ion-label>
           <h1>Mesa:{{pedido.mesa.numero}}</h1>
+          <h2>{{pedido.estado}}</h2>
           <p>
             <strong>Cliente: {{pedido.cliente.nombre}}-{{pedido.cliente.apellido}}</strong><br>
             {{pedido.fechaInicio | date: 'shortDate'}}-{{pedido.fechaInicio | date: 'shortTime' : 'UTC'}}
