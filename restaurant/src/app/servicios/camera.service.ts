@@ -1,9 +1,14 @@
 import { Injectable } from '@angular/core';
-// import { DatePipe } from '@angular/common';
 import { Camera, CameraOptions, PictureSourceType } from '@ionic-native/camera/ngx';
-import { promise } from 'protractor';
-// import { WebView } from '@ionic-native/ionic-webview/ngx';
-// import { Foto } from '../clases/foto';
+import { storage } from 'firebase';
+import { v4 as uuid } from 'uuid';
+
+
+//  import { Foto } from '../clases/foto';
+ import { DatePipe } from '@angular/common';
+ import * as firebase from 'firebase';
+ import { Producto } from '../clases/producto';
+import { UsuariosPageModule } from '../usuarios/usuarios.module';
 
 @Injectable({
   providedIn: 'root'
