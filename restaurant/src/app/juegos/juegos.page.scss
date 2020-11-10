@@ -6,7 +6,7 @@
     height: 90px;
     width: 100%;
     border: solid;
-    font-size: 40px;
+    font-size: 30px;
   }
 
   .btn:hover{
@@ -16,4 +16,12 @@
   
   .btn:focus {
     outline: 0 !important;
+  }
+
+  .container{
+    --background: none;
+    background-size: cover;
+    background-image: url("../../assets/juegos/fondo.jpg");
+    background-position: center center;
+    background-repeat: no-repeat;
   }

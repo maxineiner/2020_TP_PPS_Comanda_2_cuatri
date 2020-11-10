@@ -1,6 +1,13 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>juegos</ion-title>
+  <ion-toolbar color="success">
+    <ion-buttons slot="start">
+      <ion-button (click)="dismiss()">
+        <ion-icon name="close-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title class="ion-text-center">
+     Juegos
+    </ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -8,7 +15,7 @@
     <button type="button" class="btn" (click)="IrAhorcado()"><b>Ahorcado</b></button>
     <br>
     <br>
-    <button type="button" class="btn" (click)="IrJuego2()"><b>Juego 2</b></button>
+    <button type="button" class="btn" (click)="IrPiedraPapelTijera()"><b>Piedra Papel Tijera</b></button>
     <br>
     <br>
     <button type="button" class="btn" (click)="IrJuego3"><b>Juego 3</b></button>

@@ -12,6 +12,10 @@ const routes: Routes = [
     path: 'ahorcado',
     loadChildren: () => import('./ahorcado/ahorcado.module').then( m => m.AhorcadoPageModule)
   },
+  {
+    path: 'piedraPapelTijera',
+    loadChildren: () => import('./ahorcado/ahorcado.module').then( m => m.AhorcadoPageModule)
+  },
 ];
 
 @NgModule({
