@@ -1,19 +1,24 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { UtilsService } from 'src/app/servicios/utils.service';
-import { AuthService } from 'src/app/servicios/auth.service';
-import { PedidoService } from 'src/app/servicios/pedido.service';
-import { Pedido } from 'src/app/clases/pedido';
-import { Usuario } from 'src/app/clases/usuario';
-import { ListaProductoPage } from './lista-producto/lista-producto.page';
-import { PedidoDetallePage } from './pedido-detalle/pedido-detalle.page';
-import { EstadoPedido } from 'src/app/enums/estado-pedido.enum';
-import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
-import { PropinaService } from 'src/app/servicios/propina.service';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+//SERVICIOS
+import { PedidoService } from 'src/app/servicios/pedido.service';
+import { PropinaService } from 'src/app/servicios/propina.service';
+import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
+import { UtilsService } from 'src/app/servicios/utils.service';
+import { AuthService } from 'src/app/servicios/auth.service';
+import { VibrationService } from 'src/app/servicios/vibration.service';
+//PAGES
 import { EncuestaPage } from './encuesta/encuesta.page';
+import { ListaProductoPage } from './lista-producto/lista-producto.page';
+import { PedidoDetallePage } from './pedido-detalle/pedido-detalle.page';
 import { ChatPage } from 'src/app/chat/chat.page';
 import { AhorcadoPage } from 'src/app/juegos/ahorcado/ahorcado.page';
+//CLASES
+import { Pedido } from 'src/app/clases/pedido';
+import { Usuario } from 'src/app/clases/usuario';
+import { EstadoPedido } from 'src/app/enums/estado-pedido.enum';
+
 
 @Component({
   selector: 'app-pedidos',
@@ -31,7 +36,8 @@ export class PedidosPage implements OnInit, OnDestroy {
     private authService: AuthService,
     private pedidoService: PedidoService,
     private barcodeScanner: BarcodeScanner,
-    private propinas: PropinaService
+    private propinas: PropinaService,
+    private vibrationService: VibrationService
   ) { }
 
   ngOnInit() {
@@ -158,6 +164,7 @@ export class PedidosPage implements OnInit, OnDestroy {
             });
           } else {
             // No existe QR de propina
+            this.vibrationService.vibrar(500);
             this.utilsService.presentAlert('Lo sentimos', '', 'El código escaneado no existe');
           }
         });

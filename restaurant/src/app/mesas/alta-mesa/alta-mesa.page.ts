@@ -6,6 +6,7 @@ import { Mesa } from 'src/app/clases/mesa';
 import { MesaService } from 'src/app/servicios/mesa.service';
 import { UtilsService } from 'src/app/servicios/utils.service';
 import { Location } from '@angular/common';
+import { VibrationService } from 'src/app/servicios/vibration.service';
 
 @Component({
   selector: 'app-alta-mesa',
@@ -27,7 +28,8 @@ export class AltaMesaPage implements OnInit {
     public camara: CameraService,
     private mesas: MesaService,
     private utilsService: UtilsService,
-    private location:Location
+    private location:Location,
+    private vibrationService: VibrationService
   ) { }
 
   ngOnInit() {
@@ -70,7 +72,7 @@ export class AltaMesaPage implements OnInit {
           this.utilsService.handleError(error);
         });
     } else {
-      // alert('Error en formulario');
+      this.vibrationService.vibrar(500);
       this.formMesa.markAllAsTouched();
     }
   }

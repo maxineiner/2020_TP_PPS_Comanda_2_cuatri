@@ -3,7 +3,6 @@ import { Camera, CameraOptions, PictureSourceType } from '@ionic-native/camera/n
 import { storage } from 'firebase';
 import { v4 as uuid } from 'uuid';
 
-
 //  import { Foto } from '../clases/foto';
  import { DatePipe } from '@angular/common';
  import * as firebase from 'firebase';
@@ -17,27 +16,69 @@ export class CameraService {
 
   constructor(private camera: Camera) { }
 
-  tomarFoto() {
-    const retorno = '';
-
+   async tomarFoto() {
+    let urlFoto
     const options: CameraOptions = {
-      quality: 15,
+      quality: 5,
       destinationType: this.camera.DestinationType.DATA_URL,
       encodingType: this.camera.EncodingType.JPEG,
-      mediaType: this.camera.MediaType.PICTURE,
+      // mediaType: this.camera.MediaType.PICTURE,
+      mediaType: this.camera.PictureSourceType.PHOTOLIBRARY,
       correctOrientation: true,
       sourceType: PictureSourceType.CAMERA
     };
 
     return this.camera.getPicture(options);
+
+    // try { 
+    //   let ubicacion = "productos/" + uuid();
+    //   const result =   this.camera.getPicture(options);
+    //   const image = `data:image/jpeg;base64,${result}`;
+    //   const picture = storage().ref(ubicacion);
+    //   picture.putString(image, 'data_url').then(()=>{
+    //   // return this.guardarReferencia(ubicacion);
+    //   var storage = firebase.storage();
+    //   var storageRef = storage.ref(ubicacion);
+      
+    //    storageRef.getDownloadURL().then(url  => {
+    //     console.warn('urlFoto');
+    //      console.log(JSON.stringify(url));
+    //      urlFoto =  JSON.stringify(url);
+    //   });
+    //   }); 
+    // } catch (e) {
+    //   console.log("dio un error dentro del catch");
+    //   console.log(JSON.stringify(e.error));
+    // }
+
+    // // return this.camera.getPicture(options);
+    // //  console.warn(urlFoto);
+    // return JSON.stringify(urlFoto) 
+
+  }
+
+  guardarReferencia(pReferencia: string) {
+    console.warn('referencia');
+    console.log(pReferencia);
+    var storage = firebase.storage();
+    var storageRef = storage.ref(pReferencia);
+    
+    storageRef.getDownloadURL().then(url  => {
+      console.warn('urlFoto');
+       console.log(JSON.stringify(url));
+       return JSON.stringify(url)
+    });
+
+    // return "";
+ 
   }
 
   // PATO
   base64ToImg(base64: string): string {
     return 'data:image/jpeg;base64,'.concat(base64);
   }
-  /*
-  private fotos: Foto[] = [];
+  
+ /* private fotos: Foto[] = [];
 
   constructor(
     private camera: Camera,
@@ -76,7 +117,10 @@ export class CameraService {
   }
 
   public async subirFotos(): Promise<void> {
-    this.fotos.forEach(async foto => await this.storage.subirImagen(foto));
+
+    this.fotos.forEach(async foto => 
+ 
+      await this.storage.subirImagen(foto));
   }
 
   public getCantidad(): number {
@@ -86,5 +130,18 @@ export class CameraService {
   public getFotos(): Foto[] {
     return this.fotos;
   }
-  */
+
+  guardarReferencia(pReferencia: string): any {
+    console.log(pReferencia);
+    var storage = firebase.storage();
+    var storageRef = storage.ref();
+    var spaceRef = storageRef.child(pReferencia);
+
+    spaceRef.getDownloadURL().then(url => {
+      var messagesRef = firebase.database().ref().child("buenas");
+      messagesRef.push({ carpeta: "buenas", usuario: this.usuarioActual, referencia: url });
+    });
+    return "";
+  }*/
+
 }

@@ -6,6 +6,7 @@ import { TipoMesa } from 'src/app/enums/tipo-mesa.enum';
 import { UtilsService } from 'src/app/servicios/utils.service';
 import { MesaService } from 'src/app/servicios/mesa.service';
 import { CameraService } from 'src/app/servicios/camera.service';
+import { VibrationService } from 'src/app/servicios/vibration.service';
 
 @Component({
   selector: 'app-editar-mesa',
@@ -24,7 +25,8 @@ export class EditarMesaPage implements OnInit {
     private fb: FormBuilder,
     private utilsService: UtilsService,
     public mesaService: MesaService,
-    private camera: CameraService
+    private camera: CameraService,
+    private vibrationService: VibrationService
   ) {
     this.formMesa = this.fb.group({
       numeroMesa: ['', Validators.compose([Validators.required, Validators.min(1)])],
@@ -69,7 +71,7 @@ export class EditarMesaPage implements OnInit {
           this.utilsService.handleError(error);
         });
     } else {
-      // alert('Error en formulario');
+      this.vibrationService.vibrar(500);
       this.formMesa.markAllAsTouched();
     }
   }

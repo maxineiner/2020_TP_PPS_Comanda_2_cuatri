@@ -92,6 +92,7 @@ export class LoginPage implements OnInit {
         });
     }
     else {
+      this.vibration.vibrar(500);
       this.utilsService.presentAlert('Atención', 'Datos inválidos', 'Por favor verificá los datos ingresados');
       this.markAllAsDirtyAltaUsuarios(this.formLogin);
     }

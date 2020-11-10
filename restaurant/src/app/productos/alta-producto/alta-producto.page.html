@@ -59,11 +59,7 @@
         <br />
         <br />
 
-        <form
-          *ngIf="!getMuestraModal()"
-          [formGroup]="formProducto"
-          (ngSubmit)="onSubmitProducto()"
-        >
+        <form *ngIf="!getMuestraModal()" [formGroup]="formProducto" (ngSubmit)="onSubmitProducto()">
           <ion-item>
             <ion-label position="floating">Código</ion-label>
             <ion-input
@@ -150,11 +146,8 @@
           </ion-item>
           <ion-label
             class="lblError"
-            *ngIf="formProducto.controls.precio.invalid && (formProducto.controls.precio.touched || formProducto.controls.precio.dirty)"
-          >
-            <b>{{ mostrarError('precio') }}</b></ion-label
-          >
-          
+            *ngIf="formProducto.controls.precio.invalid && (formProducto.controls.precio.touched || formProducto.controls.precio.dirty)">
+            <b>{{ mostrarError('precio') }}</b></ion-label>     
           <br />
           <br />
           <button class="btn" type="submit" expand="block">ENVIAR</button>

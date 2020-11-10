@@ -1,8 +1,5 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
-import { ClientesAnonimosComponent } from './altas/clientes-anonimos/clientes-anonimos.component';
-import { ClientesRegistradosComponent } from './altas/clientes-registrados/clientes-registrados.component';
-import { SupervisorComponent } from './altas/supervisor/supervisor.component';
 import { HomeComponent } from './home/home.component';
 import { InicioPage } from './inicio/inicio.page';
 import { AuthGuard } from './guards/auth.guard';
@@ -30,10 +27,6 @@ const routes: Routes = [
   {
     path: 'notificaciones',
     loadChildren: () => import('./notificaciones/notificaciones.module').then(m => m.NotificacionesPageModule)
-  },
-  {
-    path: 'altaDueñoSupervisor',
-    component:SupervisorComponent
   },
   {
     path: 'alta-usuarios',
@@ -82,7 +75,8 @@ const routes: Routes = [
   {
     path: 'ahorcado',
     loadChildren: () => import('./juegos/ahorcado/ahorcado.module').then( m => m.AhorcadoPageModule)
-  },  {
+  },
+  {
     path: 'chat',
     loadChildren: () => import('./chat/chat.module').then( m => m.ChatPageModule)
   },
