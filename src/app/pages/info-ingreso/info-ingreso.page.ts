@@ -15,11 +15,10 @@ export class InfoIngresoPage implements OnInit
 {
 
   constructor(
-    private authService: AuthService,
     private roles: RolesService,
     private route: Router,
     private clienteService: ClienteService,
-    private uiService: UIVisualService,
+    private UIvisual:UIVisualService,
   ) { }
 
   ngOnInit()
@@ -34,10 +33,12 @@ export class InfoIngresoPage implements OnInit
 
   ponerseEnListaDeEspera()
   {
-    if (this.roles.isClienteAceptado(AuthService.usuario))
+    if (this.roles.isCliente(AuthService.usuario))
     {
+      console.log(AuthService.usuario);
       var cliente = AuthService.usuario as Cliente;
-      cliente.enListaDeEspera = true;
+      cliente.enListaDeEspera.isWaiting = true;
+      cliente.enListaDeEspera.horario = Date.now();
       this.clienteService.actualizar(cliente).then(() =>
       {
         UIVisualService.presentToast('Estas en la lista de espera');
