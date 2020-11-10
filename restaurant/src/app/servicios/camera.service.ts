@@ -3,8 +3,6 @@ import { Camera, CameraOptions, PictureSourceType } from '@ionic-native/camera/n
 import { storage } from 'firebase';
 import { v4 as uuid } from 'uuid';
 
-
- import { WebView } from '@ionic-native/ionic-webview/ngx';
 //  import { Foto } from '../clases/foto';
  import { DatePipe } from '@angular/common';
  import * as firebase from 'firebase';
@@ -59,19 +57,24 @@ export class CameraService {
 
   }
 
-  guardarReferencia(pReferencia: string) {
-    console.warn('referencia');
-    console.log(pReferencia);
-    var storage = firebase.storage();
-    var storageRef = storage.ref(pReferencia);
-    
-    storageRef.getDownloadURL().then(url  => {
-      console.warn('urlFoto');
-       console.log(JSON.stringify(url));
-       return JSON.stringify(url)
-    });
+  async guardarReferencia(imagen: string) {
+    imagen = 'data:image/jpeg;base64,' + imagen;
+    let storageRef = firebase.storage().ref();
 
-    // return "";
+    const filename = Math.random().toString(36).substring(2);
+
+    //OBTENGO LA REFERENCIA DE LA IMAGEN
+    const imageRef = storageRef.child(`productos/${filename}.jpg`);
+
+
+    return await imageRef.putString(imagen, firebase.storage.StringFormat.DATA_URL)
+      .then((snapshot) => {
+        //OBTENGO EL URL DE LA IMAGEN
+        return imageRef.getDownloadURL();
+      })
+      .catch(error => {
+        alert("Algo salio mal. " + JSON.stringify(error));
+      })
  
   }
 

@@ -61,7 +61,13 @@ export class AltaProductoPage implements OnInit {
   }
 
   public tomarFoto(): void {
-    this.camara.tomarFoto().then((unaFoto) => this.fotos.push(unaFoto));
+    this.camara.tomarFoto().then(
+      (unaFoto) => {
+        this.camara.guardarReferencia(unaFoto)
+        .then((url)=>{
+          this.fotos.push(url);
+        })
+      })
   }
 
   onSubmitProducto(): void {
@@ -169,7 +175,7 @@ export class AltaProductoPage implements OnInit {
   }
 
   public base64ToImg(num: number): string {
-    return this.fotos[num] ? this.camara.base64ToImg(this.fotos[num]) : "";
+    return this.fotos[num];
   }
 
   public getFoto(num: number): string {

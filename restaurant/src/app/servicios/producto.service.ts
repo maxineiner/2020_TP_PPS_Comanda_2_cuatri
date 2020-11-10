@@ -14,7 +14,7 @@ export class ProductoService {
   obtenerFoto(producto: Producto) {
     let foto = '../../../assets/defaultFoto.png';
     if (producto.fotos && producto.fotos.length > 0) {
-      foto = 'data:image/jpeg;base64,' + producto.fotos[0];
+      foto = producto.fotos[0];
     }
     return foto;
   }
