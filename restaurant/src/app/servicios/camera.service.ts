@@ -3,7 +3,6 @@ import { Camera, CameraOptions, PictureSourceType } from '@ionic-native/camera/n
 import { storage } from 'firebase';
 import { v4 as uuid } from 'uuid';
 
-
 //  import { Foto } from '../clases/foto';
  import { DatePipe } from '@angular/common';
  import * as firebase from 'firebase';
