@@ -29,22 +29,33 @@ export class ListaDeEsperaPage implements OnInit, DoCheck
   {
     this.clienteService.leer().then(clientes =>
     {
-      this.clientes = clientes.filter(cliente => cliente.enListaDeEspera == true);
+      this.clientes = clientes.filter(cliente => cliente.enListaDeEspera.isWaiting == true).sort(this.compararFecha);
       console.log(this.clientes);
     })
     this.mesasService.leer().then(mesas =>
     {
-      this.mesas = mesas/* .filter(mesa=>{mesa.isAvailable == true}) */
+      this.mesas = mesas.filter(mesa => mesa.isAvailable == true);
     })
-
   }
 
   ngDoCheck(): void
   {
-    this.clientes = ClienteService.clientes.filter(cliente => cliente.enListaDeEspera == true);
-    this.mesas = MesaService.mesas;/* .filter(mesa=>{mesa.isAvailable == true}) */
+    this.clientes = ClienteService.clientes.filter(cliente => cliente.enListaDeEspera.isWaiting == true).sort(this.compararFecha);
+    this.mesas = MesaService.mesas.filter(mesa => mesa.isAvailable == true);
   }
 
+  compararFecha(a: Cliente, b: Cliente)
+  {
+    if (a.enListaDeEspera.horario < b.enListaDeEspera.horario)
+    {
+      return -1;
+    }
+    if (a.enListaDeEspera.horario > b.enListaDeEspera.horario)
+    {
+      return 1;
+    }
+    return 0;
+  }
 
   ngOnInit() 
   {
@@ -53,7 +64,7 @@ export class ListaDeEsperaPage implements OnInit, DoCheck
 
   quitarDeLaLista(cliente: Cliente)
   {
-    cliente.enListaDeEspera = false;
+    cliente.enListaDeEspera.isWaiting = false;
     this.clienteService.actualizar(cliente).then(ok =>
     {
       UIVisualService.presentToast('Removido correctamente.');
@@ -62,9 +73,17 @@ export class ListaDeEsperaPage implements OnInit, DoCheck
 
   verMesas(cliente: Cliente)
   {
-    this.clienteActual = cliente;
-    this.asignandoMesa = true;
-    UIVisualService.presentAlert('Cliente ' + cliente.nombre, 'Asigne una mesa.');
+    if (this.mesas.length == 0)
+    {
+      UIVisualService.presentToast('No hay mesas disponibles.');
+    }
+    else
+    {
+      this.clienteActual = cliente;
+      this.asignandoMesa = true;
+      UIVisualService.presentAlert('Asignando una mesa al cliente:  ', cliente.nombre + ' ' + cliente.apellido);
+    }
+
   }
 
   asignarMesa(mesa: Mesa)
@@ -78,8 +97,14 @@ export class ListaDeEsperaPage implements OnInit, DoCheck
         //Se envia push al cliente avisando que es su turno y un redireccionamiento al pedidos page
         UIVisualService.presentAlert('Mesa Asignada', mensaje);
         this.asignandoMesa = false;
+        this.clienteActual.enListaDeEspera.isWaiting = false;
+        this.clienteService.actualizar(this.clienteActual).then(ok =>
+        {
+          console.log('Lista actualizada');
+        })
+        mesa.isAvailable = false;
+        this.mesasService.actualizar(mesa).then(() => console.log('Mesa asignada correctamente'));
       })
-
   }
 
 }

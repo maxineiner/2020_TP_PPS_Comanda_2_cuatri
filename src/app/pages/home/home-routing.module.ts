@@ -43,10 +43,6 @@ const routes: Routes = [
         loadChildren: () => import('../menu-jefe/menu-jefe.module').then(m => m.MenuJefePageModule)
       },
       {
-        path: 'qr-ingreso-local',
-        loadChildren: () => import('../qr-ingreso-local/qr-ingreso-local.module').then(m => m.QrIngresoLocalPageModule)
-      },
-      {
         path: 'carta',
         loadChildren: () => import('../carta/carta.module').then(m => m.CartaPageModule)
       },

@@ -1,13 +1,22 @@
-<ion-content>
+<app-header titulo="Ingreso"></app-header>
+<ion-content class="fondo contenido" fullscreen="true" scrollX="true">
+  <div id="container" class="contenido" >
 
-  <!-- Opciones: ver encuestas pasadas. ponerse en la lista de espera ver la lista de espera -->
-  <ion-button (click)="verEncuestasAntiguas()" expand="block" fill="clear" shape="round">
-    Ver encuentas antiguas
-  </ion-button>
-  <ion-button (click)="ponerseEnListaDeEspera()" expand="block" fill="clear" shape="round">
-    Ponerme en la fila
-  </ion-button>
-  <ion-button (click)="verListaDeEspera()" expand="block" fill="clear" shape="round">
-    Ver lista de espera
-  </ion-button>
+    <ion-button (click)="verEncuestasAntiguas()" expand="full" class="ion-no-margin" color="dark" size="large" fill="outline">
+      <ion-icon name="newspaper-outline"></ion-icon>
+      Encuentas antiguas
+    </ion-button>
+
+    <ion-button (click)="ponerseEnListaDeEspera()" expand="full" class="ion-no-margin" color="dark" size="large" fill="outline">
+      <ion-icon name="people-circle-outline"></ion-icon>
+      Ponerme en la fila
+    </ion-button>
+
+    <ion-button (click)="verListaDeEspera()" expand="full" class="ion-no-margin" color="dark" size="large" fill="outline">
+      <ion-icon name="list-circle-outline"></ion-icon>
+      Lista de espera
+    </ion-button>
+
+  </div>
+
 </ion-content>
