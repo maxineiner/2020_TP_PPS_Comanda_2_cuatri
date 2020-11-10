@@ -12,6 +12,11 @@ export class MensajesService implements IDatabase<Mensaje>
 
   constructor(public firebase: AngularFireDatabase) { }
 
+  public generarToken()
+  {
+    return this.firebase.createPushId();
+  }
+
   crear(mensaje: Mensaje): Promise<any>
   {
     return this.firebase.database.ref('mensajes')

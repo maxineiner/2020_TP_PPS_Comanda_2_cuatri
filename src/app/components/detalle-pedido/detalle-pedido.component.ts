@@ -2,7 +2,10 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ActionSheetController, ModalController } from '@ionic/angular';
 import { EstadoPedido, Pedido } from 'src/app/clases/pedido';
+import { Usuario } from 'src/app/clases/usuario';
+import { AuthService } from 'src/app/services/auth.service';
 import { PedidoService } from 'src/app/services/pedido.service';
+import { RolesService } from 'src/app/services/roles.service';
 import { UIVisualService } from 'src/app/services/uivisual.service';
 import { FormPedidoComponent } from '../form-pedido/form-pedido.component';
 
@@ -14,19 +17,22 @@ import { FormPedidoComponent } from '../form-pedido/form-pedido.component';
 export class DetallePedidoComponent implements OnInit
 {
   @Input() pedido: Pedido;
+  usuario: Usuario = AuthService.usuario;
 
   constructor(private actionSheetController: ActionSheetController,
     private modalController: ModalController,
     private UIVisual: UIVisualService,
     private pedidoService: PedidoService,
-    private router: Router) 
+    private router: Router,
+    private rolService: RolesService) 
   {
     //this.pedido.calcularTotal();
   }
 
-  ngOnInit() { }
-
-
+  ngOnInit() 
+  {
+    console.log(this.pedido);
+  }
 
   recibir()
   {
@@ -44,13 +50,15 @@ export class DetallePedidoComponent implements OnInit
 
   async mostrarOpciones()
   {
-    UIVisualService.presentActionSheet('Cliente', {
+    let rol = this.rolService.isCliente(this.usuario) ? 'Cliente' : 'Mozo';
+
+    UIVisualService.presentActionSheet(rol, {
       mostrarPlatos: { handler: UIVisualService.verPlatos, params: this.pedido.productos },
       solicitar: { handler: "", params: this.pedido },
       confirmar: { handler: "", params: this.pedido },
       recibir: { handler: "", params: this.pedido },
       cerrar: { handler: "", params: this.pedido },
-      chat: { handler: UIVisualService.verChat }
+      chat: { handler: UIVisualService.verChat, params: this.pedido.id }
     })
   }
 

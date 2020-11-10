@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { Router } from '@angular/router';
 import { EstadoPedido, Pedido } from '../clases/pedido';
-import { UIVisualService } from './uivisual.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +10,7 @@ export class PedidoService
 {
   public static pedidos: Pedido[] = [];
 
-  constructor(public firebase: AngularFireDatabase, public router: Router) { }
+  constructor(private firebase: AngularFireDatabase, private router: Router) { }
 
   /**
    * Método para realizar Alta en DB

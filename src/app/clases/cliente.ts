@@ -22,7 +22,7 @@ export class Cliente extends Usuario
     email: string,
     isActive: boolean,
     estado: EstadoAceptacion,
-    enListaDeEspera: boolean,
+    enListaDeEspera: boolean
   )
   {
     let cliente = new Cliente();

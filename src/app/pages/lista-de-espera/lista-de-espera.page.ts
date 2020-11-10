@@ -70,7 +70,7 @@ export class ListaDeEsperaPage implements OnInit, DoCheck
   asignarMesa(mesa: Mesa)
   {
     let mensaje = 'Mesa:' + mesa.numero + ' asignada.';
-    let fechaActual = new Date().getTime() - (new Date().getTimezoneOffset() * 60000);
+    let fechaActual = Date.now() - (new Date().getTimezoneOffset() * 60000);
 
     this.pedidosService.crear(Pedido.CrearPedido('', this.clienteActual, mesa, null, fechaActual,
       null, null, EstadoPedido.ASIGNADO, true)).then(() =>
