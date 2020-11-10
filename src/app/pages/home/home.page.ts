@@ -75,7 +75,7 @@ export class HomePage implements OnInit
       },
       {
         text: 'Nuevos Clientes',
-        icon: 'md-person-add',
+        icon: 'person-add-outline',
         handler: () => this.router.navigate(['/home/clientes-pendientes'])
       },
       {
