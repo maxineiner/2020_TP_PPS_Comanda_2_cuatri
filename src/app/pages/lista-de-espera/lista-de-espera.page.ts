@@ -73,9 +73,17 @@ export class ListaDeEsperaPage implements OnInit, DoCheck
 
   verMesas(cliente: Cliente)
   {
-    this.clienteActual = cliente;
-    this.asignandoMesa = true;
-    UIVisualService.presentAlert('Cliente ' + cliente.nombre, 'Asigne una mesa.');
+    if (this.mesas.length == 0)
+    {
+      UIVisualService.presentToast('No hay mesas disponibles.');
+    }
+    else
+    {
+      this.clienteActual = cliente;
+      this.asignandoMesa = true;
+      UIVisualService.presentAlert('Asignando una mesa al cliente:  ', cliente.nombre + ' ' + cliente.apellido);
+    }
+
   }
 
   asignarMesa(mesa: Mesa)
@@ -91,9 +99,11 @@ export class ListaDeEsperaPage implements OnInit, DoCheck
         this.asignandoMesa = false;
         this.clienteActual.enListaDeEspera.isWaiting = false;
         this.clienteService.actualizar(this.clienteActual).then(ok =>
-        { 
+        {
           console.log('Lista actualizada');
         })
+        mesa.isAvailable = false;
+        this.mesasService.actualizar(mesa).then(() => console.log('Mesa asignada correctamente'));
       })
   }
 
