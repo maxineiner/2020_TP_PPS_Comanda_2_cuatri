@@ -1,4 +1,4 @@
-<ion-content class="ion-padding contenido" *ngIf="mensajes" #content>
+<ion-content class="ion-padding contenido" #content>
 
   <ion-grid fixed *ngFor="let mensaje of mensajes; let i = index" color="primary">
 
@@ -9,7 +9,7 @@
         <div class="ion-text-start mensaje-ajeno">
 
           <ion-chip color="dark" mode="ios">
-            <ion-label>Servicio - {{mensaje.fecha | date: 'shortDate'}}</ion-label>
+            <ion-label>{{mensaje.usuario.nombre}} - {{mensaje.fecha | date: 'shortDate'}}</ion-label>
           </ion-chip>
 
           <ion-textarea [value]="mensaje.texto" rows="1"

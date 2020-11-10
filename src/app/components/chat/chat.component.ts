@@ -14,7 +14,6 @@ export class ChatComponent implements OnInit, AfterViewChecked
   @Input() mensaje: Mensaje;
   @Input() idUsuario: string;
 
-
   @ViewChild(IonContent, { read: IonContent, static: false }) content: IonContent;
 
   constructor(private mensajesService: MensajesService) { }
@@ -31,6 +30,7 @@ export class ChatComponent implements OnInit, AfterViewChecked
     //Add 'implements AfterViewChecked' to the class.
     if (this.mensaje)
     {
+      this.scrollToBottomOnInit();
       this.cargarMensaje();
     }
   }
@@ -38,12 +38,9 @@ export class ChatComponent implements OnInit, AfterViewChecked
   cargarMensaje()
   {
     console.log(this.mensaje);
-    if (this.mensaje)
-    {
-      this.mensajes.push(this.mensaje);
-      this.mensajesService.crear(this.mensaje);
-      this.mensaje = null;
-    }
+    this.mensajes.push(this.mensaje);
+    this.mensajesService.crear(this.mensaje);
+    this.mensaje = null;
   }
 
   scrollToBottomOnInit()
@@ -51,8 +48,8 @@ export class ChatComponent implements OnInit, AfterViewChecked
     console.log("SCROLLING");
     setTimeout(() =>
     {
-      this.content.scrollToBottom(300);
-    }, 500);
+      this.content.scrollToBottom(100);
+    }, 1000);
   }
 
 }

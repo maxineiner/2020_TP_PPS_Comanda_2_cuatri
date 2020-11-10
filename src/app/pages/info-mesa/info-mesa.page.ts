@@ -35,19 +35,19 @@ export class InfoMesaPage implements OnInit
   {
     this.usuario = AuthService.usuario;
     // Se recibe id de Mesa asignada y id de Cliente
-    this.route.params.subscribe(params =>
-    {
-      console.log(params['id']);
-      this.buscarReserva(params['id']);
-    });
+    // this.route.params.subscribe(params =>
+    // {
+    //   console.log(params['id']);
+    //   this.buscarReserva(params['id']);
+    // });
 
     // Codigo para testing
-    // this.buscarReserva("-MLOssaEI7D5pr7Q8OMl");
+    this.buscarReserva("-MLOssaEI7D5pr7Q8OMl");
   }
 
   buscarReserva(id: string)
   {
-    let fechaActual = new Date(new Date().getTime() - (new Date().getTimezoneOffset() * 60000));
+    let fechaActual = new Date();
 
     // Se debería traer Entidad con información sobre Pedido y Cliente de Mesa
     if (this.rolService.isCliente(this.usuario))
@@ -58,7 +58,7 @@ export class InfoMesaPage implements OnInit
         if (pedido.cliente && pedido.mesa)
         {
           return pedido.mesa.id === id && pedido.cliente.id == this.usuario.id &&
-            this.compararFechas(new Date(pedido.fechaInicio), new Date(fechaActual));
+            this.compararFechas(new Date(pedido.fechaInicio), fechaActual);
         }
       })[0];
     }
@@ -95,11 +95,14 @@ export class InfoMesaPage implements OnInit
 
   compararFechas(fechaA: Date, fechaB: Date)
   {
+    console.log(fechaA);
+    console.log(fechaB);
 
-    if (fechaA.getFullYear() === fechaB.getFullYear() &&
-      fechaA.getMonth() === fechaB.getMonth() &&
-      fechaA.getDate() === fechaB.getDate() &&
-      fechaA.getHours() === fechaB.getHours())
+
+    if (fechaA.getUTCFullYear() === fechaB.getFullYear() &&
+      fechaA.getUTCMonth() === fechaB.getMonth() &&
+      fechaA.getUTCDate() === fechaB.getDate() &&
+      fechaA.getUTCHours() === fechaB.getHours())
     {
       console.log("Misma fecha");
       return true;
