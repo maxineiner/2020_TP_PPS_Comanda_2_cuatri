@@ -1,5 +1,5 @@
-import { Component, DoCheck, OnInit } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { Component, DoCheck, Input, OnInit } from '@angular/core';
+import { LoadingController, ModalController } from '@ionic/angular';
 import { Mensaje } from 'src/app/clases/mensaje';
 import { Usuario } from 'src/app/clases/usuario';
 import { AuthService } from 'src/app/services/auth.service';
@@ -16,20 +16,29 @@ export class SalaChatPage implements OnInit, DoCheck
   mensaje: Mensaje;
   mensajes: Mensaje[];
   textoAuxiliar: string;
+  @Input() chatID: string;
 
-  constructor(private mensajeService: MensajesService, private modalController: ModalController) 
+  constructor(private mensajeService: MensajesService,
+    private modalController: ModalController,
+    private loadingController: LoadingController) 
   {
-    this.mensajeService.leer()
-      .then(mensajes => this.mensajes = mensajes.filter(mensaje => mensaje.chatId == this.usuario.id));
   }
 
   ngOnInit()
   {
+    this.presentLoading();
+    this.mensajeService.leer()
+      .then(mensajes => 
+      {
+        this.mensajes = mensajes.filter(mensaje => mensaje.chatId == this.chatID);
+        console.log(this.mensajes);
+      });
   }
 
   ngDoCheck(): void
   {
-    this.mensajes = MensajesService.mensajes.filter(mensaje => mensaje.id == this.usuario.id);
+    this.mensajes = MensajesService.mensajes.filter(mensaje => mensaje.chatId == this.chatID);
+    console.log(this.mensajes);
   }
 
   enviar()
@@ -38,8 +47,8 @@ export class SalaChatPage implements OnInit, DoCheck
 
     if (this.textoAuxiliar)
     {
-      this.mensaje = Mensaje.CrearMensaje('0', this.textoAuxiliar, this.usuario,
-        new Date().toUTCString(), this.usuario.id);
+      this.mensaje = Mensaje.CrearMensaje(" ", this.textoAuxiliar, this.usuario,
+        new Date().toLocaleString(), this.chatID);
       this.textoAuxiliar = null;
     }
   }
@@ -47,6 +56,15 @@ export class SalaChatPage implements OnInit, DoCheck
   cerrar()
   {
     this.modalController.dismiss();
+  }
+
+  async presentLoading()
+  {
+    const loading = await this.loadingController.create({
+      duration: 2000,
+      spinner: 'crescent'
+    });
+    await loading.present();
   }
 
 

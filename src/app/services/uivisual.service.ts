@@ -24,7 +24,7 @@ export interface IBotonesGenerados
   confirmar?: { boton?: ActionSheetButton, handler: any, params?: any },
   recibir?: { boton?: ActionSheetButton, handler: any, params?: any },
   cerrar?: { boton?: ActionSheetButton, handler: any, params?: any },
-  chat?: { boton?: ActionSheetButton, handler: any },
+  chat?: { boton?: ActionSheetButton, handler: any, params?: any },
 }
 
 /**
@@ -99,6 +99,7 @@ export class UIVisualService
 
   static generarBotones(rol: any, handlers: IBotonesGenerados): ActionSheetButton[]
   {
+    console.log(rol);
     // Codigo a modo de ejemplo
     let botonesGenerados: ActionSheetButton[] = [];
 
@@ -120,9 +121,9 @@ export class UIVisualService
         if (handlers.mostrarPlatos) botonesGenerados.push(handlers.mostrarPlatos.boton);
 
         handlers.chat.boton = {
-          text: 'Consultar a mozo',
+          text: 'Chat',
           icon: 'chatbubbles-sharp',
-          handler: () => handlers.chat.handler()
+          handler: () => handlers.chat.handler(handlers.chat.params)
         }
         if (handlers.chat) botonesGenerados.push(handlers.chat.boton);
 
@@ -150,9 +151,9 @@ export class UIVisualService
         if (handlers.mostrarPlatos) botonesGenerados.push(handlers.mostrarPlatos.boton);
 
         handlers.chat.boton = {
-          text: 'Consultar a mozo',
+          text: 'Chat',
           icon: 'chatbubbles-sharp',
-          handler: () => handlers.chat.handler()
+          handler: () => handlers.chat.handler(handlers.chat.params)
         }
         if (handlers.chat) botonesGenerados.push(handlers.chat.boton);
 
@@ -191,10 +192,15 @@ export class UIVisualService
     await modal.present();
   }
 
-  static async verChat()
+  static async verChat(id: string)
   {
+    console.log(id);
+
     const modal = await UIVisualService.UI.modalController.create({
       component: SalaChatPage,
+      componentProps: {
+        chatID: id
+      }
     });
 
     await modal.present();
