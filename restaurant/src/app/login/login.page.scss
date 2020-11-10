@@ -11,9 +11,6 @@
     width: 90%;
 }
 
-
-
-
 .btn:hover{
     background-color: grey;
 }
@@ -22,11 +19,39 @@
     outline: 0 !important;
 }
 
+ion-card {
+    border-radius: 20px;
+}
+ion-card-header {
+    background-color: #e2e2e2;
+}
+.tabla  {
+    width: 100%;
+}
+
+.h1 {
+    padding-left: 10%; 
+}
+
+ion-card-conten {
+    padding: 10%;
+}
+.tdEnviar {
+    width: 50%;
+    text-align: center;
+}
+.tdLimpiar {
+    width: 50%; 
+    text-align: center;
+}
+
 .fondo{
     background: url("../../assets/splash.jpg");
     background-position: center center;
     background-repeat: no-repeat;
     background-size: cover;
+    height: 100%;
+    width: 100%;
   }
 .divScroll{
     overflow-y: auto;
@@ -53,6 +78,7 @@
     background-color: #cecece;
     font-family: cursive;
     height: 50px;
+    width: 100%;
 }
 
 

@@ -6,6 +6,7 @@ import { ProductoService } from "src/app/servicios/producto.service";
 import { Sectores } from "src/app/enums/sectores.enum";
 import { UtilsService } from "src/app/servicios/utils.service";
 import { Location } from "@angular/common";
+import { VibrationService } from 'src/app/servicios/vibration.service';
 
 @Component({
   selector: "app-alta-producto",
@@ -31,7 +32,8 @@ export class AltaProductoPage implements OnInit {
     private fb: FormBuilder,
     public camara: CameraService,
     private productos: ProductoService,
-    private location: Location
+    private location: Location,
+    private vibrationService: VibrationService
   ) {}
 
   ngOnInit() {
@@ -59,7 +61,13 @@ export class AltaProductoPage implements OnInit {
   }
 
   public tomarFoto(): void {
-    this.camara.tomarFoto().then((unaFoto) => this.fotos.push(unaFoto));
+    this.camara.tomarFoto().then(
+      (unaFoto) => {
+        this.camara.guardarReferencia(unaFoto)
+        .then((url)=>{
+          this.fotos.push(url);
+        })
+      })
   }
 
   onSubmitProducto(): void {
@@ -71,8 +79,10 @@ export class AltaProductoPage implements OnInit {
       this.producto.descripcion = this.formProducto.controls.descripcion.value;
       this.producto.sector = this.formProducto.controls.sector.value;
       this.producto.tiempo = this.formProducto.controls.tiempoPromedio.value;
-      this.producto.precio = this.formProducto.controls.precio.value;
+      this.producto.precio = this.formProducto.controls.precio.value;    
       this.producto.fotos = this.fotos;
+
+      console.warn(this.producto);
 
       this.productos
         .crearProducto(this.producto)
@@ -95,8 +105,10 @@ export class AltaProductoPage implements OnInit {
           `Debe adjuntar ${this.cantFotos} fotos del producto`,
           "toast-error"
         );
+        this.vibrationService.vibrar(500);
       }
       // alert('Error en formulario');
+      this.vibrationService.vibrar(500);
       this.formProducto.markAllAsTouched();
     }
   }
@@ -163,7 +175,7 @@ export class AltaProductoPage implements OnInit {
   }
 
   public base64ToImg(num: number): string {
-    return this.fotos[num] ? this.camara.base64ToImg(this.fotos[num]) : "";
+    return this.fotos[num];
   }
 
   public getFoto(num: number): string {

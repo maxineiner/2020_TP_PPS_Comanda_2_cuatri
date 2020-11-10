@@ -1,14 +1,9 @@
 import { componentFactoryName } from '@angular/compiler';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { ClientesAnonimosComponent } from '../altas/clientes-anonimos/clientes-anonimos.component';
-import { ClientesRegistradosComponent } from '../altas/clientes-registrados/clientes-registrados.component';
-import { MesasComponent } from '../altas/mesas/mesas.component';
-import { SupervisorComponent } from '../altas/supervisor/supervisor.component';
-import { HomeComponent } from '../home/home.component';
-// import { LoginComponent } from '../login/login.component';
-import { MenuPrincipalComponent } from '../menu-principal/menu-principal.component';
 
+import { HomeComponent } from '../home/home.component';
+import { MenuPrincipalComponent } from '../menu-principal/menu-principal.component';
 import { InicioPage } from './inicio.page';
 
 const routes: Routes = [

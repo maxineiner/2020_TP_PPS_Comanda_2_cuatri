@@ -3,6 +3,7 @@ import { NavController, AlertController, ModalController } from '@ionic/angular'
 import { Pedido } from 'src/app/clases/pedido';
 import { PedidoService } from 'src/app/servicios/pedido.service';
 import { UtilsService } from 'src/app/servicios/utils.service';
+import { VibrationService } from 'src/app/servicios/vibration.service';
 
 @Component({
   selector: 'app-ahorcado',
@@ -30,7 +31,9 @@ numFallos: number;
 numAciertos: number;
 cantidadIntentos: number = 0;
 
-constructor(private pedidoService: PedidoService, private utilsService: UtilsService,  public navCtrl: NavController, public alertCtrl: AlertController, private modalCtrl: ModalController,) {
+constructor(private pedidoService: PedidoService, private utilsService: UtilsService,  
+            public navCtrl: NavController, public alertCtrl: AlertController, 
+            private modalCtrl: ModalController, private vibrationService: VibrationService) {
     this.inicializar();
 }
 
@@ -111,6 +114,7 @@ async mostrarMensajeDePerder() {
         buttons: [{
             text: 'Ok',
             handler: () => {
+                this.vibrationService.vibrar(500);
                 this.pedido.juegos.ahorcado.cantidadIntentos = 1;
                 this.pedidoService.actualizarPedido(this.pedido);
                 this.inicializar();
