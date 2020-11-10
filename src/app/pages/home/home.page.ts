@@ -74,6 +74,11 @@ export class HomePage implements OnInit
         handler: () => this.router.navigate(['/home/menu-mesa'])
       },
       {
+        text: 'Nuevos Clientes',
+        icon: 'md-person-add',
+        handler: () => this.router.navigate(['/home/clientes-pendientes'])
+      },
+      {
         text: 'Cerrar',
         role: 'cancel',
         handler: () =>
