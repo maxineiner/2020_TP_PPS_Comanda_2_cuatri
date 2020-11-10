@@ -15,6 +15,9 @@ export class ProductoService {
     let foto = '../../../assets/defaultFoto.png';
     if (producto.fotos && producto.fotos.length > 0) {
       foto = producto.fotos[0];
+      if (foto.length > 400) {
+         foto = 'data:image/jpeg;base64,' + producto.fotos[0];
+      }    
     }
     return foto;
   }

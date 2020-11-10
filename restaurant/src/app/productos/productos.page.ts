@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UsuarioService } from 'src/app/servicios/usuario.service';
 import { UtilsService } from 'src/app/servicios/utils.service';
-import { EstadoUsuario } from 'src/app/enums/estado-usuario.enum';
-import { AuthService } from 'src/app/servicios/auth.service';
 import { ProductoService } from 'src/app/servicios/producto.service';
 import { Producto } from 'src/app/clases/producto';
 import { Sectores } from 'src/app/enums/sectores.enum';
@@ -22,7 +20,6 @@ export class ProductosPage implements OnInit {
   constructor(
     public usuarioService: UsuarioService,
     private utilsService: UtilsService,
-    private authService: AuthService,
     private productoService: ProductoService) { }
 
   ngOnInit() {
