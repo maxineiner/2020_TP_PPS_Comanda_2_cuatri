@@ -18,6 +18,7 @@ import { AhorcadoPage } from 'src/app/juegos/ahorcado/ahorcado.page';
 import { Pedido } from 'src/app/clases/pedido';
 import { Usuario } from 'src/app/clases/usuario';
 import { EstadoPedido } from 'src/app/enums/estado-pedido.enum';
+import { JuegosPage } from 'src/app/juegos/juegos.page';
 
 
 @Component({
@@ -109,7 +110,7 @@ export class PedidosPage implements OnInit, OnDestroy {
     this.utilsService.showLoadingAndNavigate('clientes');
   }
   irAJuegos() {
-    this.utilsService.presentModal(AhorcadoPage, { pedido: this.pedido });
+    this.utilsService.presentModal(JuegosPage, { pedido: this.pedido });
   }
 
   verEncuesta() {
