@@ -1,25 +1,33 @@
 <div class="ion-activatable centrado">
-  <ion-card mode="ios" color="dark">
+  <ion-card color="dark">
+
     <ion-card-header>
-      <ion-card-title>Cliente: {{ cliente.nombre }} {{ cliente.apellido }}</ion-card-title>
+      <ion-card-title>{{ cliente.nombre }} {{ cliente.apellido }}</ion-card-title>
     </ion-card-header>
 
     <!-- TODO: show images-->
     <!--ion-img [src]="cliente.foto.url"></ion-img-->
 
-    <ion-card-content *ngIf="!pendiente">
+    <ion-card-content color="dark">
       <ion-chip color="light" mode="ios" outline="true">
         <ion-label>DNI:{{ cliente.dni }}</ion-label>
       </ion-chip>
     </ion-card-content>
+
     <ion-button *ngIf="!pendiente" (click)="sacarFoto()" size="large" expand="block" fill="solid" color="success">
       Sacar foto
     </ion-button>
-    <ion-button *ngIf="pendiente" (click)="aceptarCliente()" size="large" expand="block" fill="solid" color="success">
-      Aceptar
-    </ion-button>
-    <ion-button *ngIf="pendiente" (click)="rechazarCliente()" size="large" expand="block" fill="solid" color="danger">
-      Rechazar
-    </ion-button>
+
+    <div class="buttons-container" *ngIf="pendiente">
+      <div>
+        <ion-button class="botones" (click)="aceptarCliente()" size="default" fill="solid" color="success">
+          Aceptar
+        </ion-button>
+        <ion-button class="botones" (click)="rechazarCliente()" size="default" fill="solid" color="danger">
+          Rechazar
+        </ion-button>
+      </div>
+    </div>
+
   </ion-card>
 </div>
