@@ -1,3 +1,4 @@
+import { IListaEspera } from '../interfaces/IListaEspera';
 import { Usuario } from './usuario';
 
 export enum EstadoAceptacion
@@ -11,7 +12,7 @@ export enum EstadoAceptacion
 export class Cliente extends Usuario
 {
   estado: EstadoAceptacion;
-  enListaDeEspera: boolean;
+  enListaDeEspera: IListaEspera;
 
   public static CrearCliente(
     id: string,
@@ -22,7 +23,7 @@ export class Cliente extends Usuario
     email: string,
     isActive: boolean,
     estado: EstadoAceptacion,
-    enListaDeEspera: boolean,
+    enListaDeEspera: IListaEspera,
   )
   {
     let cliente = new Cliente();

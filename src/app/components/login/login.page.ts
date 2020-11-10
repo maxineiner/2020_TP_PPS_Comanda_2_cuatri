@@ -38,7 +38,7 @@ export class LoginPage implements OnInit
     {
       console.log('Cliente anonimo logueado!');
 
-      let cliente = Cliente.CrearCliente(uid, "Anónimo", " ", "0", "-", " ", true, EstadoAceptacion.Anonimo, false)
+      let cliente = Cliente.CrearCliente(uid, "Anónimo", " ", "0", "-", " ", true, EstadoAceptacion.Anonimo,{isWaiting:false , horario: null})
       console.log(cliente)
 
       AuthService.usuario = cliente;
