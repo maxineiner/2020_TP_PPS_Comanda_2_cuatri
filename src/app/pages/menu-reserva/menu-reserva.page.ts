@@ -21,7 +21,7 @@ export class MenuReservaPage implements OnInit, DoCheck
 
   ngDoCheck(): void
   {
-    this.listado = PedidoService.pedidos.filter(pedido => pedido.estado == EstadoPedido.RESERVADO);
+    this.listado = PedidoService.pedidos.filter(pedido => pedido.estado == EstadoPedido.RESERVADO || pedido.estado == EstadoPedido.ASIGNADO);
   }
 
   ngOnInit()
