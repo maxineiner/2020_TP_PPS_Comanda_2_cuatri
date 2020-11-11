@@ -33,7 +33,7 @@ export class FormReservaComponent
   pedidos: Array<Pedido>;
   cliente: Cliente;
   fechaActual: string;
-  hayDisponibilidad:boolean = true;
+  hayDisponibilidad: boolean = true;
 
   constructor(
     private fb: FormBuilder,
@@ -115,7 +115,7 @@ export class FormReservaComponent
         "_",
         this.reservaForm.controls['cliente'].value,
         this.reservaForm.controls['mesa'].value,
-        [], timeStamp, null, 0, EstadoPedido.RESERVADO, true);
+        [], [], timeStamp, null, 0, EstadoPedido.RESERVADO, true);
       this.pedidosService.crear(pedido).then(() => { UIVisualService.presentToast('Reserva exitosa.') });
     }
 
@@ -150,7 +150,8 @@ export class FormReservaComponent
       }
 
     })
-    if(this.mesasDisponibles.length == 0){
+    if (this.mesasDisponibles.length == 0)
+    {
       this.hayDisponibilidad = false;
     }
     else

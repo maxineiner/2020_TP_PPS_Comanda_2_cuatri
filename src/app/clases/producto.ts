@@ -24,7 +24,7 @@ export class Producto implements IEscaneable
 
     public static CrearProducto(id: string, nombre: string, descripcion: string,
         fotos: Array<any>, minutosDeElaboracion: string, precio: number, tipo: TipoEmpleado,
-        codigoQr: string): Producto
+        codigoQr: string, isActive: boolean): Producto
     {
         let producto = new Producto();
 
@@ -36,7 +36,7 @@ export class Producto implements IEscaneable
         producto.precio = precio;
         producto.tipo = tipo;
         producto.codigoQR = codigoQr;
-
+        producto.isActive = isActive;
 
         return producto;
     }

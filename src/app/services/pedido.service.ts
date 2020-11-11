@@ -71,7 +71,8 @@ export class PedidoService
         snapshot.forEach((child) =>
         {
           var data: Pedido = child.val();
-          pedidos.push(Pedido.CrearPedido(data.id, data.cliente, data.mesa, data.productos,
+          pedidos.push(Pedido.CrearPedido(data.id, data.cliente, data.mesa,
+            data.productos, data.productosListos,
             data.fechaInicio, data.fechaFin,
             data.valorTotal, data.estado, data.isActive));
         });
