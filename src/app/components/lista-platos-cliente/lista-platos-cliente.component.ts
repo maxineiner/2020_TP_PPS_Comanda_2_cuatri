@@ -1,11 +1,13 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { IonList, LoadingController, ModalController, ToastController } from '@ionic/angular';
 import { Empleado } from 'src/app/clases/empleado';
-import { EstadoPedido } from 'src/app/clases/pedido';
+import { EstadoPedido, Pedido } from 'src/app/clases/pedido';
 import { Producto } from 'src/app/clases/producto';
 import { Usuario } from 'src/app/clases/usuario';
 import { AuthService } from 'src/app/services/auth.service';
+import { PedidoService } from 'src/app/services/pedido.service';
 import { RolesService } from 'src/app/services/roles.service';
+import { UIVisualService } from 'src/app/services/uivisual.service';
 
 @Component({
   selector: 'app-lista-platos-cliente',
@@ -15,39 +17,62 @@ import { RolesService } from 'src/app/services/roles.service';
 export class ListaPlatosClienteComponent implements OnInit
 {
   @Input() usuario: Usuario = AuthService.usuario;
-  @Input() productos: Producto[];
-  @Input() estado: EstadoPedido;
+  @Input() pedido: Pedido;
   @Output() enviarProductos: EventEmitter<Producto[]> = new EventEmitter<Producto[]>();
+  pedidoModificado: boolean;
 
-  constructor(private modalController: ModalController, private rolService: RolesService) { }
+  @ViewChild('lista', { static: false }) lista: IonList;
+
+  constructor(private modalController: ModalController, private rolService: RolesService,
+    private pedidoService: PedidoService, private loadingController: LoadingController,
+    private toastController: ToastController) { }
 
   ngOnInit() 
   {
-    console.log(this.estado);
-    console.log(this.usuario);
+    this.pedidoModificado = false;
   }
 
   removerPlato(index: number)
   {
-    const nuevaLista = this.productos.filter((p, i) => i != index);
-    this.productos = nuevaLista;
-    this.enviarProductos.emit(this.productos);
+    const nuevaLista = this.pedido.productos.filter((p, i) => i != index);
+    this.pedido.productos = nuevaLista;
+    this.enviarProductos.emit(this.pedido.productos);
+
+    this.lista.closeSlidingItems();
   }
 
   entregarPlato(index: number)
   {
-    console.log(this.productos[index]);
-    this.enviarProductos.emit(this.productos);
+    console.log(this.pedido.productos[index]);
+    if (!this.pedido.productosListos.includes(index))
+    {
+      this.pedido.productosListos.push(index);
+
+    }
+    else
+    {
+      this.pedido.productosListos = this.pedido.productosListos.filter(i => i != index);
+    }
+    this.pedidoModificado = true;
+    this.lista.closeSlidingItems();
   }
 
   cerrar()
   {
-    this.modalController.dismiss(this.productos);
+    if (this.pedidoModificado)
+    {
+      console.log("Pedido actualizado");
+      this.presentLoading();
+
+      this.pedidoService.actualizar(this.pedido)
+        .then(() => this.presentToast("Se actualiza pedido"));
+    }
+    this.modalController.dismiss(this.pedido.productos);
   }
 
   validarAccion(producto: Producto)
   {
-    if (this.estado == EstadoPedido.EN_PROGRESO &&
+    if (this.pedido.estado == EstadoPedido.EN_PROGRESO &&
       this.rolService.isEmpleadoCocinero(this.usuario) ||
       this.rolService.isEmpleadoBartender(this.usuario))
     {
@@ -58,5 +83,42 @@ export class ListaPlatosClienteComponent implements OnInit
     }
     return false;
   }
+
+  isReady(index: number)
+  {
+    if (this.pedido.productosListos.includes(index)) // Si existe el indice del producto 
+    {
+      return true;
+    }
+    return false;
+  }
+
+  cambiarColor(index)
+  {
+    if (this.isReady(index))
+    {
+      return "success";
+    }
+    return "light"
+  }
+
+  async presentToast(message)
+  {
+    const toast = await this.toastController.create({
+      message,
+      duration: 2000
+    });
+    toast.present();
+  }
+
+  async presentLoading()
+  {
+    const loading = await this.loadingController.create({
+      duration: 2000,
+      spinner: 'crescent'
+    });
+    await loading.present();
+  }
+
 
 }

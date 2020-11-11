@@ -1,6 +1,6 @@
 import { ComponentRef, Injectable } from '@angular/core';
 import { ActionSheetButton } from '@ionic/core/dist/types/interface';
-import { ActionSheetController, AlertController, ModalController, PopoverController, ToastController } from '@ionic/angular';
+import { ActionSheetController, AlertController, LoadingController, ModalController, PopoverController, ToastController } from '@ionic/angular';
 import { CartaPage } from '../pages/carta/carta.page';
 import { Imagen } from '../clases/imagen';
 import { FotoComponent } from '../components/foto/foto.component';
@@ -46,9 +46,19 @@ export class UIVisualService
     private actionSheetController: ActionSheetController,
     private popoverController: PopoverController,
     private router: Router,
-    private pedidoService: PedidoService) 
+    private pedidoService: PedidoService,
+    private loadingController: LoadingController) 
   {
     UIVisualService.UI = this;
+  }
+
+  static async presentLoading()
+  {
+    const loading = await UIVisualService.UI.loadingController.create({
+      duration: 2000,
+      spinner: 'crescent'
+    });
+    await loading.present();
   }
 
   static async presentToast(message)
@@ -193,13 +203,12 @@ export class UIVisualService
     return data;
   }
 
-  static async verPlatos(dataPedido: DataPedido)
+  static async verPlatos(pedido: Pedido)
   {
     const modal = await UIVisualService.UI.modalController.create({
       component: ListaPlatosClienteComponent,
       componentProps: {
-        productos: dataPedido.productos,
-        estado: dataPedido.estado
+        pedido: pedido
       }
     });
 

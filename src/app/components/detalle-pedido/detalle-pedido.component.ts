@@ -69,7 +69,7 @@ export class DetallePedidoComponent implements OnInit
     };
 
     UIVisualService.presentActionSheet(rol, {
-      mostrarPlatos: { handler: UIVisualService.verPlatos, params: dataPedido },
+      mostrarPlatos: { handler: UIVisualService.verPlatos, params: this.pedido },
       solicitar: { handler: "", params: this.pedido },
       confirmar: { handler: "", params: this.pedido },
       recibir: { handler: "", params: this.pedido },

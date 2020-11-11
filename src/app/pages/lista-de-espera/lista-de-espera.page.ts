@@ -93,7 +93,7 @@ export class ListaDeEsperaPage implements OnInit, DoCheck
     let mensaje = 'Mesa:' + mesa.numero + ' asignada.';
     let fechaActual = Date.now() - (new Date().getTimezoneOffset() * 60000);
 
-    this.pedidosService.crear(Pedido.CrearPedido('', this.clienteActual, mesa, null, fechaActual,
+    this.pedidosService.crear(Pedido.CrearPedido('', this.clienteActual, mesa, null, null, fechaActual,
       null, null, EstadoPedido.ASIGNADO, true)).then(() =>
       {
         //Se envia push al cliente avisando que es su turno y un redireccionamiento al pedidos page

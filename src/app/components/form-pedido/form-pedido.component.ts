@@ -94,13 +94,7 @@ export class FormPedidoComponent implements OnInit
 
   async mostrarPlatos()
   {
-    let dataPedido: DataPedido = {
-      productos: this.pedido.productos,
-      estado: this.pedido.estado
-    }
-
-    UIVisualService.verPlatos(dataPedido);
-
+    UIVisualService.verPlatos(this.pedido);
   }
 
 }

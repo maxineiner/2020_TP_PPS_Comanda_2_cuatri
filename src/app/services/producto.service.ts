@@ -40,7 +40,7 @@ export class ProductoService
           productos = [];
           snapshot.forEach((child) =>
           {
-            var data: Producto = child.val();
+            let data: Producto = child.val();
             productos.push(new Producto(data as Producto));
           });
           ProductoService.productos = productos.filter(producto => producto.isActive == true);

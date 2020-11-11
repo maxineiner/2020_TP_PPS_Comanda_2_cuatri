@@ -8,11 +8,11 @@
     <ion-title>Detalle del pedido</ion-title>
   </ion-toolbar>
 </ion-header>
-<ion-content>
-  <ion-list>
+<ion-content color="dark">
+  <ion-list #lista class="ion-no-padding">
 
 
-    <ion-item-sliding *ngFor="let producto of productos; let i = index">
+    <ion-item-sliding *ngFor="let producto of pedido.productos; let i = index">
 
       <ion-item-options side="start" *ngIf="estado == 'Asignado'">
         <ion-item-option (click)="removerPlato(i)" color="danger">
@@ -26,7 +26,7 @@
         </ion-item-option>
       </ion-item-options>
 
-      <ion-item>
+      <ion-item [color]="cambiarColor(i)">
 
         <ion-label>
           <h3>{{producto.nombre}}</h3>
@@ -41,3 +41,8 @@
     </ion-item-sliding>
   </ion-list>
 </ion-content>
+<ion-footer>
+  <ion-toolbar color="warning">
+    <ion-title>Total:${{pedido.valorTotal}}</ion-title>
+  </ion-toolbar>
+</ion-footer>

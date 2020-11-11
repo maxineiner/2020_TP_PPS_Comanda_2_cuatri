@@ -23,17 +23,21 @@ export class Pedido
     fechaFin: number;
     estado: EstadoPedido;
     isActive: boolean;
+    productosListos: number[]; // Indices de productos listos
 
-    constructor()
+    public constructor(init?: Partial<Pedido>)
     {
-        this.fechaInicio = 0;
-        this.fechaFin = 0;
-        this.productos = [];
+        if (init)
+        {
+            Object.assign(this, init);
+        }
     }
 
-    public static CrearPedido(id: string, cliente: Cliente, mesa: Mesa, productos: Producto[],
-        fechaInicio: number, fechaFin: number, valorTotal: number, estado: EstadoPedido,
-        isActive: boolean)
+
+    public static CrearPedido(id: string, cliente: Cliente, mesa: Mesa,
+        productos: Producto[], productosListos: number[],
+        fechaInicio: number, fechaFin: number, valorTotal: number,
+        estado: EstadoPedido, isActive: boolean)
     {
         let pedido = new Pedido();
 
@@ -46,6 +50,7 @@ export class Pedido
         pedido.fechaFin = fechaFin;
         pedido.estado = estado;
         pedido.isActive = isActive;
+        pedido.productosListos = productosListos ? productosListos : [];
 
         return pedido
     }
@@ -85,4 +90,14 @@ export class Pedido
                 break;
         }
     }
+
+    public pedidoTerminado()
+    {
+        if (this.productosListos.length == this.productosListos.length)
+        {
+            return true;
+        }
+        return false;
+    }
+
 }
