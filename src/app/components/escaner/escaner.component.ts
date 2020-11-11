@@ -41,7 +41,7 @@ export class EscanerQRComponent implements OnInit
     {
       case 'Mesa':
         console.log(entidad);
-        this.router.navigate(['/home/info-mesa', id]);
+        this.router.navigate(['/home/info-mesa', id, ""]);
         break;
       case 'Producto':
         console.log(entidad);

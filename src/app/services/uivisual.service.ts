@@ -14,6 +14,7 @@ import { EstadoPedido, Pedido } from '../clases/pedido';
 import { SalaChatPage } from '../pages/sala-chat/sala-chat.page';
 import { DataPedido, PedidoService } from './pedido.service';
 import { MetadataMensaje } from './mensajes.service';
+import { FacturaComponent } from '../components/factura/factura.component';
 
 /**
  * Interfaz para crear dinámicamente botones de un Action Sheet
@@ -148,7 +149,7 @@ export class UIVisualService
         handlers.cerrar.boton = {
           text: 'Pagar',
           icon: 'cash-outline',
-          handler: () => this.UI.pedidoService.pagarPedido(handlers.cerrar.params)
+          handler: () => handlers.cerrar.handler(handlers.cerrar.params)
         }
         if (handlers.cerrar) botonesGenerados.push(handlers.cerrar.boton);
 
@@ -224,6 +225,19 @@ export class UIVisualService
       componentProps: {
         chatID: metadata.chatId,
         mesa: metadata.mesa
+      }
+    });
+
+    await modal.present();
+  }
+
+  static async verCuenta(pedido: Pedido)
+  {
+
+    const modal = await UIVisualService.UI.modalController.create({
+      component: FacturaComponent,
+      componentProps: {
+        pedido: pedido,
       }
     });
 

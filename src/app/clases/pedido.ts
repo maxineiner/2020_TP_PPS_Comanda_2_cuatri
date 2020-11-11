@@ -24,6 +24,7 @@ export class Pedido
     estado: EstadoPedido;
     isActive: boolean;
     productosListos: number[]; // Indices de productos listos
+    propina?: number;
 
     public constructor(init?: Partial<Pedido>)
     {
@@ -66,7 +67,7 @@ export class Pedido
                 this.valorTotal = this.valorTotal + producto.precio;
             });
         }
-        return this.valorTotal;
+        return this.valorTotal * (1 + this.propina);
     }
 
     public cambiarEstado()
@@ -91,7 +92,7 @@ export class Pedido
         }
     }
 
-    public pedidoTerminado()
+    public isFinished()
     {
         if (this.productosListos.length == this.productosListos.length)
         {

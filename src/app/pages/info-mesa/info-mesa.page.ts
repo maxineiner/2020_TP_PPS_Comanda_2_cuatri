@@ -41,12 +41,11 @@ export class InfoMesaPage implements OnInit
     {
       console.log(params['id']);
       this.idMesa = params['mesa'];
-      this.idPedido = params['pedido'];
+      this.idPedido = params['pedido'] ? params['pedido'] : "";
 
       this.buscarReserva();
     });
 
-    // Codigo para testing
   }
 
   buscarReserva()
