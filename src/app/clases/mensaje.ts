@@ -7,8 +7,10 @@ export class Mensaje
     usuario: Usuario;
     fecha: string;
     chatId: string;
+    mesa?: number;
 
-    public static CrearMensaje(id: string, texto: string, usuario: Usuario, fecha: string, chatId: string)
+    public static CrearMensaje(id: string, texto: string, usuario: Usuario,
+        fecha: string, chatId: string, mesa?: number)
     {
         let mensaje = new Mensaje();
 
@@ -17,6 +19,7 @@ export class Mensaje
         mensaje.usuario = usuario;
         mensaje.fecha = fecha;
         mensaje.chatId = chatId;
+        mensaje.mesa = mesa;
 
         return mensaje;
     }

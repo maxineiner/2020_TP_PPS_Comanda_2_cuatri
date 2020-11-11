@@ -13,6 +13,7 @@ import { FormPedidoComponent } from '../components/form-pedido/form-pedido.compo
 import { EstadoPedido, Pedido } from '../clases/pedido';
 import { SalaChatPage } from '../pages/sala-chat/sala-chat.page';
 import { PedidoService } from './pedido.service';
+import { MetadataMensaje } from './mensajes.service';
 
 /**
  * Interfaz para crear dinámicamente botones de un Action Sheet
@@ -24,7 +25,7 @@ export interface IBotonesGenerados
   confirmar?: { boton?: ActionSheetButton, handler: any, params?: any },
   recibir?: { boton?: ActionSheetButton, handler: any, params?: any },
   cerrar?: { boton?: ActionSheetButton, handler: any, params?: any },
-  chat?: { boton?: ActionSheetButton, handler: any, params?: any },
+  chat?: { boton?: ActionSheetButton, handler: any, params?: MetadataMensaje },
 }
 
 /**
@@ -121,7 +122,7 @@ export class UIVisualService
         if (handlers.mostrarPlatos) botonesGenerados.push(handlers.mostrarPlatos.boton);
 
         handlers.chat.boton = {
-          text: 'Chat',
+          text: 'Consultas',
           icon: 'chatbubbles-sharp',
           handler: () => handlers.chat.handler(handlers.chat.params)
         }
@@ -151,7 +152,7 @@ export class UIVisualService
         if (handlers.mostrarPlatos) botonesGenerados.push(handlers.mostrarPlatos.boton);
 
         handlers.chat.boton = {
-          text: 'Chat',
+          text: 'Consultas',
           icon: 'chatbubbles-sharp',
           handler: () => handlers.chat.handler(handlers.chat.params)
         }
@@ -192,14 +193,15 @@ export class UIVisualService
     await modal.present();
   }
 
-  static async verChat(id: string)
+  static async verChat(metadata: MetadataMensaje)
   {
-    console.log(id);
+    console.log(metadata);
 
     const modal = await UIVisualService.UI.modalController.create({
       component: SalaChatPage,
       componentProps: {
-        chatID: id
+        chatID: metadata.chatId,
+        mesa: metadata.mesa
       }
     });
 
@@ -220,7 +222,5 @@ export class UIVisualService
 
     await popover.present();
   }
-
-
 
 }

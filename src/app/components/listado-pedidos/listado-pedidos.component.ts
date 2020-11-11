@@ -46,17 +46,14 @@ export class ListadoPedidosComponent implements OnInit, DoCheck
       pedido.cliente.id == this.usuario.id &&
       pedido.estado == this.opcion)
     {
-      console.log("Cliente");
       return true;
     }
     else if (this.rolService.isEmpleado(this.usuario) && pedido.estado == this.opcion) // Pedidos para empleados
     {
-      console.log("Empleado");
       return true;
     }
     else if (this.rolService.isJefe(this.usuario) && pedido.estado == this.opcion) // Pedidos para jefes
     {
-      console.log("Jefe");
       return true
     }
     return false;
