@@ -64,8 +64,13 @@ export class ListaPlatosClienteComponent implements OnInit
       console.log("Pedido actualizado");
       this.presentLoading();
 
-      this.pedidoService.actualizar(this.pedido)
-        .then(() => this.presentToast("Se actualiza pedido"));
+      if (this.pedido.isFinished())
+      {
+        // Aca se debería enviar una Push Notifications
+        console.log("Pedido finalizado");
+      }
+
+      this.pedidoService.actualizar(this.pedido).then(() => this.presentToast("Se actualiza pedido"));
     }
     this.modalController.dismiss(this.pedido.productos);
   }

@@ -34,6 +34,7 @@ import { ListaPlatosClienteComponent } from './lista-platos-cliente/lista-platos
 import { EscanerQRComponent } from './escaner/escaner.component';
 import { ChatComponent } from './chat/chat.component';
 import { PedidoSlideComponent } from './pedido-slide/pedido-slide.component';
+import { FacturaComponent } from './factura/factura.component';
 
 @NgModule({
   declarations: [
@@ -69,7 +70,8 @@ import { PedidoSlideComponent } from './pedido-slide/pedido-slide.component';
     FormPedidoComponent,
     DetallePedidoComponent,
     ListaPlatosClienteComponent,
-    PedidoSlideComponent
+    PedidoSlideComponent,
+    FacturaComponent
   ],
   imports: [
     CommonModule,
@@ -111,7 +113,8 @@ import { PedidoSlideComponent } from './pedido-slide/pedido-slide.component';
     FormPedidoComponent,
     DetallePedidoComponent,
     ListaPlatosClienteComponent,
-    PedidoSlideComponent
+    PedidoSlideComponent,
+    FacturaComponent
   ]
 })
 export class ComponentsModule { }
