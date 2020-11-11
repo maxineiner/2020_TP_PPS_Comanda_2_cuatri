@@ -2,6 +2,13 @@ import { Injectable } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { Router } from '@angular/router';
 import { EstadoPedido, Pedido } from '../clases/pedido';
+import { Producto } from '../clases/producto';
+
+export interface DataPedido
+{
+  productos: Producto[],
+  estado: EstadoPedido
+}
 
 @Injectable({
   providedIn: 'root'

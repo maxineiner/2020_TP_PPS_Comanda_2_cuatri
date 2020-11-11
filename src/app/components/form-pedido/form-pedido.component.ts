@@ -3,7 +3,7 @@ import { ModalController, ToastController } from '@ionic/angular';
 import { EstadoPedido, Pedido } from 'src/app/clases/pedido';
 import { Producto } from 'src/app/clases/producto';
 import { CartaPage } from 'src/app/pages/carta/carta.page';
-import { PedidoService } from 'src/app/services/pedido.service';
+import { DataPedido, PedidoService } from 'src/app/services/pedido.service';
 import { ProductoService } from 'src/app/services/producto.service';
 import { UIVisualService } from 'src/app/services/uivisual.service';
 import { ListaPlatosClienteComponent } from '../lista-platos-cliente/lista-platos-cliente.component';
@@ -94,7 +94,12 @@ export class FormPedidoComponent implements OnInit
 
   async mostrarPlatos()
   {
-    UIVisualService.verPlatos(this.pedido.productos);
+    let dataPedido: DataPedido = {
+      productos: this.pedido.productos,
+      estado: this.pedido.estado
+    }
+
+    UIVisualService.verPlatos(dataPedido);
 
   }
 

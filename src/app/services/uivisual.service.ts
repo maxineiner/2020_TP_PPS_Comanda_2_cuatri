@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
 import { FormPedidoComponent } from '../components/form-pedido/form-pedido.component';
 import { EstadoPedido, Pedido } from '../clases/pedido';
 import { SalaChatPage } from '../pages/sala-chat/sala-chat.page';
-import { PedidoService } from './pedido.service';
+import { DataPedido, PedidoService } from './pedido.service';
 import { MetadataMensaje } from './mensajes.service';
 
 /**
@@ -165,6 +165,16 @@ export class UIVisualService
         }
         if (handlers.confirmar) botonesGenerados.push(handlers.confirmar.boton);
         break;
+      case 'Bartender':
+      case 'Cocinero':
+        handlers.mostrarPlatos.boton = {
+          text: 'Entregar',
+          icon: 'fast-food-outline',
+          handler: () => handlers.mostrarPlatos.handler(handlers.mostrarPlatos.params)
+        }
+        if (handlers.mostrarPlatos) botonesGenerados.push(handlers.mostrarPlatos.boton);
+
+        break;
     }
 
     return botonesGenerados;
@@ -183,11 +193,14 @@ export class UIVisualService
     return data;
   }
 
-  static async verPlatos(productos: Producto[])
+  static async verPlatos(dataPedido: DataPedido)
   {
     const modal = await UIVisualService.UI.modalController.create({
       component: ListaPlatosClienteComponent,
-      componentProps: { productos: productos }
+      componentProps: {
+        productos: dataPedido.productos,
+        estado: dataPedido.estado
+      }
     });
 
     await modal.present();
