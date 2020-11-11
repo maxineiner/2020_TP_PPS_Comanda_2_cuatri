@@ -4,6 +4,7 @@ import { ActionSheetController, ModalController } from '@ionic/angular';
 import { EstadoPedido, Pedido } from 'src/app/clases/pedido';
 import { Usuario } from 'src/app/clases/usuario';
 import { AuthService } from 'src/app/services/auth.service';
+import { MetadataMensaje } from 'src/app/services/mensajes.service';
 import { PedidoService } from 'src/app/services/pedido.service';
 import { RolesService } from 'src/app/services/roles.service';
 import { UIVisualService } from 'src/app/services/uivisual.service';
@@ -51,6 +52,17 @@ export class DetallePedidoComponent implements OnInit
   async mostrarOpciones()
   {
     let rol = this.rolService.isCliente(this.usuario) ? 'Cliente' : 'Mozo';
+    let mesa = null;
+
+    if (rol == 'Cliente')
+    {
+      mesa = this.pedido.mesa.numero;
+    }
+
+    let metadataMensaje: MetadataMensaje = {
+      chatId: this.pedido.id,
+      mesa: mesa
+    };
 
     UIVisualService.presentActionSheet(rol, {
       mostrarPlatos: { handler: UIVisualService.verPlatos, params: this.pedido.productos },
@@ -58,7 +70,7 @@ export class DetallePedidoComponent implements OnInit
       confirmar: { handler: "", params: this.pedido },
       recibir: { handler: "", params: this.pedido },
       cerrar: { handler: "", params: this.pedido },
-      chat: { handler: UIVisualService.verChat, params: this.pedido.id }
+      chat: { handler: UIVisualService.verChat, params: metadataMensaje }
     })
   }
 

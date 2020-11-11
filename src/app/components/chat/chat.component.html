@@ -1,41 +1,37 @@
 <ion-content class="ion-padding contenido" #content>
 
-  <ion-grid fixed *ngFor="let mensaje of mensajes; let i = index" color="primary">
+  <ion-grid fixed *ngFor="let mensaje of mensajes; let i = index">
 
-    <ion-row *ngIf="idUsuario != mensaje.usuario.id">
+    <ion-row>
 
-      <ion-col size="12">
+      <ion-col size="9" [offset]="idUsuario == mensaje.usuario.id ? 3 : 0" class="mensaje">
 
-        <div class="ion-text-start mensaje-ajeno">
+        <div [ngClass]="{'ion-text-end': idUsuario == mensaje.usuario.id , 
+                  'ion-text-start': idUsuario != mensaje.usuario.id }">
+          <ion-item class="ion-no-margin" color="light" lines="none"
+                    *ngIf="i == 0 || mensaje.usuario.id != mensajes[i-1].usuario.id">
 
-          <ion-chip color="dark" mode="ios">
-            <ion-label>{{mensaje.usuario.nombre}} - {{mensaje.fecha | date: 'shortDate'}}</ion-label>
-          </ion-chip>
+            <ion-chip color="dark" mode="ios" outline="true" class="ion-no-margin"
+                      *ngIf="idUsuario != mensaje.usuario.id">
+              <ion-avatar>
+                <img src="./assets/img/no-avatar.jpg" />
+              </ion-avatar>
+              <ion-label *ngIf="mensaje.mesa">Mesa : {{mensaje.mesa}} - </ion-label>
+              <ion-label>{{mensaje.fecha | date: 'shortTime'}}</ion-label>
+            </ion-chip>
 
-          <ion-textarea [value]="mensaje.texto" rows="1"
-                        autoGrow="true" color="dark" mode="ios" readonly="true">
+            <ion-chip color="dark" mode="ios" outline="true" class="ion-no-margin"
+                      *ngIf="idUsuario == mensaje.usuario.id">
+              <ion-avatar>
+                <img src="./assets/img/no-avatar.jpg" />
+              </ion-avatar>
+              <ion-label>{{mensaje.fecha |  date: 'shortTime'}}</ion-label>
+            </ion-chip>
 
-          </ion-textarea>
+          </ion-item>
 
-        </div>
-
-      </ion-col>
-
-    </ion-row>
-
-    <ion-row *ngIf="idUsuario == mensaje.usuario.id">
-
-      <ion-col size="12">
-
-        <div class="ion-text-end mensaje-propio">
-
-          <ion-chip color="dark" mode="ios">
-            <ion-label>{{mensaje.fecha |  date: 'shortDate'}}</ion-label>
-          </ion-chip>
-          <ion-textarea [value]="mensaje.texto" rows="1"
-                        autoGrow="true" color="dark" mode="ios" readonly="true">
-
-          </ion-textarea>
+          <br>
+          <span>{{mensaje.texto}}</span>
 
         </div>
 

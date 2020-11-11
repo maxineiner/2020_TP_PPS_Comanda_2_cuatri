@@ -3,6 +3,12 @@ import { Mensaje } from '../clases/mensaje';
 import { IDatabase } from '../interfaces/IDatabase';
 import { AngularFireDatabase } from "@angular/fire/database";
 
+export interface MetadataMensaje
+{
+  chatId: string,
+  mesa: number
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -42,7 +48,8 @@ export class MensajesService implements IDatabase<Mensaje>
         snapshot.forEach((child) =>
         {
           var data: Mensaje = child.val();
-          mensajes.push(Mensaje.CrearMensaje(data.id, data.texto, data.usuario, data.fecha, data.chatId));
+          mensajes.push(Mensaje.CrearMensaje(data.id, data.texto, data.usuario,
+            data.fecha, data.chatId, data.mesa));
         });
         MensajesService.mensajes = mensajes;
         resolve(MensajesService.mensajes);
@@ -63,7 +70,8 @@ export class MensajesService implements IDatabase<Mensaje>
       this.firebase.database.ref(`mensajes/${id}`).once('value').then(snapshot =>
       {
         let data: Mensaje = snapshot.val();
-        const mensaje = Mensaje.CrearMensaje(data.id, data.texto, data.usuario, data.fecha, data.chatId);
+        const mensaje = Mensaje.CrearMensaje(data.id, data.texto, data.usuario,
+          data.fecha, data.chatId, data.mesa);
         resolve(mensaje);
       });
     })
