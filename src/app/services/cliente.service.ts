@@ -19,7 +19,10 @@ export class ClienteService
     cliente.foto = "-"
     cliente.isActive = true;
     cliente.estado = EstadoAceptacion.Pendiente;
-    cliente.enListaDeEspera.isWaiting = false;
+    cliente.enListaDeEspera = {
+      isWaiting: false,
+      horario: null
+    };
     console.log(cliente)
 
     return this.firebase.database

@@ -25,13 +25,14 @@ export class Pedido
     isActive: boolean;
     productosListos: number[]; // Indices de productos listos
 
-    constructor()
+    public constructor(init?: Partial<Pedido>)
     {
-        this.fechaInicio = 0;
-        this.fechaFin = 0;
-        this.productos = [];
-        this.productosListos = [];
+        if (init)
+        {
+            Object.assign(this, init);
+        }
     }
+
 
     public static CrearPedido(id: string, cliente: Cliente, mesa: Mesa,
         productos: Producto[], productosListos: number[],

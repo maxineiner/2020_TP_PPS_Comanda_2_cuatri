@@ -70,11 +70,8 @@ export class PedidoService
         pedidos = [];
         snapshot.forEach((child) =>
         {
-          var data: Pedido = child.val();
-          pedidos.push(Pedido.CrearPedido(data.id, data.cliente, data.mesa,
-            data.productos, data.productosListos,
-            data.fechaInicio, data.fechaFin,
-            data.valorTotal, data.estado, data.isActive));
+          let data: Pedido = new Pedido(child.val());
+          pedidos.push(data);
         });
         PedidoService.pedidos = pedidos.filter(pedido => pedido.isActive);
         resolve(PedidoService.pedidos);
@@ -87,9 +84,11 @@ export class PedidoService
    * Método para realizar Fetch de una mesa en DB
    * @param id UID del registro a obtener
    */
-  public fetch(id: string)
+  public async fetch(id: string)
   {
-    return this.firebase.database.ref(`pedidos/${id}`).once('value');
+    const data = await this.firebase.database.ref(`pedidos/${id}`).once('value');
+
+    return new Pedido(data.val());
   }
 
   /**
