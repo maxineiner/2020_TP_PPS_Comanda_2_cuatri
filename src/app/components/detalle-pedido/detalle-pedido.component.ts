@@ -5,7 +5,7 @@ import { EstadoPedido, Pedido } from 'src/app/clases/pedido';
 import { Usuario } from 'src/app/clases/usuario';
 import { AuthService } from 'src/app/services/auth.service';
 import { MetadataMensaje } from 'src/app/services/mensajes.service';
-import { PedidoService } from 'src/app/services/pedido.service';
+import { DataPedido, PedidoService } from 'src/app/services/pedido.service';
 import { RolesService } from 'src/app/services/roles.service';
 import { UIVisualService } from 'src/app/services/uivisual.service';
 import { FormPedidoComponent } from '../form-pedido/form-pedido.component';
@@ -35,28 +35,27 @@ export class DetallePedidoComponent implements OnInit
     console.log(this.pedido);
   }
 
-  recibir()
-  {
-    console.log("Se recibe pedido en la mesa");
-    this.pedido.cambiarEstado();
-    this.pedidoService.actualizar(this.pedido);
-  }
-
-  pagar()
-  {
-    console.log("Pagar pedido");
-    this.pedido.cambiarEstado();
-    this.pedidoService.actualizar(this.pedido);
-  }
-
   async mostrarOpciones()
   {
-    let rol = this.rolService.isCliente(this.usuario) ? 'Cliente' : 'Mozo';
+    let rol;
     let mesa = null;
 
-    if (rol == 'Cliente')
+    if (this.rolService.isCliente(this.usuario))
     {
+      rol = 'Cliente';
       mesa = this.pedido.mesa.numero;
+    }
+    else if (this.rolService.isEmpleadoMozo(this.usuario))
+    {
+      rol = 'Mozo';
+    }
+    else if (this.rolService.isEmpleadoCocinero(this.usuario))
+    {
+      rol = 'Cocinero';
+    }
+    else if (this.rolService.isEmpleadoBartender(this.usuario))
+    {
+      rol = 'Bartender';
     }
 
     let metadataMensaje: MetadataMensaje = {
@@ -64,8 +63,13 @@ export class DetallePedidoComponent implements OnInit
       mesa: mesa
     };
 
+    let dataPedido: DataPedido = {
+      productos: this.pedido.productos,
+      estado: this.pedido.estado
+    };
+
     UIVisualService.presentActionSheet(rol, {
-      mostrarPlatos: { handler: UIVisualService.verPlatos, params: this.pedido.productos },
+      mostrarPlatos: { handler: UIVisualService.verPlatos, params: dataPedido },
       solicitar: { handler: "", params: this.pedido },
       confirmar: { handler: "", params: this.pedido },
       recibir: { handler: "", params: this.pedido },

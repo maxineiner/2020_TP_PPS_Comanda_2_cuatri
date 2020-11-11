@@ -22,6 +22,8 @@ export class InfoMesaPage implements OnInit
   usuario: Usuario;
   pedido: Pedido = new Pedido();
   horaActual: Date;
+  idPedido: string;
+  idMesa: string;
 
   constructor(private route: ActivatedRoute, private router: Router, private mesaService: MesaService,
     private clienteService: ClienteService, private pedidoService: PedidoService,
@@ -35,63 +37,49 @@ export class InfoMesaPage implements OnInit
   {
     this.usuario = AuthService.usuario;
     // Se recibe id de Mesa asignada y id de Cliente
-    // this.route.params.subscribe(params =>
-    // {
-    //   console.log(params['id']);
-    //   this.buscarReserva(params['id']);
-    // });
+    this.route.params.subscribe(params =>
+    {
+      console.log(params['id']);
+      this.idMesa = params['mesa'];
+      this.idPedido = params['pedido'];
+
+      this.buscarReserva();
+    });
 
     // Codigo para testing
-    this.buscarReserva("-MLOssaEI7D5pr7Q8OMl");
   }
 
-  buscarReserva(id: string)
+  buscarReserva()
   {
     let fechaActual = new Date();
 
-    // Se debería traer Entidad con información sobre Pedido y Cliente de Mesa
-    if (this.rolService.isCliente(this.usuario))
+
+    if (this.rolService.isCliente(this.usuario)) // Si es cliente accede por QR de Mesa
     {
       this.pedido = PedidoService.pedidos.filter(pedido =>
       {
         // Agregar validacion de hora actual
         if (pedido.cliente && pedido.mesa)
         {
-          return pedido.mesa.id === id && pedido.cliente.id == this.usuario.id &&
+          return pedido.mesa.id === this.idMesa && pedido.cliente.id == this.usuario.id &&
             this.compararFechas(new Date(pedido.fechaInicio), fechaActual);
         }
       })[0];
     }
-    else if (this.rolService.isEmpleadoMozo(this.usuario))
+    else if (this.rolService.isEmpleado(this.usuario)) // Si es empleado accede desde listado
     {
       this.pedido = PedidoService.pedidos.filter(pedido =>
       {
         // Agregar validacion de hora actual
         if (pedido.cliente && pedido.mesa)
         {
-          return pedido.mesa.id === id;
+          return pedido.id === this.idPedido;
         }
       })[0];
     }
 
     console.log(this.pedido);
   }
-
-  confirmarRecepcion()
-  {
-
-  }
-
-  pagarCuenta()
-  {
-
-  }
-
-  verEncuesta()
-  {
-    console.log("Ver encuesta");
-  }
-
 
   compararFechas(fechaA: Date, fechaB: Date)
   {

@@ -14,13 +14,13 @@
 
     <ion-item-sliding *ngFor="let producto of productos; let i = index">
 
-      <ion-item-options side="start">
+      <ion-item-options side="start" *ngIf="estado == 'Asignado'">
         <ion-item-option (click)="removerPlato(i)" color="danger">
           <ion-icon slot="icon-only" name="close-circle"></ion-icon>
         </ion-item-option>
       </ion-item-options>
 
-      <ion-item-options side="end">
+      <ion-item-options side="end" *ngIf="validarAccion(producto)">
         <ion-item-option (click)="entregarPlato(i)" color="success">
           <ion-icon slot="icon-only" name="checkmark"></ion-icon>
         </ion-item-option>

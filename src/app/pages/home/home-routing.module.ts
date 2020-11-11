@@ -71,7 +71,7 @@ const routes: Routes = [
         loadChildren: () => import('../info-ingreso/info-ingreso.module').then(m => m.InfoIngresoPageModule)
       },
       {
-        path: 'info-mesa/:id',
+        path: 'info-mesa/:mesa/:pedido',
         loadChildren: () => import('../info-mesa/info-mesa.module').then(m => m.InfoMesaPageModule)
       },
       {
