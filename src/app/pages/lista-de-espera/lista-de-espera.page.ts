@@ -5,6 +5,7 @@ import { EstadoPedido, Pedido } from 'src/app/clases/pedido';
 import { ClienteService } from 'src/app/services/cliente.service';
 import { MesaService } from 'src/app/services/mesa.service';
 import { PedidoService } from 'src/app/services/pedido.service';
+import { RolesService } from 'src/app/services/roles.service';
 import { UIVisualService } from 'src/app/services/uivisual.service';
 
 @Component({
@@ -25,6 +26,7 @@ export class ListaDeEsperaPage implements OnInit, DoCheck
     private UIVisual: UIVisualService,
     private pedidosService: PedidoService,
     private mesasService: MesaService,
+    private rolService:RolesService
   )
   {
     this.clienteService.leer().then(clientes =>

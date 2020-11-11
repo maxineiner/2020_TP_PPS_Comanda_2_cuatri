@@ -10,7 +10,7 @@
       <ion-item mode="ios">
 
         <ion-item-sliding>
-          <ion-item-options side="start">
+          <ion-item-options side="start" *ngIf="rolService.isJefe(usuario)">
             <ion-item-option color="danger" expandable (click)="quitarDeLaLista(cliente)">
               Quitar de la lista
             </ion-item-option>
@@ -20,7 +20,7 @@
             <ion-label>{{cliente.nombre}} {{cliente.apellido}}</ion-label>
           </ion-item>
 
-          <ion-item-options side="end">
+          <ion-item-options side="end" *ngIf="rolService.isJefe(usuario)">
             <ion-item-option color="tertiary" expandable (click)="verMesas(cliente)">
               Asignar Mesa
             </ion-item-option>
