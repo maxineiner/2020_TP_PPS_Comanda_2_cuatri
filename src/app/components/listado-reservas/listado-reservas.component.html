@@ -1,9 +1,23 @@
 <ion-grid fixed>
   <ion-row class="contenido" *ngFor="let reserva of reservas">
     <ion-col size="12" size-lg="6" (click)="seleccionarReserva(reserva)" color="dark"
-             class="ion-justify-content-center">
+      class="ion-justify-content-center">
 
-      <app-detalle-reserva [reserva]="reserva"></app-detalle-reserva>
+      <ion-list class="contenido">
+        <app-detalle-reserva [reserva]="reserva"></app-detalle-reserva>
+        <div *ngIf="reserva.estado == 'Reservado'">
+          <div *ngIf="rolService.isJefe(usuario)">
+            <ion-button size="large" fill="solid" color="success" (click)="confirmarReserva(reserva)">
+              Confirmar
+            </ion-button>
+            <ion-button size="large" fill="solid" color="danger" (click)="rechazarReserva(reserva)">
+              Rechazar
+            </ion-button>
+          </div>
+        </div>
+      </ion-list>
+
+
 
     </ion-col>
   </ion-row>
