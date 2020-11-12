@@ -23,7 +23,6 @@ export class Pedido
     fechaFin: number;
     estado: EstadoPedido;
     isActive: boolean;
-    productosListos: number[]; // Indices de productos listos
     propina?: number;
 
     public constructor(init?: Partial<Pedido>)
@@ -51,7 +50,6 @@ export class Pedido
         pedido.fechaFin = fechaFin;
         pedido.estado = estado;
         pedido.isActive = isActive;
-        pedido.productosListos = productosListos ? productosListos : [];
 
         return pedido
     }
@@ -90,15 +88,6 @@ export class Pedido
                 this.estado = EstadoPedido.CERRADO;
                 break;
         }
-    }
-
-    public isFinished()
-    {
-        if (this.productosListos.length == this.productosListos.length)
-        {
-            return true;
-        }
-        return false;
     }
 
 }

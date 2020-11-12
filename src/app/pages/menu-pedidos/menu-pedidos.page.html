@@ -2,12 +2,8 @@
 
 <ion-segment value="opcion" (ionChange)="seleccionarOpcion($event)" scrollable color="success">
 
-  <!-- <ion-segment-button value="Reservado" *ngIf="rolService.isCliente(usuario) || 
-                                                rolService.isJefe(usuario)">
-    <ion-icon name="calendar-sharp"></ion-icon>
-  </ion-segment-button> -->
 
-  <ion-segment-button value="En progreso" *ngIf="rolService.isCliente(usuario) || 
+  <ion-segment-button value="En progreso" *ngIf="modo != 'ABM' && rolService.isCliente(usuario) || 
                                                   rolService.isEmpleado(usuario)">
     <ion-icon name="time-sharp"></ion-icon>
   </ion-segment-button>
@@ -26,17 +22,17 @@
   </ion-segment-button>
 
   <ion-segment-button value="Alta" *ngIf="rolService.isCliente(usuario)">
-    <ion-icon slot="icon-only" name="add"></ion-icon>
+    <ion-icon name="add"></ion-icon>
   </ion-segment-button>
   <ion-segment-button value="Baja" *ngIf="rolService.isCliente(usuario) && 
                                           pedidoElegido && 
                                           pedidoElegido.isActive">
-    <ion-icon slot="icon-only" name="trash-sharp"></ion-icon>
+    <ion-icon name="trash-sharp"></ion-icon>
   </ion-segment-button>
   <ion-segment-button value="Modificar" *ngIf="rolService.isCliente(usuario) && 
                                                   pedidoElegido && 
                                                   pedidoElegido.isActive">
-    <ion-icon slot="icon-only" name="create-sharp"></ion-icon>
+    <ion-icon name="create-sharp"></ion-icon>
   </ion-segment-button>
 </ion-segment>
 

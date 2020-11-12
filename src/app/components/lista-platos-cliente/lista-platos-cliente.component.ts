@@ -44,15 +44,16 @@ export class ListaPlatosClienteComponent implements OnInit
   entregarPlato(index: number)
   {
     console.log(this.pedido.productos[index]);
-    if (!this.pedido.productosListos.includes(index))
-    {
-      this.pedido.productosListos.push(index);
 
-    }
-    else
+    if (!this.pedido.productos[index].isReady)
     {
-      this.pedido.productosListos = this.pedido.productosListos.filter(i => i != index);
+      this.pedido.productos[index].isReady = true;
     }
+    else if (this.pedido.productos[index].isReady)
+    {
+      this.pedido.productos[index].isReady = false;
+    }
+
     this.pedidoModificado = true;
     this.lista.closeSlidingItems();
   }
@@ -63,12 +64,6 @@ export class ListaPlatosClienteComponent implements OnInit
     {
       console.log("Pedido actualizado");
       this.presentLoading();
-
-      if (this.pedido.isFinished())
-      {
-        // Aca se debería enviar una Push Notifications
-        console.log("Pedido finalizado");
-      }
 
       this.pedidoService.actualizar(this.pedido).then(() => this.presentToast("Se actualiza pedido"));
     }
@@ -91,7 +86,7 @@ export class ListaPlatosClienteComponent implements OnInit
 
   isReady(index: number)
   {
-    if (this.pedido.productosListos.includes(index)) // Si existe el indice del producto 
+    if (this.pedido.productos[index].isReady) 
     {
       return true;
     }

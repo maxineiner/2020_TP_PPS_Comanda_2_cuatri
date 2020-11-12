@@ -14,7 +14,7 @@
 
     <ion-item-sliding *ngFor="let producto of pedido.productos; let i = index">
 
-      <ion-item-options side="start" *ngIf="estado == 'Asignado'">
+      <ion-item-options side="start" *ngIf="pedido.estado == 'Asignado'">
         <ion-item-option (click)="removerPlato(i)" color="danger">
           <ion-icon slot="icon-only" name="close-circle"></ion-icon>
         </ion-item-option>
