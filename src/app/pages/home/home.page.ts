@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { BarcodeScanResult } from '@ionic-native/barcode-scanner';
-import { ActionSheetController, MenuController } from '@ionic/angular';
+import { ActionSheetController, LoadingController, MenuController } from '@ionic/angular';
 import { Cliente } from 'src/app/clases/cliente';
 import { Usuario } from 'src/app/clases/usuario';
 import { AuthService } from 'src/app/services/auth.service';
@@ -10,6 +10,7 @@ import { NotificationsService } from 'src/app/services/notifications.service';
 import { PedidoService } from 'src/app/services/pedido.service';
 import { ProductoService } from 'src/app/services/producto.service';
 import { RolesService } from 'src/app/services/roles.service';
+import { UIVisualService } from 'src/app/services/uivisual.service';
 
 @Component({
   selector: 'app-home',
@@ -29,7 +30,7 @@ export class HomePage implements OnInit
     private notifications: NotificationsService,
     private actionSheetController: ActionSheetController,
     private pedidosService: PedidoService,
-    private productoService: ProductoService
+    private productoService: ProductoService,
   ) { }
 
   ngOnInit()
@@ -91,5 +92,7 @@ export class HomePage implements OnInit
 
     await actionSheet.present();
   }
+
+
 
 }

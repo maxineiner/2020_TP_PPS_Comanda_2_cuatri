@@ -5,6 +5,7 @@ import { Usuario } from 'src/app/clases/usuario';
 import { AuthService } from 'src/app/services/auth.service';
 import { ProductoService } from 'src/app/services/producto.service';
 import { RolesService } from 'src/app/services/roles.service';
+import { UIVisualService } from 'src/app/services/uivisual.service';
 
 @Component({
   selector: 'app-menu-producto',
@@ -19,7 +20,8 @@ export class MenuProductoPage implements OnInit, DoCheck
   bebidas: Producto[];
   productoElegido: Producto = new Producto();
 
-  constructor(private productoService: ProductoService, private rolService: RolesService) { }
+  constructor(private productoService: ProductoService, private rolService: RolesService,
+    private UIVisual: UIVisualService) { }
 
   ngDoCheck(): void
   {
@@ -29,6 +31,7 @@ export class MenuProductoPage implements OnInit, DoCheck
 
   ngOnInit()
   {
+    UIVisualService.loading();
     // No es necesario inyectar el servicio por ser propiedad estática
     this.usuario = AuthService.usuario;
 

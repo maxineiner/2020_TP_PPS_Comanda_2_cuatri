@@ -1,14 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { ActionSheetController, ModalController } from '@ionic/angular';
-import { EstadoPedido, Pedido } from 'src/app/clases/pedido';
+import { Pedido } from 'src/app/clases/pedido';
 import { Usuario } from 'src/app/clases/usuario';
 import { AuthService } from 'src/app/services/auth.service';
 import { MetadataMensaje } from 'src/app/services/mensajes.service';
-import { DataPedido, PedidoService } from 'src/app/services/pedido.service';
 import { RolesService } from 'src/app/services/roles.service';
 import { UIVisualService } from 'src/app/services/uivisual.service';
-import { FormPedidoComponent } from '../form-pedido/form-pedido.component';
 
 @Component({
   selector: 'app-detalle-pedido',
@@ -20,12 +16,7 @@ export class DetallePedidoComponent implements OnInit
   @Input() pedido: Pedido;
   usuario: Usuario = AuthService.usuario;
 
-  constructor(private actionSheetController: ActionSheetController,
-    private modalController: ModalController,
-    private UIVisual: UIVisualService,
-    private pedidoService: PedidoService,
-    private router: Router,
-    private rolService: RolesService) 
+  constructor(private rolService: RolesService) 
   {
     //this.pedido.calcularTotal();
   }
@@ -63,12 +54,7 @@ export class DetallePedidoComponent implements OnInit
       mesa: mesa
     };
 
-    let dataPedido: DataPedido = {
-      productos: this.pedido.productos,
-      estado: this.pedido.estado
-    };
-
-    UIVisualService.presentActionSheet(rol, {
+    UIVisualService.presentActionSheet(rol, this.pedido.estado, {
       mostrarPlatos: { handler: UIVisualService.verPlatos, params: this.pedido },
       solicitar: { handler: "", params: this.pedido },
       confirmar: { handler: "", params: this.pedido },
