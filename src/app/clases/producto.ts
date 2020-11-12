@@ -12,6 +12,7 @@ export class Producto implements IEscaneable
     public tipo: TipoEmpleado;
     public codigoQR: string;
     public isActive: boolean;
+    public isReady: boolean;
 
     public constructor(init?: Partial<Producto>)
     {
@@ -24,7 +25,7 @@ export class Producto implements IEscaneable
 
     public static CrearProducto(id: string, nombre: string, descripcion: string,
         fotos: Array<any>, minutosDeElaboracion: string, precio: number, tipo: TipoEmpleado,
-        codigoQr: string, isActive: boolean): Producto
+        codigoQr: string, isActive: boolean, isReady: boolean): Producto
     {
         let producto = new Producto();
 
@@ -37,6 +38,7 @@ export class Producto implements IEscaneable
         producto.tipo = tipo;
         producto.codigoQR = codigoQr;
         producto.isActive = isActive;
+        producto.isReady = isReady;
 
         return producto;
     }

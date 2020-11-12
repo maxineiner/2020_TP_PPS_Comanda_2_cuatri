@@ -32,12 +32,15 @@ export class MenuPedidosPage implements OnInit, DoCheck
     console.log("INIT");
     this.pedidos = PedidoService.pedidos;
 
-
     // Se guarda el usuario logueado
     this.usuario = AuthService.usuario;
 
     // Se define tab por defecto para visualizar según perfil de Usuario
-    if (this.rolService.isCliente(this.usuario)) this.opcion = 'Alta';
+    if (this.rolService.isCliente(this.usuario)) 
+    {
+      this.opcion = 'Alta';
+      this.modo = "ABM";
+    }
     else if (this.rolService.isEmpleado(this.usuario)) this.opcion = EstadoPedido.EN_PROGRESO;
     else if (this.rolService.isJefe(this.usuario)) this.opcion = EstadoPedido.CERRADO;
 
