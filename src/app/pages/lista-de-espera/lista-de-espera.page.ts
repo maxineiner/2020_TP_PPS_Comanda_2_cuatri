@@ -1,4 +1,6 @@
 import { Component, DoCheck, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { Platform } from '@ionic/angular';
 import { Cliente } from 'src/app/clases/cliente';
 import { Mesa } from 'src/app/clases/mesa';
 import { EstadoPedido, Pedido } from 'src/app/clases/pedido';
@@ -29,9 +31,16 @@ export class ListaDeEsperaPage implements OnInit, DoCheck
     private UIVisual: UIVisualService,
     private pedidosService: PedidoService,
     private mesasService: MesaService,
-    private rolService: RolesService
+    private rolService: RolesService,
+    private platform: Platform,
+    private router: Router
   )
-  { }
+  {
+    this.platform.backButton.subscribeWithPriority(10, () =>
+    {
+      this.router.navigate(["/home/inicio"]);
+    });
+  }
 
   ngDoCheck(): void
   {

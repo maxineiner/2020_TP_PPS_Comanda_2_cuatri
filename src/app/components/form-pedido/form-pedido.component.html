@@ -39,7 +39,7 @@
   <ion-toolbar class="botones-form" color="dark">
 
     <ion-button *ngIf="pedido.productos" (click)="mostrarDetalle()" expand="full"
-                color="dark" class="ion-no-margin" size="large">
+                color="dark" class="ion-no-margin" size="medium">
       Ver Detalle
     </ion-button>
 
@@ -61,9 +61,9 @@
       Modificar
     </ion-button>
 
-    <ion-button (click)="cierre()" color="medium" expand="full" type="submit" size="medium"
+    <ion-button (click)="baja()" color="medium" expand="full" type="submit" size="medium"
                 *ngIf="opcion == 'Baja'">
-      Cerrar
+      Baja
     </ion-button>
 
   </ion-toolbar>
