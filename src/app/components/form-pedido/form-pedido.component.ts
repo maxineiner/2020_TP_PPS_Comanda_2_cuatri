@@ -25,15 +25,11 @@ export class FormPedidoComponent implements OnInit
   constructor(private pedidoService: PedidoService, private UIVisual: UIVisualService,
     private router: Router) { }
 
-  ngOnInit() 
-  {
-
-  }
+  ngOnInit()
+  { }
 
   alta()
   {
-    console.log("Alta pedido");
-    console.log(this.pedido);
     if (this.pedido)
     {
       this.pedido.fechaFin = new Date().getTime();
@@ -61,14 +57,11 @@ export class FormPedidoComponent implements OnInit
         })
         .catch(() => UIVisualService.presentToast('No se pudo modificar'));
     }
-    console.log("Modificacion pedido");
-    console.log(this.pedido);
+
   }
 
-  cierre()
+  baja()
   {
-    console.log("Baja pedido");
-    console.log(this.pedido);
     if (this.pedido)
     {
       this.pedidoService.borrar(this.pedido)
@@ -89,16 +82,14 @@ export class FormPedidoComponent implements OnInit
     const data = await UIVisualService.verCarta();
 
     this.pedido.productos = this.pedido.productos ? this.pedido.productos : [];
-
     this.pedido.productos.push(...data);
     this.pedido.calcularTotal();
-
-    console.log(data);
   }
 
   async mostrarDetalle()
   {
     UIVisualService.verPlatos(this.pedido);
+    this.pedido.calcularTotal();
   }
 
 }

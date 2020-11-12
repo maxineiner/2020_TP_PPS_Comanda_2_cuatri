@@ -1,4 +1,6 @@
 import { Component, DoCheck, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { Platform } from '@ionic/angular';
 import { EstadoPedido, Pedido } from 'src/app/clases/pedido';
 import { Usuario } from 'src/app/clases/usuario';
 import { AuthService } from 'src/app/services/auth.service';
@@ -17,7 +19,16 @@ export class MenuReservaPage implements OnInit, DoCheck
   listado: Pedido[];
   reservaElegida: Pedido;
 
-  constructor(private pedidoService: PedidoService,private rolService: RolesService) { }
+  constructor(private pedidoService: PedidoService,
+    private rolService: RolesService,
+    private platform: Platform,
+    private router: Router) 
+  {
+    this.platform.backButton.subscribeWithPriority(10, () =>
+    {
+      this.router.navigate(["/home/inicio"]);
+    });
+  }
 
   ngDoCheck(): void
   {

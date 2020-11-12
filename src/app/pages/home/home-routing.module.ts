@@ -83,10 +83,15 @@ const routes: Routes = [
         loadChildren: () => import('../clientes-pendientes/clientes-pendientes.module').then(m => m.ClientesPendientesPageModule)
       },
       {
+        path: 'consultas',
+        loadChildren: () => import('../consultas/consultas.module').then(m => m.ConsultasPageModule)
+      },
+      {
         path: '',
         redirectTo: '/home/inicio',
         pathMatch: 'full'
       },
+
     ]
   }
 ];

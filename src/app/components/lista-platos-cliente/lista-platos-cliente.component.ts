@@ -25,7 +25,7 @@ export class ListaPlatosClienteComponent implements OnInit
 
   constructor(private modalController: ModalController, private rolService: RolesService,
     private pedidoService: PedidoService, private loadingController: LoadingController,
-    private toastController: ToastController) { }
+    private toastController: ToastController, private UIVisual: UIVisualService) { }
 
   ngOnInit() 
   {
@@ -37,6 +37,7 @@ export class ListaPlatosClienteComponent implements OnInit
     const nuevaLista = this.pedido.productos.filter((p, i) => i != index);
     this.pedido.productos = nuevaLista;
     this.enviarProductos.emit(this.pedido.productos);
+    this.pedidoModificado = true;
 
     this.lista.closeSlidingItems();
   }
@@ -63,9 +64,10 @@ export class ListaPlatosClienteComponent implements OnInit
     if (this.pedidoModificado)
     {
       console.log("Pedido actualizado");
-      this.presentLoading();
-
-      this.pedidoService.actualizar(this.pedido).then(() => this.presentToast("Se actualiza pedido"));
+      UIVisualService.loading();
+      this.pedido.calcularTotal();
+      this.pedidoService.actualizar(this.pedido)
+        .then(() => UIVisualService.presentToast("Se actualiza pedido"));
     }
     this.modalController.dismiss(this.pedido.productos);
   }
@@ -102,23 +104,7 @@ export class ListaPlatosClienteComponent implements OnInit
     return "light"
   }
 
-  async presentToast(message)
-  {
-    const toast = await this.toastController.create({
-      message,
-      duration: 2000
-    });
-    toast.present();
-  }
 
-  async presentLoading()
-  {
-    const loading = await this.loadingController.create({
-      duration: 2000,
-      spinner: 'crescent'
-    });
-    await loading.present();
-  }
 
 
 }

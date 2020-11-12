@@ -1,4 +1,6 @@
 import { Component, DoCheck, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { Platform } from '@ionic/angular';
 import { TipoEmpleado } from 'src/app/clases/empleado';
 import { Producto } from 'src/app/clases/producto';
 import { Usuario } from 'src/app/clases/usuario';
@@ -20,8 +22,18 @@ export class MenuProductoPage implements OnInit, DoCheck
   bebidas: Producto[];
   productoElegido: Producto = new Producto();
 
-  constructor(private productoService: ProductoService, private rolService: RolesService,
-    private UIVisual: UIVisualService) { }
+  constructor(
+    private platform: Platform,
+    private productoService: ProductoService,
+    private rolService: RolesService,
+    private UIVisual: UIVisualService,
+    private router: Router) 
+  {
+    this.platform.backButton.subscribeWithPriority(10, () =>
+    {
+      this.router.navigate(["/home/inicio"]);
+    });
+  }
 
   ngDoCheck(): void
   {
