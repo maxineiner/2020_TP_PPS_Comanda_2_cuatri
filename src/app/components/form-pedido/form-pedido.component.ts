@@ -80,6 +80,9 @@ export class FormPedidoComponent implements OnInit
     console.log("Ver carta");
 
     const data = await UIVisualService.verCarta();
+
+    this.pedido.productos = this.pedido.productos ? this.pedido.productos : [];
+
     this.pedido.productos.push(...data);
     this.pedido.calcularTotal();
 
@@ -92,7 +95,7 @@ export class FormPedidoComponent implements OnInit
   }
 
 
-  async mostrarPlatos()
+  async mostrarDetalle()
   {
     UIVisualService.verPlatos(this.pedido);
   }

@@ -38,9 +38,9 @@
 <ion-footer *ngIf="pedido && pedido.cliente && pedido.mesa">
   <ion-toolbar class="botones-form" color="dark">
 
-    <ion-button *ngIf="pedido.productos" (click)="mostrarPlatos()" expand="full"
+    <ion-button *ngIf="pedido.productos" (click)="mostrarDetalle()" expand="full"
                 color="dark" class="ion-no-margin" size="large">
-      Ver Platos
+      Ver Detalle
     </ion-button>
 
     <ion-button (click)="mostrarCarta()" expand="full" *ngIf="opcion != 'Baja'"

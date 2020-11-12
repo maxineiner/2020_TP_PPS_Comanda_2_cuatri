@@ -41,6 +41,7 @@ export class CartaPage implements OnInit
 
   public cerrar()
   {
+    console.log(this.productosElegidos);
     this.modalController.dismiss(this.productosElegidos);
   }
 

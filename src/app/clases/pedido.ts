@@ -31,6 +31,12 @@ export class Pedido
         {
             Object.assign(this, init);
         }
+        else
+        {
+            console.log("TEST");
+            this.productos = [];
+            this.isActive = true;
+        }
     }
 
 
