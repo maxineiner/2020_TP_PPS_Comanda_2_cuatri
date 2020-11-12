@@ -9,7 +9,8 @@ export enum EstadoPedido
     SOLICITADO = "Solicitado", // Cliente solicita pedido 
     EN_PROGRESO = "En progreso", // Recibido por cocina y barra
     ENTREGADO = "Entregado", // Recibido en mesa
-    CERRADO = "Cerrado", // Cobrado
+    CERRADO = "Cerrado", // Listo para cobrar
+    PAGADO = "Pagado" // Aprobado por mozo
 }
 
 export class Pedido
@@ -92,6 +93,9 @@ export class Pedido
                 break;
             case EstadoPedido.ENTREGADO:
                 this.estado = EstadoPedido.CERRADO;
+                break;
+            case EstadoPedido.CERRADO:
+                this.estado = EstadoPedido.PAGADO;
                 break;
         }
     }

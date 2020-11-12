@@ -2,14 +2,17 @@
 
 <ion-segment value="opcion" (ionChange)="seleccionarOpcion($event)" scrollable color="success">
 
-
-  <ion-segment-button value="En progreso" *ngIf="modo != 'ABM' && rolService.isCliente(usuario) || 
-                                                  rolService.isEmpleado(usuario)">
-    <ion-icon name="time-sharp"></ion-icon>
+  <ion-segment-button value="Asignado" *ngIf="rolService.isEmpleadoMozo(usuario)">
+    <ion-icon name="bookmarks-sharp"></ion-icon>
   </ion-segment-button>
 
   <ion-segment-button value="Solicitado" *ngIf="rolService.isEmpleadoMozo(usuario)">
     <ion-icon name="hand-left-sharp"></ion-icon>
+  </ion-segment-button>
+
+  <ion-segment-button value="En progreso" *ngIf="modo != 'ABM' && rolService.isCliente(usuario) || 
+  rolService.isEmpleado(usuario)">
+    <ion-icon name="time-sharp"></ion-icon>
   </ion-segment-button>
 
   <ion-segment-button value="Entregado" *ngIf="rolService.isEmpleadoMozo(usuario)">

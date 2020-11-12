@@ -4,12 +4,6 @@ import { Router } from '@angular/router';
 import { EstadoPedido, Pedido } from '../clases/pedido';
 import { Producto } from '../clases/producto';
 
-export interface DataPedido
-{
-  productos: Producto[],
-  estado: EstadoPedido
-}
-
 @Injectable({
   providedIn: 'root'
 })
@@ -91,6 +85,11 @@ export class PedidoService
     return new Pedido(data.val());
   }
 
+  notificarEntrega(pedido: Pedido)
+  {
+    console.log("Se notifica a Mozo");
+  }
+
   /**
    * Método para navegar al ABM de Pedido
    * @param pedido 
@@ -99,6 +98,7 @@ export class PedidoService
   {
     this.router.navigate(["/home/menu-pedidos", pedido.id]);
   }
+
 
   /**
    * Método para confirmar recepción de Pedido en Mesa
@@ -129,7 +129,7 @@ export class PedidoService
   }
 
   /**
-   * Método para aceptar por parte de Mozo
+   * Método para aceptar pedido por parte de Mozo
    * @param pedido Pedido solicitado por Cliente acepta Mozo
    */
   aceptarPedido(pedido: Pedido)
@@ -142,6 +142,20 @@ export class PedidoService
     }
   }
 
+
+  /**
+   * Método para aceptar pago por parte de Mozo
+   * @param pedido Pedido solicitado por Cliente acepta Mozo
+   */
+  aceptarPago(pedido: Pedido)
+  {
+    if (pedido.estado == EstadoPedido.CERRADO)
+    {
+      console.log("Se valida pago de la mesa");
+      pedido.cambiarEstado();
+      return this.actualizar(pedido);
+    }
+  }
 
 
 

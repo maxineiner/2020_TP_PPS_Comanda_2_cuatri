@@ -1,8 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, DoCheck, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ModalController } from '@ionic/angular';
-import { Cliente } from 'src/app/clases/cliente';
-import { Mesa } from 'src/app/clases/mesa';
+import { ModalController, ViewDidEnter } from '@ionic/angular';
 import { EstadoPedido, Pedido } from 'src/app/clases/pedido';
 import { Usuario } from 'src/app/clases/usuario';
 import { AuthService } from 'src/app/services/auth.service';
@@ -11,13 +9,14 @@ import { DateService } from 'src/app/services/date.service';
 import { MesaService } from 'src/app/services/mesa.service';
 import { PedidoService } from 'src/app/services/pedido.service';
 import { RolesService } from 'src/app/services/roles.service';
+import { UIVisualService } from 'src/app/services/uivisual.service';
 
 @Component({
   selector: 'app-info-mesa',
   templateUrl: './info-mesa.page.html',
   styleUrls: ['./info-mesa.page.scss'],
 })
-export class InfoMesaPage implements OnInit
+export class InfoMesaPage implements OnInit, ViewDidEnter, DoCheck
 {
   usuario: Usuario;
   pedido: Pedido = new Pedido();
@@ -27,31 +26,42 @@ export class InfoMesaPage implements OnInit
 
   constructor(private route: ActivatedRoute, private router: Router, private mesaService: MesaService,
     private clienteService: ClienteService, private pedidoService: PedidoService,
-    private dateService: DateService, private modalController: ModalController,
-    private rolService: RolesService) 
+    private modalController: ModalController,
+    private rolService: RolesService, private UIVisual: UIVisualService) 
   {
 
+  }
+
+  ngDoCheck(): void
+  {
+    console.log("Do Check");
+    this.buscarReserva();
+  }
+
+  ionViewDidEnter(): void
+  {
+    this.pedidoService.leer();
   }
 
   ngOnInit() 
   {
+    console.log("On Init");
+    UIVisualService.loading();
+
     this.usuario = AuthService.usuario;
     // Se recibe id de Mesa asignada y id de Cliente
     this.route.params.subscribe(params =>
     {
-      console.log(params['id']);
       this.idMesa = params['mesa'];
       this.idPedido = params['pedido'] ? params['pedido'] : "";
 
-      this.buscarReserva();
     });
-
   }
+
 
   buscarReserva()
   {
     let fechaActual = new Date();
-
 
     if (this.rolService.isCliente(this.usuario)) // Si es cliente accede por QR de Mesa
     {
@@ -60,7 +70,7 @@ export class InfoMesaPage implements OnInit
         // Agregar validacion de hora actual
         if (pedido.cliente && pedido.mesa)
         {
-          return pedido.mesa.id === this.idMesa && pedido.cliente.id == this.usuario.id &&
+          return pedido.mesa.id === this.idMesa && pedido.cliente.id === this.usuario.id &&
             this.compararFechas(new Date(pedido.fechaInicio), fechaActual);
         }
       })[0];
@@ -77,14 +87,12 @@ export class InfoMesaPage implements OnInit
       })[0];
     }
 
-    console.log(this.pedido);
   }
 
   compararFechas(fechaA: Date, fechaB: Date)
   {
     console.log(fechaA);
     console.log(fechaB);
-
 
     if (fechaA.getUTCFullYear() === fechaB.getFullYear() &&
       fechaA.getUTCMonth() === fechaB.getMonth() &&

@@ -28,13 +28,11 @@ export class FacturaComponent implements OnInit
       header: 'Confirmar',
       message: '¿Desea pagar la cuenta?',
       cssClass: 'buttonCss',
-      mode: "ios",
-      translucent: true,
       buttons: [
         {
           text: 'No',
           role: 'cancel',
-          cssClass: 'secondary',
+          cssClass: 'buttonCss',
           handler: () =>
           {
             console.log('Confirm Cancel: blah');

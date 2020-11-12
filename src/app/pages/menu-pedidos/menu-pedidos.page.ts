@@ -1,6 +1,6 @@
 import { Component, DoCheck, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { LoadingController } from '@ionic/angular';
+import { ActivatedRoute, Router } from '@angular/router';
+import { LoadingController, Platform } from '@ionic/angular';
 import { EstadoPedido, Pedido } from 'src/app/clases/pedido';
 import { Usuario } from 'src/app/clases/usuario';
 import { AuthService } from 'src/app/services/auth.service';
@@ -20,7 +20,14 @@ export class MenuPedidosPage implements OnInit, DoCheck
   pedidoElegido: Pedido = new Pedido();
   modo: string = 'Listado';
 
-  constructor(private rolService: RolesService, private route: ActivatedRoute) { }
+  constructor(private platform: Platform, private rolService: RolesService,
+    private route: ActivatedRoute, private router: Router) 
+  {
+    this.platform.backButton.subscribeWithPriority(10, () =>
+    {
+      this.router.navigate(["/home/inicio"]);
+    });
+  }
 
   ngDoCheck(): void
   {
@@ -70,6 +77,7 @@ export class MenuPedidosPage implements OnInit, DoCheck
       case "Modificar":
         this.modo = "ABM";
         break;
+      case "Asignado":
       case "Solicitado":
       case "En progreso":
       case "Entregado":

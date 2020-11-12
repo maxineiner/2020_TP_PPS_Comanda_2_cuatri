@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
 import { FormPedidoComponent } from '../components/form-pedido/form-pedido.component';
 import { EstadoPedido, Pedido } from '../clases/pedido';
 import { SalaChatPage } from '../pages/sala-chat/sala-chat.page';
-import { DataPedido, PedidoService } from './pedido.service';
+import { PedidoService } from './pedido.service';
 import { MetadataMensaje } from './mensajes.service';
 import { FacturaComponent } from '../components/factura/factura.component';
 
@@ -27,6 +27,8 @@ export interface IBotonesGenerados
   recibir?: { boton?: ActionSheetButton, handler: any, params?: any },
   cerrar?: { boton?: ActionSheetButton, handler: any, params?: any },
   chat?: { boton?: ActionSheetButton, handler: any, params?: MetadataMensaje },
+  notificar?: { boton?: ActionSheetButton, handler: any, params?: any },
+  liberar?: { boton?: ActionSheetButton, handler: any, params?: any },
 }
 
 /**
@@ -53,11 +55,15 @@ export class UIVisualService
     UIVisualService.UI = this;
   }
 
-  static async presentLoading()
+  static async loading()
   {
     const loading = await UIVisualService.UI.loadingController.create({
-      duration: 2000,
-      spinner: 'crescent'
+      message: '<ion-img src="/assets/img/logo.svg" alt="loading..." class="ion-no-padding spinner"></ion-img>',
+      cssClass: 'spinner-animation',
+      mode: "ios",
+      showBackdrop: false,
+      spinner: null,
+      duration: 2000
     });
     await loading.present();
   }
@@ -84,11 +90,11 @@ export class UIVisualService
 
 
 
-  static async presentActionSheet(rol: any, handlers: IBotonesGenerados) 
+  static async presentActionSheet(rol: any, estado: EstadoPedido, handlers: IBotonesGenerados) 
   {
     console.log(handlers);
     // TODO: Modificar cuando se implemente servicio de Roles
-    let botones = this.generarBotones(rol, handlers);
+    let botones = this.generarBotones(rol, estado, handlers);
 
     console.log(botones);
     // Botones por defecto para cualquier Rol
@@ -109,7 +115,7 @@ export class UIVisualService
     await actionSheet.present();
   }
 
-  static generarBotones(rol: any, handlers: IBotonesGenerados): ActionSheetButton[]
+  static generarBotones(rol: any, estado: EstadoPedido, handlers: IBotonesGenerados): ActionSheetButton[]
   {
     console.log(rol);
     // Codigo a modo de ejemplo
@@ -118,12 +124,15 @@ export class UIVisualService
     switch (rol)
     {
       case 'Cliente':
-        handlers.solicitar.boton = {
-          text: 'Hacer pedido',
-          icon: 'hand-left-sharp',
-          handler: () => this.UI.pedidoService.hacerPedido(handlers.solicitar.params)
+        if (estado == EstadoPedido.ASIGNADO)
+        {
+          handlers.solicitar.boton = {
+            text: 'Hacer pedido',
+            icon: 'hand-left-sharp',
+            handler: () => this.UI.pedidoService.hacerPedido(handlers.solicitar.params)
+          }
+          if (handlers.solicitar) botonesGenerados.push(handlers.solicitar.boton);
         }
-        if (handlers.solicitar) botonesGenerados.push(handlers.solicitar.boton);
 
         handlers.mostrarPlatos.boton = {
           text: 'Mostrar Platos',
@@ -139,19 +148,25 @@ export class UIVisualService
         }
         if (handlers.chat) botonesGenerados.push(handlers.chat.boton);
 
-        handlers.recibir.boton = {
-          text: 'Confirmar recepción',
-          icon: 'checkmark-done-sharp',
-          handler: () => this.UI.pedidoService.recibirPedido(handlers.recibir.params)
+        if (estado == EstadoPedido.EN_PROGRESO)
+        {
+          handlers.recibir.boton = {
+            text: 'Confirmar recepción',
+            icon: 'checkmark-done-sharp',
+            handler: () => this.UI.pedidoService.recibirPedido(handlers.recibir.params)
+          }
+          if (handlers.recibir) botonesGenerados.push(handlers.recibir.boton);
         }
-        if (handlers.recibir) botonesGenerados.push(handlers.recibir.boton);
 
-        handlers.cerrar.boton = {
-          text: 'Pagar',
-          icon: 'cash-outline',
-          handler: () => handlers.cerrar.handler(handlers.cerrar.params)
+        if (estado == EstadoPedido.ENTREGADO)
+        {
+          handlers.cerrar.boton = {
+            text: 'Pagar',
+            icon: 'cash-outline',
+            handler: () => handlers.cerrar.handler(handlers.cerrar.params)
+          }
+          if (handlers.cerrar) botonesGenerados.push(handlers.cerrar.boton);
         }
-        if (handlers.cerrar) botonesGenerados.push(handlers.cerrar.boton);
 
         break;
       case 'Mozo':
@@ -169,21 +184,41 @@ export class UIVisualService
         }
         if (handlers.chat) botonesGenerados.push(handlers.chat.boton);
 
-        handlers.confirmar.boton = {
-          text: 'Confirmar pedido',
-          icon: 'checkmark-sharp',
-          handler: () => this.UI.pedidoService.aceptarPedido(handlers.confirmar.params)
+        if (estado == EstadoPedido.SOLICITADO)
+        {
+          handlers.confirmar.boton = {
+            text: 'Confirmar pedido',
+            icon: 'checkmark-sharp',
+            handler: () => this.UI.pedidoService.aceptarPedido(handlers.confirmar.params)
+          }
+          if (handlers.confirmar) botonesGenerados.push(handlers.confirmar.boton);
         }
-        if (handlers.confirmar) botonesGenerados.push(handlers.confirmar.boton);
+
+        if (estado == EstadoPedido.CERRADO)
+        {
+          handlers.liberar.boton = {
+            text: 'Confirmar pago',
+            icon: 'thumbs-up-outline',
+            handler: () => this.UI.pedidoService.aceptarPago(handlers.liberar.params)
+          }
+          if (handlers.liberar) botonesGenerados.push(handlers.liberar.boton);
+        }
         break;
       case 'Bartender':
       case 'Cocinero':
         handlers.mostrarPlatos.boton = {
-          text: 'Entregar',
+          text: 'Preparar',
           icon: 'fast-food-outline',
           handler: () => handlers.mostrarPlatos.handler(handlers.mostrarPlatos.params)
         }
         if (handlers.mostrarPlatos) botonesGenerados.push(handlers.mostrarPlatos.boton);
+
+        handlers.notificar.boton = {
+          text: 'Llamar mozo',
+          icon: 'radio-sharp',
+          handler: () => this.UI.pedidoService.notificarEntrega(handlers.notificar.params)
+        }
+        if (handlers.notificar) botonesGenerados.push(handlers.notificar.boton);
 
         break;
     }
@@ -258,5 +293,6 @@ export class UIVisualService
 
     await popover.present();
   }
+
 
 }
