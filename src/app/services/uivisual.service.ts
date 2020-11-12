@@ -28,6 +28,7 @@ export interface IBotonesGenerados
   cerrar?: { boton?: ActionSheetButton, handler: any, params?: any },
   chat?: { boton?: ActionSheetButton, handler: any, params?: MetadataMensaje },
   notificar?: { boton?: ActionSheetButton, handler: any, params?: any },
+  liberar?: { boton?: ActionSheetButton, handler: any, params?: any },
 }
 
 /**
@@ -192,6 +193,16 @@ export class UIVisualService
           }
           if (handlers.confirmar) botonesGenerados.push(handlers.confirmar.boton);
         }
+
+        if (estado == EstadoPedido.CERRADO)
+        {
+          handlers.liberar.boton = {
+            text: 'Confirmar pago',
+            icon: 'thumbs-up-outline',
+            handler: () => this.UI.pedidoService.aceptarPago(handlers.liberar.params)
+          }
+          if (handlers.liberar) botonesGenerados.push(handlers.liberar.boton);
+        }
         break;
       case 'Bartender':
       case 'Cocinero':
@@ -205,7 +216,7 @@ export class UIVisualService
         handlers.notificar.boton = {
           text: 'Llamar mozo',
           icon: 'radio-sharp',
-          handler: () => handlers.notificar.handler(handlers.notificar.params)
+          handler: () => this.UI.pedidoService.notificarEntrega(handlers.notificar.params)
         }
         if (handlers.notificar) botonesGenerados.push(handlers.notificar.boton);
 
@@ -282,5 +293,6 @@ export class UIVisualService
 
     await popover.present();
   }
+
 
 }
