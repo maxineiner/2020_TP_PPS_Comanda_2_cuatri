@@ -2,6 +2,8 @@ import { Component, DoCheck, OnInit } from '@angular/core';
 import { Cliente } from 'src/app/clases/cliente';
 import { Mesa } from 'src/app/clases/mesa';
 import { EstadoPedido, Pedido } from 'src/app/clases/pedido';
+import { Usuario } from 'src/app/clases/usuario';
+import { AuthService } from 'src/app/services/auth.service';
 import { ClienteService } from 'src/app/services/cliente.service';
 import { MesaService } from 'src/app/services/mesa.service';
 import { PedidoService } from 'src/app/services/pedido.service';
@@ -20,6 +22,7 @@ export class ListaDeEsperaPage implements OnInit, DoCheck
   clientes: Cliente[];
   mesas: Mesa[];
   clienteActual: Cliente;
+  usuario:Usuario;
 
   constructor(
     private clienteService: ClienteService,
@@ -29,6 +32,7 @@ export class ListaDeEsperaPage implements OnInit, DoCheck
     private rolService:RolesService
   )
   {
+    this.usuario = AuthService.usuario;
     this.clienteService.leer().then(clientes =>
     {
       this.clientes = clientes.filter(cliente => cliente.enListaDeEspera.isWaiting == true).sort(this.compararFecha);
