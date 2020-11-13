@@ -5,6 +5,8 @@ import { UIVisualService } from "src/app/services/uivisual.service"
 import { ModalController } from '@ionic/angular';
 import { CodigoQRService } from 'src/app/services/codigo-qr.service';
 import { LoginPage } from '../login/login.page';
+import { Imagen } from 'src/app/clases/imagen';
+import { ImagenService } from 'src/app/services/imagen.service';
 
 @Component({
   selector: 'app-register',
@@ -13,19 +15,40 @@ import { LoginPage } from '../login/login.page';
 })
 export class RegisterPage implements OnInit
 {
-  cliente: Cliente = new Cliente
+  cliente: Cliente = new Cliente()
+  auxiliarFoto: Imagen
+  imgPreview: string
 
   constructor(private authService: AuthService, private UIVisual: UIVisualService,
-    private modalController: ModalController, private codigoQRService: CodigoQRService) { }
+    private modalController: ModalController, private codigoQRService: CodigoQRService,
+    private imagenService: ImagenService) { }
 
   ngOnInit()
   {
+  }
+
+  async sacarFoto()
+  {
+    const foto = await this.imagenService.sacarFoto()
+
+    this.imgPreview = `data:image/jpeg;base64,${foto.base64}`
+
+    this.auxiliarFoto = new Imagen();
+    this.auxiliarFoto.base64 = foto.base64;
+    this.auxiliarFoto.fecha = foto.fecha;
   }
 
   async onRegister()
   {
     if (this.cliente && !this.cliente.id)
     {
+      // Se guarda imagen en DB y Storage
+      const imagenGuardada = await this.imagenService.crearUnaImagen(
+        this.auxiliarFoto,
+        '/clientes'
+      )
+      this.cliente.foto = imagenGuardada;
+
       this.authService
         .onRegisterCliente(this.cliente)
         .then(() =>
