@@ -72,11 +72,22 @@ export class PedidoDetallePage implements OnInit {
     }
   }
 
+  calcularDescuentoJuego2() {
+    try {
+      return (
+        (this.pedido.juegos.agilidadAritmetica.descuento * this.calcularTotal()) / 100
+      );
+    } catch (error) {
+      return 0;
+    }
+  }
+
   calcularTotalFinal() {
     return (
       this.calcularTotal() +
       this.calcularPropina() -
-      this.calcularDescuentoJuego()
+      this.calcularDescuentoJuego() -
+      this.calcularDescuentoJuego2()
     );
   }
 }

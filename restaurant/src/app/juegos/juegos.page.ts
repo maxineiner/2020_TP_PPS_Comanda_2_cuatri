@@ -4,6 +4,7 @@ import { Pedido } from '../clases/pedido';
 import { UtilsService } from '../servicios/utils.service';
 import { AhorcadoPage } from './ahorcado/ahorcado.page';
 import { PiedraPapelTijeraPage } from './piedra-papel-tijera/piedra-papel-tijera.page';
+import { AgilidadAritmeticaPage } from './agilidad-aritmetica/agilidad-aritmetica.page'
 
 @Component({
   selector: 'app-juegos',
@@ -24,6 +25,10 @@ export class JuegosPage implements OnInit {
 
   IrPiedraPapelTijera(){
     this.utilsService.presentModal(PiedraPapelTijeraPage, { pedido: this.pedido });
+  }
+
+  IrAgilidadAritmetica(){
+    this.utilsService.presentModal(AgilidadAritmeticaPage, { pedido: this.pedido });
   }
 
   dismiss() {
