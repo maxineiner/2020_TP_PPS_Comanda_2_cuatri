@@ -44,6 +44,18 @@
           </ion-label>
           <ion-input type="password" name="password" minlength="6" [(ngModel)]="cliente.password"></ion-input>
         </ion-item>
+
+        <ion-item *ngIf="imgPreview" color="dark">
+          <img [src]="imgPreview | safe: 'url'" alt="Imagen de cliente">
+        </ion-item>
+
+        <ion-item color="dark">
+          <ion-button (click)="sacarFoto()" fill="solid" size="medium" color="dark">
+            Subir foto
+            <ion-icon slot="start" name="camera"></ion-icon>
+          </ion-button>
+        </ion-item>
+
         <ion-button size="large" (click)="onRegister()" expand="full" color="danger" [disabled]="formulario.invalid"
           class="ion-no-margin">
           Registro
