@@ -7,9 +7,9 @@ export class Pedido {
         piedraPapelTijera: { descuento?: number,  cantidadIntentos?: number, nombre?: string },
         agilidadAritmetica: { descuento?: number,  cantidadIntentos?: number, nombre?: string }
     } = {  //No quitar, si no, rompe al crear pedido
-        ahorcado: { descuento: 10,  cantidadIntentos: 1, nombre: 'Ahorcado' },
+        ahorcado: { descuento: 0,  cantidadIntentos: 1, nombre: 'Ahorcado' },
         piedraPapelTijera: { descuento: 5,  cantidadIntentos: 1, nombre: 'Piedra Papel o Tijera' },
-        agilidadAritmetica: { descuento: 8, cantidadIntentos: 1, nombre: 'Agilidad Aritmética' }
+        agilidadAritmetica: { descuento: 0, cantidadIntentos: 1, nombre: 'Agilidad Aritmética' }
     };
     public id?: string;
     public productos?: [{ cantidad?: number, fotos?: any, producto?: Producto, terminado?: boolean, entregado?: boolean }?] = [];

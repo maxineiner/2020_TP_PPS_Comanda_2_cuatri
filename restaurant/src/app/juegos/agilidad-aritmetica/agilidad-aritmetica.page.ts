@@ -99,7 +99,7 @@ export class AgilidadAritmeticaPage implements OnInit {
           handler: () => {
             if (this.pedido.juegos.agilidadAritmetica.cantidadIntentos === 0) {
               this.pedido.juegos.agilidadAritmetica.cantidadIntentos = 1;
-              this.pedido.juegos.agilidadAritmetica.descuento = 10;
+              this.pedido.juegos.agilidadAritmetica.descuento = 8;
               this.pedidoService.actualizarPedido(this.pedido).finally(() => {
                 this.utilsService.presentAlert(
                   "Ganaste",
