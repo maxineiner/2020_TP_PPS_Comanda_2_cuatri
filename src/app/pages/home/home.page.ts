@@ -6,6 +6,7 @@ import { Cliente } from 'src/app/clases/cliente';
 import { Usuario } from 'src/app/clases/usuario';
 import { AuthService } from 'src/app/services/auth.service';
 import { CodigoQRService } from 'src/app/services/codigo-qr.service';
+import { HapticService } from 'src/app/services/haptic.service';
 import { NotificationsService } from 'src/app/services/notifications.service';
 import { PedidoService } from 'src/app/services/pedido.service';
 import { ProductoService } from 'src/app/services/producto.service';
@@ -39,6 +40,7 @@ export class HomePage implements OnInit
     this.productoService.traerTodos();
     this.usuario = AuthService.usuario;
     this.notifications.initPush();
+    HapticService.vibrar();
   }
 
   cerrarSesion()
