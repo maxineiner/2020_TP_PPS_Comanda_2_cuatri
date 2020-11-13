@@ -56,12 +56,14 @@
     </ion-avatar>
      <ion-label color="light">
       <h2 class="ion-text-capitalize bold">JUEGOS</h2>
-      <h3>Juego: {{pedido.juegos.ahorcado.nombre}}</h3>
+      <h3>Juego: Ahorcado</h3>
       <p class="lbl-primary">Porcentaje: {{pedido.juegos.ahorcado.descuento}}%</p>
+      <h3>Juego: Agilidad Aritmética</h3>
+      <p class="lbl-primary">Porcentaje: {{pedido.juegos.agilidadAritmetica.descuento}}%</p>
       <p class="lbl-primary">
         <ion-badge color="light" class="badge">
           <ion-icon name="logo-usd"></ion-icon>
-          {{calcularDescuentoJuego() |number:'1.2-2'}}
+          {{calcularDescuentoJuego() + calcularDescuentoJuego2() |number:'1.2-2'}}
         </ion-badge>
       </p>
      </ion-label>
