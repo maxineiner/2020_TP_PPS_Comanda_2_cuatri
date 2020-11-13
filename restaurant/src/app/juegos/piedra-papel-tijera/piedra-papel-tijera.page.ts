@@ -37,7 +37,7 @@ export class PiedraPapelTijeraPage implements OnInit {
       if(this.pedido.juegos.piedraPapelTijera.cantidadIntentos === 0)
       {
         this.pedido.juegos.piedraPapelTijera.cantidadIntentos = 1;
-        this.pedido.juegos.ahorcado.descuento = 5;
+        this.pedido.juegos.piedraPapelTijera.descuento = 5;
         this.pedidoService.actualizarPedido(this.pedido).finally(() => {
           this.utilsService.presentAlert("¡Felicidades!","Se ha ganado un descuento del 5%","");
       });

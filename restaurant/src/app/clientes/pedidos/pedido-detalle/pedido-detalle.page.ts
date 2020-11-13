@@ -53,7 +53,6 @@ export class PedidoDetallePage implements OnInit {
       0
     );
   }
-
   calcularPropina() {
     try {
       return this.calcularTotal() * (this.pedido.propina.porcentaje / 100);
@@ -72,6 +71,15 @@ export class PedidoDetallePage implements OnInit {
     }
   }
 
+  
+  calcularDescuentoJuego1() {
+    try {
+       return (this.pedido.juegos.piedraPapelTijera.descuento * this.calcularTotal()) / 100;
+    } catch (error) {
+      return 0;
+    }
+  } 
+
   calcularDescuentoJuego2() {
     try {
       return (
@@ -87,6 +95,7 @@ export class PedidoDetallePage implements OnInit {
       this.calcularTotal() +
       this.calcularPropina() -
       this.calcularDescuentoJuego() -
+      this.calcularDescuentoJuego1() -
       this.calcularDescuentoJuego2()
     );
   }
