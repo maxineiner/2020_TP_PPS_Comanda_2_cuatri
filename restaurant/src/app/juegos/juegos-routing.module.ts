@@ -15,7 +15,11 @@ const routes: Routes = [
   {
     path: 'piedraPapelTijera',
     loadChildren: () => import('./ahorcado/ahorcado.module').then( m => m.AhorcadoPageModule)
+  },  {
+    path: 'agilidad-aritmetica',
+    loadChildren: () => import('./agilidad-aritmetica/agilidad-aritmetica.module').then( m => m.AgilidadAritmeticaPageModule)
   },
+
 ];
 
 @NgModule({

@@ -4,10 +4,12 @@ import { EstadoPedido } from '../enums/estado-pedido.enum';
 export class Pedido {
     public juegos?: {  
         ahorcado: { descuento?: number,  cantidadIntentos?: number },
-        piedraPapelTijera: { descuento?: number,  cantidadIntentos?: number }
+        piedraPapelTijera: { descuento?: number,  cantidadIntentos?: number },
+        agilidadAritmetica: { descuento?: number,  cantidadIntentos?: number }
     } = {  //No quitar, si no, rompe al crear pedido
         ahorcado: { descuento: 10,  cantidadIntentos: 1 },
-        piedraPapelTijera: { descuento: 5,  cantidadIntentos: 1 }
+        piedraPapelTijera: { descuento: 5,  cantidadIntentos: 1 },
+        agilidadAritmetica: { descuento: 15, cantidadIntentos: 1 }
     };
     public id?: string;
     public productos?: [{ cantidad?: number, fotos?: any, producto?: Producto, terminado?: boolean, entregado?: boolean }?] = [];
