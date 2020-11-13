@@ -50,20 +50,31 @@
     </ion-item>
 
    <!-- JUEGOS -->
-  <ion-item *ngIf="pedido?.juegos" color="success">   
+  <ion-item *ngIf="pedido?.juegos.ahorcado.cantidadIntentos == 1 || pedido?.juegos.piedraPapelTijera.cantidadIntentos == 1 || pedido?.juegos.agilidadAritmetica.cantidadIntentos == 1" color="success">   
     <ion-avatar slot="start">
       <img src="{{productoService.obtenerFotoDefault()}}">
     </ion-avatar>
      <ion-label color="light">
-      <h2 class="ion-text-capitalize bold">JUEGOS</h2>
-      <h3>Juego: Ahorcado</h3>
-      <p class="lbl-primary">Porcentaje: {{pedido.juegos.ahorcado.descuento}}%</p>
-      <h3>Juego: Agilidad Aritmética</h3>
-      <p class="lbl-primary">Porcentaje: {{pedido.juegos.agilidadAritmetica.descuento}}%</p>
+      <h2 class="ion-text-capitalize bold">DESCUENTOS POR JUEGOS</h2>
+
+      <div *ngIf="pedido?.juegos.ahorcado.descuento != 0">
+        <h3>Juego: Ahorcado</h3>
+        <p class="lbl-primary">Porcentaje: {{pedido.juegos.ahorcado.descuento}}%</p>
+      </div>
+
+      <div *ngIf="pedido?.juegos.piedraPapelTijera.descuento != 0">
+        <h3>Juego: piedraPapelTijera</h3>
+        <p class="lbl-primary">Porcentaje: {{pedido.juegos.piedraPapelTijera.descuento}}%</p>
+      </div>
+
+      <div  *ngIf="pedido?.juegos.agilidadAritmetica.descuento != 0">
+        <h3>Juego: Agilidad Aritmética</h3>
+        <p class="lbl-primary">Porcentaje: {{pedido.juegos.agilidadAritmetica.descuento}}%</p>
+      </div>
       <p class="lbl-primary">
         <ion-badge color="light" class="badge">
           <ion-icon name="logo-usd"></ion-icon>
-          {{calcularDescuentoJuego() + calcularDescuentoJuego2() |number:'1.2-2'}}
+          {{calcularDescuentoJuego() + calcularDescuentoJuego1() + calcularDescuentoJuego2() |number:'1.2-2'}}
         </ion-badge>
       </p>
      </ion-label>

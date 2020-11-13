@@ -136,8 +136,15 @@ export class PedidosPage implements OnInit, OnDestroy {
     } catch (error) {
       return 0;
     }
-
   }
+
+  calcularDescuentoJuego1() {
+    try {
+       return (this.pedido.juegos.piedraPapelTijera.descuento * this.calcularTotal()) / 100;
+    } catch (error) {
+      return 0;
+    }
+  } 
 
   calcularDescuentoJuego2() {
     try {
@@ -145,11 +152,10 @@ export class PedidosPage implements OnInit, OnDestroy {
     } catch (error) {
       return 0;
     }
-
   } 
 
   calcularTotalFinal() {
-          return this.calcularTotal() + this.calcularPropina() - this.calcularDescuentoJuego() - this.calcularDescuentoJuego2();
+          return this.calcularTotal() + this.calcularPropina() - this.calcularDescuentoJuego() - this.calcularDescuentoJuego1() - this.calcularDescuentoJuego2();
   }
 
   chatear(destinatario: string) {

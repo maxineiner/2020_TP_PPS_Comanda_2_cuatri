@@ -220,7 +220,33 @@ export class PendientesPage implements OnInit {
     }
   }
 
-  calcularTotalFinal(ped: Pedido) {
-    return this.calcularTotal(ped) + this.calcularPropina(ped);
+  calcularDescuentoJuego(pedido:Pedido) {
+    try {
+       return (pedido.juegos.ahorcado.descuento * this.calcularTotal(pedido)) / 100;
+    } catch (error) {
+      return 0;
+    }
   }
+
+  calcularDescuentoJuego1(pedido:Pedido) {
+    try {
+       return (pedido.juegos.piedraPapelTijera.descuento * this.calcularTotal(pedido)) / 100;
+    } catch (error) {
+      return 0;
+    }
+  } 
+
+  calcularDescuentoJuego2(pedido:Pedido) {
+    try {
+       return (pedido.juegos.agilidadAritmetica.descuento * this.calcularTotal(pedido)) / 100;
+    } catch (error) {
+      return 0;
+    }
+  } 
+
+  calcularTotalFinal(ped: Pedido) {
+    return this.calcularTotal(ped) + this.calcularPropina(ped) - this.calcularDescuentoJuego(ped) - this.calcularDescuentoJuego1(ped) - this.calcularDescuentoJuego2(ped);
+  }
+
+
 }
