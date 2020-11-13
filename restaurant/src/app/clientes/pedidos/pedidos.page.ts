@@ -137,10 +137,19 @@ export class PedidosPage implements OnInit, OnDestroy {
       return 0;
     }
 
+  }
+
+  calcularDescuentoJuego2() {
+    try {
+       return (this.pedido.juegos.agilidadAritmetica.descuento * this.calcularTotal()) / 100;
+    } catch (error) {
+      return 0;
+    }
+
   } 
 
   calcularTotalFinal() {
-          return this.calcularTotal() + this.calcularPropina() - this.calcularDescuentoJuego();
+          return this.calcularTotal() + this.calcularPropina() - this.calcularDescuentoJuego() - this.calcularDescuentoJuego2();
   }
 
   chatear(destinatario: string) {
