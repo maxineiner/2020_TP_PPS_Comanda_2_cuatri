@@ -15,6 +15,7 @@ import { SalaChatPage } from '../pages/sala-chat/sala-chat.page';
 import { PedidoService } from './pedido.service';
 import { MetadataMensaje } from './mensajes.service';
 import { FacturaComponent } from '../components/factura/factura.component';
+import { HapticService } from './haptic.service';
 
 /**
  * Interfaz para crear dinámicamente botones de un Action Sheet
@@ -74,6 +75,8 @@ export class UIVisualService
       message,
       duration: UIVisualService.DURACION_TOAST,
     })
+
+    HapticService.vibrar();
     toast.present();
   }
 
