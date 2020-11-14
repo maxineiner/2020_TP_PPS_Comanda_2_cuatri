@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../../services/auth.service';
+import { AuthService, LoginProvider } from '../../services/auth.service';
 import { Usuario } from 'src/app/clases/usuario';
 import { Cliente, EstadoAceptacion } from 'src/app/clases/cliente';
 import { JefeService } from 'src/app/services/jefe.service';
@@ -30,6 +30,13 @@ export class LoginPage implements OnInit
   {
   }
 
+  async login(provider: LoginProvider)
+  {
+    const uid = await this.authService.login(this.usuario, provider);
+
+    console.log(uid);
+  }
+
   async onLoginAnonymously()
   {
     const uid = await this.authService.onLoginAnonymously();
@@ -38,7 +45,7 @@ export class LoginPage implements OnInit
     {
       console.log('Cliente anonimo logueado!');
 
-      let cliente = Cliente.CrearCliente(uid, "Anónimo", " ", "0", "-", " ", true, EstadoAceptacion.Anonimo,{isWaiting:false , horario: null})
+      let cliente = Cliente.CrearCliente(uid, "Anónimo", " ", "0", "-", " ", true, EstadoAceptacion.Anonimo, { isWaiting: false, horario: null })
       console.log(cliente)
 
       AuthService.usuario = cliente;

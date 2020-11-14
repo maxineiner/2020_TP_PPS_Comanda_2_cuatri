@@ -9,6 +9,7 @@ import { AppComponent } from './app.component';
 import { ReactiveFormsModule, FormsModule } from "@angular/forms";
 import { ComponentsModule } from './components/components.module';
 import { environment } from 'src/environments/environment';
+import { ProfileGuardService } from './services/profile-guard.service';
 
 // Firebase
 import { AngularFireModule } from '@angular/fire';
@@ -20,7 +21,8 @@ import { AngularFireStorageModule } from '@angular/fire/storage';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
-import { ProfileGuardService } from './services/profile-guard.service';
+import { GooglePlus } from '@ionic-native/google-plus/ngx';
+
 
 @NgModule({
   declarations: [AppComponent],
@@ -44,7 +46,8 @@ import { ProfileGuardService } from './services/profile-guard.service';
     BarcodeScanner,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     AngularFireDatabase,
-    ProfileGuardService
+    ProfileGuardService,
+    GooglePlus
   ],
   bootstrap: [AppComponent]
 })

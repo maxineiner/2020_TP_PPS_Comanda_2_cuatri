@@ -39,6 +39,28 @@
 
   </div>
 
+
+  <ion-fab vertical="top" horizontal="end" slot="fixed">
+    <ion-fab-button color="dark">
+      <ion-icon name="log-in"></ion-icon>
+    </ion-fab-button>
+    <ion-fab-list side="bottom">
+      <ion-fab-button color="facebook" (click)="login('Facebook')">
+        <ion-icon name="logo-facebook"></ion-icon>
+      </ion-fab-button>
+      <ion-fab-button color="danger" (click)="login('Google')">
+        <ion-icon name="logo-google"></ion-icon>
+      </ion-fab-button>
+      <ion-fab-button color="dark" (click)="login('Github')">
+        <ion-icon name="logo-github"></ion-icon>
+      </ion-fab-button>
+      <ion-fab-button color="twitter" (click)="login('Twitter')">
+        <ion-icon name="logo-twitter"></ion-icon>
+      </ion-fab-button>
+    </ion-fab-list>
+  </ion-fab>
+
+
 </ion-content>
 <ion-footer>
   <ion-toolbar color="dark">
