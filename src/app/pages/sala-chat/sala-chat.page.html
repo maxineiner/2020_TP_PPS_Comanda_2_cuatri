@@ -2,14 +2,14 @@
   <ion-toolbar color="tertiary">
     <ion-buttons slot="start">
       <ion-button (click)="cerrar()" expand="block">
-        <ion-icon size="large" slot="icon-only" name="arrow-back-circle"></ion-icon>
+        <ion-icon size="large" slot="icon-only" name="arrow-back"></ion-icon>
       </ion-button>
     </ion-buttons>
     <ion-title>Consultas</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content color="dark">
+<ion-content class="fondo">
 
   <app-chat [mensajes]="mensajes" [mensaje]="mensaje"
             [idUsuario]="usuario.id"></app-chat>
@@ -20,7 +20,7 @@
     <ion-item color="dark">
       <ion-input name="mensaje" [(ngModel)]="textoAuxiliar" clearInput="true" clearOnEdit="true"></ion-input>
       <ion-button slot="end" (click)="enviar()" fill="clear" shape="round">
-        <ion-icon color="secondary" name="send"></ion-icon>
+        <ion-icon color="success" name="send"></ion-icon>
       </ion-button>
 
     </ion-item>

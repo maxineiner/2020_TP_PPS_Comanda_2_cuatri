@@ -49,7 +49,7 @@ export class SalaChatPage implements OnInit, DoCheck
     if (this.textoAuxiliar)
     {
       this.mensaje = Mensaje.CrearMensaje(" ", this.textoAuxiliar, this.usuario,
-        new Date().toLocaleString(), this.chatID, this.mesa);
+        new Date().toString(), this.chatID, this.mesa);
       this.textoAuxiliar = null;
     }
   }

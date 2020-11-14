@@ -68,6 +68,7 @@ export class PedidoService
           pedidos.push(data);
         });
         PedidoService.pedidos = pedidos.filter(pedido => pedido.isActive);
+        console.log(PedidoService.pedidos);
         resolve(PedidoService.pedidos);
       })
     });
