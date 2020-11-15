@@ -28,6 +28,8 @@ Sistema de gestión gastronómica
 
 ![Sprint_1](https://firebasestorage.googleapis.com/v0/b/tp2-comanda-pps.appspot.com/o/readme%2Fsprint_1.png?alt=media&token=39219713-8688-4526-82c2-dc403235debc "Sprint 1")
 
+![Navegacion](https://firebasestorage.googleapis.com/v0/b/tp2-comanda-pps.appspot.com/o/readme%2FNavegacion_app_V0.png?alt=media&token=b1c8ee22-1996-4fca-a3f4-ab3df7c5f5d0 "Navegacion")
+
 
 ## :information_source: Sprint 2 : Fecha de entrega 31/10 
 
@@ -97,3 +99,33 @@ Sistema de gestión gastronómica
   - Circuito cliente no aceptado
   - Validacion de ABMs Usuarios
   - Mail de aceptación de cliente
+
+
+![Sprint_4](https://firebasestorage.googleapis.com/v0/b/tp2-comanda-pps.appspot.com/o/readme%2Fsprint_4.png?alt=media&token=bf290386-cdd3-40ce-b8c6-025e17525111 "Sprint 4")
+
+![Pantallas_2](https://firebasestorage.googleapis.com/v0/b/tp2-comanda-pps.appspot.com/o/readme%2Fpantallas_2.png?alt=media&token=b5303561-4b62-4f73-84f3-84d711fd3893 "Pantallas 2")
+
+![Circuito_Pedido](https://firebasestorage.googleapis.com/v0/b/tp2-comanda-pps.appspot.com/o/readme%2FCircuito_Pedido.png?alt=media&token=06bc1ab0-fb79-4880-bebc-9f6bcc55081d "Circuito Pedido")
+
+
+## :information_source: Sprint 4 : Fecha de entrega 21/11 
+
+- Alejandro Planes
+  - Listado de pedidos listos para entregar
+  - Circuito de Pago de Pedido
+  - Restringir Info-mesa a pedidos reservados
+  - Clase Encuesta y Page Encuesta
+  - Sonidos de inicio y cierre de app
+  - Login Redes Sociales
+- Federico Vera
+  - Push notifications Service
+  - Implementación de notificaciones
+  - Servicio de notificaciones por Mail
+  - Implementación de Servicio Mail
+  - Push notifications
+  - Circuito cliente no aceptado
+- Leandro Egea
+  - Toast del login y registro (validaciones)
+  - Validación ABMs Usuarios
+  - Validaciones ABMs Mesa, Producto, Pedido
+  - Procesamiento de estadisticas de encuestas
