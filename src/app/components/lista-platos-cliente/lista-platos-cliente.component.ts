@@ -7,7 +7,6 @@ import { Usuario } from 'src/app/clases/usuario';
 import { AuthService } from 'src/app/services/auth.service';
 import { PedidoService } from 'src/app/services/pedido.service';
 import { RolesService } from 'src/app/services/roles.service';
-import { UIVisualService } from 'src/app/services/uivisual.service';
 
 @Component({
   selector: 'app-lista-platos-cliente',
@@ -24,8 +23,7 @@ export class ListaPlatosClienteComponent implements OnInit
   @ViewChild('lista', { static: false }) lista: IonList;
 
   constructor(private modalController: ModalController, private rolService: RolesService,
-    private pedidoService: PedidoService, private loadingController: LoadingController,
-    private toastController: ToastController, private UIVisual: UIVisualService) { }
+    private pedidoService: PedidoService, private toastController: ToastController) { }
 
   ngOnInit() 
   {
@@ -64,10 +62,9 @@ export class ListaPlatosClienteComponent implements OnInit
     if (this.pedidoModificado)
     {
       console.log("Pedido actualizado");
-      UIVisualService.loading();
       this.pedido.calcularTotal();
       this.pedidoService.actualizar(this.pedido)
-        .then(() => UIVisualService.presentToast("Se actualiza pedido"));
+        .then(() => this.presentToast("Se actualiza pedido"));
     }
     this.modalController.dismiss(this.pedido.productos);
   }
@@ -104,6 +101,14 @@ export class ListaPlatosClienteComponent implements OnInit
     return "light"
   }
 
+  async presentToast(message)
+  {
+    const toast = await this.toastController.create({
+      message,
+      duration: 2000
+    });
+    toast.present();
+  }
 
 
 

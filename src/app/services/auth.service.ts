@@ -6,7 +6,6 @@ import { Usuario } from '../clases/usuario';
 import { ClienteService } from './cliente.service';
 import { EmpleadoService } from './empleado.service';
 import { JefeService } from './jefe.service';
-import { UIVisualService } from './uivisual.service';
 
 // Firebase
 import { AngularFireAuth } from '@angular/fire/auth';
@@ -14,6 +13,9 @@ import firebase from 'firebase';
 
 // Providers
 import { GooglePlus } from '@ionic-native/google-plus/ngx';
+// import { Plugins } from '@capacitor/core';
+
+// const { FacebookLogin } = Plugins;
 
 //
 import { Platform } from '@ionic/angular';
@@ -48,13 +50,12 @@ export class AuthService
     private clienteService: ClienteService,
     private empleadoService: EmpleadoService,
     private jefeService: JefeService,
-    private UIVisual: UIVisualService,
     private google: GooglePlus)
   {
     //afAuth.authState.subscribe(user => this.isLogged = user);
   }
 
-  async login(usuario: Usuario, provider: LoginProvider)
+  async onLogin(usuario: Usuario, provider: LoginProvider)
   {
     console.log(provider);
 
@@ -62,6 +63,7 @@ export class AuthService
     {
       let credential;
       let params;
+      const FACEBOOK_PERMISSIONS = ['public_profile', 'email'];
 
       params = (this.platform.is('android')) ?
         { 'webClientId': environment.webGoogleId, 'scope': 'email profile' } :
@@ -73,22 +75,35 @@ export class AuthService
           credential = await this.afAuth.signInWithEmailAndPassword(usuario.email, usuario.password);
           break;
         case LoginProvider.Facebook:
-          const fbAuth = await this.afAuth.signInWithPopup(new firebase.auth.FacebookAuthProvider());
+          if (this.platform.is('capacitor'))
+          {
+            // const fbAuth = await FacebookLogin.login({ FACEBOOK_PERMISSIONS });
+            // console.log(fbAuth);
+            // const facebookCredential = firebase.auth.FacebookAuthProvider.credential(fbAuth.accessToken);
+
+            // console.log(facebookCredential);
+            // credential = await this.afAuth.signInWithCredential(facebookCredential);
+          }
+          else
+          {
+            const fbAuth = await this.afAuth.signInWithPopup(new firebase.auth.FacebookAuthProvider());
+            credential = fbAuth;
+          }
           break
         case LoginProvider.Google:
           if (this.platform.is('capacitor'))
           {
-            const googleAuth = await this.google.login({});
+            const googleAuth = await this.google.login(params);
             console.log(googleAuth);
-            // const googleCredential = googleAuth.accessToken ?
-            //   firebase.auth.GoogleAuthProvider.credential
-            //     (
-            //       googleAuth.idToken,
-            //       googleAuth.accessToken
-            //     ) :
-            //   firebase.auth.GoogleAuthProvider.credential(googleAuth.idToken);
-            // console.log(googleCredential);
-            // credential = await this.afAuth.signInWithCredential(googleCredential);
+            const googleCredential = googleAuth.accessToken ?
+              firebase.auth.GoogleAuthProvider.credential
+                (
+                  googleAuth.idToken,
+                  googleAuth.accessToken
+                ) :
+              firebase.auth.GoogleAuthProvider.credential(googleAuth.idToken);
+            console.log(googleCredential);
+            credential = await this.afAuth.signInWithCredential(googleCredential);
           }
           else
           {
@@ -118,11 +133,11 @@ export class AuthService
     } catch (error)
     {
       console.log('Login failed', error);
-      UIVisualService.presentToast(error);
+      return "Error: No se pudo iniciar sesión";
     }
   }
 
-  async onLogin(usuario: Usuario)
+  async onLoginObsoleto(usuario: Usuario, provider: LoginProvider)
   {
     try
     {

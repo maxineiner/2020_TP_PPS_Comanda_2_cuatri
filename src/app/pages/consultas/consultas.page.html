@@ -1,9 +1,22 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>consultas</ion-title>
-  </ion-toolbar>
-</ion-header>
+<app-header titulo="Consultas"></app-header>
 
-<ion-content>
+<ion-content class="fondo">
+
+  <ion-list *ngFor="let mensaje of mensajes" class="ion-no-margin contenido" lines="none" mode="ios">
+    <ion-item button (click)="responder(mensaje)" class="ion-no-margin" color="dark">
+      <ion-label mode="ios">
+        <h2>Pedido:{{mensaje.id}}</h2>
+        <ion-chip mode="ios" class="ion-margin" color="light">
+          <ion-label>Mesa:{{mensaje.mesa}} - {{mensaje.fecha | date: 'shortTime'}}</ion-label>
+        </ion-chip>
+
+        <ion-label>{{mensaje.texto}}</ion-label>
+
+      </ion-label>
+      <ion-avatar slot="start">
+        <img [src]="mensaje.usuario.foto.url" />
+      </ion-avatar>
+    </ion-item>
+  </ion-list>
 
 </ion-content>

@@ -14,8 +14,8 @@ import { EstadoPedido, Pedido } from '../clases/pedido';
 import { SalaChatPage } from '../pages/sala-chat/sala-chat.page';
 import { PedidoService } from './pedido.service';
 import { MetadataMensaje } from './mensajes.service';
-import { FacturaComponent } from '../components/factura/factura.component';
 import { HapticService } from './haptic.service';
+import { FacturaComponent } from '../components/factura/factura.component';
 
 /**
  * Interfaz para crear dinámicamente botones de un Action Sheet
@@ -43,6 +43,8 @@ export class UIVisualService
 {
   private static UI: UIVisualService;
   private static DURACION_TOAST = 2000;
+
+
 
   constructor(private modalController: ModalController,
     private toastController: ToastController,

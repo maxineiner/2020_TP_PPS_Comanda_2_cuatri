@@ -6,7 +6,8 @@ import { JefeService } from 'src/app/services/jefe.service';
 import { EmpleadoService } from 'src/app/services/empleado.service';
 import { ClienteService } from 'src/app/services/cliente.service';
 import { Router } from '@angular/router';
-import { ActionSheetController, ModalController } from '@ionic/angular';
+import { ActionSheetController, AlertController, ModalController } from '@ionic/angular';
+import { Imagen } from 'src/app/clases/imagen';
 
 @Component({
   selector: 'app-login',
@@ -24,7 +25,8 @@ export class LoginPage implements OnInit
     private empleadoService: EmpleadoService,
     private clienteService: ClienteService,
     private modalController: ModalController,
-    private actionSheetController: ActionSheetController) { }
+    private actionSheetController: ActionSheetController,
+    private alertController: AlertController) { }
 
   ngOnInit()
   {
@@ -32,33 +34,17 @@ export class LoginPage implements OnInit
 
   async login(provider: LoginProvider)
   {
-    const uid = await this.authService.login(this.usuario, provider);
+    const uid = await this.authService.onLogin(this.usuario, provider);
 
     console.log(uid);
+
+    this.modalController.dismiss();
+    this.router.navigate(['/home']);
   }
 
-  async onLoginAnonymously()
+  async onLogin(provider: LoginProvider)
   {
-    const uid = await this.authService.onLoginAnonymously();
-
-    if (uid)
-    {
-      console.log('Cliente anonimo logueado!');
-
-      let cliente = Cliente.CrearCliente(uid, "Anónimo", " ", "0", "-", " ", true, EstadoAceptacion.Anonimo, { isWaiting: false, horario: null })
-      console.log(cliente)
-
-      AuthService.usuario = cliente;
-      this.clienteService.crearAnonimo(cliente);
-
-      this.cerrar();
-      this.router.navigate(['/home'])
-    }
-  }
-
-  async onLogin()
-  {
-    const uid = await this.authService.onLogin(this.usuario);
+    const uid = await this.authService.onLogin(this.usuario, provider);
 
     if (uid)
     {
@@ -100,6 +86,79 @@ export class LoginPage implements OnInit
     }
   }
 
+  async onLoginAnonymously()
+  {
+    const uid = await this.authService.onLoginAnonymously();
+
+    if (uid)
+    {
+      console.log('Cliente anonimo logueado!');
+
+      let cliente = Cliente.CrearCliente(uid, "Anónimo", " ", "0", new Imagen(), " ", true, EstadoAceptacion.Anonimo, { isWaiting: false, horario: null })
+      console.log(cliente)
+
+      AuthService.usuario = cliente;
+      this.clienteService.crearAnonimo(cliente);
+
+      this.cerrar();
+      this.router.navigate(['/home'])
+    }
+  }
+
+  async onLoginMail()
+  {
+    const alert = await this.alertController.create({
+      header: 'Iniciar sesión',
+      cssClass: 'promptLogin',
+      inputs: [
+        {
+          name: 'mail',
+          type: 'text',
+          placeholder: 'Correo electrónico'
+        },
+        {
+          name: 'password',
+          type: 'password',
+          placeholder: 'Contraseña'
+        },
+      ],
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          handler: () => { }
+        },
+        {
+          text: 'Aceptar',
+          handler: (data) =>
+          {
+            this.usuario.email = data.mail;
+            this.usuario.password = data.password;
+
+            this.onLogin(LoginProvider.Email);
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
+
+  async onLoginGoogle()
+  {
+    this.onLogin(LoginProvider.Google);
+  }
+
+  async onLoginFacebook()
+  {
+    this.onLogin(LoginProvider.Facebook);
+  }
+
+  async onLoginGithub()
+  {
+    this.onLogin(LoginProvider.Github);
+  }
+
   async onLoginTesting(rol: string)
   {
     let uid;
@@ -137,10 +196,6 @@ export class LoginPage implements OnInit
     this.router.navigate(['/home']);
   }
 
-  cerrar()
-  {
-    this.modalController.dismiss();
-  }
 
   async mostrarRoles()
   {
@@ -202,5 +257,11 @@ export class LoginPage implements OnInit
 
     await actionSheet.present();
   }
+
+  cerrar()
+  {
+    this.modalController.dismiss();
+  }
+
 
 }

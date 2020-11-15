@@ -4,21 +4,20 @@ import { DomSanitizer, SafeHtml, SafeUrl, SafeResourceUrl } from '@angular/platf
 @Pipe({
   name: 'safe'
 })
-export class SafePipe implements PipeTransform {
+export class SafePipe implements PipeTransform
+{
 
   constructor(protected sanitizer: DomSanitizer)
-  {}
+  { }
 
-  transform(value: any, type: string):  SafeHtml | SafeUrl | SafeResourceUrl  
+  transform(value: any, type: string): SafeHtml | SafeUrl | SafeResourceUrl  
   {
     switch (type) 
     {
-	case 'html': return this.sanitizer.bypassSecurityTrustHtml(value);
-	case 'url': return this.sanitizer.bypassSecurityTrustUrl(value);
-	case 'resourceUrl': return this.sanitizer.bypassSecurityTrustResourceUrl(value);
-	default: throw new Error(`Invalid safe type specified: ${type}`);
-	}
-
+      case 'html': return this.sanitizer.bypassSecurityTrustHtml(value);
+      case 'url': return this.sanitizer.bypassSecurityTrustUrl(value);
+      case 'resourceUrl': return this.sanitizer.bypassSecurityTrustResourceUrl(value);
+      default: throw new Error(`Invalid safe type specified: ${type}`);
+    }
   }
-
 }
