@@ -115,7 +115,7 @@ export class FormReservaComponent
         "_",
         this.reservaForm.controls['cliente'].value,
         this.reservaForm.controls['mesa'].value,
-        [], [], timeStamp, null, 0, EstadoPedido.RESERVADO, true);
+        [], timeStamp, null, 0, EstadoPedido.RESERVADO, true);
       this.pedidosService.crear(pedido).then(() => { UIVisualService.presentToast('Reserva exitosa.') });
     }
 

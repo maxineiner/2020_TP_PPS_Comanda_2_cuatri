@@ -3,7 +3,9 @@ import { Router } from '@angular/router';
 import { BarcodeScanResult } from '@ionic-native/barcode-scanner/ngx';
 import { Usuario } from 'src/app/clases/usuario';
 import { CodigoQRService } from 'src/app/services/codigo-qr.service';
+import { HapticService } from 'src/app/services/haptic.service';
 import { RolesService } from 'src/app/services/roles.service';
+import { UIVisualService } from 'src/app/services/uivisual.service';
 
 @Component({
   selector: 'app-escanerQR',
@@ -15,7 +17,7 @@ export class EscanerQRComponent implements OnInit
   @Input() usuario: Usuario;
 
   constructor(private escanerQR: CodigoQRService, private router: Router,
-    private rolService: RolesService) { }
+    private rolService: RolesService, private UIVisual: UIVisualService) { }
 
   ngOnInit() { }
 
@@ -41,16 +43,22 @@ export class EscanerQRComponent implements OnInit
     {
       case 'Mesa':
         console.log(entidad);
+        HapticService.vibrar();
         this.router.navigate(['/home/info-mesa', id, ""]);
         break;
       case 'Producto':
+        HapticService.vibrar();
         console.log(entidad);
         break;
       case 'Ingreso':
         console.log(entidad);
+        HapticService.vibrar();
         this.router.navigate(['/home/info-ingreso']);
         break;
-
+      default:
+        HapticService.vibrar();
+        UIVisualService.presentToast("Opción no válida");
+        break;
     }
   }
 }

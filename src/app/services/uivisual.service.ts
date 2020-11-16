@@ -153,7 +153,7 @@ export class UIVisualService
         }
         if (handlers.chat) botonesGenerados.push(handlers.chat.boton);
 
-        if (estado == EstadoPedido.EN_PROGRESO)
+        if (estado == EstadoPedido.LISTO)
         {
           handlers.recibir.boton = {
             text: 'Confirmar recepción',
@@ -282,6 +282,8 @@ export class UIVisualService
     });
 
     await modal.present();
+
+    modal.onWillDismiss().then(() => this.loading());
   }
 
   static async verFoto(ev: any, foto: Imagen)
