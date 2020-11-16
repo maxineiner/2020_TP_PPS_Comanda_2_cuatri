@@ -13,13 +13,15 @@ import firebase from 'firebase';
 
 // Providers
 import { GooglePlus } from '@ionic-native/google-plus/ngx';
-// import { Plugins } from '@capacitor/core';
-
-// const { FacebookLogin } = Plugins;
+import { FacebookLoginResponse } from '@capacitor-community/facebook-login';
+import { Plugins } from '@capacitor/core';
 
 //
 import { Platform } from '@ionic/angular';
 import { environment } from '../../environments/environment';
+
+const { FacebookLogin } = Plugins;
+const FACEBOOK_PERMISSIONS = ['email'];
 
 export enum LoginProvider
 {
@@ -30,11 +32,6 @@ export enum LoginProvider
   Twitter = "Twitter"
 }
 
-interface AuthData
-{
-  idToken: any,
-  accessToken: any
-}
 
 @Injectable({
   providedIn: 'root'
@@ -61,9 +58,9 @@ export class AuthService
 
     try
     {
-      let credential;
+      let credential: firebase.auth.UserCredential;
       let params;
-      const FACEBOOK_PERMISSIONS = ['public_profile', 'email'];
+
 
       params = (this.platform.is('android')) ?
         { 'webClientId': environment.webGoogleId, 'scope': 'email profile' } :
@@ -77,12 +74,21 @@ export class AuthService
         case LoginProvider.Facebook:
           if (this.platform.is('capacitor'))
           {
-            // const fbAuth = await FacebookLogin.login({ FACEBOOK_PERMISSIONS });
-            // console.log(fbAuth);
-            // const facebookCredential = firebase.auth.FacebookAuthProvider.credential(fbAuth.accessToken);
+            console.log("FB LOGIN");
+            const fbAuth = await FacebookLogin.login({ permissions: FACEBOOK_PERMISSIONS }) as FacebookLoginResponse;
 
-            // console.log(facebookCredential);
-            // credential = await this.afAuth.signInWithCredential(facebookCredential);
+            console.log("FB AUTH");
+            console.log(`Facebook access token is ${fbAuth.accessToken.token}`);
+            console.log(`Facebook access token is ${fbAuth.accessToken.userId}`);
+            console.log(`Facebook access token is ${fbAuth.accessToken.permissions}`);
+            // Login successful.
+            const facebookCredential = firebase.auth.FacebookAuthProvider.credential(fbAuth.accessToken.token);
+
+            console.log("FB CREDENTIAL");
+            console.log(facebookCredential.idToken);
+            console.log(facebookCredential.providerId);
+            console.log(facebookCredential.accessToken);
+            credential = await this.afAuth.signInWithCredential(facebookCredential);
           }
           else
           {
@@ -122,7 +128,8 @@ export class AuthService
           break
       }
 
-      console.log(credential);
+      console.log("CREDENCIAL");
+      console.log(credential.user.uid);
 
       if (credential)
       {

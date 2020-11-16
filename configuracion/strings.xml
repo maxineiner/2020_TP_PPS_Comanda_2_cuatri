@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">comandera</string>
+    <string name="title_activity_main">comandera</string>
+    <string name="package_name">com.company.comanda</string>
+    <string name="custom_url_scheme">com.company.comanda</string>
+	<string name="facebook_app_id">403795990654798</string>
+	<string name="fb_login_protocol_scheme">fb403795990654798</string>
+</resources>

@@ -84,6 +84,10 @@ export class LoginPage implements OnInit
       this.cerrar();
       this.router.navigate(['/home'])
     }
+    else
+    {
+      console.log("Sin UID " + uid);
+    }
   }
 
   async onLoginAnonymously()

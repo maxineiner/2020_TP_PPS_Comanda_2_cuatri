@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "186663344195",
+    "firebase_url": "https://tp2-comanda-pps.firebaseio.com",
+    "project_id": "tp2-comanda-pps",
+    "storage_bucket": "tp2-comanda-pps.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:186663344195:android:2fc2e01f3b678bcd1b1cf6",
+        "android_client_info": {
+          "package_name": "com.company.comanda"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "186663344195-14feil9uff8fge36qcq4ml5psjo4lk1l.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.company.comanda",
+            "certificate_hash": "cafb0fdfdb9aac7c5124fda7b042faef7ec4f2dd"
+          }
+        },
+        {
+          "client_id": "186663344195-3oktg1dtr9nsgengjutv9suc44o7o938.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBIYhMHETg9cTU4m7eoD2TQgIWf_P-Aqy0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "186663344195-3oktg1dtr9nsgengjutv9suc44o7o938.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
