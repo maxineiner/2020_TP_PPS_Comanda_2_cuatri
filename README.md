@@ -1,12 +1,24 @@
-<h1>2020 - 2 cuatrimestre - PPS -- La Comanda</h1>
+# **COMANDA-PGR**
 
-Para registrar el <strong>grupo completo</strong> con todos sus integrantes: https://forms.gle/MPuyrqVP83ahAY7K7
+## **Integrantes**:
 
-<br>
+* [Perez Ezequiel](https://github.com/Ezezsg)
 
-Grupos:<br>
-<h4>Máximo 3 integrantes</h4>
-<h4>Mínimo 2 integrantes</h4>
+* [Giordano Tomas](https://github.com/tomasgiordano)
 
-<h3> Código Qr - diagrama tentativo -</h3>
-  <img src="https://github.com/maxineiner/2020_TP_PPS_Comanda_1_cuatri/blob/master/Diagrama_QR_MESA.jpg" >
+* [Rilo Sebastian](https://github.com/S3baRr00)
+
+### Tareas a realizar: Domingo 15/11 - Martes 17/11
+- Perez ezequiel
+  * [] generar componente de alta de mesas
+  * [] generar componente de alta de supervisores
+- Giordano Tomas
+  * [] generar componente de alta de clientes
+  * [] generar componente de alta de empleados
+  * [] clases de usuarios
+- Rilo Sebastian
+  * [] generar icono y splash animado
+  * [] generar componente de login
+  * [] generar servicio de autentificacion de usuario
+  * [] generar servicio de base de datos
+
