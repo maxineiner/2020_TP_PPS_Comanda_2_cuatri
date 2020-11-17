@@ -1,0 +1,49 @@
+.bold {
+    font-weight: 700;
+}
+
+.titulo {
+    //display: revert;
+    text-align: center;
+    //vertical-align: middle;
+}
+
+.card{
+    padding: 4%;
+    border-radius: 20px;
+}
+
+.fondo{
+    --background:none;
+    background: url("../../../../assets/splash.jpg");
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+
+.lbl-primary{
+    font-size: 18px;
+}
+
+.lbl-total{
+    font-size: 25px;
+}
+
+.lbl-secondary{
+    font-size: 18px;
+}
+
+.lbl-tertiary{
+    font-size: 16px;
+}
+.header{
+    height: 7vh;
+}
+
+.lbl-button{
+    font-size: 22px;
+}
+
+.badge{
+    font-size: 18px;
+}

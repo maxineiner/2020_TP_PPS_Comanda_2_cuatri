@@ -1,0 +1,71 @@
+.lbl{
+  font-size: 25px;
+  font-family: cursive;
+}
+
+.btn{
+  border-radius: 100px;
+  background-color: #2ac568;
+  font-family: cursive;
+  font-size: 20px;
+  height: 70px;
+  width: 100%;
+}
+
+
+.btn:hover{
+  background-color: #37ff87;
+  height: 100px;
+}
+
+.btn:focus {
+  outline: 0 !important;
+}
+
+.fondo{
+  background: url("../../../assets/splash.jpg");
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.divScroll{
+  overflow-y: auto;
+  height: 100%;
+}
+
+.btn-secondary{
+  border-radius: 100px;
+  background-color: #ffd000;
+  font-family: cursive;
+  height: 50px;
+}
+
+.btn-secondary:hover{
+  background-color: #ddb400;
+}
+
+.btn-secondary:focus {
+  outline: 0 !important;
+}
+
+.btn-tertiary{
+  border-radius: 100px;
+  background-color: #cecece;
+  font-family: cursive;
+  height: 50px;
+}
+
+
+.btn-tertiary:hover{
+  background-color: #b9b9b9;
+}
+
+.btn-tertiary:focus {
+  outline: 0 !important;
+}
+
+.btn-iconBack{
+  background: none;
+  color: white;
+  font-size: 35px;
+}
