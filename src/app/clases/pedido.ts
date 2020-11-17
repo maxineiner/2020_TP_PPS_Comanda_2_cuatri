@@ -8,6 +8,7 @@ export enum EstadoPedido
     ASIGNADO = "Asignado", // Pedido con mesa asignada sin productos
     SOLICITADO = "Solicitado", // Cliente solicita pedido 
     EN_PROGRESO = "En progreso", // Recibido por cocina y barra
+    LISTO = "Listo", // Listo para ser entregado
     ENTREGADO = "Entregado", // Recibido en mesa
     CERRADO = "Cerrado", // Listo para cobrar
     PAGADO = "Pagado" // Aprobado por mozo
@@ -42,8 +43,7 @@ export class Pedido
 
 
     public static CrearPedido(id: string, cliente: Cliente, mesa: Mesa,
-        productos: Producto[], productosListos: number[],
-        fechaInicio: number, fechaFin: number, valorTotal: number,
+        productos: Producto[], fechaInicio: number, fechaFin: number, valorTotal: number,
         estado: EstadoPedido, isActive: boolean)
     {
         let pedido = new Pedido();
@@ -72,7 +72,20 @@ export class Pedido
                 this.valorTotal = this.valorTotal + producto.precio;
             });
         }
-        return this.valorTotal * (1 + this.propina);
+        this.valorTotal = this.valorTotal * (1 + this.propina / 100);
+        return this.valorTotal;
+    }
+
+    public isReady(): boolean
+    {
+        for (const producto of this.productos) 
+        {
+            if (!producto.isReady)
+            {
+                return false;
+            }
+        }
+        return true;
     }
 
     public cambiarEstado()
@@ -89,6 +102,9 @@ export class Pedido
                 this.estado = EstadoPedido.EN_PROGRESO;
                 break;
             case EstadoPedido.EN_PROGRESO:
+                this.estado = EstadoPedido.LISTO;
+                break;
+            case EstadoPedido.LISTO:
                 this.estado = EstadoPedido.ENTREGADO;
                 break;
             case EstadoPedido.ENTREGADO:

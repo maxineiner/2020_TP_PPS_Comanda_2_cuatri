@@ -74,14 +74,14 @@ export class MenuPedidosPage implements OnInit, DoCheck
     {
       case 'Alta':
       case 'Baja':
-      case "Modificar":
+      case 'Modificar':
         this.modo = "ABM";
         break;
-      case "Asignado":
-      case "Solicitado":
-      case "En progreso":
-      case "Entregado":
-      case "Cerrado":
+      case 'Asignado':
+      case 'Solicitado':
+      case 'En progreso':
+      case 'Listo':
+      case 'Cerrado':
         this.modo = "Listado";
         break;
     }

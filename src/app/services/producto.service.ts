@@ -61,6 +61,7 @@ export class ProductoService
     try
     {
       producto.isActive = true;
+      producto.isReady = false;
 
       return this.referenciaProductos
         .push(producto)

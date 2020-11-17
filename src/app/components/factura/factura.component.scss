@@ -1,10 +1,16 @@
 .buttonCss {
+    --color: var(--ion-color-light) !important;
 
     button.alert-button:nth-child(1){
-      color: var(--ion-color-danger);
+      color: var(--ion-color-danger) !important;
     }
 
     button.alert-button:nth-child(2){
-      color: var(--ion-color-success);
+      color: var(--ion-color-success) !important  ;
     }
 }
+
+.alert-button-inner.sc-ion-alert-md{
+  color: var(--ion-color-light) !important;
+  --color: var(--ion-color-light) !important;
+} 

@@ -3,6 +3,7 @@ import { AngularFireDatabase } from '@angular/fire/database';
 import { Router } from '@angular/router';
 import { EstadoPedido, Pedido } from '../clases/pedido';
 import { Producto } from '../clases/producto';
+import { MesaService } from './mesa.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,8 @@ export class PedidoService
 {
   public static pedidos: Pedido[] = [];
 
-  constructor(private firebase: AngularFireDatabase, private router: Router) { }
+  constructor(private firebase: AngularFireDatabase, private router: Router,
+    private mesaService: MesaService) { }
 
   /**
    * Método para realizar Alta en DB
@@ -102,12 +104,26 @@ export class PedidoService
 
 
   /**
+   * Método para confirmar entrega de Pedido para Mesa
+   * @param pedido 
+   */
+  entregarPedido(pedido: Pedido)
+  {
+    if (pedido.estado == EstadoPedido.EN_PROGRESO)
+    {
+      console.log("Se recibe pedido en la mesa");
+      pedido.cambiarEstado();
+      return this.actualizar(pedido);
+    }
+  }
+
+  /**
    * Método para confirmar recepción de Pedido en Mesa
    * @param pedido 
    */
   recibirPedido(pedido: Pedido)
   {
-    if (pedido.estado == EstadoPedido.EN_PROGRESO)
+    if (pedido.estado == EstadoPedido.LISTO)
     {
       console.log("Se recibe pedido en la mesa");
       pedido.cambiarEstado();
@@ -125,7 +141,9 @@ export class PedidoService
     {
       console.log("Se paga pedido de la mesa");
       pedido.cambiarEstado();
-      return this.actualizar(pedido);
+      pedido.mesa.isAvailable = true;
+
+      return this.actualizar(pedido).then(() => this.mesaService.actualizar(pedido.mesa));
     }
   }
 

@@ -62,7 +62,11 @@ export class ListaPlatosClienteComponent implements OnInit
     if (this.pedidoModificado)
     {
       console.log("Pedido actualizado");
+      // Se recalcula el total - Solo en ABM
       this.pedido.calcularTotal();
+      // Se verifica estado de los productos para determinar estaod de Pedido
+      this.pedido.estado = this.pedido.isReady() ? EstadoPedido.LISTO : this.pedido.estado;
+
       this.pedidoService.actualizar(this.pedido)
         .then(() => this.presentToast("Se actualiza pedido"));
     }
