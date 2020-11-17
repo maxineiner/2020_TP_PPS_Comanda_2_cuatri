@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
-import { CommonModule } from '@angular/common';
 
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 
@@ -33,6 +32,7 @@ import { NativeAudio } from '@ionic-native/native-audio/ngx';
       IonicModule.forRoot(),
       AppRoutingModule,
       FormsModule,
+      ComponentsModule,
       ReactiveFormsModule,
       AngularFireAuthModule,
       AngularFireDatabaseModule,
