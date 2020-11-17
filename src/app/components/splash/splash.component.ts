@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { ModalController } from '@ionic/angular';
+import { AudioService } from 'src/app/services/audio.service';
 
 @Component({
   selector: 'app-splash',
@@ -10,8 +11,10 @@ import { ModalController } from '@ionic/angular';
 export class SplashComponent implements OnInit
 {
 
-  constructor(public viewCtrl: ModalController, public splashScreen: SplashScreen)
+  constructor(public viewCtrl: ModalController, public splashScreen: SplashScreen,
+    public audioService: AudioService)
   {
+    this.audioService.play('inicio');
     this.splashScreen.hide();
     setTimeout(() =>
     {
