@@ -4,6 +4,7 @@ import { BarcodeScanResult } from '@ionic-native/barcode-scanner';
 import { ActionSheetController, LoadingController, MenuController } from '@ionic/angular';
 import { Cliente } from 'src/app/clases/cliente';
 import { Usuario } from 'src/app/clases/usuario';
+import { AudioService } from 'src/app/services/audio.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { CodigoQRService } from 'src/app/services/codigo-qr.service';
 import { HapticService } from 'src/app/services/haptic.service';
@@ -31,7 +32,7 @@ export class HomePage implements OnInit
     private notifications: NotificationsService,
     private actionSheetController: ActionSheetController,
     private pedidosService: PedidoService,
-    private productoService: ProductoService,
+    private productoService: ProductoService
   ) { }
 
   ngOnInit()
@@ -94,7 +95,5 @@ export class HomePage implements OnInit
 
     await actionSheet.present();
   }
-
-
 
 }
