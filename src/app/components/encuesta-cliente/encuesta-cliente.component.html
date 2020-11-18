@@ -1,0 +1,125 @@
+<ion-content class="fondo ion-padding">
+
+  <form #formulario="ngForm" class="contenido">
+
+    <ion-list mode="ios">
+
+      <ion-list-header color="dark">
+        <ion-label>¿Qué destacaría de su experiencia?</ion-label>
+      </ion-list-header>
+      <ion-item color="dark">
+        <ion-label>Atención</ion-label>
+        <ion-checkbox slot="end" (ionChange)="checked($event)" value="'Atención'" color="success">
+        </ion-checkbox>
+      </ion-item>
+      <ion-item color="dark">
+        <ion-label>Precio</ion-label>
+        <ion-checkbox slot="end" (ionChange)="checked($event)" value="'Precio'" color="success">
+        </ion-checkbox>
+      </ion-item>
+      <ion-item color="dark">
+        <ion-label>Comida</ion-label>
+        <ion-checkbox slot="end" (ionChange)="checked($event)" value="'Comida'" color="success">
+        </ion-checkbox>
+      </ion-item>
+      <ion-item color="dark">
+        <ion-label>Acessibilidad</ion-label>
+        <ion-checkbox slot="end" (ionChange)="checked($event)" value="'Accesibilidad'" color="success">
+        </ion-checkbox>
+      </ion-item>
+
+      <ion-item color="dark">
+        <ion-label position="stacked">Cantidad de comensales</ion-label>
+        <ion-input type="number" name="comensales" [(ngModel)]="encuesta.comensales">
+        </ion-input>
+      </ion-item>
+
+
+      <ion-list-header color="dark">
+        <ion-label>Grado de satisfacción</ion-label>
+      </ion-list-header>
+
+      <ion-item color="dark">
+        <ion-label>{{encuesta.satisfaccion}}</ion-label>
+        <ion-range min="0" max="100" pin="true" color="success"
+                   (ionChange)="rangeChange($event)">
+          <ion-icon size="small" slot="start" name="sad"></ion-icon>
+          <ion-icon size="small" slot="end" name="happy"></ion-icon>
+        </ion-range>
+      </ion-item>
+
+      <ion-radio-group name="sabor" value="'Excelente'" [(ngModel)]="encuesta.sabor">
+        <ion-list-header color="dark">
+          <ion-label>Sabor</ion-label>
+        </ion-list-header>
+        <ion-item color="dark">
+          <ion-label>Excelente</ion-label>
+          <ion-radio value="'Excelente'"></ion-radio>
+        </ion-item>
+        <ion-item color="dark">
+          <ion-label>Bueno</ion-label>
+          <ion-radio value="'Bueno'"></ion-radio>
+        </ion-item>
+        <ion-item color="dark">
+          <ion-label>Regular</ion-label>
+          <ion-radio value="'Regular'"></ion-radio>
+        </ion-item>
+        <ion-item color="dark">
+          <ion-label>Malo</ion-label>
+          <ion-radio value="'Malo'"></ion-radio>
+        </ion-item>
+        <ion-item color="dark">
+          <ion-label>Pésimo</ion-label>
+          <ion-radio value="'Pésimo'"></ion-radio>
+        </ion-item>
+      </ion-radio-group>
+
+
+
+      <ion-item color="dark">
+        <ion-label>¿Usted volvería?</ion-label>
+        <ion-toggle name="retorno" [(ngModel)]="encuesta.retorno" color="success"></ion-toggle>
+      </ion-item>
+
+      <ion-item color="dark">
+        <ion-label>Servicio</ion-label>
+        <ion-select value="'Excelente'" color="dark" [interfaceOptions]="customActionSheetOptions"
+                    interface="action-sheet" cancelText="Cancelar"
+                    [(ngModel)]="encuesta.servicio" name="servicio">
+          <ion-select-option color="success" value="'Excelente'">Excelente</ion-select-option>
+          <ion-select-option color="success" value="'Bueno'">Bueno</ion-select-option>
+          <ion-select-option color="success" value="'Regular'">Regular</ion-select-option>
+          <ion-select-option color="success" value="'Malo'">Malo</ion-select-option>
+          <ion-select-option color="success" value="'Pésimo'">Pésimo</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+
+      <ion-grid color="dark" class="ion-margin-bottom">
+        <ion-row>
+          <ion-col size="12">
+            <ion-item color="dark">
+              <ion-label>Si desea puede subir fotos</ion-label>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="4" *ngFor="let foto of imgPreview; let i=index">
+            <ion-button (click)="subirFoto(i)" fill="solid" size="small" color="dark">
+              Foto {{i+1}}
+              <ion-icon slot="start" name="camera"></ion-icon>
+            </ion-button>
+            <img *ngIf="foto" [src]="foto | safe: 'url'" (click)="subirFoto(i)">
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+
+    </ion-list>
+    <ion-button (click)="guardar()" expand="block" color="light" size="large"
+                [disabled]="formulario.invalid">
+      Guardar
+    </ion-button>
+
+  </form>
+
+</ion-content>

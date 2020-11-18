@@ -32,11 +32,11 @@ import { NativeAudio } from '@ionic-native/native-audio/ngx';
       IonicModule.forRoot(),
       AppRoutingModule,
       FormsModule,
+      ComponentsModule,
       ReactiveFormsModule,
       AngularFireAuthModule,
       AngularFireDatabaseModule,
       AngularFireModule.initializeApp(environment.firebaseConfig),
-      ComponentsModule,
       AngularFireStorageModule
     ],
   providers: [

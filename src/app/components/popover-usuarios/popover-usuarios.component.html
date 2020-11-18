@@ -1,0 +1,7 @@
+<app-listado-clientes *ngIf="modo == 'clientes'" [clientes]="clientes"
+                      (seleccionarCliente)="seleccionar($event)">
+</app-listado-clientes>
+
+<app-listado-empleados *ngIf="modo == 'empleados'" [empleados]="empleados"
+                       (seleccionarEmpleado)="seleccionar($event)">
+</app-listado-empleados>
