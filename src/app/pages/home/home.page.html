@@ -5,17 +5,18 @@
       <img [src]="icono" alt="icono-app">
     </ion-fab-button>
     <ion-fab-list side="bottom">
-      <ion-fab-button color="tertiary" translucent="true">
-        <ion-icon name="log-out" (click)="cerrarSesion()"></ion-icon>
-      </ion-fab-button>
-      <ion-fab-button color="success" translucent="true" [routerLink]="['/home/tab1']">
-        <ion-icon name="triangle"></ion-icon>
-      </ion-fab-button>
       <ion-fab-button color="danger" translucent="true" [routerLink]="['/home/inicio']">
         <ion-icon name="home-sharp"></ion-icon>
       </ion-fab-button>
-      <ion-fab-button color="light" translucent="true" [routerLink]="['/encuesta']">
-        <ion-icon name="create"></ion-icon>
+      <ion-fab-button color="tertiary" translucent="true">
+        <ion-icon name="log-out" (click)="cerrarSesion()"></ion-icon>
+      </ion-fab-button>
+      <ion-fab-button *ngIf="rolService.isEmpleado(usuario)" color="light" translucent="true"
+                      (click)="verEncuestaEmpleado()">
+        <ion-icon name="create-sharp"></ion-icon>
+      </ion-fab-button>
+      <ion-fab-button color="success" translucent="true" [routerLink]="['/home/tab1']">
+        <ion-icon name="triangle"></ion-icon>
       </ion-fab-button>
     </ion-fab-list>
   </ion-fab>
