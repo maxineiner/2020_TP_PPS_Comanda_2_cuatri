@@ -1,0 +1,34 @@
+<ion-content>
+    <!-- <img src="../../../assets/icon/iconLogoMovimiento.png" alt="" width="100px" height="100px" class="icon"> -->
+    <ion-card>
+        <ion-card-header>
+        	<div align="center">
+            <ion-icon name="person-circle-outline" style='font-size: 150px; color: black;' ></ion-icon>
+            </div>
+            <ion-card-title align="center">Iniciar sesión</ion-card-title>
+        </ion-card-header>
+        <ion-item color="primary">
+            <ion-label>Usuarios</ion-label>
+            <ion-select [(ngModel)]="pickedName" interface="popover" placeholder="Seleccione Usuario" (ionChange)="pickerUser(pickedName)">
+                <ion-select-option *ngFor="let usuario of listaUsuarios" value="{{usuario.correo}}">{{usuario.correo}}</ion-select-option>
+            </ion-select>
+        </ion-item>
+        <ion-item class="labels">
+            <ion-label position="stacked">Correo electrónico</ion-label>
+            <br>
+            <ion-input type="text" [(ngModel)]="email" placeholder="Ingrese usuario..."></ion-input>
+        </ion-item>
+        <ion-item class="labels">
+            <ion-label position="stacked">Contraseña</ion-label>
+            <br>
+            <ion-input type="password" [(ngModel)]="password" placeholder="Ingrese contraseña..."></ion-input>
+        </ion-item>
+        <ion-button (click)="onSubmitLogin()" class="btnRegistro" expand="block">Ingresar</ion-button>
+        <br>
+        <!-- <ion-button (click)="ingresarComoAnonimo()" class="btnRegistro" expand="block">Ingresar Anonimo</ion-button> -->
+        <a href="#">¿Olividaste la contraseña?</a>
+        <br>
+        <ion-button (click)="registrarUsuario()" class="btnRegistro" color='success' expand="block">Registrarse</ion-button>
+        <br>
+    </ion-card>
+</ion-content>
