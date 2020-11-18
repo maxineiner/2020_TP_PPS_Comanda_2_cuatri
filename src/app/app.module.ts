@@ -22,6 +22,7 @@ import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
 import { ProfileGuardService } from './services/profile-guard.service';
+import { NativeAudio } from '@ionic-native/native-audio/ngx';
 
 @NgModule({
   declarations: [AppComponent],
@@ -32,6 +33,7 @@ import { ProfileGuardService } from './services/profile-guard.service';
       IonicModule.forRoot(),
       AppRoutingModule,
       FormsModule,
+      ComponentsModule,
       ReactiveFormsModule,
       AngularFireAuthModule,
       AngularFireDatabaseModule,
@@ -44,6 +46,7 @@ import { ProfileGuardService } from './services/profile-guard.service';
     StatusBar,
     SplashScreen,
     BarcodeScanner,
+    NativeAudio,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     AngularFireDatabase,
     ProfileGuardService

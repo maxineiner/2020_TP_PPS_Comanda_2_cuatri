@@ -1,0 +1,129 @@
+<ion-segment value="clientes" (ionChange)="segmentChanged($event)" mode="ios" color="success">
+  <ion-segment-button value="clientes">
+    <ion-label>Clientes</ion-label>
+  </ion-segment-button>
+  <ion-segment-button value="empleados">
+    <ion-label>Empleados</ion-label>
+  </ion-segment-button>
+</ion-segment>
+<ion-content class="fondo ion-padding">
+
+  <form #formulario="ngForm" class="contenido">
+
+    <ion-list mode="ios" *ngIf="encuesta.idUsuario">
+
+      <ion-item color="dark">
+        <ion-label>Nombre: {{encuesta.nombre}} {{encuesta.apellido}} </ion-label>
+      </ion-item>
+
+      <ion-item color="dark">
+        <ion-label>D.N.I.: {{encuesta.dni}}</ion-label>
+      </ion-item>
+
+      <ion-item color="dark">
+        <ion-label>Sexo</ion-label>
+        <ion-select value="'Otro'" color="dark" [interfaceOptions]="customActionSheetOptions"
+                    interface="action-sheet" cancelText="Cancelar"
+                    [(ngModel)]="encuesta.sexo" name="sexo">
+          <ion-select-option color="success" value="'Masculino'">Masculino</ion-select-option>
+          <ion-select-option color="success" value="'Femenino'">Femenino</ion-select-option>
+          <ion-select-option color="success" value="'Otro'">Otro</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-list-header color="dark">
+        <ion-label>Conflictos con aplicación</ion-label>
+      </ion-list-header>
+      <ion-item color="dark">
+        <ion-label>Consultas</ion-label>
+        <ion-checkbox slot="end" (ionChange)="checked($event)" value="'Consultas'" color="success">
+        </ion-checkbox>
+      </ion-item>
+      <ion-item color="dark">
+        <ion-label>Uso de aplicación</ion-label>
+        <ion-checkbox slot="end" (ionChange)="checked($event)" value="'Uso de aplicación'" color="success">
+        </ion-checkbox>
+      </ion-item>
+      <ion-item color="dark">
+        <ion-label>Pago</ion-label>
+        <ion-checkbox slot="end" (ionChange)="checked($event)" value="'Pago'" color="success">
+        </ion-checkbox>
+      </ion-item>
+      <ion-item color="dark">
+        <ion-label>Reservas</ion-label>
+        <ion-checkbox slot="end" (ionChange)="checked($event)" value="'Reservas'" color="success">
+        </ion-checkbox>
+      </ion-item>
+      <ion-item color="dark">
+        <ion-label>Código QR</ion-label>
+        <ion-checkbox slot="end" (ionChange)="checked($event)" value="'Código QR'" color="success">
+        </ion-checkbox>
+      </ion-item>
+
+      <ion-list-header color="dark">
+        <ion-label>Uso de aplicación</ion-label>
+      </ion-list-header>
+
+      <ion-item color="dark">
+        <ion-label>{{encuesta.usoDeAplicacion}}</ion-label>
+        <ion-range min="0" max="10" pin="true" color="success"
+                   (ionChange)="rangeChange($event)">
+          <ion-icon size="small" slot="start" name="sad"></ion-icon>
+          <ion-icon size="small" slot="end" name="happy"></ion-icon>
+        </ion-range>
+      </ion-item>
+
+      <ion-radio-group name="comportamiento" value="'Excelente'" [(ngModel)]="encuesta.comportamiento">
+        <ion-list-header color="dark">
+          <ion-label>Comportamiento</ion-label>
+        </ion-list-header>
+        <ion-item color="dark">
+          <ion-label>Excelente</ion-label>
+          <ion-radio value="'Excelente'"></ion-radio>
+        </ion-item>
+        <ion-item color="dark">
+          <ion-label>Bueno</ion-label>
+          <ion-radio value="'Bueno'"></ion-radio>
+        </ion-item>
+        <ion-item color="dark">
+          <ion-label>Regular</ion-label>
+          <ion-radio value="'Regular'"></ion-radio>
+        </ion-item>
+        <ion-item color="dark">
+          <ion-label>Malo</ion-label>
+          <ion-radio value="'Malo'"></ion-radio>
+        </ion-item>
+        <ion-item color="dark">
+          <ion-label>Pésimo</ion-label>
+          <ion-radio value="'Pésimo'"></ion-radio>
+        </ion-item>
+      </ion-radio-group>
+
+      <ion-item color="dark">
+        <ion-label>¿Ha realizado un reclamo?</ion-label>
+        <ion-toggle name="reclamo" [(ngModel)]="encuesta.reclamo" color="success"></ion-toggle>
+      </ion-item>
+
+      <ion-item color="dark">
+        <ion-label position="floating">Comentarios</ion-label>
+        <ion-input type="text" name="comentario" [(ngModel)]="encuesta.comentario">
+        </ion-input>
+      </ion-item>
+
+
+    </ion-list>
+
+
+
+    <ion-button *ngIf="encuesta.idUsuario" (click)="guardar()" expand="block" color="light" size="large"
+                [disabled]="formulario.invalid">
+      Guardar
+    </ion-button>
+
+  </form>
+
+  <ion-item *ngIf="!encuesta.idUsuario" id="container" class="contenido" color="dark">
+    <ion-label>Seleccione un usuario</ion-label>
+  </ion-item>
+
+</ion-content>

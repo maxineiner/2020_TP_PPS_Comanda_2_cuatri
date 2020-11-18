@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { BarcodeScanResult } from '@ionic-native/barcode-scanner';
 import { ModalController, ToastController } from '@ionic/angular';
 import { CodigoQRService } from 'src/app/services/codigo-qr.service';
+import { EncuestaPage } from '../encuesta/encuesta.page';
 import { SalaChatPage } from '../sala-chat/sala-chat.page';
 
 @Component({
@@ -63,6 +64,7 @@ export class Tab1Page
 
     await modal.present();
   }
+
 
 
 

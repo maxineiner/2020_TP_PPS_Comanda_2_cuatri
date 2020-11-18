@@ -5,6 +5,7 @@ import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { SplashComponent } from './components/splash/splash.component';
 import { Router } from '@angular/router';
+import { AudioService } from './services/audio.service';
 
 @Component({
   selector: 'app-root',
@@ -18,10 +19,17 @@ export class AppComponent
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
     private modalCtrl: ModalController,
-    private router: Router
+    private router: Router,
+    private audioService: AudioService
   )
   {
-    platform.ready().then(() =>
+
+    this.platform.pause.subscribe(async () =>
+    {
+      this.audioService.play('cierre');
+    });
+
+    this.platform.ready().then(() =>
     {
       this.presentModal().then(() => this.router.navigate(['/auth-page']));
     });

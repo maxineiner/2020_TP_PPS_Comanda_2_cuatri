@@ -1,0 +1,7 @@
+<app-header titulo="Encuesta"></app-header>
+
+<ion-content>
+    <app-encuesta-cliente *ngIf="rolService.isCliente(usuario)"></app-encuesta-cliente>
+    <app-encuesta-empleado *ngIf="rolService.isEmpleado(usuario)"></app-encuesta-empleado>
+    <app-encuesta-supervisor *ngIf="rolService.isJefe(usuario)"></app-encuesta-supervisor>
+</ion-content>

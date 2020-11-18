@@ -16,6 +16,7 @@ import { PedidoService } from './pedido.service';
 import { MetadataMensaje } from './mensajes.service';
 import { HapticService } from './haptic.service';
 import { FacturaComponent } from '../components/factura/factura.component';
+import { Cliente } from '../clases/cliente';
 
 /**
  * Interfaz para crear dinámicamente botones de un Action Sheet
