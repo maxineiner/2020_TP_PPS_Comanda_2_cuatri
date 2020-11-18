@@ -6,11 +6,13 @@ import { Cliente } from 'src/app/clases/cliente';
 import { Usuario } from 'src/app/clases/usuario';
 import { AudioService } from 'src/app/services/audio.service';
 import { AuthService } from 'src/app/services/auth.service';
+import { EncuestaService } from 'src/app/services/encuesta.service';
 import { HapticService } from 'src/app/services/haptic.service';
 import { NotificationsService } from 'src/app/services/notifications.service';
 import { PedidoService } from 'src/app/services/pedido.service';
 import { ProductoService } from 'src/app/services/producto.service';
 import { RolesService } from 'src/app/services/roles.service';
+import { UIVisualService } from 'src/app/services/uivisual.service';
 import { EncuestaPage } from '../encuesta/encuesta.page';
 
 @Component({
@@ -32,13 +34,27 @@ export class HomePage implements OnInit
     private actionSheetController: ActionSheetController,
     private pedidosService: PedidoService,
     private productoService: ProductoService,
-    private modalController: ModalController
+    private modalController: ModalController,
+    private UIVisual: UIVisualService,
+    private encuestaService: EncuestaService
   ) { }
 
   ngOnInit()
   {
-    this.pedidosService.leer();
-    this.productoService.traerTodos();
+    if (!PedidoService.pedidos)
+    {
+      this.pedidosService.leer();
+    }
+
+    if (!ProductoService.productos)
+    {
+      this.productoService.traerTodos();
+    }
+
+    if (!EncuestaService.encuestas)
+    {
+      this.encuestaService.leer();
+    }
     this.usuario = AuthService.usuario;
     this.notifications.initPush();
     HapticService.vibrar();
@@ -50,52 +66,14 @@ export class HomePage implements OnInit
     this.router.navigate(['/auth-page']);
   }
 
-
   async mostrarMenu() 
   {
-    const actionSheet = await this.actionSheetController.create({
-      header: 'Menú',
-      mode: 'ios',
-      translucent: true,
-      buttons: [{
-        text: 'Clientes',
-        icon: 'person-circle',
-        handler: () => this.router.navigate(['/home/menu-cliente'])
-      },
-      {
-        text: 'Empleados',
-        icon: 'accessibility-outline',
-        handler: () => this.router.navigate(['/home/menu-empleado'])
-      },
-      {
-        text: 'Supervisores',
-        icon: 'glasses-outline',
-        handler: () => this.router.navigate(['/home/menu-jefe'])
-      },
-      {
-        text: 'Mesas',
-        icon: 'storefront-outline',
-        handler: () => this.router.navigate(['/home/menu-mesa'])
-      },
-      {
-        text: 'Nuevos Clientes',
-        icon: 'person-add-outline',
-        handler: () => this.router.navigate(['/home/clientes-pendientes'])
-      },
-      {
-        text: 'Cerrar',
-        role: 'cancel',
-        handler: () =>
-        {
-          console.log('Cerrar');
-        }
-      }
-      ]
-    });
-
-    await actionSheet.present();
+    UIVisualService.mostrarMenuJefes();
   }
 
-
+  async verEncuestaEmpleado()
+  {
+    UIVisualService.verEncuesta();
+  }
 
 }

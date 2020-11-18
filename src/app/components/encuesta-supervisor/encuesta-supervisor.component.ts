@@ -2,7 +2,9 @@ import { Component, Input, OnInit } from '@angular/core';
 import { PopoverController } from '@ionic/angular';
 import { Cliente } from 'src/app/clases/cliente';
 import { Empleado } from 'src/app/clases/empleado';
-import { EncuestaSupervisor } from 'src/app/clases/encuestaSupervisor';
+import { TipoEncuesta } from 'src/app/clases/encuesta';
+import { Conflictos, EncuestaSupervisor } from 'src/app/clases/encuestaSupervisor';
+import { Jefe } from 'src/app/clases/jefe';
 import { Usuario } from 'src/app/clases/usuario';
 import { AuthService } from 'src/app/services/auth.service';
 import { ClienteService } from 'src/app/services/cliente.service';
@@ -18,6 +20,9 @@ import { PopoverUsuariosComponent } from '../popover-usuarios/popover-usuarios.c
 })
 export class EncuestaSupervisorComponent implements OnInit
 {
+  jefe: Jefe = <Jefe>AuthService.usuario;
+  empleados: Empleado[] = EmpleadoService.empleados;
+  clientes: Cliente[] = ClienteService.clientes;
   encuesta: EncuestaSupervisor = new EncuestaSupervisor();
 
   customActionSheetOptions = {
@@ -26,16 +31,11 @@ export class EncuestaSupervisorComponent implements OnInit
   };
 
   constructor(private encuestaService: EncuestaService,
-    private empleadoService: EmpleadoService,
-    private clienteService: ClienteService,
-    private UIVisual: UIVisualService,
-    private popoverController: PopoverController) { }
+    private popoverController: PopoverController,
+    private UIVisual: UIVisualService) { }
 
   ngOnInit() 
   {
-    UIVisualService.loading();
-    this.empleadoService.leer();
-    this.clienteService.leer();
   }
 
   segmentChanged(event)
@@ -47,21 +47,26 @@ export class EncuestaSupervisorComponent implements OnInit
 
   rangeChange(event)
   {
-    console.log(event.detail.value);
-
     this.encuesta.usoDeAplicacion = event.detail.value;
   }
 
   checked(event)
   {
-    console.log(event);
+    if (!this.encuesta.conflictosApp.includes(event.detail.value))
+    {
+      this.encuesta.conflictosApp.push(<Conflictos>event.detail.value);
+    }
+    else
+    {
+      this.encuesta.conflictosApp = this.encuesta.conflictosApp
+        .filter(opcion => opcion != event.detail.value);
+    }
   }
 
   async presentPopover(modo: string)
   {
     const popover = await this.popoverController.create({
       component: PopoverUsuariosComponent,
-      cssClass: 'my-custom-class',
       translucent: true,
       componentProps: {
         modo: modo
@@ -71,22 +76,33 @@ export class EncuestaSupervisorComponent implements OnInit
 
     const { data } = await popover.onDidDismiss<Usuario>();
     console.log(data);
-    this.encuesta.idUsuario = data.id;
-    this.encuesta.nombre = data.nombre;
-    this.encuesta.apellido = data.apellido;
-    this.encuesta.dni = data.dni;
+
+    if (data)
+    {
+      this.encuesta.usuario = this.jefe;
+      this.encuesta.idUsuario = data.id;
+      this.encuesta.nombre = data.nombre;
+      this.encuesta.apellido = data.apellido;
+      this.encuesta.dni = data.dni;
+    }
   }
 
   async guardar()
   {
     console.log(this.encuesta);
-    // const imagenGuardada = await this.imagenService.crearUnaImagen(
-    //   this.auxiliarFoto,
-    //   '/encuestas-empleado'
-    // )
 
-    // this.encuesta.fotos = imagenesGuardadas;
+    if (EncuestaService.validarAcceso(this.encuesta.idUsuario, true))
+    {
+      this.encuesta.tipo = TipoEncuesta.SUPERVISOR;
 
-    // this.encuestaService.crear(this.encuesta);
+      this.encuestaService.crear(this.encuesta)
+        .then(() => UIVisualService.presentToast("Encuesta guardada."))
+        .then(() => this.encuestaService.leer())
+        .catch(() => UIVisualService.presentToast("No se pudo guardar."));
+    }
+    else
+    {
+      UIVisualService.presentToast("Ya se han registrado datos de este usuario.");
+    }
   }
 }

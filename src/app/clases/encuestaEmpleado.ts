@@ -10,7 +10,7 @@ export enum EstadoLugar
     PESIMO = "Pésimo"
 }
 
-export enum Ubicaciones
+export enum Ubicacion
 {
     BACHA = "Bacha",
     DEPOSITO = "Depósito",
@@ -32,6 +32,16 @@ export class EncuestaEmpleado extends Encuesta
     relevoAHorario: boolean;
     ordenLugar: EstadoLugar;
     limpiezaLugar: EstadoLugar;
-    lugaresBuenEstado: Ubicaciones[];
+    lugaresBuenEstado: Ubicacion[];
     foto: Imagen;
+
+    constructor(init?: Partial<Encuesta>)
+    {
+        super(init);
+        if (!init)
+        {
+            this.lugaresBuenEstado = [];
+            this.relevoAHorario = false;
+        }
+    }
 }

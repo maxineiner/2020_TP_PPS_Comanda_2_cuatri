@@ -87,6 +87,10 @@ const routes: Routes = [
         loadChildren: () => import('../consultas/consultas.module').then(m => m.ConsultasPageModule)
       },
       {
+        path: 'encuesta',
+        loadChildren: () => import('../encuesta/encuesta.module').then(m => m.EncuestaPageModule)
+      },
+      {
         path: '',
         redirectTo: '/home/inicio',
         pathMatch: 'full'

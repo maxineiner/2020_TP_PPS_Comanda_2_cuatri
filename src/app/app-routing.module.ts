@@ -23,10 +23,7 @@ const routes: Routes = [
     path: 'auth-page',
     loadChildren: () => import('./pages/auth-page/auth-page.module').then(m => m.AuthPagePageModule)
   },
-  {
-    path: 'encuesta',
-    loadChildren: () => import('./pages/encuesta/encuesta.module').then(m => m.EncuestaPageModule)
-  },
+
 
 
 ];

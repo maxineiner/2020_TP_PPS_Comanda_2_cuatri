@@ -1,8 +1,9 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Cliente } from 'src/app/clases/cliente';
-import { Encuesta } from 'src/app/clases/encuesta';
-import { EncuestaCliente } from 'src/app/clases/encuestaCliente';
+import { Encuesta, TipoEncuesta } from 'src/app/clases/encuesta';
+import { Destacado, EncuestaCliente } from 'src/app/clases/encuestaCliente';
 import { Imagen } from 'src/app/clases/imagen';
+import { AuthService } from 'src/app/services/auth.service';
 import { EncuestaService } from 'src/app/services/encuesta.service';
 import { ImagenService } from 'src/app/services/imagen.service';
 import { UIVisualService } from 'src/app/services/uivisual.service';
@@ -14,10 +15,11 @@ import { UIVisualService } from 'src/app/services/uivisual.service';
 })
 export class EncuestaClienteComponent implements OnInit
 {
-  @Input() cliente: Cliente;
+  @Input() cliente: Cliente = <Cliente>AuthService.usuario;
   encuesta: EncuestaCliente = new EncuestaCliente();
   imgPreview: string[] = new Array<string>(3);
   fotos: Imagen[] = new Array<Imagen>(3);
+  habilitado: boolean = true;
   customActionSheetOptions = {
     header: 'Calidad del servicio',
     mode: 'ios',
@@ -27,7 +29,10 @@ export class EncuestaClienteComponent implements OnInit
   constructor(private encuestaService: EncuestaService, private imagenService: ImagenService,
     private UIVisual: UIVisualService) { }
 
-  ngOnInit() { }
+  ngOnInit() 
+  {
+    this.habilitado = EncuestaService.validarAcceso(this.cliente.id);
+  }
 
   async subirFoto(index: number)
   {
@@ -52,16 +57,32 @@ export class EncuestaClienteComponent implements OnInit
 
   checked(event)
   {
-    console.log(event);
+    if (!this.encuesta.destacado.includes(event.detail.value))
+    {
+      this.encuesta.destacado.push(<Destacado>event.detail.value);
+    }
+    else
+    {
+      this.encuesta.destacado = this.encuesta.destacado.filter(opcion => opcion != event.detail.value);
+    }
   }
 
   async guardar()
   {
     console.log(this.encuesta);
-    // const imagenesGuardadas = await this.imagenService.crearArrayImagenes(this.fotos, "/encuestas-cliente");
 
-    // this.encuesta.fotos = imagenesGuardadas;
+    if (this.fotos.some(img => img.base64))
+    {
+      const imagenesGuardadas = await this.imagenService.crearArrayImagenes(this.fotos, "/encuestas-cliente");
 
-    // this.encuestaService.crear(this.encuesta);
+      this.encuesta.fotos = imagenesGuardadas;
+    }
+
+    this.encuesta.tipo = TipoEncuesta.CLIENTE;
+    this.encuesta.usuario = AuthService.usuario;
+
+    this.encuestaService.crear(this.encuesta)
+      .then(() => UIVisualService.presentToast("Encuesta guardada."))
+      .catch(() => UIVisualService.presentToast("No se pudo guardar."));
   }
 }

@@ -25,11 +25,11 @@ export class PopoverUsuariosComponent implements OnInit
     console.log(this.modo);
   }
 
-  seleccionar(event)
+  seleccionar(usuario)
   {
-    console.log(event);
+    console.log(usuario);
 
-    this.usuarioSeleccionado = event;
+    this.usuarioSeleccionado = usuario;
     this.popoverController.dismiss(this.usuarioSeleccionado);
   }
 
