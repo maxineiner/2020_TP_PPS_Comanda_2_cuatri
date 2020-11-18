@@ -17,6 +17,7 @@ import { MetadataMensaje } from './mensajes.service';
 import { HapticService } from './haptic.service';
 import { FacturaComponent } from '../components/factura/factura.component';
 import { Cliente } from '../clases/cliente';
+import { EncuestaPage } from '../pages/encuesta/encuesta.page';
 
 /**
  * Interfaz para crear dinámicamente botones de un Action Sheet
@@ -31,6 +32,7 @@ export interface IBotonesGenerados
   chat?: { boton?: ActionSheetButton, handler: any, params?: MetadataMensaje },
   notificar?: { boton?: ActionSheetButton, handler: any, params?: any },
   liberar?: { boton?: ActionSheetButton, handler: any, params?: any },
+  encuesta?: { boton?: ActionSheetButton, handler: any },
 }
 
 /**
@@ -174,6 +176,16 @@ export class UIVisualService
           if (handlers.cerrar) botonesGenerados.push(handlers.cerrar.boton);
         }
 
+        if (estado == EstadoPedido.CERRADO || estado == EstadoPedido.PAGADO)
+        {
+          handlers.encuesta.boton = {
+            text: 'Encuesta',
+            icon: 'analytics-sharp',
+            handler: () => handlers.encuesta.handler()
+          }
+          if (handlers.encuesta) botonesGenerados.push(handlers.encuesta.boton);
+        }
+
         break;
       case 'Mozo':
         handlers.mostrarPlatos.boton = {
@@ -287,6 +299,18 @@ export class UIVisualService
     modal.onWillDismiss().then(() => this.loading());
   }
 
+  static async verEncuesta()
+  {
+
+    const modal = await UIVisualService.UI.modalController.create({
+      component: EncuestaPage
+    });
+
+    await modal.present();
+
+    modal.onWillDismiss().then(() => UIVisualService.loading());
+  }
+
   static async verFoto(ev: any, foto: Imagen)
   {
     const popover = await UIVisualService.UI.popoverController.create({
@@ -300,6 +324,56 @@ export class UIVisualService
     });
 
     await popover.present();
+  }
+
+  static async mostrarMenuJefes() 
+  {
+    const actionSheet = await UIVisualService.UI.actionSheetController.create({
+      header: 'Menú',
+      mode: 'ios',
+      translucent: true,
+      buttons: [{
+        text: 'Clientes',
+        icon: 'person-circle',
+        handler: () => UIVisualService.UI.router.navigate(['/home/menu-cliente'])
+      },
+      {
+        text: 'Empleados',
+        icon: 'accessibility-outline',
+        handler: () => UIVisualService.UI.router.navigate(['/home/menu-empleado'])
+      },
+      {
+        text: 'Supervisores',
+        icon: 'glasses-outline',
+        handler: () => UIVisualService.UI.router.navigate(['/home/menu-jefe'])
+      },
+      {
+        text: 'Mesas',
+        icon: 'storefront-outline',
+        handler: () => UIVisualService.UI.router.navigate(['/home/menu-mesa'])
+      },
+      {
+        text: 'Nuevos Clientes',
+        icon: 'person-add-outline',
+        handler: () => UIVisualService.UI.router.navigate(['/home/clientes-pendientes'])
+      },
+      {
+        text: 'Encuesta',
+        icon: 'analytics-outline',
+        handler: () => UIVisualService.verEncuesta()
+      },
+      {
+        text: 'Cerrar',
+        role: 'cancel',
+        handler: () =>
+        {
+          console.log('Cerrar');
+        }
+      }
+      ]
+    });
+
+    await actionSheet.present();
   }
 
 

@@ -1,6 +1,6 @@
 <ion-content class="fondo ion-padding">
 
-  <form #formulario="ngForm" class="contenido">
+  <form #formulario="ngForm" class="contenido" *ngIf="habilitado">
 
     <ion-list mode="ios">
 
@@ -9,28 +9,28 @@
       </ion-list-header>
       <ion-item color="dark">
         <ion-label>Atención</ion-label>
-        <ion-checkbox slot="end" (ionChange)="checked($event)" value="'Atención'" color="success">
+        <ion-checkbox slot="end" (ionChange)="checked($event)" value="Atención" color="success">
         </ion-checkbox>
       </ion-item>
       <ion-item color="dark">
         <ion-label>Precio</ion-label>
-        <ion-checkbox slot="end" (ionChange)="checked($event)" value="'Precio'" color="success">
+        <ion-checkbox slot="end" (ionChange)="checked($event)" value="Precio" color="success">
         </ion-checkbox>
       </ion-item>
       <ion-item color="dark">
         <ion-label>Comida</ion-label>
-        <ion-checkbox slot="end" (ionChange)="checked($event)" value="'Comida'" color="success">
+        <ion-checkbox slot="end" (ionChange)="checked($event)" value="Comida" color="success">
         </ion-checkbox>
       </ion-item>
       <ion-item color="dark">
         <ion-label>Acessibilidad</ion-label>
-        <ion-checkbox slot="end" (ionChange)="checked($event)" value="'Accesibilidad'" color="success">
+        <ion-checkbox slot="end" (ionChange)="checked($event)" value="Accesibilidad" color="success">
         </ion-checkbox>
       </ion-item>
 
       <ion-item color="dark">
-        <ion-label position="stacked">Cantidad de comensales</ion-label>
-        <ion-input type="number" name="comensales" [(ngModel)]="encuesta.comensales">
+        <ion-label position="floating">Cantidad de comensales (obligatorio)</ion-label>
+        <ion-input type="number" name="comensales" [(ngModel)]="encuesta.comensales" required>
         </ion-input>
       </ion-item>
 
@@ -41,36 +41,36 @@
 
       <ion-item color="dark">
         <ion-label>{{encuesta.satisfaccion}}</ion-label>
-        <ion-range min="0" max="100" pin="true" color="success"
+        <ion-range min="0" max="10" pin="true" color="success"
                    (ionChange)="rangeChange($event)">
           <ion-icon size="small" slot="start" name="sad"></ion-icon>
           <ion-icon size="small" slot="end" name="happy"></ion-icon>
         </ion-range>
       </ion-item>
 
-      <ion-radio-group name="sabor" value="'Excelente'" [(ngModel)]="encuesta.sabor">
+      <ion-radio-group name="sabor" value="Excelente" [(ngModel)]="encuesta.sabor" required>
         <ion-list-header color="dark">
           <ion-label>Sabor</ion-label>
         </ion-list-header>
         <ion-item color="dark">
           <ion-label>Excelente</ion-label>
-          <ion-radio value="'Excelente'"></ion-radio>
+          <ion-radio value="Excelente" color="success"></ion-radio>
         </ion-item>
         <ion-item color="dark">
           <ion-label>Bueno</ion-label>
-          <ion-radio value="'Bueno'"></ion-radio>
+          <ion-radio value="Bueno" color="success"></ion-radio>
         </ion-item>
         <ion-item color="dark">
           <ion-label>Regular</ion-label>
-          <ion-radio value="'Regular'"></ion-radio>
+          <ion-radio value="Regular" color="success"></ion-radio>
         </ion-item>
         <ion-item color="dark">
           <ion-label>Malo</ion-label>
-          <ion-radio value="'Malo'"></ion-radio>
+          <ion-radio value="Malo" color="success"></ion-radio>
         </ion-item>
         <ion-item color="dark">
           <ion-label>Pésimo</ion-label>
-          <ion-radio value="'Pésimo'"></ion-radio>
+          <ion-radio value="Pésimo" color="success"></ion-radio>
         </ion-item>
       </ion-radio-group>
 
@@ -84,13 +84,13 @@
       <ion-item color="dark">
         <ion-label>Servicio</ion-label>
         <ion-select value="'Excelente'" color="dark" [interfaceOptions]="customActionSheetOptions"
-                    interface="action-sheet" cancelText="Cancelar"
+                    interface="action-sheet" cancelText="Cancelar" required
                     [(ngModel)]="encuesta.servicio" name="servicio">
-          <ion-select-option color="success" value="'Excelente'">Excelente</ion-select-option>
-          <ion-select-option color="success" value="'Bueno'">Bueno</ion-select-option>
-          <ion-select-option color="success" value="'Regular'">Regular</ion-select-option>
-          <ion-select-option color="success" value="'Malo'">Malo</ion-select-option>
-          <ion-select-option color="success" value="'Pésimo'">Pésimo</ion-select-option>
+          <ion-select-option color="success" value="Excelente">Excelente</ion-select-option>
+          <ion-select-option color="success" value="Bueno">Bueno</ion-select-option>
+          <ion-select-option color="success" value="Regular">Regular</ion-select-option>
+          <ion-select-option color="success" value="Malo">Malo</ion-select-option>
+          <ion-select-option color="success" value="Pésimo">Pésimo</ion-select-option>
         </ion-select>
       </ion-item>
 
@@ -121,5 +121,8 @@
     </ion-button>
 
   </form>
+
+  <ion-label *ngIf="!habilitado" class="contenido" color="dark" id="container">Encuesta ya realizada.</ion-label>
+
 
 </ion-content>

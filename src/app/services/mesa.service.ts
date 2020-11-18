@@ -43,7 +43,6 @@ export class MesaService
         resolve(this.firebase.database.ref('mesas/' + mesa.id).update(mesa));
       }).catch(error => reject(error));
     })
-
   }
 
   /**

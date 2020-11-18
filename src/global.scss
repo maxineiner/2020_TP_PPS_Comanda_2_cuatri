@@ -181,8 +181,11 @@
   background-color: transparent !important;
   --background: transparent !important;
   opacity: 80% !important;
+  --spinner-color: var(--ion-color-success) !important; 
 }
 
-.spinner{
-  border-radius: 50% !important;
+
+.sc-ion-loading-md-h 
+{
+  --spinner-color: var(--ion-color-success) !important; 
 }

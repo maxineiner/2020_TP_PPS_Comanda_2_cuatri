@@ -1,4 +1,13 @@
-<app-header titulo="Encuesta"></app-header>
+<ion-header>
+    <ion-toolbar color="medium">
+        <ion-buttons slot="start">
+            <ion-button (click)="cerrar()" expand="block">
+                <ion-icon size="large" slot="icon-only" name="arrow-back"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+        <ion-title>Encuesta</ion-title>
+    </ion-toolbar>
+</ion-header>
 
 <ion-content>
     <app-encuesta-cliente *ngIf="rolService.isCliente(usuario)"></app-encuesta-cliente>
