@@ -9,6 +9,7 @@ import { AppComponent } from './app.component';
 import { ReactiveFormsModule, FormsModule } from "@angular/forms";
 import { ComponentsModule } from './components/components.module';
 import { environment } from 'src/environments/environment';
+import { HttpClientModule } from '@angular/common/http';
 
 // Firebase
 import { AngularFireModule } from '@angular/fire';
@@ -36,7 +37,8 @@ import { ProfileGuardService } from './services/profile-guard.service';
       AngularFireDatabaseModule,
       AngularFireModule.initializeApp(environment.firebaseConfig),
       ComponentsModule,
-      AngularFireStorageModule
+      AngularFireStorageModule,
+      HttpClientModule
     ],
   providers: [
     StatusBar,

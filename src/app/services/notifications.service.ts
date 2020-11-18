@@ -18,21 +18,26 @@ import { ClienteService } from './cliente.service';
 import { Jefe } from '../clases/jefe';
 import { Empleado } from '../clases/empleado';
 import { Cliente } from '../clases/cliente';
-const fcm = new FCM();
+import { INotificacion } from '../interfaces/INotification';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { UIVisualService } from './uivisual.service';
 
+const fcm = new FCM();
 const { PushNotifications } = Plugins;
 @Injectable({
   providedIn: 'root'
 })
 export class NotificationsService
 {
+  API = 'https://server-push-notifications.herokuapp.com/';
   constructor(
     private router: Router,
     private auth: AuthService,
     private rolesService: RolesService,
-    private jefeService:JefeService,
-    private empleadoService:EmpleadoService,
-    private clienteService:ClienteService
+    private jefeService: JefeService,
+    private empleadoService: EmpleadoService,
+    private clienteService: ClienteService,
+    private http: HttpClient
   ) { }
 
   public initPush()
@@ -46,7 +51,6 @@ export class NotificationsService
 
   private registerPush()
   {
-
     // Request permission to use push notifications
     // iOS will prompt user and return if they granted permission or not
     // Android will just grant without prompting
@@ -54,15 +58,11 @@ export class NotificationsService
     {
       if (result.granted)
       {
-        // Register with Apple / Google to receive push via APNS/FCM
         PushNotifications.register();
-        // Solo para testear
-        // Subscribe to a specific topic
-        // you can use `FCMPlugin` or just `fcm`
-        if(this.rolesService.isJefe(AuthService.usuario)){this.subcribirseAUnTema('jefes')}
-        if(this.rolesService.isEmpleadoMozo(AuthService.usuario)){this.subcribirseAUnTema('mozos')}
-        if(this.rolesService.isEmpleadoCocinero(AuthService.usuario)){this.subcribirseAUnTema('cocineros')}
-        if(this.rolesService.isEmpleadoBartender(AuthService.usuario)){this.subcribirseAUnTema('bartenders')}
+        if (this.rolesService.isJefe(AuthService.usuario)) { this.subcribirseAUnTema('jefes') }
+        if (this.rolesService.isEmpleadoMozo(AuthService.usuario)) { this.subcribirseAUnTema('mozos') }
+        if (this.rolesService.isEmpleadoCocinero(AuthService.usuario)) { this.subcribirseAUnTema('cocineros') }
+        if (this.rolesService.isEmpleadoBartender(AuthService.usuario)) { this.subcribirseAUnTema('bartenders') }
 
       } else
       {
@@ -74,7 +74,8 @@ export class NotificationsService
       'registration',
       (token: PushNotificationToken) =>
       {
-        if(this.nuevoToken(AuthService.usuario,token.value)){
+        if (this.nuevoToken(AuthService.usuario, token.value))
+        {
           AuthService.usuario.tokenNotification.push(token.value);
           this.actualizarUsuario(AuthService.usuario);
         }
@@ -90,7 +91,8 @@ export class NotificationsService
       'pushNotificationReceived',
       (notification: PushNotification) =>
       {
-        /* alert('Push received: ' + JSON.stringify(notification)); */
+        console.log('pushNotificationReceived', notification);
+        this.manejarNotificacion(notification,AuthService.usuario);
       },
     );
 
@@ -98,7 +100,8 @@ export class NotificationsService
       'pushNotificationActionPerformed',
       (notification: PushNotificationActionPerformed) =>
       {
-        /* alert('Push action performed: ' + JSON.stringify(notification)); */
+        console.log( 'pushNotificationActionPerformed', notification);
+        this.manejarNotificacion(notification.notification,AuthService.usuario);
       },
     );
   }
@@ -131,18 +134,48 @@ export class NotificationsService
     }
   }
 
-  actualizarUsuario(usuario:Usuario){
-    if(this.rolesService.isCliente(usuario)){
+  actualizarUsuario(usuario: Usuario)
+  {
+    if (this.rolesService.isCliente(usuario))
+    {
       this.clienteService.actualizar(usuario as Cliente)
     }
-    else if(this.rolesService.isEmpleado(usuario)){
+    else if (this.rolesService.isEmpleado(usuario))
+    {
       this.empleadoService.actualizar(usuario as Empleado)
     }
-    else{
+    else
+    {
       this.jefeService.actualizar(usuario as Jefe)
     }
 
   }
+
+  async sendNotification(notificacion: INotificacion, topic: string)
+  {
+    let body = JSON.stringify(notificacion);
+    let url = `${this.API}${topic}`;
+    let headers = new HttpHeaders({
+      'Content-Type': 'application/json'
+    });
+    return this.http.post(url, body, { headers:headers ,responseType: 'text'}).toPromise();
+  }
+
+  manejarNotificacion(notificacion:PushNotification, usuario:Usuario){
+    if (this.rolesService.isCliente(usuario))
+    {
+      UIVisualService.presentAlert(notificacion.title,notificacion.body);
+    }
+    else if (this.rolesService.isEmpleado(usuario))
+    {
+      UIVisualService.presentAlert(notificacion.title,notificacion.body);
+    }
+    else//Jefe
+    {
+      UIVisualService.presentAlert(notificacion.title,notificacion.body);
+    }
+  }
+
 
 
 }
