@@ -7,3 +7,6 @@ android
 www
 platforms
 .vscode
+server-nodejs/config
+server-nodejs/node_modules
+server-nodejs/.firebase

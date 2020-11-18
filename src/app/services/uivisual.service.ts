@@ -16,6 +16,7 @@ import { PedidoService } from './pedido.service';
 import { MetadataMensaje } from './mensajes.service';
 import { HapticService } from './haptic.service';
 import { FacturaComponent } from '../components/factura/factura.component';
+import { Cliente } from '../clases/cliente';
 
 /**
  * Interfaz para crear dinámicamente botones de un Action Sheet
@@ -153,7 +154,7 @@ export class UIVisualService
         }
         if (handlers.chat) botonesGenerados.push(handlers.chat.boton);
 
-        if (estado == EstadoPedido.EN_PROGRESO)
+        if (estado == EstadoPedido.LISTO)
         {
           handlers.recibir.boton = {
             text: 'Confirmar recepción',
@@ -282,6 +283,8 @@ export class UIVisualService
     });
 
     await modal.present();
+
+    modal.onWillDismiss().then(() => this.loading());
   }
 
   static async verFoto(ev: any, foto: Imagen)

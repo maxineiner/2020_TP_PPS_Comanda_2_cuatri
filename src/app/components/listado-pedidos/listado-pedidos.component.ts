@@ -48,11 +48,13 @@ export class ListadoPedidosComponent implements OnInit, DoCheck
     {
       return true;
     }
-    else if (this.rolService.isEmpleado(this.usuario) && pedido.estado == this.opcion) // Pedidos para empleados
+    else if (this.rolService.isEmpleado(this.usuario) &&
+      pedido.estado == this.opcion) // Pedidos para empleados
     {
       return true;
     }
-    else if (this.rolService.isJefe(this.usuario) && pedido.estado == this.opcion) // Pedidos para jefes
+    else if (this.rolService.isJefe(this.usuario) &&
+      pedido.estado == this.opcion) // Pedidos para jefes
     {
       return true
     }

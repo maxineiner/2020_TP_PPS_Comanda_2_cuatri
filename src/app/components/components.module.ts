@@ -35,6 +35,10 @@ import { EscanerQRComponent } from './escaner/escaner.component';
 import { ChatComponent } from './chat/chat.component';
 import { PedidoSlideComponent } from './pedido-slide/pedido-slide.component';
 import { FacturaComponent } from './factura/factura.component';
+import { EncuestaClienteComponent } from './encuesta-cliente/encuesta-cliente.component';
+import { EncuestaEmpleadoComponent } from './encuesta-empleado/encuesta-empleado.component';
+import { EncuestaSupervisorComponent } from './encuesta-supervisor/encuesta-supervisor.component';
+import { PopoverUsuariosComponent } from './popover-usuarios/popover-usuarios.component';
 
 @NgModule({
   declarations: [
@@ -71,7 +75,12 @@ import { FacturaComponent } from './factura/factura.component';
     DetallePedidoComponent,
     ListaPlatosClienteComponent,
     PedidoSlideComponent,
-    FacturaComponent
+    FacturaComponent,
+    //Encuestas
+    EncuestaClienteComponent,
+    EncuestaEmpleadoComponent,
+    EncuestaSupervisorComponent,
+    PopoverUsuariosComponent
   ],
   imports: [
     CommonModule,
@@ -114,7 +123,12 @@ import { FacturaComponent } from './factura/factura.component';
     DetallePedidoComponent,
     ListaPlatosClienteComponent,
     PedidoSlideComponent,
-    FacturaComponent
+    FacturaComponent,
+    //Encuestas
+    EncuestaClienteComponent,
+    EncuestaEmpleadoComponent,
+    EncuestaSupervisorComponent,
+    PopoverUsuariosComponent
   ]
 })
 export class ComponentsModule { }

@@ -1,0 +1,26 @@
+{
+  "name": "src",
+  "version": "1.0.0",
+  "description": "push-notifications",
+  "main": "index.js",
+  "engines": {
+    "node": "v13.13.0",
+    "npm": "6.14.5"
+  },
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "firebase-admin": "^9.4.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "start": "node index.js"
+  },
+  "keywords": [
+    "push-notifications",
+    "firebase",
+    "nodejs"
+  ],
+  "author": "Movimentarios",
+  "license": "ISC"
+}

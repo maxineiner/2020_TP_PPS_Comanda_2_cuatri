@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { AlertController, ModalController, ToastController } from '@ionic/angular';
 import { Pedido } from 'src/app/clases/pedido';
 import { CodigoQRService } from 'src/app/services/codigo-qr.service';
+import { HapticService } from 'src/app/services/haptic.service';
 import { MesaService } from 'src/app/services/mesa.service';
 import { PedidoService } from 'src/app/services/pedido.service';
 import { UIVisualService } from 'src/app/services/uivisual.service';
@@ -32,6 +33,7 @@ export class FacturaComponent implements OnInit
   {
     const scan = await this.escanerQR.escanear("Escanee el código QR", 'QR_CODE');
 
+    HapticService.vibrar();
     let textoQR = scan.text.split(':');
     let entidad = textoQR[1];
     let propina = textoQR[2];
@@ -41,6 +43,7 @@ export class FacturaComponent implements OnInit
     console.log(`Propina: ${propina}`);
 
     this.pedido.propina = parseInt(propina);
+    this.pedido.calcularTotal();
   }
 
   async pagar()
@@ -66,8 +69,8 @@ export class FacturaComponent implements OnInit
               .then(() =>
               {
                 this.presentToast("Pedido pagado");
-                this.pedido.mesa.isAvailable = true;
-                this.mesaService.actualizar(this.pedido.mesa);
+                console.log(this.pedido);
+
                 this.modalController.dismiss();
               })
               .catch(error => this.presentToast(error));

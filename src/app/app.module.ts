@@ -23,6 +23,7 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
 import { GooglePlus } from '@ionic-native/google-plus/ngx';
 
+import { NativeAudio } from '@ionic-native/native-audio/ngx';
 
 @NgModule({
   declarations: [AppComponent],
@@ -33,17 +34,18 @@ import { GooglePlus } from '@ionic-native/google-plus/ngx';
       IonicModule.forRoot(),
       AppRoutingModule,
       FormsModule,
+      ComponentsModule,
       ReactiveFormsModule,
       AngularFireAuthModule,
       AngularFireDatabaseModule,
       AngularFireModule.initializeApp(environment.firebaseConfig),
-      ComponentsModule,
       AngularFireStorageModule
     ],
   providers: [
     StatusBar,
     SplashScreen,
     BarcodeScanner,
+    NativeAudio,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     AngularFireDatabase,
     ProfileGuardService,
