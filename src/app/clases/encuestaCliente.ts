@@ -27,4 +27,15 @@ export class EncuestaCliente extends Encuesta
     sabor: Calidad;
     destacado: Destacado[];
     fotos: Imagen[];
+
+    constructor(init?: Partial<Encuesta>)
+    {
+        super(init);
+        if (!init)
+        {
+            this.destacado = [];
+            this.retorno = false;
+        }
+    }
+
 }

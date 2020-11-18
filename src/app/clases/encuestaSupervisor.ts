@@ -35,10 +35,18 @@ export class EncuestaSupervisor extends Encuesta
     dni: string;
     sexo: Sexo;
     comportamiento: Comportamiento;
-    conflictosApp: Conflictos;
+    conflictosApp: Conflictos[];
     usoDeAplicacion: number;
     reclamo: boolean;
     comentario: string;
 
-
+    constructor(init?: Partial<Encuesta>)
+    {
+        super(init);
+        if (!init)
+        {
+            this.conflictosApp = [];
+            this.reclamo = false;
+        }
+    }
 }

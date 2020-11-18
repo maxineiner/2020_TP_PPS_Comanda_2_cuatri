@@ -1,33 +1,104 @@
 import { Injectable } from '@angular/core';
-import { Encuesta } from '../clases/encuesta';
+import { Encuesta, TipoEncuesta } from '../clases/encuesta';
+import { AngularFireDatabase } from '@angular/fire/database';
 import { IDatabase } from '../interfaces/IDatabase';
+import { Usuario } from '../clases/usuario';
+import { EncuestaSupervisor } from '../clases/encuestaSupervisor';
 
 @Injectable({
   providedIn: 'root'
 })
 export class EncuestaService implements IDatabase<Encuesta>{
+  public static encuestas: Encuesta[];
 
-  constructor() { }
+  constructor(public firebase: AngularFireDatabase) { }
 
-  crear(elemento: Encuesta): Promise<any>
+  crear(encuesta: Encuesta): Promise<any>
   {
-    throw new Error('Method not implemented.');
+    console.log(encuesta);
+    encuesta.fecha = new Date().toISOString();
+
+    return this.firebase.database.ref('encuestas')
+      .push(encuesta)
+      .then((snapshot) => encuesta.id = snapshot.key)
+      .then(() => this.actualizar(encuesta))
+      .catch(console.error);
   }
-  actualizar(elemento: Encuesta): Promise<any>
+
+  actualizar(encuesta: Encuesta): Promise<any>
   {
-    throw new Error('Method not implemented.');
+    return new Promise((resolve, reject) =>
+    {
+      resolve(this.firebase.database.ref('encuestas/' + encuesta.id).update(encuesta));
+    })
   }
+
   leer(): Promise<Encuesta[]>
   {
-    throw new Error('Method not implemented.');
+    let encuestas: Encuesta[] = [];
+    console.info("Fetch de todas las encuestas");
+
+    const fetch = new Promise<Encuesta[]>(resolve =>
+    {
+      this.firebase.database.ref('encuestas').on('value', (snapshot) =>
+      {
+        encuestas = [];
+        snapshot.forEach((child) =>
+        {
+          let data: Encuesta = child.val();
+          encuestas.push(new Encuesta(data as Encuesta));
+        });
+        EncuestaService.encuestas = encuestas;
+        resolve(EncuestaService.encuestas);
+      })
+    });
+    return fetch;
   }
-  borrar(elemento: Encuesta): Promise<any>
+
+  borrar(encuesta: Encuesta): Promise<any>
   {
-    throw new Error('Method not implemented.');
+    return this.firebase.database.ref('encuestas/' + encuesta.id).update(encuesta);
   }
+
   leerPorId(id: string): Promise<Encuesta>
   {
-    throw new Error('Method not implemented.');
+    return new Promise<Encuesta>(resolve =>
+    {
+      this.firebase.database.ref(`encuestas/${id}`).once('value').then(snapshot =>
+      {
+        let data = snapshot.val();
+        const encuesta = new Encuesta(data as Encuesta);
+        resolve(encuesta);
+      });
+    })
+  }
+
+
+  public static validarAcceso(idUsuario: string, supervisor?: boolean): boolean
+  {
+    let horaActual = new Date();
+
+    let encuesta = EncuestaService.encuestas.find(e =>
+    {
+      if (!supervisor && e.id)
+      {
+        console.log("A");
+        return new Date(e.fecha).getDate() == horaActual.getDate() && e.usuario.id == idUsuario
+      }
+      else if (supervisor && e.id)
+      {
+        console.log("B");
+        return (<EncuestaSupervisor>e).idUsuario == idUsuario && e.tipo == TipoEncuesta.SUPERVISOR;
+      }
+      return false;
+    });
+
+    if (encuesta)
+    {
+      console.log("Existente");
+      return false;
+    }
+    return true;
   }
 
 }

@@ -34,7 +34,6 @@ export class InfoMesaPage implements OnInit, ViewDidEnter, DoCheck
 
   ngDoCheck(): void
   {
-    console.log("Do Check");
     this.buscarReserva();
   }
 
@@ -91,15 +90,12 @@ export class InfoMesaPage implements OnInit, ViewDidEnter, DoCheck
 
   compararFechas(fechaA: Date, fechaB: Date)
   {
-    console.log(fechaA);
-    console.log(fechaB);
 
     if (fechaA.getUTCFullYear() === fechaB.getFullYear() &&
       fechaA.getUTCMonth() === fechaB.getMonth() &&
       fechaA.getUTCDate() === fechaB.getDate() &&
       fechaA.getUTCHours() === fechaB.getHours())
     {
-      console.log("Misma fecha");
       return true;
     }
     return false;

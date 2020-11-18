@@ -62,7 +62,8 @@ export class DetallePedidoComponent implements OnInit
       cerrar: { handler: UIVisualService.verCuenta, params: this.pedido },
       chat: { handler: UIVisualService.verChat, params: metadataMensaje },
       notificar: { handler: "", params: this.pedido },
-      liberar: { handler: "", params: this.pedido }
+      liberar: { handler: "", params: this.pedido },
+      encuesta: { handler: UIVisualService.verEncuesta }
     })
   }
 
