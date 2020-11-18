@@ -7,6 +7,8 @@ import { CodigoQRService } from 'src/app/services/codigo-qr.service';
 import { LoginPage } from '../login/login.page';
 import { Imagen } from 'src/app/clases/imagen';
 import { ImagenService } from 'src/app/services/imagen.service';
+import { NotificationsService } from 'src/app/services/notifications.service';
+import { INotificacion } from 'src/app/interfaces/INotification';
 
 @Component({
   selector: 'app-register',
@@ -21,7 +23,7 @@ export class RegisterPage implements OnInit
 
   constructor(private authService: AuthService, private UIVisual: UIVisualService,
     private modalController: ModalController, private codigoQRService: CodigoQRService,
-    private imagenService: ImagenService) { }
+    private imagenService: ImagenService,private notificationService:NotificationsService) { }
 
   ngOnInit()
   {
@@ -53,7 +55,15 @@ export class RegisterPage implements OnInit
         .onRegisterCliente(this.cliente)
         .then(() =>
         {
-          UIVisualService.presentToast('Alta exitosa')
+          let notificacion: INotificacion = {
+            title: "Un cliente se ha registrado",
+            body: `El cliente ${this.cliente.nombre} ${this.cliente.apellido} esta esperando su aprobación`
+          };
+          this.notificationService.sendNotification(notificacion, 'jefes').then(data =>
+          {
+            console.log('RESPUESTA: ', data);
+          });
+          UIVisualService.presentToast('Alta exitosa');
           this.cerrar();
           this.presentLoginModal();
         })

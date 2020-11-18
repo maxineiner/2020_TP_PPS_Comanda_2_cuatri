@@ -9,6 +9,7 @@ import { AppComponent } from './app.component';
 import { ReactiveFormsModule, FormsModule } from "@angular/forms";
 import { ComponentsModule } from './components/components.module';
 import { environment } from 'src/environments/environment';
+import { HttpClientModule } from '@angular/common/http';
 
 // Firebase
 import { AngularFireModule } from '@angular/fire';
@@ -37,7 +38,9 @@ import { NativeAudio } from '@ionic-native/native-audio/ngx';
       AngularFireAuthModule,
       AngularFireDatabaseModule,
       AngularFireModule.initializeApp(environment.firebaseConfig),
-      AngularFireStorageModule
+      ComponentsModule,
+      AngularFireStorageModule,
+      HttpClientModule
     ],
   providers: [
     StatusBar,

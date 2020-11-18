@@ -8,8 +8,12 @@
     "SplashScreen": {
       "launchShowDuration": 0
     },
-    "PushNotificatios":{
-      "presentationOptions": ["badge", "sound","alert"]
+    "PushNotificatios": {
+      "presentationOptions": [
+        "badge",
+        "sound",
+        "alert"
+      ]
     }
   },
   "cordova": {}

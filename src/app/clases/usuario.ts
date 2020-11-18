@@ -10,4 +10,5 @@ export class Usuario
   email: string;
   password: string;
   isActive: boolean;
+  tokenNotification:Array<string>;
 }
