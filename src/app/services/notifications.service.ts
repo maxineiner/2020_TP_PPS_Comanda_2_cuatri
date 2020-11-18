@@ -92,7 +92,7 @@ export class NotificationsService
       (notification: PushNotification) =>
       {
         console.log('pushNotificationReceived', notification);
-        this.manejarNotificacion(notification,AuthService.usuario);
+        this.manejarNotificacionPrimerPlano(notification,AuthService.usuario);
       },
     );
 
@@ -101,7 +101,7 @@ export class NotificationsService
       (notification: PushNotificationActionPerformed) =>
       {
         console.log( 'pushNotificationActionPerformed', notification);
-        this.manejarNotificacion(notification.notification,AuthService.usuario);
+        this.manejarNotificacionSegundoPlano(notification.notification,AuthService.usuario);
       },
     );
   }
@@ -161,7 +161,7 @@ export class NotificationsService
     return this.http.post(url, body, { headers:headers ,responseType: 'text'}).toPromise();
   }
 
-  manejarNotificacion(notificacion:PushNotification, usuario:Usuario){
+  manejarNotificacionPrimerPlano(notificacion:PushNotification, usuario:Usuario){
     if (this.rolesService.isCliente(usuario))
     {
       UIVisualService.presentAlert(notificacion.title,notificacion.body);
@@ -176,6 +176,9 @@ export class NotificationsService
     }
   }
 
+  manejarNotificacionSegundoPlano(notificacion:PushNotification, usuario:Usuario){
+    this.router.navigate([notificacion.data.ruta]);
+  }
 
 
 }
