@@ -143,7 +143,8 @@ export class PedidoService
       pedido.cambiarEstado();
       pedido.mesa.isAvailable = true;
 
-      return this.actualizar(pedido).then(() => this.mesaService.actualizar(pedido.mesa));
+      this.mesaService.actualizar(pedido.mesa);
+      return this.actualizar(pedido);
     }
   }
 
