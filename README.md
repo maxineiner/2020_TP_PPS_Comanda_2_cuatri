@@ -1,3 +1,5 @@
+
+![](./src/assets/icon/icon.gif)
 # **COMANDA-PGR**
 
 ## **Integrantes**:
@@ -10,15 +12,25 @@
 
 ### Tareas a realizar: Domingo 15/11 - Martes 17/11
 - Perez ezequiel
-  * [] generar componente de alta de mesas
-  * [] generar componente de alta de supervisores
+  * [X] generar componente de alta de mesas
+  * [X] generar componente de alta de supervisores
 - Giordano Tomas
-  * [] generar componente de alta de clientes
-  * [] generar componente de alta de empleados
-  * [] clases de usuarios
+  * [X] generar componente de alta de clientes
+  * [X] generar componente de alta de empleados
+  * [X] clases de usuarios
 - Rilo Sebastian
-  * [] generar icono y splash animado
-  * [] generar componente de login
-  * [] generar servicio de autentificacion de usuario
-  * [] generar servicio de base de datos
+  * [X] generar icono y splash animado
+  * [X] generar componente de login
+  * [X] generar servicio de autentificacion de usuario
+  * [X] generar servicio de base de datos
+
+### Tareas a realizar: miercoles 18/11 - viernes 20/11
+- Perez ezequiel
+  * [] generar componente para realizar pedido
+  * [] generar componente de encuestas
+- Giordano Tomas
+  * [] generar un compomponente para el listado de mesas
+- Rilo Sebastian
+  * [] generar un componente de alta de productos
+  * [] generar menu principal para acceder a los componentes
 
