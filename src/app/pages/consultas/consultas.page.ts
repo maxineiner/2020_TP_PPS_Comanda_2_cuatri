@@ -27,7 +27,19 @@ export class ConsultasPage implements OnInit, DoCheck
 
   ngDoCheck(): void
   {
+    const mensajesClientes = MensajesService.mensajes.sort(this.ordenarConsultas);
+    console.log(mensajesClientes);
 
+    for (const mensaje of mensajesClientes) 
+    {
+      let usuario = (<Cliente>mensaje.usuario);
+
+      if (!this.mensajes.find(m => m.chatId == mensaje.chatId) &&
+        usuario.estado == EstadoAceptacion.Aceptado || usuario.estado == EstadoAceptacion.Anonimo)
+      {
+        this.mensajes.push(mensaje);
+      }
+    }
   }
 
   ngOnInit() 

@@ -38,6 +38,7 @@ export class Pedido
             console.log("TEST");
             this.productos = [];
             this.isActive = true;
+            this.propina = 0;
         }
     }
 
@@ -69,9 +70,12 @@ export class Pedido
         {
             this.productos.forEach(producto =>
             {
+                console.log(producto);
                 this.valorTotal = this.valorTotal + producto.precio;
             });
         }
+        console.log(this.valorTotal);
+        console.log(this.propina);
         this.valorTotal = this.valorTotal * (1 + this.propina / 100);
         return this.valorTotal;
     }
