@@ -1,5 +1,5 @@
+<p align="center"><img src="./PPS-LaComanda/src/assets/icon/iconLogoMovimiento.png" width="200" height="200"/> </p>
 
-![](./PPS-LaComanda/src/assets/icon/icon.gif)
 # **COMANDA-PGR**
 
 ## **Integrantes**:
