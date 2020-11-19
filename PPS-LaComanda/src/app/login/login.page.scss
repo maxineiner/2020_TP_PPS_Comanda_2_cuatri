@@ -9,7 +9,6 @@
       display: block;
       margin-left: auto;
       margin-right: auto;
-      width: 35%;
       z-index: 999999;
   }
 
@@ -27,7 +26,7 @@
   }
 
   ion-content {
-      //--background: url("../../../assets/img/fondoLogin2.png") 0 0/100% 100% no-repeat;
+      --background: url("../../assets/img/fondoLogin2.png") 0 0/100% 100% no-repeat;
   }
 
   .snow {
@@ -41,9 +40,10 @@
   }
 
   ion-card {
-      margin-top: 10%;
+      border-radius: 15px;
+      margin-top: 15%;
       position: relative;
-      --background: transparent;
+      --background: rgb(242,231,217,0.7);
   }
 
   h1 {

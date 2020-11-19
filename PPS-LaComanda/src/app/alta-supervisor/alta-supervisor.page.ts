@@ -1,19 +1,21 @@
 import { Component, OnInit } from '@angular/core';
-import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
+
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
-import { DatabaseService } from 'src/app/servicios/database.service';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AuthService } from 'src/app/servicios/auth.service';
-import {AngularFireStorage} from "@angular/fire/storage"
-import { ComplementosService } from 'src/app/servicios/complementos.service';
+import { DatabaseService } from "../servicios/database.service";
+import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import firebase from 'firebase/app';
+import {AngularFireStorage} from "@angular/fire/storage"
+import { Usuariosbd } from "../clases/usuariosbd";
+import { ComplementosService } from 'src/app/servicios/complementos.service';
+import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
+import { AuthService } from '../servicios/auth.service';
 
 @Component({
-  selector: 'app-alta-empleado',
-  templateUrl: './alta-empleado.page.html',
-  styleUrls: ['./alta-empleado.page.scss'],
+  selector: 'app-alta-supervisor',
+  templateUrl: './alta-supervisor.page.html',
+  styleUrls: ['./alta-supervisor.page.scss'],
 })
-export class AltaEmpleadoPage implements OnInit {
+export class AltaSupervisorPage implements OnInit {
 
   qrScan:any;
 
@@ -25,7 +27,7 @@ export class AltaEmpleadoPage implements OnInit {
     nombre : "",
     apellido : "",
     dni : "",
-    foto :  "../../assets/icon/iconLogoMovimiento.png",
+    foto :  "../assets/icon/iconLogoMovimiento.png",
     cuil : "",
     perfil : "",
     contrasenia: "",
@@ -33,10 +35,8 @@ export class AltaEmpleadoPage implements OnInit {
   };
 
   listaPerfiles = [ 
-    { perfil : "Mozo" },
-    { perfil : "Cocinero" },
-    { perfil : "Bar tender" },
-    { perfil : "Metre" }
+    { perfil : "Supervisor" },
+    { perfil : "Dueño" }
   ]
 
   constructor(
@@ -47,7 +47,6 @@ export class AltaEmpleadoPage implements OnInit {
     private auth : AuthService,
     private st : AngularFireStorage,
     private complemetos : ComplementosService) {
-      
       this.miFormulario = this.formBuilder.group({
         nombre: ['', [Validators.required, Validators.pattern('^[a-zA-Z]{3,10}$')]],
         apellido: ['', [Validators.required, Validators.pattern('^[a-zA-Z]{3,10}$')]],
@@ -62,7 +61,7 @@ export class AltaEmpleadoPage implements OnInit {
 
   ngOnInit() {
 
-  this.pickedName = "Mozo";
+  this.pickedName = "Dueño";
   this.usuarioJson.perfil = this.pickedName;
 
   }
@@ -76,14 +75,14 @@ export class AltaEmpleadoPage implements OnInit {
       {
 
         this.usuarioJson.foto = link;
-        this.bd.crear('empleados',this.usuarioJson);
+        this.bd.crear('usuarios',this.usuarioJson);
 
       });
 
     }
     else
     {
-      this.bd.crear('empleados',this.usuarioJson);
+      this.bd.crear('usuarios',this.usuarioJson);
     }
 
    this.auth.registrarUsuario(this.usuarioJson.correo,this.usuarioJson.contrasenia);
@@ -96,7 +95,7 @@ export class AltaEmpleadoPage implements OnInit {
     this.usuarioJson.nombre = "";
     this.usuarioJson.apellido = ""; 
     this.usuarioJson.dni = "";  
-    this.usuarioJson.foto = "../../assets/icon/iconLogoMovimiento.png",
+    this.usuarioJson.foto = "../assets/icon/iconLogoMovimiento.png",
     this.usuarioJson.cuil = "";  
     this.usuarioJson.perfil = this.pickedName;  
     this.usuarioJson.contrasenia = "";  
@@ -127,7 +126,7 @@ export class AltaEmpleadoPage implements OnInit {
      
       let obtenerMili = new Date().getTime(); 
 
-      var nombreFoto = "empleados/"+obtenerMili+"."+this.usuarioJson.dni+".jpg";
+      var nombreFoto = "usuarios/"+obtenerMili+"."+this.usuarioJson.dni+".jpg";
 
       var childRef = storageRef.child(nombreFoto);
 
@@ -170,7 +169,5 @@ export class AltaEmpleadoPage implements OnInit {
   
 
   }
-
-
 
 }

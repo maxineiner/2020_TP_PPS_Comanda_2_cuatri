@@ -1,14 +1,15 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
-import { HomePage } from './home/home.page';
-import { LoginPage } from './login/login.page';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', loadChildren: () => import('./login/login.module').then(m => m.LoginPageModule) },
   { path: 'home', loadChildren: () => import('./home/home.module').then(m => m.HomePageModule) },
+  { path: 'alta-mesa', loadChildren: () => import('./alta-mesa/alta-mesa.module').then(m => m.AltaMesaPageModule) },
+  { path: 'alta-supervisor', loadChildren: () => import('./alta-supervisor/alta-supervisor.module').then(m => m.AltaSupervisorPageModule) },
+  { path: 'alta-cliente', loadChildren: () => import('./alta-cliente/alta-cliente.module').then(m => m.AltaClientePageModule) },
+  { path: 'alta-empleado', loadChildren: () => import('./alta-empleado/alta-empleado.module').then(m => m.AltaEmpleadoPageModule) }
 ];
-
 @NgModule({
   imports: [
     RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })
