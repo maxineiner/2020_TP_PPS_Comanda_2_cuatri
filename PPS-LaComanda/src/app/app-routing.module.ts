@@ -8,7 +8,10 @@ const routes: Routes = [
   { path: 'alta-mesa', loadChildren: () => import('./alta-mesa/alta-mesa.module').then(m => m.AltaMesaPageModule) },
   { path: 'alta-supervisor', loadChildren: () => import('./alta-supervisor/alta-supervisor.module').then(m => m.AltaSupervisorPageModule) },
   { path: 'alta-cliente', loadChildren: () => import('./alta-cliente/alta-cliente.module').then(m => m.AltaClientePageModule) },
-  { path: 'alta-empleado', loadChildren: () => import('./alta-empleado/alta-empleado.module').then(m => m.AltaEmpleadoPageModule) }
+  { path: 'alta-empleado', loadChildren: () => import('./alta-empleado/alta-empleado.module').then(m => m.AltaEmpleadoPageModule) },
+  { path: 'realizar-pedido', loadChildren: () => import('./realizar-pedido/realizar-pedido.module').then( m => m.RealizarPedidoPageModule) },
+  { path: 'encuestas', loadChildren: () => import('./encuestas/encuestas.module').then( m => m.EncuestasPageModule) }
+
 ];
 @NgModule({
   imports: [
