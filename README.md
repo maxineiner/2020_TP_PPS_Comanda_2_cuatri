@@ -28,8 +28,10 @@
 - Perez ezequiel
   * [] generar componente para realizar pedido
   * [] generar componente de encuestas
+  * [] agregar spinner propio con el logo de la empresa
 - Giordano Tomas
   * [] generar un compomponente para el listado de mesas
+  * [] agregar sonidos segun la actividad realizada
 - Rilo Sebastian
   * [] generar un componente de alta de productos
   * [] generar menu principal para acceder a los componentes
