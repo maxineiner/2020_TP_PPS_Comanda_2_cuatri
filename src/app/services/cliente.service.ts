@@ -21,7 +21,7 @@ export class ClienteService
       isWaiting: false,
       horario: null
     };
-    console.log(cliente)
+    console.log(cliente);
 
     return this.firebase.database
       .ref("clientes/" + cliente.id)

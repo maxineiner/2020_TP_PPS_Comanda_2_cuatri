@@ -24,6 +24,7 @@
     "@angular/router": "~10.0.0",
     "@capacitor-community/facebook-login": "^1.0.3",
     "@capacitor-community/twitter": "^1.0.1",
+    "@capacitor-community/fcm": "^1.0.8",
     "@capacitor/android": "^2.4.2",
     "@capacitor/core": "2.4.2",
     "@ionic-native/barcode-scanner": "^5.29.0",

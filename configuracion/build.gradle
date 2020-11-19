@@ -45,6 +45,7 @@ try {
     logger.warn("google-services.json not found, google-services plugin not applied. Push Notifications won't work")
 }
 
+// Fix de Bug de Plugin BarcodeScanner con Facebook Login
 configurations {
 	compile.exclude group: 'com.google.zxing'
 }

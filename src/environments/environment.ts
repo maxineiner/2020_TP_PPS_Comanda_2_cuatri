@@ -5,16 +5,16 @@
 export const environment = {
   production: false,
   firebaseConfig: {
-    apiKey: "AIzaSyD_MLjLqoz_-P9E7My_LxpTwVd2ncrmZy8",
-    authDomain: "tp2-comanda-pps.firebaseapp.com",
-    databaseURL: "https://tp2-comanda-pps.firebaseio.com",
-    projectId: "tp2-comanda-pps",
-    storageBucket: "tp2-comanda-pps.appspot.com",
-    messagingSenderId: "186663344195",
-    appId: "1:186663344195:web:98d1d508b5aa7b301b1cf6"
+    apiKey: "AIzaSyAFi4P8vxtKg_LKeR3fjzFgwdPihHfe15g",
+    authDomain: "web-apps---practica.firebaseapp.com",
+    databaseURL: "https://web-apps---practica.firebaseio.com",
+    projectId: "web-apps---practica",
+    storageBucket: "web-apps---practica.appspot.com",
+    messagingSenderId: "1035173945210",
+    appId: "1:1035173945210:web:e50eecb284d6f44cff80c3"
   },
-  googleClientId: "186663344195-19h789hdom23h2bbj90ao63hebdho10j.apps.googleusercontent.com",
-  webGoogleId: "186663344195-3oktg1dtr9nsgengjutv9suc44o7o938.apps.googleusercontent.com"
+  googleClientId: "1035173945210-maov4qvl786nq0ambku7nals7otavka7.apps.googleusercontent.com",
+  webGoogleId: "1035173945210-00g473e0lb8ol0lusq02v8hmitv3e8ns.apps.googleusercontent.com"
 };
 
 /*

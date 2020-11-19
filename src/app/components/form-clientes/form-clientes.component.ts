@@ -6,6 +6,8 @@ import { AuthService } from "src/app/services/auth.service";
 import { UIVisualService } from "src/app/services/uivisual.service"
 import { Imagen } from 'src/app/clases/imagen';
 import { ImagenService } from 'src/app/services/imagen.service';
+import { INotificacion } from 'src/app/interfaces/INotification';
+import { NotificationsService } from 'src/app/services/notifications.service';
 
 enum OpcionForm
 {
@@ -28,7 +30,9 @@ export class FormClientesComponent implements OnInit
   imgPreview: string
 
   constructor(private clienteService: ClienteService, private authService: AuthService, private UIVisual: UIVisualService,
-    private imagenService: ImagenService) { }
+    private imagenService: ImagenService,
+    private notificationService:NotificationsService
+    ) { }
 
   ngOnInit(): void
   {
@@ -65,7 +69,21 @@ export class FormClientesComponent implements OnInit
 
       this.authService
         .onRegisterCliente(this.cliente)
-        .then(() => UIVisualService.presentToast('Alta exitosa'))
+        .then(() =>
+        {
+          let notificacion: INotificacion = {
+            title: "Un cliente se ha registrado",
+            body: `El cliente ${this.cliente.nombre} ${this.cliente.apellido} esta esperando su aprobación`,
+            data: {
+              ruta: "/home/clientes-pendientes"
+            }
+          };
+          this.notificationService.sendNotification(notificacion, 'jefes').then(data =>
+          {
+            console.log('RESPUESTA: ', data);
+          });
+          UIVisualService.presentToast('Alta exitosa');
+        })
         .catch(() => UIVisualService.presentToast('No se pudo realizar el alta'))
     }
     else

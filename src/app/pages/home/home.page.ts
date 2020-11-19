@@ -41,9 +41,20 @@ export class HomePage implements OnInit
 
   ngOnInit()
   {
-    this.pedidosService.leer();
-    this.productoService.traerTodos();
-    this.encuestaService.leer();
+    if (!PedidoService.pedidos)
+    {
+      this.pedidosService.leer();
+    }
+
+    if (!ProductoService.productos)
+    {
+      this.productoService.traerTodos();
+    }
+
+    if (!EncuestaService.encuestas)
+    {
+      this.encuestaService.leer();
+    }
     this.usuario = AuthService.usuario;
     this.notifications.initPush();
     HapticService.vibrar();

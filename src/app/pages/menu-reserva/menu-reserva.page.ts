@@ -4,6 +4,7 @@ import { Platform } from '@ionic/angular';
 import { EstadoPedido, Pedido } from 'src/app/clases/pedido';
 import { Usuario } from 'src/app/clases/usuario';
 import { AuthService } from 'src/app/services/auth.service';
+import { NotificationsService } from 'src/app/services/notifications.service';
 import { PedidoService } from 'src/app/services/pedido.service';
 import { RolesService } from 'src/app/services/roles.service';
 
@@ -41,7 +42,6 @@ export class MenuReservaPage implements OnInit, DoCheck
     console.log("INIT");
     this.pedidoService.leer().then(data =>
     {
-      console.log(data);
       this.listado = data.filter(pedido => pedido.estado == EstadoPedido.RESERVADO);
     });
   }
