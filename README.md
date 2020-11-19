@@ -1,5 +1,5 @@
 
-![](./src/assets/icon/icon.gif)
+![](./PPS-LaComanda/src/assets/icon/icon.gif)
 # **COMANDA-PGR**
 
 ## **Integrantes**:
