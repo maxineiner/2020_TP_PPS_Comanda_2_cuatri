@@ -69,8 +69,7 @@ export class HomePage implements OnInit
 
   notificar()
   {
-    let payload: INotificacion;
-    payload.notification =
+    let payload: INotificacion =
     {
       notification:
       {
@@ -78,6 +77,7 @@ export class HomePage implements OnInit
         body: "Push notification de prueba"
       }
     }
+
 
     console.log("POST");
     this.notifications.sendNotification(payload, 'jefes')
