@@ -31,7 +31,7 @@ export class FormClientesComponent implements OnInit
 
   constructor(private clienteService: ClienteService, private authService: AuthService, private UIVisual: UIVisualService,
     private imagenService: ImagenService,
-    private notificationService: NotificationsService
+    private notifications: NotificationsService
   ) { }
 
   ngOnInit(): void
@@ -71,24 +71,7 @@ export class FormClientesComponent implements OnInit
         .onRegisterCliente(this.cliente)
         .then(() =>
         {
-          let notificacion: INotificacion =
-          {
-            data:
-            {
-              ruta: "/home/clientes-pendientes"
-            },
-            notification:
-            {
-              title: "Un cliente se ha registrado",
-              body: `El cliente ${this.cliente.nombre} ${this.cliente.apellido} esta esperando su aprobación`,
-
-            }
-          }
-
-          this.notificationService.sendNotification(notificacion, 'jefes').then(data =>
-          {
-            console.log('RESPUESTA: ', data);
-          });
+          this.notifications.enviarNotificacion('Nuevo Cliente', `El cliente ${this.cliente.nombre} ${this.cliente.apellido} se acaba de registrar`, '/home/clientes-pendientes','jefes');
           UIVisualService.presentToast('Alta exitosa');
         })
         .catch(() => UIVisualService.presentToast('No se pudo realizar el alta'))

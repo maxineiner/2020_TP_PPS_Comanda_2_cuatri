@@ -55,19 +55,7 @@ export class RegisterPage implements OnInit
         .onRegisterCliente(this.cliente)
         .then(() =>
         {
-          let notificacion: INotificacion =
-          {
-            notification:
-            {
-              title: "Un cliente se ha registrado",
-              body: `El cliente ${this.cliente.nombre} ${this.cliente.apellido} esta esperando su aprobación`
-            }
-          };
-
-          this.notificationService.sendNotification(notificacion, 'jefes').then(data =>
-          {
-            console.log('RESPUESTA: ', data);
-          });
+          this.notificationService.enviarNotificacion('Nuevo Cliente', `El cliente ${this.cliente.nombre} ${this.cliente.apellido} se acaba de registrar`, '/home/clientes-pendientes','jefes');
           UIVisualService.presentToast('Alta exitosa');
           this.cerrar();
           this.presentLoginModal();
@@ -79,7 +67,6 @@ export class RegisterPage implements OnInit
       UIVisualService.presentToast('Cliente existente')
     }
   }
-
   async onScanDNI()
   {
     let barcodeQR: string
