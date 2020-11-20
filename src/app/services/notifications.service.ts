@@ -174,7 +174,7 @@ export class NotificationsService
 
     console.log(response);
 
-    response.subscribe(response => res = response);
+    //response.subscribe(response => res = response);
 
     console.log(res);
 
