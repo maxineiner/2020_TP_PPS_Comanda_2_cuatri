@@ -155,12 +155,11 @@ export class NotificationsService
 
   async sendNotification(notificacion: INotificacion, topic: string)
   {
-    let res;
     let body = JSON.stringify(notificacion);
     let url = `${this.API}${topic}`;
-    let headers = new HttpHeaders({
-      'Content-Type': 'application/json'
-    });
+    // let headers = new HttpHeaders({
+    //   'Content-Type': 'application/json'
+    // });
     //return this.http.post(url, body, { headers:headers ,responseType: 'text'}).toPromise();
 
     //const response = await this.http.post(url, body, { headers: headers, responseType: 'text' });
@@ -168,22 +167,26 @@ export class NotificationsService
       {
         method: 'POST',
         url: url,
-        headers: headers,
-        data: body
+        headers: { 'Content-Type': 'application/json' },
+        data:
+        {
+          "notification":
+          {
+            "title": "POSTMAN",
+            "body": "Soy un mensajito"
+          }
+        }
       });
 
     console.log(response);
 
     //response.subscribe(response => res = response);
 
-    console.log(res);
-
-    return res;
+    return response;
   }
 
   async testNotification(notificacion: INotificacion, topic: string)
   {
-    let res;
     let body = JSON.stringify(notificacion);
     let url = `${this.API}${topic}`;
     let headers = new HttpHeaders({
@@ -202,11 +205,8 @@ export class NotificationsService
 
     console.log(response);
 
-    response.subscribe(response => res = response);
-
-    console.log(res);
-
-    return res;
+    //response.subscribe(response => res = response);
+    return response;
   }
 
   manejarNotificacionPrimerPlano(notificacion: PushNotification, usuario: Usuario)
