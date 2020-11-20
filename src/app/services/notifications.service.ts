@@ -18,7 +18,7 @@ import { ClienteService } from './cliente.service';
 import { Jefe } from '../clases/jefe';
 import { Empleado } from '../clases/empleado';
 import { Cliente } from '../clases/cliente';
-import { INotificacion } from '../interfaces/INotification';
+import { INotificacion, Respuesta } from '../interfaces/INotification';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { UIVisualService } from './uivisual.service';
 
@@ -162,20 +162,20 @@ export class NotificationsService
     //return this.http.post(url, body, { headers:headers ,responseType: 'text'}).toPromise();
 
     //const response = await this.http.post(url, body, { headers: headers, responseType: 'text' });
-    const response = await Http.request(
+    const response: Respuesta = await Http.request(
       {
         method: 'POST',
         url: url,
         headers: { 'Content-Type': 'application/json' },
-        data: body
+        data: notificacion
 
       });
 
-    console.log(response);
+    console.log(response.data);
 
     //response.subscribe(response => res = response);
 
-    return response;
+    return response.data;
   }
 
   async testNotification(notificacion: INotificacion, topic: string)
