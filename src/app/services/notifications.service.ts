@@ -152,54 +152,35 @@ export class NotificationsService
     }
 
   }
-
-  async sendNotification(notificacion: INotificacion, topic: string)
+  async enviarNotificacion(titulo: string, mensaje: string, ruta: string, topic: string)
   {
-    let body = JSON.stringify(notificacion);
+    let payload: INotificacion =
+    {
+      notification:
+      {
+        title: titulo,
+        body: mensaje
+      },
+      data:
+      {
+        ruta: ruta
+      }
+    }
     let url = `${this.API}${topic}`;
+    console.log(payload);
 
-    console.log(body);
-    //return this.http.post(url, body, { headers:headers ,responseType: 'text'}).toPromise();
-
-    //const response = await this.http.post(url, body, { headers: headers, responseType: 'text' });
     const response: Respuesta = await Http.request(
       {
         method: 'POST',
         url: url,
         headers: { 'Content-Type': 'application/json' },
-        data: notificacion
+        data: payload
 
       });
 
     console.log(response.data);
-
-    //response.subscribe(response => res = response);
-
     return response.data;
-  }
 
-  async testNotification(notificacion: INotificacion, topic: string)
-  {
-    let body = JSON.stringify(notificacion);
-    let url = `${this.API}${topic}`;
-    let headers = new HttpHeaders({
-      'Content-Type': 'application/json'
-    });
-    //return this.http.post(url, body, { headers:headers ,responseType: 'text'}).toPromise();
-
-    //const response = await this.http.get(url, { headers: headers, responseType: 'text' });
-    const response = await Http.request(
-      {
-        method: 'GET',
-        url: url,
-        headers: headers,
-        params: { 'nombre': 'PEPITO' }
-      });
-
-    console.log(response);
-
-    //response.subscribe(response => res = response);
-    return response;
   }
 
   manejarNotificacionPrimerPlano(notificacion: PushNotification, usuario: Usuario)
