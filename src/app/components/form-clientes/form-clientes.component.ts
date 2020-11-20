@@ -31,8 +31,8 @@ export class FormClientesComponent implements OnInit
 
   constructor(private clienteService: ClienteService, private authService: AuthService, private UIVisual: UIVisualService,
     private imagenService: ImagenService,
-    private notificationService:NotificationsService
-    ) { }
+    private notificationService: NotificationsService
+  ) { }
 
   ngOnInit(): void
   {
@@ -71,13 +71,20 @@ export class FormClientesComponent implements OnInit
         .onRegisterCliente(this.cliente)
         .then(() =>
         {
-          let notificacion: INotificacion = {
-            title: "Un cliente se ha registrado",
-            body: `El cliente ${this.cliente.nombre} ${this.cliente.apellido} esta esperando su aprobación`,
-            data: {
+          let notificacion: INotificacion =
+          {
+            data:
+            {
               ruta: "/home/clientes-pendientes"
+            },
+            notification:
+            {
+              title: "Un cliente se ha registrado",
+              body: `El cliente ${this.cliente.nombre} ${this.cliente.apellido} esta esperando su aprobación`,
+
             }
-          };
+          }
+
           this.notificationService.sendNotification(notificacion, 'jefes').then(data =>
           {
             console.log('RESPUESTA: ', data);
