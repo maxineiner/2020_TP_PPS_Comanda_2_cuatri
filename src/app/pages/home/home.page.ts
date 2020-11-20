@@ -70,9 +70,13 @@ export class HomePage implements OnInit
   notificar()
   {
     let payload: INotificacion;
-    payload.notification = {
-      title: "COMANDERA",
-      body: "Push notification de prueba"
+    payload.notification =
+    {
+      notification:
+      {
+        title: "COMANDERA",
+        body: "Push notification de prueba"
+      }
     }
 
     console.log("POST");
