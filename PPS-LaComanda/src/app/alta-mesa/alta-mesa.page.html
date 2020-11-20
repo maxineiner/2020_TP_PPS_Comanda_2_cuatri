@@ -1,9 +1,9 @@
-<ion-header >
+<ion-header>
     <ion-toolbar color="fondo">
         <ion-buttons slot="start">
-            <ion-back-button text="" defaultHref="/"></ion-back-button>
+            <ion-back-button defaultHref="/" slot="start" icon="arrow-back-circle"></ion-back-button>
         </ion-buttons>
-        <ion-title > Alta Mesa </ion-title>
+        <ion-title>Alta Mesa</ion-title>
     </ion-toolbar>
 </ion-header>
 <ion-content>
@@ -13,7 +13,7 @@
                 <img [src]="mesaJson.foto" alt="" width="100px" height="100px" class="icon">
             </div>
         </ion-card-header>
-        <ion-item color="fondo">
+        <ion-item>
             <ion-label>Tipo:</ion-label>
             <ion-select [(ngModel)]="pickedName" interface="popover" placeholder="Seleccione" (ionChange)="pickerUser(pickedName)">
                 <ion-select-option *ngFor="let mesa of listaTipo" value="{{mesa.tipo}}">{{mesa.tipo}}</ion-select-option>
@@ -32,10 +32,10 @@
         <ion-grid>
             <ion-row>
                 <ion-col col-12>
-                    <ion-button color="fondo" (click)="tomarFotografia()" class="btnRegistro" expand="block">Tomar foto</ion-button>
+                    <ion-button (click)="tomarFotografia()" color='cubiertos' class="btnRegistro" expand="block">Tomar foto</ion-button>
                 </ion-col>
             </ion-row>
+            <ion-button (click)="registrar()" class="btnRegistro" color='cubiertos' [disabled]="!miFormulario.valid" expand="block">REGISTRAR MESA</ion-button>
         </ion-grid>
-        <ion-button color="fondo" (click)="registrar()" class="btnRegistro" [disabled]="!miFormulario.valid" expand="block">REGISTRAR MESA</ion-button>
     </ion-card>
 </ion-content>

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from "@angular/router";
 import { ComplementosService } from "../servicios/complementos.service"
 import { AuthService } from "../servicios/auth.service";
-//import { Usuario } from "../clases/usuario";
+import { Usuario } from "../clases/usuario";
 import { timer } from 'rxjs';
 
 @Component({
@@ -41,14 +41,13 @@ export class LoginPage implements OnInit {
 				audio.play();
 				timer(1000).subscribe(() => {
 					this.router.navigate(['/home']);
-					localStorage.setItem('correoUsuario', res); // Guardamos el correo de la persona que ingreso
-					localStorage.setItem('tieneCorreo', 'conCorreo'); // Verificamos si se ingreso con correo (por el anonimo)
+					localStorage.setItem('correoUsuario', res);
+					localStorage.setItem('tieneCorreo', 'conCorreo');
 					this.onClearAll();
 				});
 			}).catch(err => this.complementos.ngValidarError(err.code));
 	}
 
-	// Boton para limpiar.
 	public onClearAll() {
 		this.email = null;
 		this.password = null;
@@ -59,13 +58,11 @@ export class LoginPage implements OnInit {
 			if (user.correo === pickedName) {
 				this.email = user.correo;
 				this.password = user.clave;
-				//localStorage.setItem("usuario",JSON.stringify(user));
 				return;
 			}
 		})
 	}
 
-	// Redirecciono a la pagina alta-cliente para registrar el cliente
 	registrarUsuario() {
 		this.router.navigate(['/alta-cliente']);
 	}

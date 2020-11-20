@@ -11,6 +11,10 @@ ion-content{
    --background:url("../../assets/img/fondoLogin2.png") 0 0/100% 100% no-repeat ;
 }
 
+ion-footer{
+  background: black; 
+}
+
   h4.precioNombre
 {
   display:inline;
@@ -23,18 +27,15 @@ h4.precio
 }
 
 .alineacion-derecha{
-
   font-size: 15px;
   color:#332920; 
   text-align: left;
-
 }
 
 .alineacion-derecha-platito{
   font-size: 20px;
   color: snow; 
   text-align: left;
-
 }
 
 .precio
@@ -51,11 +52,4 @@ h4.precio
   color: orangered;
   display:inline;
   float: right;
-}
-
-
-.titulo{
-
-  margin-left: 25%;
-  color: rgb(22, 22, 22);
 }

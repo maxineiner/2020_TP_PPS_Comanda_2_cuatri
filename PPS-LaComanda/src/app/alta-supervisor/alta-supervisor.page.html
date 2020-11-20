@@ -1,7 +1,7 @@
-<ion-header >
+<ion-header>
     <ion-toolbar color="fondo">
-        <ion-back-button defaultHref="/" slot="start" color="light" icon="arrow-back-circle"></ion-back-button>
-        <ion-title color="primary">Alta dueño/supervisor</ion-title>
+        <ion-back-button defaultHref="/" slot="start" icon="arrow-back-circle"></ion-back-button>
+        <ion-title>Alta dueño/supervisor</ion-title>
     </ion-toolbar>
 </ion-header>
 <ion-content>
@@ -11,7 +11,7 @@
                 <img [src]="usuarioJson.foto" alt="" width="100px" height="100px" class="icon">
             </div>
         </ion-card-header>
-        <ion-item color="fondo">
+        <ion-item>
             <ion-label>Tipo:</ion-label>
             <ion-select [(ngModel)]="pickedName" interface="popover" placeholder="Seleccione" (ionChange)="pickerUser(pickedName)">
                 <ion-select-option *ngFor="let usuario of listaPerfiles" value="{{usuario.perfil}}">{{usuario.perfil}}</ion-select-option>
@@ -46,13 +46,13 @@
         <ion-grid>
             <ion-row>
                 <ion-col col-6>
-                    <ion-button (click)="escanearDni()" class="btnRegistro" color="fondo" expand="block">QR DNI</ion-button>
+                    <ion-button (click)="escanearDni()" class="btnRegistro" color="cubiertos" expand="block">QR DNI</ion-button>
                 </ion-col>
                 <ion-col col-6>
-                    <ion-button (click)="tomarFotografia()" class="btnRegistro" color="fondo" [disabled]="!usuarioJson.dni" expand="block">Tomar foto</ion-button>
+                    <ion-button (click)="tomarFotografia()" class="btnRegistro" color="cubiertos" [disabled]="!usuarioJson.dni" expand="block">Tomar foto</ion-button>
                 </ion-col>
             </ion-row>
+            <ion-button color="cubiertos" (click)="registrar(usuarioJson.perfil)" class="btnRegistro" [disabled]="!miFormulario.valid" expand="block">Registrarse</ion-button>
         </ion-grid>
-        <ion-button color="fondo" (click)="registrar(usuarioJson.perfil)" class="btnRegistro" [disabled]="!miFormulario.valid" expand="block">Registrarse</ion-button>
     </ion-card>
 </ion-content>

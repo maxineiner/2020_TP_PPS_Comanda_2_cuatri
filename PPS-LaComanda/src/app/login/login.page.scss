@@ -15,7 +15,6 @@
   .fondoAnimado {
       height: 100%;
       position: absolute;
-      // z-index: 9998;
   }
 
   ion-title {
@@ -34,16 +33,15 @@
       font-size: 2em !important;
   }
 
-
-  ion-item.labels {
-      --background: transparent !important;
-  }
-
   ion-card {
       border-radius: 15px;
       margin-top: 15%;
       position: relative;
-      --background: rgb(242,231,217,0.7);
+  }
+
+  ion-item{
+    border-radius: 1em;
+    margin: 10px;
   }
 
   h1 {

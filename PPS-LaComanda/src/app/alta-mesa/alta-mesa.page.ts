@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 import { DatabaseService } from "../servicios/database.service";
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';

@@ -39,7 +39,6 @@ ion-card{
   border-radius: 15px;
   position: relative;
   --background: rgb(199,37,37,0.7);
-
 }
 
 ion-item {
@@ -59,7 +58,7 @@ h1::before {
     position: absolute;
     width: 100px;
     height: 3px;
-    background-color: #ffdf26;
+    background-color: rgb(255, 161, 38);
     top: 0.6em;
 }
 
@@ -68,24 +67,10 @@ h1::before {
 }
 
 h1::after {
-
     left: 160px;
 }
 
 .divTop {
     z-index: 99999;
     top: -100;
-}
-
-ion-back-button {
-    size: 20%;
-}
-
-.loading {
-    z-index: 99999999 !important;
-    width: 150px;
-    height: 150px;
-    position: fixed !important;
-    top: 35%;
-    left: 30%;
 }

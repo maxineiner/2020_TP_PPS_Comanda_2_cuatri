@@ -21,9 +21,7 @@
 }
 
 ion-title{
-  text-align: center;
   font-family: 'Open Sans', sans-serif, cursive; 
-   color: #ffffff;
    font-size : 20px;
 }
 
@@ -38,18 +36,19 @@ ion-content{
 
 }
 
- ion-item.labels{
-   --background: transparent !important;
-}
-
 ion-button{
     margin-top: 2% !important;
 }
 
 ion-card{
- border-radius: 15px;
+  border-radius: 15px;
   position: relative;
-   --background: rgb(242,231,217,0.7);
+  --background: rgb(199,37,37,0.7);
+}
+
+ion-item {
+    --ion-background-color: transparent !important;
+    --ion-text-color: var(--ion-color-cubiertos);
 }
 
 h1{
@@ -77,10 +76,6 @@ h1::after{
 .divTop{
   z-index: 99999;
   top: -100;
-}
-
-.titulo{
-  margin-left: 26%;
 }
 
 ion-back-button{
