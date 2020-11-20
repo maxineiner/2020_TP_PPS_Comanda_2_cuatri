@@ -4,6 +4,7 @@ import { BarcodeScanResult } from '@ionic-native/barcode-scanner';
 import { ActionSheetController, ModalController } from '@ionic/angular';
 import { Cliente } from 'src/app/clases/cliente';
 import { Usuario } from 'src/app/clases/usuario';
+import { INotificacion } from 'src/app/interfaces/INotification';
 import { AudioService } from 'src/app/services/audio.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { EncuestaService } from 'src/app/services/encuesta.service';
@@ -68,19 +69,14 @@ export class HomePage implements OnInit
 
   notificar()
   {
-    // console.log("GET");
-    // this.notifications.testNotification({
-    //   title: "Testing",
-    //   body: "",
-    // }, 'test')
-    //   .then(data => UIVisualService.presentToast(data))
-    //   .catch(error => UIVisualService.presentToast(error));
+    let payload: INotificacion;
+    payload.notification = {
+      title: "COMANDERA",
+      body: "Push notification de prueba"
+    }
 
     console.log("POST");
-    this.notifications.sendNotification({
-      title: "Testing",
-      body: "Esta es una notificación de prueba",
-    }, 'jefes')
+    this.notifications.sendNotification(payload, 'jefes')
       .then(data => UIVisualService.presentToast(data))
       .catch(error => UIVisualService.presentToast(error));
   }

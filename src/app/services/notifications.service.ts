@@ -157,9 +157,8 @@ export class NotificationsService
   {
     let body = JSON.stringify(notificacion);
     let url = `${this.API}${topic}`;
-    // let headers = new HttpHeaders({
-    //   'Content-Type': 'application/json'
-    // });
+
+    console.log(body);
     //return this.http.post(url, body, { headers:headers ,responseType: 'text'}).toPromise();
 
     //const response = await this.http.post(url, body, { headers: headers, responseType: 'text' });
@@ -168,14 +167,8 @@ export class NotificationsService
         method: 'POST',
         url: url,
         headers: { 'Content-Type': 'application/json' },
-        data:
-        {
-          "notification":
-          {
-            "title": "POSTMAN",
-            "body": "Soy un mensajito"
-          }
-        }
+        data: body
+
       });
 
     console.log(response);
