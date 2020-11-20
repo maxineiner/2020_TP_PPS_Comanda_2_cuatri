@@ -23,7 +23,7 @@ export class RegisterPage implements OnInit
 
   constructor(private authService: AuthService, private UIVisual: UIVisualService,
     private modalController: ModalController, private codigoQRService: CodigoQRService,
-    private imagenService: ImagenService,private notificationService:NotificationsService) { }
+    private imagenService: ImagenService, private notificationService: NotificationsService) { }
 
   ngOnInit()
   {
@@ -55,10 +55,15 @@ export class RegisterPage implements OnInit
         .onRegisterCliente(this.cliente)
         .then(() =>
         {
-          let notificacion: INotificacion = {
-            title: "Un cliente se ha registrado",
-            body: `El cliente ${this.cliente.nombre} ${this.cliente.apellido} esta esperando su aprobación`
+          let notificacion: INotificacion =
+          {
+            notification:
+            {
+              title: "Un cliente se ha registrado",
+              body: `El cliente ${this.cliente.nombre} ${this.cliente.apellido} esta esperando su aprobación`
+            }
           };
+
           this.notificationService.sendNotification(notificacion, 'jefes').then(data =>
           {
             console.log('RESPUESTA: ', data);
