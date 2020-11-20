@@ -68,12 +68,21 @@ export class HomePage implements OnInit
 
   notificar()
   {
+    console.log("GET");
+    this.notifications.testNotification({
+      title: "Testing",
+      body: "",
+    }, 'test')
+      .then(data => UIVisualService.presentToast(data))
+      .catch(error => UIVisualService.presentToast(error));
+
+    console.log("POST");
     this.notifications.sendNotification({
       title: "Testing",
       body: "Esta es una notificación de prueba",
     }, 'jefes')
       .then(data => UIVisualService.presentToast(data))
-      .catch(error => UIVisualService.presentToast(error))
+      .catch(error => UIVisualService.presentToast(error));
   }
 
 }

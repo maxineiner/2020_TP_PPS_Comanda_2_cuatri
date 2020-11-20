@@ -92,7 +92,7 @@ export class NotificationsService
       (notification: PushNotification) =>
       {
         console.log('pushNotificationReceived', notification);
-        this.manejarNotificacionPrimerPlano(notification,AuthService.usuario);
+        this.manejarNotificacionPrimerPlano(notification, AuthService.usuario);
       },
     );
 
@@ -100,8 +100,8 @@ export class NotificationsService
       'pushNotificationActionPerformed',
       (notification: PushNotificationActionPerformed) =>
       {
-        console.log( 'pushNotificationActionPerformed', notification);
-        this.manejarNotificacionSegundoPlano(notification.notification,AuthService.usuario);
+        console.log('pushNotificationActionPerformed', notification);
+        this.manejarNotificacionSegundoPlano(notification.notification, AuthService.usuario);
       },
     );
   }
@@ -153,30 +153,64 @@ export class NotificationsService
 
   async sendNotification(notificacion: INotificacion, topic: string)
   {
+    let res;
     let body = JSON.stringify(notificacion);
     let url = `${this.API}${topic}`;
     let headers = new HttpHeaders({
       'Content-Type': 'application/json'
     });
-    return this.http.post(url, body, { headers:headers ,responseType: 'text'}).toPromise();
+    //return this.http.post(url, body, { headers:headers ,responseType: 'text'}).toPromise();
+
+    const response = await this.http.post(url, body, { headers: headers, responseType: 'text' });
+
+    console.log(response);
+
+    response.subscribe(response => res = response);
+
+    console.log(res);
+
+    return res;
   }
 
-  manejarNotificacionPrimerPlano(notificacion:PushNotification, usuario:Usuario){
+  async testNotification(notificacion: INotificacion, topic: string)
+  {
+    let res;
+    let body = JSON.stringify(notificacion);
+    let url = `${this.API}${topic}`;
+    let headers = new HttpHeaders({
+      'Content-Type': 'application/json'
+    });
+    //return this.http.post(url, body, { headers:headers ,responseType: 'text'}).toPromise();
+
+    const response = await this.http.get(url, { headers: headers, responseType: 'text' });
+
+    console.log(response);
+
+    response.subscribe(response => res = response);
+
+    console.log(res);
+
+    return res;
+  }
+
+  manejarNotificacionPrimerPlano(notificacion: PushNotification, usuario: Usuario)
+  {
     if (this.rolesService.isCliente(usuario))
     {
-      UIVisualService.presentAlert(notificacion.title,notificacion.body);
+      UIVisualService.presentAlert(notificacion.title, notificacion.body);
     }
     else if (this.rolesService.isEmpleado(usuario))
     {
-      UIVisualService.presentAlert(notificacion.title,notificacion.body);
+      UIVisualService.presentAlert(notificacion.title, notificacion.body);
     }
     else//Jefe
     {
-      UIVisualService.presentAlert(notificacion.title,notificacion.body);
+      UIVisualService.presentAlert(notificacion.title, notificacion.body);
     }
   }
 
-  manejarNotificacionSegundoPlano(notificacion:PushNotification, usuario:Usuario){
+  manejarNotificacionSegundoPlano(notificacion: PushNotification, usuario: Usuario)
+  {
     this.router.navigate([notificacion.data.ruta]);
   }
 
