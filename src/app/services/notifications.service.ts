@@ -24,6 +24,8 @@ import { UIVisualService } from './uivisual.service';
 
 const fcm = new FCM();
 const { PushNotifications } = Plugins;
+const { Http } = Plugins;
+
 @Injectable({
   providedIn: 'root'
 })
@@ -161,7 +163,14 @@ export class NotificationsService
     });
     //return this.http.post(url, body, { headers:headers ,responseType: 'text'}).toPromise();
 
-    const response = await this.http.post(url, body, { headers: headers, responseType: 'text' });
+    //const response = await this.http.post(url, body, { headers: headers, responseType: 'text' });
+    const response = await Http.request(
+      {
+        method: 'POST',
+        url: url,
+        headers: headers,
+        data: body
+      });
 
     console.log(response);
 
@@ -182,7 +191,14 @@ export class NotificationsService
     });
     //return this.http.post(url, body, { headers:headers ,responseType: 'text'}).toPromise();
 
-    const response = await this.http.get(url, { headers: headers, responseType: 'text' });
+    //const response = await this.http.get(url, { headers: headers, responseType: 'text' });
+    const response = await Http.request(
+      {
+        method: 'GET',
+        url: url,
+        headers: headers,
+        params: { 'nombre': 'PEPITO' }
+      });
 
     console.log(response);
 
