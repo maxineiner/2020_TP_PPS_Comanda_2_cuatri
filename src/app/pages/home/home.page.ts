@@ -67,22 +67,4 @@ export class HomePage implements OnInit
     UIVisualService.verEncuesta();
   }
 
-  notificar()
-  {
-    let payload: INotificacion =
-    {
-      notification:
-      {
-        title: "COMANDERA",
-        body: "Push notification de prueba"
-      }
-    }
-
-
-    console.log("POST");
-    this.notifications.sendNotification(payload, 'jefes')
-      .then(data => UIVisualService.presentToast(data))
-      .catch(error => UIVisualService.presentToast(error));
-  }
-
 }
