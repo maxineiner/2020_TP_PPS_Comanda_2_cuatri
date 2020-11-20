@@ -18,6 +18,10 @@
       <ion-fab-button color="success" translucent="true" [routerLink]="['/home/tab1']">
         <ion-icon name="triangle"></ion-icon>
       </ion-fab-button>
+
+      <ion-fab-button color="warning" translucent="true" (click)="notificar()">
+        <ion-icon name="push-sharp"></ion-icon>
+      </ion-fab-button>
     </ion-fab-list>
   </ion-fab>
 
@@ -60,6 +64,7 @@
       <ion-icon name="menu"></ion-icon>
       <ion-label>Menu</ion-label>
     </ion-tab-button>
+
 
   </ion-tab-bar>
 
