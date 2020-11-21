@@ -154,7 +154,7 @@ export class AltaClientePage implements OnInit {
     let scanSub = this.qr.scan(this.barcodeOptions).then( dataString =>{
     let x: any = [];
     x = dataString.text.split('@');
-    if (x.length == 8  x.length == 9) {
+    if (x.length == 8 || x.length == 9) {
       this.miFormulario.controls.apellido.setValue(x[1]);
       this.miFormulario.controls.nombre.setValue(x[2]);
       this.miFormulario.controls.dni.setValue(x[4]);
