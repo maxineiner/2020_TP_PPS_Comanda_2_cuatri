@@ -18,7 +18,7 @@ export class DetallePedidoComponent implements OnInit
   @Input() pedido: Pedido;
   usuario: Usuario = AuthService.usuario;
 
-  constructor(private rolService: RolesService, private notificationService:NotificationsService) 
+  constructor(private rolService: RolesService) 
   {
     //this.pedido.calcularTotal();
   }
@@ -59,7 +59,7 @@ export class DetallePedidoComponent implements OnInit
     UIVisualService.presentActionSheet(rol, this.pedido.estado, {
       mostrarPlatos: { handler: UIVisualService.verPlatos, params: this.pedido },
       solicitar: { handler: "", params: this.pedido },
-      confirmar: { handler: this.notificar, params: this.pedido },
+      confirmar: { handler: "", params: this.pedido },
       recibir: { handler: "", params: this.pedido },
       cerrar: { handler: UIVisualService.verCuenta, params: this.pedido },
       chat: { handler: UIVisualService.verChat, params: metadataMensaje },
@@ -67,26 +67,6 @@ export class DetallePedidoComponent implements OnInit
       liberar: { handler: "", params: this.pedido },
       encuesta: { handler: UIVisualService.verEncuesta }
     })
-  }
-  notificar(){
-    let notificarACocinero = false;
-    let notificarABartender = false;
-    this.pedido.productos.forEach(producto=>{
-      if(producto.tipo == TipoEmpleado.Cocinero){
-        notificarACocinero = true;
-      }
-      if(producto.tipo == TipoEmpleado.Bartender){
-        notificarABartender = true;
-      }
-    })
-    let titulo = 'Nuevo Producto para preparar';
-    let mensaje = 'Un cliente esta esperando un producto';
-    if(notificarACocinero){      
-      this.notificationService.enviarNotificacion(titulo,mensaje,'/home/menu-pedidos','cocineros')
-    }
-    if(notificarABartender){
-      this.notificationService.enviarNotificacion(titulo,mensaje,'/home/menu-pedidos','bartenders')
-    }
   }
 
 

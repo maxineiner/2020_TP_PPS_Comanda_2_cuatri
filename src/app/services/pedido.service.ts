@@ -1,9 +1,11 @@
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { Router } from '@angular/router';
+import { TipoEmpleado } from '../clases/empleado';
 import { EstadoPedido, Pedido } from '../clases/pedido';
 import { Producto } from '../clases/producto';
 import { MesaService } from './mesa.service';
+import { NotificationsService } from './notifications.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +15,7 @@ export class PedidoService
   public static pedidos: Pedido[] = [];
 
   constructor(private firebase: AngularFireDatabase, private router: Router,
-    private mesaService: MesaService) { }
+    private mesaService: MesaService,private notificationService:NotificationsService) { }
 
   /**
    * Método para realizar Alta en DB
@@ -158,10 +160,31 @@ export class PedidoService
     {
       console.log("Se acepto pedido para cocina y barra");
       pedido.cambiarEstado();
+      this.notificar(pedido);
       return this.actualizar(pedido);
     }
   }
 
+  notificar(pedido:Pedido){
+    let notificarACocinero = false;
+    let notificarABartender = false;
+    pedido.productos.forEach(producto=>{
+      if(producto.tipo == TipoEmpleado.Cocinero){
+        notificarACocinero = true;
+      }
+      if(producto.tipo == TipoEmpleado.Bartender){
+        notificarABartender = true;
+      }
+    })
+    let titulo = 'Nuevo Producto para preparar';
+    let mensaje = 'Un cliente esta esperando un producto';
+    if(notificarACocinero){      
+      this.notificationService.enviarNotificacion(titulo,mensaje,'/home/menu-pedidos','cocineros')
+    }
+    if(notificarABartender){
+      this.notificationService.enviarNotificacion(titulo,mensaje,'/home/menu-pedidos','bartenders')
+    }
+  }
 
   /**
    * Método para aceptar pago por parte de Mozo
