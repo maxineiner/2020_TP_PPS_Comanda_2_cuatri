@@ -129,3 +129,7 @@ Sistema de gestión gastronómica
   - Validación ABMs Usuarios
   - Validaciones ABMs Mesa, Producto, Pedido
   - Procesamiento de estadisticas de encuestas
+
+![Sprint_5](https://firebasestorage.googleapis.com/v0/b/web-apps---practica.appspot.com/o/readme%2Fsprint_5.png?alt=media&token=8ca3ed3f-fe28-49f1-b92e-1cbc5076c421 "Sprint 5")
+
+![Push_Notifications](https://firebasestorage.googleapis.com/v0/b/web-apps---practica.appspot.com/o/readme%2FPush_Notifications.png?alt=media&token=6348d06a-66a8-4afb-8ecd-03e0d8348382 "Push Notifications")
