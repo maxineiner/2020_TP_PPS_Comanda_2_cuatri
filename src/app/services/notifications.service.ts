@@ -189,7 +189,7 @@ export class NotificationsService
     {
       UIVisualService.presentAlert(notificacion.title, notificacion.body);
     }
-    else//Jefe
+    else if (this.rolesService.isJefe(usuario))
     {
       UIVisualService.presentAlert(notificacion.title, notificacion.body);
     }
