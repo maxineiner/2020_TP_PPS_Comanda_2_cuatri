@@ -1,8 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { TipoEmpleado } from 'src/app/clases/empleado';
 import { Pedido } from 'src/app/clases/pedido';
 import { Usuario } from 'src/app/clases/usuario';
 import { AuthService } from 'src/app/services/auth.service';
 import { MetadataMensaje } from 'src/app/services/mensajes.service';
+import { NotificationsService } from 'src/app/services/notifications.service';
 import { RolesService } from 'src/app/services/roles.service';
 import { UIVisualService } from 'src/app/services/uivisual.service';
 
