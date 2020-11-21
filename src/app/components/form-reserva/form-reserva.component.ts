@@ -9,6 +9,7 @@ import { UIVisualService } from 'src/app/services/uivisual.service';
 import { DateService } from 'src/app/services/date.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { RolesService } from 'src/app/services/roles.service';
+import { NotificationsService } from 'src/app/services/notifications.service';
 
 enum OpcionForm
 {
@@ -42,7 +43,8 @@ export class FormReservaComponent
     private UIVisual: UIVisualService,
     private dateService: DateService,
     private authService: AuthService,
-    private rolesService: RolesService
+    private rolesService: RolesService,
+    private notificationService:NotificationsService
   )
   {
     this.fechaActual = this.dateService.getIsoLocalTime(new Date());
@@ -116,7 +118,14 @@ export class FormReservaComponent
         this.reservaForm.controls['cliente'].value,
         this.reservaForm.controls['mesa'].value,
         [], timeStamp, null, 0, EstadoPedido.RESERVADO, true);
-      this.pedidosService.crear(pedido).then(() => { UIVisualService.presentToast('Reserva exitosa.') });
+      this.pedidosService.crear(pedido).then(() => { 
+        this.notificationService.enviarNotificacion(
+          'Nueva Reserva',`El cliente ${this.cliente.nombre} ${this.cliente.apellido} acaba de hacer una reserva`,
+          '/home/menu-reserva',
+          'jefes'
+          ).then().catch(()=>UIVisualService.presentToast('No se envio la notificacion.'))
+        UIVisualService.presentToast('Reserva exitosa.');
+       });
     }
 
   }
