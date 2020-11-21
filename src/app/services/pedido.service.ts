@@ -1,12 +1,11 @@
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { Router } from '@angular/router';
+import { ToastController } from '@ionic/angular';
 import { TipoEmpleado } from '../clases/empleado';
 import { EstadoPedido, Pedido } from '../clases/pedido';
-import { Producto } from '../clases/producto';
 import { MesaService } from './mesa.service';
 import { NotificationsService } from './notifications.service';
-import { UIVisualService } from './uivisual.service';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +15,7 @@ export class PedidoService
   public static pedidos: Pedido[] = [];
 
   constructor(private firebase: AngularFireDatabase, private router: Router,
-    private mesaService: MesaService, private notificationService: NotificationsService,visual:UIVisualService) { }
+    private mesaService: MesaService, private notificationService: NotificationsService,private toastController: ToastController) { }
 
   /**
    * Método para realizar Alta en DB
@@ -186,15 +185,24 @@ export class PedidoService
     if (notificarACocinero)
     {
       this.notificationService.enviarNotificacion(titulo, mensaje, '/home/menu-pedidos', 'cocineros')
-        .then(() => UIVisualService.presentToast('Cocinero Notificado'))
-        .catch(() => UIVisualService.presentToast('No se pudo Notificar al cocinero, pegale un grito'))
+        .then(() =>  this.presentToast('Cocinero Notificado'))
+        .catch(() => this.presentToast('No se pudo Notificar al cocinero, pegale un grito'))
     }
     if (notificarABartender)
     {
       this.notificationService.enviarNotificacion(titulo, mensaje, '/home/menu-pedidos', 'bartenders')
-        .then(() => UIVisualService.presentToast('Bartender Notificado'))
-        .catch(() => UIVisualService.presentToast('No se pudo Notificar al Bartender, pegale un grito'))
+        .then(() => this.presentToast('Bartender Notificado'))
+        .catch(() => this.presentToast('No se pudo Notificar al Bartender, pegale un grito'))
     }
+  }
+
+  async presentToast(message)
+  {
+    const toast = await this.toastController.create({
+      message,
+      duration: 2000,
+    })
+    toast.present();
   }
 
   /**
