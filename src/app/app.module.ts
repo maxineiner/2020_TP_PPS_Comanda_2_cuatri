@@ -25,6 +25,7 @@ import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
 import { GooglePlus } from '@ionic-native/google-plus/ngx';
 
 import { NativeAudio } from '@ionic-native/native-audio/ngx';
+import { NotificationsService } from './services/notifications.service';
 
 @NgModule({
   declarations: [AppComponent],
@@ -52,7 +53,8 @@ import { NativeAudio } from '@ionic-native/native-audio/ngx';
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     AngularFireDatabase,
     ProfileGuardService,
-    GooglePlus
+    GooglePlus,
+    NotificationsService
   ],
   bootstrap: [AppComponent]
 })
