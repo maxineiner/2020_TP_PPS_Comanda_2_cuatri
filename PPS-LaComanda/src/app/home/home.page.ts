@@ -8,7 +8,7 @@ import { async } from '@angular/core/testing';
 import { AngularFirestore } from "@angular/fire/firestore";
 import { DatabaseService } from '../servicios/database.service';
 import { AuthService } from '../servicios/auth.service';
-import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
+import { BarcodeScanner, BarcodeScannerOptions } from '@ionic-native/barcode-scanner/ngx';
 import { ComplementosService } from '../servicios/complementos.service';
 import { flatten } from '@angular/compiler';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
@@ -34,7 +34,7 @@ export class HomePage {
 	listaEspera = [];
 	listaPedidos = [];
 	constructor(private router: Router,
-		private barcodeScanner: BarcodeScanner,
+		private qr: BarcodeScanner,
 		private menu: MenuController,
 		private firestore: AngularFirestore,
 		private bd: DatabaseService,
@@ -306,7 +306,7 @@ export class HomePage {
 
 	listaEsperaQRCliente() {
 		let auxiliar;
-		this.barcodeScanner.scan().then(barcodeData => {
+		/*this.barcodeScanner.scan().then(barcodeData => {
 			auxiliar = barcodeData.text;
 			this.firestore.collection('usuarios').get().subscribe((querySnapShot) => {
 				querySnapShot.forEach((doc) => {
@@ -334,12 +334,12 @@ export class HomePage {
 			})
 		}).catch(err => {
 			console.log('Error', err);
-		});
+		});*/
 	}
 
 	listaEsperaQRAnonimo() {
 		let auxiliar;
-		this.barcodeScanner.scan().then(barcodeData => {
+		/*this.barcodeScanner.scan().then(barcodeData => {
 			auxiliar = barcodeData.text;
 			this.firestore.collection('usuarios').get().subscribe((querySnapShot) => {
 				querySnapShot.forEach((doc) => {
@@ -367,7 +367,7 @@ export class HomePage {
 			})
 		}).catch(err => {
 			console.log('Error', err);
-		});
+		});*/
 	}
 
 	cerrarSesion() {
@@ -393,7 +393,7 @@ export class HomePage {
 
 	darPropina() {
 		let auxiliar;
-		this.barcodeScanner.scan().then(barcodeData => {
+		/*this.barcodeScanner.scan().then(barcodeData => {
 			auxiliar = barcodeData.text;
 			switch (auxiliar) {
 				case "Excelente":
@@ -418,7 +418,7 @@ export class HomePage {
 			}
 		}).catch(err => {
 			console.log('Error', err);
-		})
+		})*/
 	}
 	
 	mostrarCuentaLista() {
@@ -516,7 +516,7 @@ export class HomePage {
 	qrMesa() {
 		localStorage.setItem("mesa", this.informarEstadoMesa.mesa);
 		let auxMesa;
-		this.barcodeScanner.scan().then(barcodeData => {
+		/*this.barcodeScanner.scan().then(barcodeData => {
 			auxMesa = JSON.parse(barcodeData.text);
 			let auxMesaString = auxMesa.toString();
 			this.firestore.collection('listaMesas').get().subscribe((querySnapShot) => {
@@ -564,7 +564,7 @@ export class HomePage {
 			})
 		}).catch(err => {
 			console.log('Error', err);
-		});
+		});*/
 	}
 
 	cargarProductos() {

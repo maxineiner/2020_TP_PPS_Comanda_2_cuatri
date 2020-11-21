@@ -23,7 +23,6 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
-
 import { ComplementosService } from './servicios/complementos.service';
 
 @NgModule({

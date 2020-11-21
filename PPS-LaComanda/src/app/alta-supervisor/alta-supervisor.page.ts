@@ -7,7 +7,7 @@ import firebase from 'firebase/app';
 import {AngularFireStorage} from "@angular/fire/storage"
 import { Usuariosbd } from "../clases/usuariosbd";
 import { ComplementosService } from 'src/app/servicios/complementos.service';
-import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
+import { BarcodeScanner, BarcodeScannerOptions } from '@ionic-native/barcode-scanner/ngx';
 import { AuthService } from '../servicios/auth.service';
 
 @Component({
@@ -40,7 +40,7 @@ export class AltaSupervisorPage implements OnInit {
   ]
 
   constructor(
-    private barcodeScanner : BarcodeScanner,
+    private qr : BarcodeScanner,
     private camera : Camera,
     private bd : DatabaseService,
     private formBuilder: FormBuilder,
@@ -157,7 +157,7 @@ export class AltaSupervisorPage implements OnInit {
 
     let auxDni;
 
-    this.barcodeScanner.scan().then(barcodeData => {
+    /*this.barcodeScanner.scan().then(barcodeData => {
 
       auxDni = JSON.parse(barcodeData.text);
 
@@ -165,7 +165,7 @@ export class AltaSupervisorPage implements OnInit {
 
      }).catch(err => {
          console.log('Error', err);
-     });
+     });*/
   
 
   }

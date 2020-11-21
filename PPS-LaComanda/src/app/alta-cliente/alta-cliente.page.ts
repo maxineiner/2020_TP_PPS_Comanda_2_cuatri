@@ -7,7 +7,7 @@ import { AngularFireStorage } from "@angular/fire/storage"
 import { Usuariosbd } from "../clases/usuariosbd";
 import { ComplementosService } from 'src/app/servicios/complementos.service';
 
-import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
+import { BarcodeScanner, BarcodeScannerOptions } from '@ionic-native/barcode-scanner/ngx';
 import { Router } from '@angular/router';
 
 @Component({
@@ -19,7 +19,6 @@ export class AltaClientePage implements OnInit {
   pickedName: string;
   miFormulario: FormGroup;
   miFormularioAnonimo: FormGroup;
-
   usuarioJson = {
     nombre: "",
     apellido: "",
@@ -44,11 +43,11 @@ export class AltaClientePage implements OnInit {
   listaPerfiles = [
     { perfil: "Cliente" },
     { perfil: "Anonimo" }
-  ]
+  ];
 
   constructor(
     private router: Router,
-    private barcodeScanner: BarcodeScanner,
+    private qr: BarcodeScanner,
     private camera: Camera,
     private bd: DatabaseService,
     private formBuilder: FormBuilder,
@@ -81,7 +80,6 @@ export class AltaClientePage implements OnInit {
     })
   }
 
-
   registrar() {
     if (this.pathImagen != null) {
       this.st.storage.ref(this.pathImagen).getDownloadURL().then((link) => {
@@ -96,7 +94,7 @@ export class AltaClientePage implements OnInit {
           this.bd.crear('usuarios', this.anonimoJson);
           //localStorage.setItem('usuarioAnonimo',JSON.stringify(this.anonimoJson)); // Guardamos el nombre de anonimo en el localStorage
           localStorage.setItem('nombreAnonimo', this.anonimoJson.nombre);
-          localStorage.setItem('tieneCorreo', 'sinCorreo'); 
+          localStorage.setItem('tieneCorreo', 'sinCorreo');
           this.complemetos.presentToastConMensajeYColor("Anónimo exitoso", "primary");
           this.router.navigate(['/home']);
         }
@@ -111,7 +109,7 @@ export class AltaClientePage implements OnInit {
       else {
         this.bd.crear('usuarios', this.anonimoJson);
         //localStorage.setItem('nombreAnonimo',JSON.stringify(this.anonimoJson)); // Guardamos la foto y el nombre del anonimo
-        localStorage.setItem('nombreAnonimo', this.anonimoJson.nombre); 
+        localStorage.setItem('nombreAnonimo', this.anonimoJson.nombre);
         localStorage.setItem('tieneCorreo', 'sinCorreo');
         this.router.navigate(['/home']);
         this.complemetos.presentToastConMensajeYColor("Anónimo exitoso", "primary");
@@ -144,35 +142,27 @@ export class AltaClientePage implements OnInit {
   }
 
   escanearDni() {
-    let auxDni;
-    this.barcodeScanner.scan().then(barcodeData => {
-      alert('Barcode data: ' + barcodeData);
-      auxDni = JSON.parse(barcodeData.text);
-      this.usuarioJson.dni = auxDni;
-    }).catch(err => {
-      console.log('Error', err);
-    });
-  }
+}
 
-  limpiarCampos() {
-    this.usuarioJson = {
-      nombre: "",
-      apellido: "",
-      dni: "",
-      foto: "../../assets/icon/iconLogoMovimiento.png",
-      perfil: "Cliente",
-      correo: "",
-      contrasenia: "",
-      estado: "esperando",
-      estadoMesa: "sinMesa"
-    };
-    this.anonimoJson = {
-      nombre: "",
-      foto: "../../assets/icon/iconLogoMovimiento.png",
-      perfil: "Anonimo",
-      estado: "esperando",
-      estadoMesa: "sinMesa"
-    }
+limpiarCampos() {
+  this.usuarioJson = {
+    nombre: "",
+    apellido: "",
+    dni: "",
+    foto: "../../assets/icon/iconLogoMovimiento.png",
+    perfil: "Cliente",
+    correo: "",
+    contrasenia: "",
+    estado: "esperando",
+    estadoMesa: "sinMesa"
+  };
+  this.anonimoJson = {
+    nombre: "",
+    foto: "../../assets/icon/iconLogoMovimiento.png",
+    perfil: "Anonimo",
+    estado: "esperando",
+    estadoMesa: "sinMesa"
   }
+}
 
 }

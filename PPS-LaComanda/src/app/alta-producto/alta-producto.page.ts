@@ -5,7 +5,7 @@ import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import firebase from 'firebase/app';
 import { AngularFireStorage } from "@angular/fire/storage"
 import { ComplementosService } from 'src/app/servicios/complementos.service';
-import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
+import { BarcodeScanner, BarcodeScannerOptions } from '@ionic-native/barcode-scanner/ngx';
 
 @Component({
   selector: 'app-alta-producto',
@@ -32,7 +32,7 @@ export class AltaProductoPage implements OnInit {
   ]
 
   constructor(
-    private barcodeScanner: BarcodeScanner,
+    private qr: BarcodeScanner,
     private camera: Camera,
     private bd: DatabaseService,
     private formBuilder: FormBuilder,

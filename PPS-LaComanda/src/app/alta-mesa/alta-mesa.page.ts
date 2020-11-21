@@ -6,7 +6,7 @@ import firebase from 'firebase/app';
 import {AngularFireStorage} from "@angular/fire/storage";
 import { Usuariosbd } from "../clases/usuariosbd";
 import { ComplementosService } from '../servicios/complementos.service';
-import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
+import { BarcodeScanner, BarcodeScannerOptions } from '@ionic-native/barcode-scanner/ngx';
 
 @Component({
   selector: 'app-alta-mesa',
@@ -34,7 +34,7 @@ export class AltaMesaPage implements OnInit {
   ]
 
   constructor(
-    private barcodeScanner : BarcodeScanner,
+    private qr : BarcodeScanner,
     private camera : Camera,
     private bd : DatabaseService,
     private formBuilder: FormBuilder,
@@ -47,9 +47,7 @@ export class AltaMesaPage implements OnInit {
    }
    
   ngOnInit() {
-  
     this.pickedName = "Cliente";
-
   }
 
   pickerUser(pickedName){
@@ -68,22 +66,16 @@ export class AltaMesaPage implements OnInit {
   registrar()
   {
     if(this.pathImagen != null){   
-
       this.st.storage.ref(this.pathImagen).getDownloadURL().then((link) =>
       {
-
         this.mesaJson.foto = link;
         this.bd.crear('mesas',this.mesaJson);
-
       });
-
     }
     else
     {
-      this.bd.crear('usuarios',this.mesaJson);
-
+      this.bd.crear('mesas',this.mesaJson);
     }
-
     this.complemetos.presentToastConMensajeYColor("El estado del cliente esta pendiente al registro.","primary");
   }
 
@@ -101,48 +93,17 @@ export class AltaMesaPage implements OnInit {
     this.camera.getPicture(options).then((imageData)=> {
 
       var base64Str = 'data:image/jpeg;base64,'+imageData;
-      
-      //Para que la fotografia se muestre apenas se tomo
       this.mesaJson.foto = base64Str;
-
       var storageRef = firebase.storage().ref();
-     
       let obtenerMili = new Date().getTime(); 
-
       var nombreFoto = "usuarios/"+obtenerMili+"."+this.mesaJson.tipo+".jpg";
-
       var childRef = storageRef.child(nombreFoto);
-
       this.pathImagen = nombreFoto;
-
       childRef.putString(base64Str,'data_url').then(function(snapshot)
-      {
-
-      })
-
+      {})
     },(Err)=>{
       alert(JSON.stringify(Err));
     })
     
   }
-
-  escanearDni()
-  {
-    let auxDni;
-
-    this.barcodeScanner.scan().then(barcodeData => {
-      alert('Barcode data: ' + barcodeData);
-
-      auxDni = JSON.parse(barcodeData.text);
-
-      this.mesaJson.tipo = auxDni;
-
-     }).catch(err => {
-         console.log('Error', err);
-     });
-
-  }
-
-
-
 }
