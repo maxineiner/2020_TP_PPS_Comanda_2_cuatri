@@ -185,11 +185,7 @@ export class NotificationsService
 
   manejarNotificacionPrimerPlano(notificacion: PushNotification, usuario: Usuario)
   {
-    if (this.rolesService.isCliente(usuario))
-    {
-      UIVisualService.presentAlert(notificacion.title, notificacion.body);
-    }
-    else if (this.rolesService.isEmpleado(usuario))
+    if (this.rolesService.isEmpleado(usuario))
     {
       UIVisualService.presentAlert(notificacion.title, notificacion.body);
     }
