@@ -5,8 +5,10 @@ import { EstadoPedido, Pedido } from 'src/app/clases/pedido';
 import { Producto } from 'src/app/clases/producto';
 import { Usuario } from 'src/app/clases/usuario';
 import { AuthService } from 'src/app/services/auth.service';
+import { NotificationsService } from 'src/app/services/notifications.service';
 import { PedidoService } from 'src/app/services/pedido.service';
 import { RolesService } from 'src/app/services/roles.service';
+import { UIVisualService } from 'src/app/services/uivisual.service';
 
 @Component({
   selector: 'app-lista-platos-cliente',
@@ -23,7 +25,10 @@ export class ListaPlatosClienteComponent implements OnInit
   @ViewChild('lista', { static: false }) lista: IonList;
 
   constructor(private modalController: ModalController, private rolService: RolesService,
-    private pedidoService: PedidoService, private toastController: ToastController) { }
+    private pedidoService: PedidoService, private toastController: ToastController,
+    private notificationService:NotificationsService,
+    private visual:UIVisualService
+    ) { }
 
   ngOnInit() 
   {
@@ -47,14 +52,22 @@ export class ListaPlatosClienteComponent implements OnInit
     if (!this.pedido.productos[index].isReady)
     {
       this.pedido.productos[index].isReady = true;
+      this.notificar(this.pedido,index);
     }
     else if (this.pedido.productos[index].isReady)
     {
       this.pedido.productos[index].isReady = false;
     }
-
+    
     this.pedidoModificado = true;
     this.lista.closeSlidingItems();
+  }
+  notificar(pedido:Pedido,index:number){
+    let titulo = `Pedido Mesa ${pedido.mesa.numero} Listo`;
+    let mensaje = `El producto ${pedido.productos[index].nombre} esta listo para entregar`;
+    this.notificationService.enviarNotificacion(titulo,mensaje,'/home/menu-pedidos','mozos')
+    .then(()=>UIVisualService.presentToast('Mozo Notificado'))
+    .catch(()=>UIVisualService.presentToast('No se pudo Notificar al mozo, pegale un grito'))
   }
 
   cerrar()

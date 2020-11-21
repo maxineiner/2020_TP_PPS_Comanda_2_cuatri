@@ -6,6 +6,7 @@ import { EstadoPedido, Pedido } from '../clases/pedido';
 import { Producto } from '../clases/producto';
 import { MesaService } from './mesa.service';
 import { NotificationsService } from './notifications.service';
+import { UIVisualService } from './uivisual.service';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +16,7 @@ export class PedidoService
   public static pedidos: Pedido[] = [];
 
   constructor(private firebase: AngularFireDatabase, private router: Router,
-    private mesaService: MesaService,private notificationService:NotificationsService) { }
+    private mesaService: MesaService, private notificationService: NotificationsService,visual:UIVisualService) { }
 
   /**
    * Método para realizar Alta en DB
@@ -165,24 +166,34 @@ export class PedidoService
     }
   }
 
-  notificar(pedido:Pedido){
+  notificar(pedido: Pedido)
+  {
     let notificarACocinero = false;
     let notificarABartender = false;
-    pedido.productos.forEach(producto=>{
-      if(producto.tipo == TipoEmpleado.Cocinero){
+    pedido.productos.forEach(producto =>
+    {
+      if (producto.tipo == TipoEmpleado.Cocinero)
+      {
         notificarACocinero = true;
       }
-      if(producto.tipo == TipoEmpleado.Bartender){
+      if (producto.tipo == TipoEmpleado.Bartender)
+      {
         notificarABartender = true;
       }
     })
     let titulo = 'Nuevo Producto para preparar';
     let mensaje = 'Un cliente esta esperando un producto';
-    if(notificarACocinero){      
-      this.notificationService.enviarNotificacion(titulo,mensaje,'/home/menu-pedidos','cocineros')
+    if (notificarACocinero)
+    {
+      this.notificationService.enviarNotificacion(titulo, mensaje, '/home/menu-pedidos', 'cocineros')
+        .then(() => UIVisualService.presentToast('Cocinero Notificado'))
+        .catch(() => UIVisualService.presentToast('No se pudo Notificar al cocinero, pegale un grito'))
     }
-    if(notificarABartender){
-      this.notificationService.enviarNotificacion(titulo,mensaje,'/home/menu-pedidos','bartenders')
+    if (notificarABartender)
+    {
+      this.notificationService.enviarNotificacion(titulo, mensaje, '/home/menu-pedidos', 'bartenders')
+        .then(() => UIVisualService.presentToast('Bartender Notificado'))
+        .catch(() => UIVisualService.presentToast('No se pudo Notificar al Bartender, pegale un grito'))
     }
   }
 
