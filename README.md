@@ -12,6 +12,7 @@
 
 ### Tareas a realizar: Domingo 15/11 - Martes 17/11
 - Perez ezequiel
+  * [X] primer commit
   * [X] generar componente de alta de mesas
   * [X] generar componente de alta de supervisores
 - Giordano Tomas
@@ -26,13 +27,14 @@
 
 ### Tareas a realizar: miercoles 18/11 - viernes 20/11
 - Perez ezequiel
-  * [] generar componente para realizar pedido
-  * [] generar componente de encuestas
-  * [] agregar spinner propio con el logo de la empresa
+  * [X] generar componente para realizar pedido
+  * [X] generar componente de encuestas
+  * [X] agregar spinner propio con el logo de la empresa
 - Giordano Tomas
-  * [] generar un compomponente para el listado de mesas
-  * [] agregar sonidos segun la actividad realizada
+  * [X] generar un compomponente para el listado de mesas
+  * [X] agregar sonidos segun la actividad realizada
+  * [X] agregar funcion de qr para las altas de usuarios
 - Rilo Sebastian
-  * [] generar un componente de alta de productos
-  * [] generar menu principal para acceder a los componentes
+  * [X] generar un componente de alta de productos
+  * [X] generar menu principal para acceder a los componentes
 
