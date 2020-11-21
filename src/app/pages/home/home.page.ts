@@ -37,7 +37,8 @@ export class HomePage implements OnInit
     private productoService: ProductoService,
     private modalController: ModalController,
     private UIVisual: UIVisualService,
-    private encuestaService: EncuestaService
+    private encuestaService: EncuestaService,
+    private notificationService:NotificationsService
   ) { }
 
   ngOnInit()
@@ -53,6 +54,7 @@ export class HomePage implements OnInit
 
   cerrarSesion()
   {
+    this.notificationService.unsubscribeAll();
     this.authService.onLogout();
     this.router.navigate(['/auth-page']);
   }

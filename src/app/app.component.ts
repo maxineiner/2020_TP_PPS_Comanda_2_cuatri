@@ -6,6 +6,7 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { SplashComponent } from './components/splash/splash.component';
 import { Router } from '@angular/router';
 import { AudioService } from './services/audio.service';
+import { NotificationsService } from './services/notifications.service';
 
 @Component({
   selector: 'app-root',
@@ -20,7 +21,8 @@ export class AppComponent
     private statusBar: StatusBar,
     private modalCtrl: ModalController,
     private router: Router,
-    private audioService: AudioService
+    private audioService: AudioService,
+    private notificationService:NotificationsService
   )
   {
 
@@ -39,6 +41,7 @@ export class AppComponent
   {
     this.platform.ready().then(() =>
     {
+      this.notificationService.unsubscribeAll();
       this.statusBar.styleDefault();
       this.splashScreen.hide();
     });
