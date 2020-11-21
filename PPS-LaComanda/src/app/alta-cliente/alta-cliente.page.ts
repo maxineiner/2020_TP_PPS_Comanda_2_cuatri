@@ -31,6 +31,14 @@ export class AltaClientePage implements OnInit {
     estadoMesa: "sinMesa",
   };
 
+  barcodeOptions = {
+    "preferFrontCamera": true, // iOS and Android
+    "showFlipCameraButton": true, // iOS and Android
+    "prompt": "Place a barcode inside the scan area", // supported on Android only
+    "formats": "QR_CODE,PDF_417", // default: all but PDF_417 and RSS_EXPANDED
+    "orientation": "landscape"
+  };
+
   anonimoJson = {
     nombre: "",
     foto: "../../assets/icon/iconLogoMovimiento.png",
@@ -142,6 +150,20 @@ export class AltaClientePage implements OnInit {
   }
 
   escanearDni() {
+    let auxDni;
+    let scanSub = this.qr.scan(this.barcodeOptions).then( dataString =>{
+    let x: any = [];
+    x = dataString.text.split('@');
+    if (x.length == 8  x.length == 9) {
+      this.miFormulario.controls.apellido.setValue(x[1]);
+      this.miFormulario.controls.nombre.setValue(x[2]);
+      this.miFormulario.controls.dni.setValue(x[4]);
+    } else {
+      this.miFormulario.controls.dni.setValue(x[1]);
+      this.miFormulario.controls.apellido.setValue(x[4]);
+      this.miFormulario.controls.nombre.setValue(x[5]);
+    }
+  });
 }
 
 limpiarCampos() {
@@ -164,5 +186,4 @@ limpiarCampos() {
     estadoMesa: "sinMesa"
   }
 }
-
 }
