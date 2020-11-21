@@ -115,6 +115,26 @@ export class NotificationsService
       .catch((err) => console.error(err));
   }
 
+  unsubscribeAll()
+  {
+    fcm
+      .unsubscribeFrom({ topic: 'jefes' })
+      .then((r) => console.log(`unsubcribed from jefes`))
+      .catch((err) => console.error(err));
+    fcm
+      .unsubscribeFrom({ topic: 'mozos' })
+      .then((r) => console.log(`unsubcribed from mozos`))
+      .catch((err) => console.error(err));
+    fcm
+      .unsubscribeFrom({ topic: 'cocineros' })
+      .then((r) => console.log(`unsubcribed from cocineros`))
+      .catch((err) => console.error(err));
+    fcm
+      .unsubscribeFrom({ topic: 'bartenders' })
+      .then((r) => console.log(`unsubcribed from bartenders`))
+      .catch((err) => console.error(err));
+  }
+
   /**
    * Funcion booleana para saber si un usuario ya tiene un token registrado
    * @param usuario 
