@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService, LoginProvider } from '../../services/auth.service';
+import { AuthService, USERS_TEST } from '../../services/auth.service';
 import { Usuario } from 'src/app/clases/usuario';
 import { Cliente, EstadoAceptacion } from 'src/app/clases/cliente';
 import { JefeService } from 'src/app/services/jefe.service';
@@ -8,6 +8,7 @@ import { ClienteService } from 'src/app/services/cliente.service';
 import { Router } from '@angular/router';
 import { ActionSheetController, AlertController, ModalController } from '@ionic/angular';
 import { Imagen } from 'src/app/clases/imagen';
+import { LoginProvider } from 'src/app/interfaces/IProviders';
 
 @Component({
   selector: 'app-login',
@@ -32,19 +33,22 @@ export class LoginPage implements OnInit
   {
   }
 
-  async login(provider: LoginProvider)
+  // async login(provider: LoginProvider)
+  // {
+  //   const uid = await this.authService.onLogin(this.usuario, provider);
+
+  //   console.log(uid);
+
+  //   this.modalController.dismiss();
+  //   this.router.navigate(['/home']);
+  // }
+
+  async onLogin(provider: LoginProvider, mailTest?: string, passwordTest?: string)
   {
-    const uid = await this.authService.onLogin(this.usuario, provider);
-
-    console.log(uid);
-
-    this.modalController.dismiss();
-    this.router.navigate(['/home']);
-  }
-
-  async onLogin(provider: LoginProvider)
-  {
-    const uid = await this.authService.onLogin(this.usuario, provider);
+    const credential = mailTest && passwordTest ?
+      await this.authService.onLoginTesting(mailTest, passwordTest) :
+      await this.authService.onLogin(this.usuario, provider);
+    const uid = credential.user.uid;
 
     if (uid)
     {
@@ -76,7 +80,7 @@ export class LoginPage implements OnInit
       }
       else 
       {
-        console.log("usuario no encontrado")
+        console.log("usuario no encontrado");
         // mostrar error en pantalla
       }
       console.log(AuthService.usuario)
@@ -98,7 +102,9 @@ export class LoginPage implements OnInit
     {
       console.log('Cliente anonimo logueado!');
 
-      let cliente = Cliente.CrearCliente(uid, "Anónimo", " ", "0", new Imagen(), " ", true, EstadoAceptacion.Anonimo, { isWaiting: false, horario: null })
+      let cliente = Cliente.CrearCliente(uid, "Anónimo", " ", "0", new Imagen(), " ",
+        true, EstadoAceptacion.Anonimo,
+        { isWaiting: false, horario: null })
       console.log(cliente)
 
       AuthService.usuario = cliente;
@@ -158,48 +164,15 @@ export class LoginPage implements OnInit
     this.onLogin(LoginProvider.Facebook);
   }
 
+  async onLoginTwitter()
+  {
+    this.onLogin(LoginProvider.Twitter);
+  }
+
   async onLoginGithub()
   {
     this.onLogin(LoginProvider.Github);
   }
-
-  async onLoginTesting(rol: string)
-  {
-    let uid;
-
-    switch (rol)
-    {
-      case "Cliente":
-        uid = await this.authService.onLoginTesting("cliente@mail.com", "111111");
-        AuthService.usuario = await this.clienteService.leerPorID(uid);
-        break;
-      case "Supervisor":
-        uid = await this.authService.onLoginTesting("supervisor@mail.com", "111111");
-        AuthService.usuario = await this.jefeService.leerPorID(uid);
-        break;
-      case "Duenio":
-        uid = await this.authService.onLoginTesting("duenio@mail.com", "111111");
-        AuthService.usuario = await this.jefeService.leerPorID(uid);
-        break;
-      case "Mozo":
-        uid = await this.authService.onLoginTesting("mozo@mail.com", "111111");
-        AuthService.usuario = await this.empleadoService.leerPorID(uid);
-        break;
-      case "Bartender":
-        uid = await this.authService.onLoginTesting("bartender@mail.com", "111111");
-        AuthService.usuario = await this.empleadoService.leerPorID(uid);
-        break;
-      case "Cocinero":
-        uid = await this.authService.onLoginTesting("cocinero@mail.com", "111111");
-        AuthService.usuario = await this.empleadoService.leerPorID(uid);
-        break;
-    }
-
-    console.log(AuthService.usuario);
-    this.cerrar();
-    this.router.navigate(['/home']);
-  }
-
 
   async mostrarRoles()
   {
@@ -209,53 +182,32 @@ export class LoginPage implements OnInit
       translucent: true,
       buttons: [{
         text: 'Cliente',
-        handler: () =>
-        {
-          this.onLoginTesting("Cliente");
-        }
+        handler: () => this.onLogin(LoginProvider.Email, USERS_TEST.cliente.mail, USERS_TEST.cliente.password)
       },
       {
         text: 'Supervisor',
-        handler: () =>
-        {
-          this.onLoginTesting("Supervisor");
-        }
+        handler: () => this.onLogin(LoginProvider.Email, USERS_TEST.supervisor.mail, USERS_TEST.supervisor.password)
       },
       {
         text: 'Dueño',
-        handler: () =>
-        {
-          this.onLoginTesting("Duenio");
-        }
+        handler: () => this.onLogin(LoginProvider.Email, USERS_TEST.duenio.mail, USERS_TEST.duenio.password)
       },
       {
         text: 'Mozo',
-        handler: () =>
-        {
-          this.onLoginTesting("Mozo");
-        }
+        handler: () => this.onLogin(LoginProvider.Email, USERS_TEST.mozo.mail, USERS_TEST.mozo.password)
       },
       {
         text: 'Cocinero',
-        handler: () =>
-        {
-          this.onLoginTesting("Cocinero");
-        }
+        handler: () => this.onLogin(LoginProvider.Email, USERS_TEST.cocinero.mail, USERS_TEST.cocinero.password)
       },
       {
         text: 'Bartender',
-        handler: () =>
-        {
-          this.onLoginTesting("Bartender");
-        }
+        handler: () => this.onLogin(LoginProvider.Email, USERS_TEST.bartender.mail, USERS_TEST.bartender.password)
       },
       {
         text: 'Cerrar',
         role: 'cancel',
-        handler: () =>
-        {
-          console.log('Cerrar');
-        }
+        handler: () => console.log('Cerrar')
       }]
     });
 

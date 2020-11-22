@@ -18,19 +18,14 @@
       Entrar con Google+
     </ion-button>
 
-    <ion-button size="medium" (click)="onLoginFacebook()" expand="block" color="facebook">
+    <ion-button size="medium" (click)="onLoginFacebook()" expand="block" color="primary">
       <ion-icon slot="start" name="logo-facebook"></ion-icon>
       Entrar con Facebook
     </ion-button>
 
-    <ion-button size="medium" (click)="onLoginMail()" expand="block" color="primary">
-      <ion-icon slot="start" name="mail-outline"></ion-icon>
-      Correo electrónico
-    </ion-button>
-
-    <ion-button size="medium" (click)="onLoginAnonymously()" expand="block" color="secondary">
-      <ion-icon slot="start" name="finger-print"></ion-icon>
-      Anónimo
+    <ion-button size="medium" (click)="onLoginTwitter()" expand="block" color="twitter">
+      <ion-icon slot="start" name="logo-twitter"></ion-icon>
+      Entrar con Twitter
     </ion-button>
 
     <ion-button size="medium" (click)="onLoginGithub()" expand="block" color="dark">
@@ -38,29 +33,19 @@
       Entrar con Github
     </ion-button>
 
+    <ion-button size="medium" (click)="onLoginAnonymously()" expand="block" color="secondary">
+      <ion-icon slot="start" name="walk-outline"></ion-icon>
+      Anónimo
+    </ion-button>
+
+    <ion-button size="medium" (click)="onLoginMail()" expand="block" color="tertiary">
+      <ion-icon slot="start" name="mail-outline"></ion-icon>
+      Correo electrónico
+    </ion-button>
 
   </div>
 
 
-  <ion-fab vertical="top" horizontal="end" slot="fixed">
-    <ion-fab-button color="dark">
-      <ion-icon name="log-in"></ion-icon>
-    </ion-fab-button>
-    <ion-fab-list side="bottom">
-      <ion-fab-button color="facebook" (click)="login('Facebook')">
-        <ion-icon name="logo-facebook"></ion-icon>
-      </ion-fab-button>
-      <ion-fab-button color="danger" (click)="login('Google')">
-        <ion-icon name="logo-google"></ion-icon>
-      </ion-fab-button>
-      <ion-fab-button color="dark" (click)="login('Github')">
-        <ion-icon name="logo-github"></ion-icon>
-      </ion-fab-button>
-      <ion-fab-button color="twitter" (click)="login('Twitter')">
-        <ion-icon name="logo-twitter"></ion-icon>
-      </ion-fab-button>
-    </ion-fab-list>
-  </ion-fab>
 
 
 </ion-content>
