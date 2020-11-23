@@ -31,6 +31,8 @@
 
         </activity>
 
+        <meta-data android:name="com.google.firebase.messaging.default_notification_icon" android:resource="@mipmap/ic_launcher_foreground" />
+          
 		<meta-data android:name="com.facebook.sdk.ApplicationId"
 		android:value="@string/facebook_app_id"/>
 
@@ -79,5 +81,5 @@
     <!-- Audio -->
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS"/>
-    <uses-permission android:name="android.permission.VIBRATE" />
+	<uses-permission android:name="android.permission.VIBRATE" />
 </manifest>
