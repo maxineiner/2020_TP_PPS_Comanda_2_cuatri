@@ -13,6 +13,7 @@ import { timer } from 'rxjs';
 export class LoginPage implements OnInit {
 	email: string;
 	password: string;
+	pickedName = null;
 	listaUsuarios = [
 		{ id: 1, correo: "duenio@duenio.com", clave: "111111", perfil: "Dueño" },
 		{ id: 2, correo: "supervisor@supervisor.com", clave: "222222", perfil: "Supervisor" },

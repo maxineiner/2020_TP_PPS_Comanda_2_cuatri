@@ -32,10 +32,8 @@ export class AltaClientePage implements OnInit {
   };
 
   barcodeOptions = {
-    "preferFrontCamera": true, // iOS and Android
-    "showFlipCameraButton": true, // iOS and Android
-    "prompt": "Place a barcode inside the scan area", // supported on Android only
-    "formats": "QR_CODE,PDF_417", // default: all but PDF_417 and RSS_EXPANDED
+    "prompt": "Place a barcode inside the scan area",
+    "formats": "QR_CODE,PDF_417",
     "orientation": "landscape"
   };
 
@@ -100,7 +98,6 @@ export class AltaClientePage implements OnInit {
         }
         else {
           this.bd.crear('usuarios', this.anonimoJson);
-          //localStorage.setItem('usuarioAnonimo',JSON.stringify(this.anonimoJson)); // Guardamos el nombre de anonimo en el localStorage
           localStorage.setItem('nombreAnonimo', this.anonimoJson.nombre);
           localStorage.setItem('tieneCorreo', 'sinCorreo');
           this.complemetos.presentToastConMensajeYColor("Anónimo exitoso", "primary");
@@ -116,7 +113,6 @@ export class AltaClientePage implements OnInit {
       }
       else {
         this.bd.crear('usuarios', this.anonimoJson);
-        //localStorage.setItem('nombreAnonimo',JSON.stringify(this.anonimoJson)); // Guardamos la foto y el nombre del anonimo
         localStorage.setItem('nombreAnonimo', this.anonimoJson.nombre);
         localStorage.setItem('tieneCorreo', 'sinCorreo');
         this.router.navigate(['/home']);
@@ -134,13 +130,13 @@ export class AltaClientePage implements OnInit {
       encodingType: this.camera.EncodingType.JPEG,
       mediaType: this.camera.MediaType.PICTURE,
     }
-
     this.camera.getPicture(options).then((imageData) => {
       var base64Str = 'data:image/jpeg;base64,' + imageData;
       this.usuarioJson.foto = base64Str;
-      var storageRef = firebase.storage().ref();
       let obtenerMili = new Date().getTime();
       var nombreFoto = "usuarios/" + obtenerMili + "." + this.usuarioJson.dni + ".jpg";
+      this.bd.subirImagen()
+      var storageRef = firebase.storage().ref();
       var childRef = storageRef.child(nombreFoto);
       this.pathImagen = nombreFoto;
       childRef.putString(base64Str, 'data_url').then(function(snapshot) { })

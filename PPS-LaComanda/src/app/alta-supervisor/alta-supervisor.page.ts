@@ -35,10 +35,8 @@ export class AltaSupervisorPage implements OnInit {
   };
 
   barcodeOptions = {
-    "preferFrontCamera": true, // iOS and Android
-    "showFlipCameraButton": true, // iOS and Android
-    "prompt": "Place a barcode inside the scan area", // supported on Android only
-    "formats": "QR_CODE,PDF_417", // default: all but PDF_417 and RSS_EXPANDED
+    "prompt": "Place a barcode inside the scan area",
+    "formats": "QR_CODE,PDF_417",
     "orientation": "landscape"
   };
 
@@ -68,31 +66,23 @@ export class AltaSupervisorPage implements OnInit {
 
 
   ngOnInit() {
-
   this.pickedName = "Dueño";
   this.usuarioJson.perfil = this.pickedName;
-
   }
 
   registrar(perfil)
   {
     if(this.pathImagen != null){
-      
-
       this.st.storage.ref(this.pathImagen).getDownloadURL().then((link) =>
       {
-
         this.usuarioJson.foto = link;
         this.bd.crear('usuarios',this.usuarioJson);
-
       });
-
     }
     else
     {
       this.bd.crear('usuarios',this.usuarioJson);
     }
-
    this.auth.registrarUsuario(this.usuarioJson.correo,this.usuarioJson.contrasenia);
     this.complemetos.presentToastConMensajeYColor("¡El "+perfil +" se creo con exito!","primary");
     this.limpiarCampos();
@@ -108,7 +98,6 @@ export class AltaSupervisorPage implements OnInit {
     this.usuarioJson.perfil = this.pickedName;  
     this.usuarioJson.contrasenia = "";  
     this.usuarioJson.correo = ""; 
-
   }
 
   
@@ -124,31 +113,19 @@ export class AltaSupervisorPage implements OnInit {
     }
 
     this.camera.getPicture(options).then((imageData)=> {
-
       var base64Str = 'data:image/jpeg;base64,'+imageData;
-      
-      //Para que la fotografia se muestre apenas se tomo
       this.usuarioJson.foto = base64Str;
-
       var storageRef = firebase.storage().ref();
-     
       let obtenerMili = new Date().getTime(); 
-
       var nombreFoto = "usuarios/"+obtenerMili+"."+this.usuarioJson.dni+".jpg";
-
       var childRef = storageRef.child(nombreFoto);
-
       this.pathImagen = nombreFoto;
-
       childRef.putString(base64Str,'data_url').then(function(snapshot)
       {
-
       })
-
     },(Err)=>{
       alert(JSON.stringify(Err));
     })
-    
   }
 
   pickerUser(pickedName){

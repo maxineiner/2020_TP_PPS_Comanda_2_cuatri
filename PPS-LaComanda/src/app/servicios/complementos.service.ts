@@ -8,7 +8,7 @@ import { stringify } from 'querystring';
 	providedIn: 'root'
 })
 export class ComplementosService {
-
+	public flagSonidos: boolean;
 	qrScan: any;
 
 	constructor(public toastController: ToastController, public loadingController: LoadingController,) { }

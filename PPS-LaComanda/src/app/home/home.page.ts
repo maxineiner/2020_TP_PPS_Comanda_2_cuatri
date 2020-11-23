@@ -109,9 +109,7 @@ export class HomePage {
 	mostrarConsultaRealizada = false;
 
 	ngOnInit() {
-		setTimeout(() => {
-			this.splash = false;
-		}, 4000);
+		this.splash = false;
 		this.contadorInterno = -1;
 		this.jsonEncuesta.fotos[0] = 'https://i.imgur.com/zH3i014.png';
 		this.jsonEncuesta.fotos[1] = 'https://i.imgur.com/zH3i014.png';
@@ -119,6 +117,112 @@ export class HomePage {
 		this.tieneCorreo = localStorage.getItem('tieneCorreo');
 		if (this.tieneCorreo == 'conCorreo') {
 			this.correoUsuario = localStorage.getItem('correoUsuario');
+			this.bd.obtenerUsuariosBD('usuarios', this.correoUsuario).toPromise().then(snap => {
+				const user: any = snap.docs[0].data();
+				return user;
+			}).then(user => {
+				switch (user.perfil) {
+					case "Dueño":
+					case "Supervisor":
+						this.bd.obtenerTodos('usuarios').subscribe(datos => {
+							this.listaUsuarios = [];
+							datos.forEach((dato: any) => {
+								if (dato.estado == 'esperando') {
+									this.listaUsuarios.push(dato);
+								}
+							});
+						});
+						break;
+					case "Mozo":
+						this.bd.obtenerTodos('listaEspera').subscribe(datos => {
+							this.listaEspera = [];
+							datos.forEach((dato: any) => {
+								if (dato.consulta == 'realizoConsulta') {
+									this.listaEspera.push(dato);
+								}
+							});
+							this.contadorMozoConsulta = this.listaEspera.length;
+						})
+						this.correoCliente = this.correoUsuario;
+						this.bd.obtenerTodos('pedidos').subscribe(datos => {
+							this.listaPedidos = [];
+							this.listaPedidosFinalizados = [];
+							this.listaCuentasPagadas = [];
+							datos.forEach((dato: any) => {
+								if (dato.estadoPedido == 'enEspera') {
+									this.listaPedidos.push(dato);
+								}
+								else if (dato.estadoBartender == 'finalizado' && dato.estadoChef == 'finalizado' && dato.estadoPedido == 'enPreparacion') {
+									this.listaPedidosFinalizados.push(dato);
+								}
+								else if (dato.estadoPedido == 'pagado') {
+									this.listaCuentasPagadas.push(dato);
+								}
+							})
+							this.contadorMozoPedidoPendiente = this.listaPedidos.length;
+							this.contadorMozoPedidoFinalizado = this.listaPedidosFinalizados.length;
+							this.contadorMozoCuentaPagada = this.listaCuentasPagadas.length;
+						});
+						break;
+					case "Bartender":
+						this.bd.obtenerTodos('pedidos').subscribe(datos => {
+							this.listaPedidoBartender = [];
+							datos.forEach((dato: any) => {
+								if ((dato.estadoBartender == 'enProceso' || dato.estadoBartender == 'enPreparacion') && (dato.estadoPedido == "pendiente" || dato.estadoPedido == "enPreparacion")) {
+									this.listaPedidoBartender.push(dato);
+								}
+							});
+						});
+						break;
+					case "Cocinero":
+						this.bd.obtenerTodos('pedidos').subscribe(datos => {
+							this.listaPedidoCocinero = [];
+							datos.forEach((dato: any) => {
+								if ((dato.estadoChef == 'enProceso' || dato.estadoChef == 'enPreparacion') && (dato.estadoPedido == "pendiente" || dato.estadoPedido == "enPreparacion")) {
+									this.listaPedidoCocinero.push(dato);
+								}
+							});
+						});
+						break;
+					case "Metre":
+						this.bd.obtenerTodos('listaEspera').subscribe(datos => {
+							this.listaEspera = [];
+							datos.forEach((dato: any) => {
+								if (dato.estadoMesa == 'enEspera') {
+									this.listaEspera.push(dato);
+								}
+							});
+						});
+						break;
+					case "Cliente":
+						this.bd.obtenerTodos('listaEspera').subscribe(datos => {
+							this.listaEspera = [];
+							datos.forEach((datoCl: any) => {
+								if (datoCl.estadoMesa == 'mesaAsignada' && datoCl.nombreUsuario == this.infoUsuario.nombre) {
+									this.informarEstadoMesa.mesa = datoCl.mesa;
+									this.informarEstadoMesa.seAsignoMesa = "si";
+									console.log(datoCl.consultaMozo);
+									if (datoCl.consultaMozo != '') {
+										console.log("estoy aca tambien");
+										this.listaEspera.push(datoCl);
+									}
+								}
+							});
+						});
+						let fb2 = this.firestore.collection('pedidos');
+						fb2.valueChanges().subscribe(datos => {
+							datos.forEach((datoCl: any) => {
+								if (datoCl.estadoPedido == "finalizado" && datoCl.mesa == this.informarEstadoMesa.mesa) {
+									this.presentAlert();
+								}
+							});
+						});
+						break;
+				}
+			}).then(()=>{
+				this.splash = false;
+			});
+
 			this.firestore.collection('usuarios').get().subscribe((querySnapShot) => {
 				querySnapShot.forEach(datos => {
 					if (datos.data().correo == this.correoUsuario) {
@@ -156,8 +260,7 @@ export class HomePage {
 									if (dato.estadoPedido == 'enEspera') {
 										this.listaPedidos.push(dato);
 									}
-									else if (dato.estadoBartender == 'finalizado' && dato.estadoChef == 'finalizado' && dato.estadoPedido == 'enPreparacion')
-									{
+									else if (dato.estadoBartender == 'finalizado' && dato.estadoChef == 'finalizado' && dato.estadoPedido == 'enPreparacion') {
 										this.listaPedidosFinalizados.push(dato);
 									}
 									else if (dato.estadoPedido == 'pagado') {
@@ -175,8 +278,7 @@ export class HomePage {
 							fb.valueChanges().subscribe(datos => {
 								this.listaPedidoCocinero = [];
 								datos.forEach((dato: any) => {
-									if ((dato.estadoChef == 'enProceso' || dato.estadoChef == 'enPreparacion') && (dato.estadoPedido == "pendiente" || dato.estadoPedido == "enPreparacion"))
-									{
+									if ((dato.estadoChef == 'enProceso' || dato.estadoChef == 'enPreparacion') && (dato.estadoPedido == "pendiente" || dato.estadoPedido == "enPreparacion")) {
 										this.listaPedidoCocinero.push(dato);
 									}
 								});
@@ -188,8 +290,7 @@ export class HomePage {
 							fb.valueChanges().subscribe(datos => {
 								this.listaPedidoBartender = [];
 								datos.forEach((dato: any) => {
-									if ((dato.estadoBartender == 'enProceso' || dato.estadoBartender == 'enPreparacion') && (dato.estadoPedido == "pendiente" || dato.estadoPedido == "enPreparacion"))
-									{
+									if ((dato.estadoBartender == 'enProceso' || dato.estadoBartender == 'enPreparacion') && (dato.estadoPedido == "pendiente" || dato.estadoPedido == "enPreparacion")) {
 										this.listaPedidoBartender.push(dato);
 									}
 								});
@@ -420,7 +521,7 @@ export class HomePage {
 			console.log('Error', err);
 		})*/
 	}
-	
+
 	mostrarCuentaLista() {
 		this.mostrarCuentaDiv = true;
 		this.mostrarEncuestaDiv = false;
@@ -432,8 +533,7 @@ export class HomePage {
 
 		this.firestore.collection('pedidos').get().subscribe((querySnapShot) => {
 			querySnapShot.forEach((doc) => {
-				if (doc.data().mesa == this.informarEstadoMesa.mesa)
-				{
+				if (doc.data().mesa == this.informarEstadoMesa.mesa) {
 					doc.data().platosPlato.forEach(element => {
 						this.firestore.collection('productos').get().subscribe((querySnapShot) => {
 							querySnapShot.forEach((docP) => {

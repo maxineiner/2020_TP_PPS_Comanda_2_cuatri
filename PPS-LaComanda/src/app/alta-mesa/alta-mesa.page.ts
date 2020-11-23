@@ -76,7 +76,7 @@ export class AltaMesaPage implements OnInit {
     {
       this.bd.crear('mesas',this.mesaJson);
     }
-    this.complemetos.presentToastConMensajeYColor("El estado del cliente esta pendiente al registro.","primary");
+    this.complemetos.presentToastConMensajeYColor("la mesa fue cargada con exito","primary");
   }
 
   tomarFotografia()

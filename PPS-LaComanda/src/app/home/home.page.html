@@ -26,7 +26,7 @@
                     <br>
                     <ion-button routerLink="/alta-supervisor" align="center" expand="block" color="cubiertos" shape="round">Registrar Dueño/Supervisor</ion-button>
                     <ion-button routerLink="/alta-empleado" align="center" expand="block" color="cubiertos" shape="round">Registrar Empleado</ion-button>
-                    <ion-button routerLink="/alta-cliente" align="center" expand="block" color="cubiertos" shape="round">Registrar Cliente</ion-button>
+                    <ion-button routerLink="/alta-mesa" align="center" expand="block" color="cubiertos" shape="round">Registrar Mesa</ion-button>
                 </ion-list>
                 <ion-list class='menu-content-list' *ngIf="perfilUsuario == 'Metre'" align="center">
                     <ion-item class='menu-content-item'>
@@ -39,11 +39,8 @@
                         </ion-label>
                     </ion-item>
                     <br>
-                    <ion-button routerLink="/alta-empleado" align="center" expand="block" color="cubiertos" shape="round">Registrar Empleado</ion-button>
                     <ion-button routerLink="/alta-cliente" align="center" expand="block" color="cubiertos" shape="round">Registrar Cliente</ion-button>
                 </ion-list>
-                <!--***********************************************************************************************************************-->
-                <!-- AGREGAR LOS DEMAS QUE FALTAN -->
                 <ion-list class='menu-content-list' *ngIf="perfilUsuario == 'Cliente'" align="center">
                     <ion-item class='menu-content-item'>
                         <img [src]="infoUsuario.foto " style=" height: 50%; width: 30%; ">
@@ -55,7 +52,6 @@
                         </ion-label>
                     </ion-item>
                     <br>
-                    <!--Agregar boton para escanear la mesa-->
                     <div *ngIf="informarEstadoMesa.seAsignoMesa == 'si'">
                         <ion-button color="danger" (click)="qrMesa()" expand="block" color="cubiertos" shape="round">QR Mesa</ion-button>
                     </div>

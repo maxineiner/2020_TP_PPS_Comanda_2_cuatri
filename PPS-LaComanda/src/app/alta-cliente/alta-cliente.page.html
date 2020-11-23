@@ -27,7 +27,7 @@
             </form>
             <ion-button (click)="tomarFotografia()" class="btnRegistro" expand="block">Tomar foto</ion-button>
             <br>
-            <ion-button (click)="registrar('anonimo')" class="btnRegistro" [disabled]="!miFormularioAnonimo.valid" expand="block">Registrarse</ion-button>
+            <ion-button (click)="registrar()" class="btnRegistro" [disabled]="!miFormularioAnonimo.valid" expand="block">Registrarse</ion-button>
         </div>
         <div *ngIf="pickedName=='Cliente'">
             <form [formGroup]="miFormulario">
@@ -61,7 +61,7 @@
                         </ion-col>
                     </ion-row>
                 </ion-grid>
-                <ion-button (click)="registrar('cliente')" class="btnRegistro" [disabled]="!miFormulario.valid" expand="block">Registrarse</ion-button>
+                <ion-button (click)="registrar()" class="btnRegistro" [disabled]="!miFormulario.valid" expand="block">Registrarse</ion-button>
             </form>
         </div>
     </ion-card>

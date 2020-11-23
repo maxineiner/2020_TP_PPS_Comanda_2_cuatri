@@ -95,27 +95,18 @@ export class RealizarPedidoPage implements OnInit {
  
     if (tipoDePlato == "Plato")
     {
-
       let bandera;
       this.pedidoEnFormatoJSON.platosPlato[this.contadorPlatos] = plato;
       this.contadorPlatos = this.contadorPlatos + 1;
-
-      
       this.pedidoEnFormatoJSON.precioTotal = this.pedidoEnFormatoJSON.precioTotal + precio;
-
-      
       if (tiempoDelPlato > this.pedidoEnFormatoJSON.tiempoTotal[0])
       {
         this.pedidoEnFormatoJSON.tiempoTotal[0] = tiempoDelPlato;
       }
-
       if(tiempoDelPlato < this.pedidoEnFormatoJSON.tiempoTotal[0])
       {
         this.pedidoEnFormatoJSON.tiempoTotal[1] = tiempoDelPlato;
       }
-      
-      
-      
       let cantidad = this.calcularCantidad(plato,'Plato','sumar');
       
       if(plato == 'Hamburguesa')
@@ -126,61 +117,39 @@ export class RealizarPedidoPage implements OnInit {
       {
         this.cantidadJson.cantPizza = cantidad;
       }
-   
     }
 
     if (tipoDePlato == "Bebida")
     {
       this.pedidoEnFormatoJSON.platosBebida[this.contadorBebidas] = plato;
       this.contadorBebidas = this.contadorBebidas + 1;
-
-      
-      this.pedidoEnFormatoJSON.precioTotal = this.pedidoEnFormatoJSON.precioTotal + precio;
-
-      
+      this.pedidoEnFormatoJSON.precioTotal = this.pedidoEnFormatoJSON.precioTotal + precio;      
       if (tiempoDelPlato > this.pedidoEnFormatoJSON.tiempoTotal[0])
       {
         this.pedidoEnFormatoJSON.tiempoTotal[0] = tiempoDelPlato;
       }
-
       if(tiempoDelPlato < this.pedidoEnFormatoJSON.tiempoTotal[0])
       {
         this.pedidoEnFormatoJSON.tiempoTotal[1] = tiempoDelPlato;
       }
-      
-
       let cantidad = this.calcularCantidad(plato,'Bebida','sumar');
-
         this.cantidadJson.cantPepsi = cantidad;
-
-
     }
 
     if (tipoDePlato == "Postre")
     {
       this.pedidoEnFormatoJSON.platosPostre[this.contadorPostres] = plato;
       this.contadorPostres = this.contadorPostres + 1;
-
-      
-      this.pedidoEnFormatoJSON.precioTotal = this.pedidoEnFormatoJSON.precioTotal + precio;
-
-      
-
+      this.pedidoEnFormatoJSON.precioTotal = this.pedidoEnFormatoJSON.precioTotal + precio;  
       if (tiempoDelPlato > this.pedidoEnFormatoJSON.tiempoTotal[0])
       {
         this.pedidoEnFormatoJSON.tiempoTotal[0] = tiempoDelPlato;
       }
-
       if(tiempoDelPlato < this.pedidoEnFormatoJSON.tiempoTotal[0])
       {
         this.pedidoEnFormatoJSON.tiempoTotal[1] = tiempoDelPlato;
       }
-      
-
-
-
-      let cantidad = this.calcularCantidad(plato,'Postre','sumar');
-      
+      let cantidad = this.calcularCantidad(plato,'Postre','sumar');     
       if(plato == 'Pastel de limón')
       {
         this.cantidadJson.cantLemon = cantidad;
@@ -189,14 +158,8 @@ export class RealizarPedidoPage implements OnInit {
       {
         this.cantidadJson.cantVolc = cantidad;
       }
-
-      
     }
-
-
     console.log(this.pedidoEnFormatoJSON);
-    
-
   }
 
 
@@ -216,7 +179,6 @@ export class RealizarPedidoPage implements OnInit {
 
   confirmarPedido()
   {
-
     if (this.contadorVecesQueConfirmaPedido == 0 && this.pedidoEnFormatoJSON.precioTotal > 0)
     {
       this.complementos.presentToastConMensajeYColor("Pedido generado con éxito. Será redirigido al menú!", "success")
@@ -224,7 +186,6 @@ export class RealizarPedidoPage implements OnInit {
       this.contadorVecesQueConfirmaPedido = 1;
       this.router.navigate(['/home']);
     }
-
     else if(this.contadorVecesQueConfirmaPedido == 0 && this.pedidoEnFormatoJSON.precioTotal == 0)
     {
       this.complementos.presentToastConMensajeYColor("¡Debe cargar productos!", "warning")
@@ -236,13 +197,10 @@ export class RealizarPedidoPage implements OnInit {
         cantLemon : 0,
       }
     }
-    
     else
     {
       this.complementos.presentToastConMensajeYColor("¡Su orden ya fue cargada!", "warning")
     }
-
-   
   }
   
   cancelarPedido()
@@ -253,25 +211,20 @@ export class RealizarPedidoPage implements OnInit {
       this.pedidoEnFormatoJSON.platosBebida = [];
       this.pedidoEnFormatoJSON.platosPostre = [];
       this.pedidoEnFormatoJSON.precioTotal = 0;
-
-
       this.contadorPlatos = 0;
       this.contadorBebidas = 0;
       this.contadorPostres = 0;
-
       this.complementos.presentToastConMensajeYColor("¡El pedido fue cancelado!", "success")
     }
     else
     {
       this.complementos.presentToastConMensajeYColor("¡No puede cancelar un pedido ya enviado!", "warning")
     }
-
     this.cantidadJson.cantHamb = 0;
     this.cantidadJson.cantPizza = 0;
     this.cantidadJson.cantPepsi = 0;
     this.cantidadJson.cantVolc = 0;
     this.cantidadJson.cantLemon = 0;
-
   }
 
 

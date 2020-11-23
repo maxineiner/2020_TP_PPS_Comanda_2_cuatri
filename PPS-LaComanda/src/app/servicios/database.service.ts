@@ -1,15 +1,29 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection } from "@angular/fire/firestore";
+import { AngularFireStorage } from "@angular/fire/storage";
+import { AngularFireFunctions } from '@angular/fire/functions';
 
 @Injectable({
 	providedIn: 'root'
 })
 export class DatabaseService {
 
-	constructor(private firestore: AngularFirestore) { }
+	constructor(private firestore: AngularFirestore, private storage: AngularFireStorage, private functions: AngularFireFunctions) { }
 
 	public crear(collection: string, data: any) {
 		return this.firestore.collection(collection).add(data);
+	}
+
+	public crearConId(collection: string, data: any,id:any){
+		return this.firestore.collection(collection).doc(id).set(data); 
+	}
+
+	public actualizar(coleccion: string, data: any, id: string) {
+		return this.firestore.collection(coleccion).doc(id).set(data,{merge: true});
+	}
+
+	public eliminar(coleccion: string, data: any, id: string){
+		return this.firestore.collection(coleccion).doc(id).delete();
 	}
 
 	public obtenerPorId(coleccion: string, id: string) {
@@ -20,23 +34,11 @@ export class DatabaseService {
 		return this.firestore.collection(coleccion).snapshotChanges();
 	}
 
-	public actualizar(coleccion: string, data: any, id: string) {
-		return this.firestore.collection(coleccion).doc(id).set(data);
-	}
-
 	public obtenerUsuariosBD(coleccion: string, email: string) {
-		let auxPerfil: string;
-		let auxPerfilDos: string = "";
-		this.firestore.collection(coleccion).get().subscribe((querySnapShot) => {
-			querySnapShot.forEach(datos => {
-				if (datos.data().correo == email) {
-					auxPerfil = datos.data().perfil;
-					console.log(auxPerfil);
-					return auxPerfil;
-				}
-			});
-		});
+		return this.firestore.collection(coleccion, ref => ref.where("correo","==", email)).get();
 	}
 
-
+	public subirImagen(ruta:string, data:any){
+		return this.storage.ref(ruta).putString(data,'data_url').then(data => data.downloadURL);
+	}
 }

@@ -23,7 +23,7 @@ export class AltaProductoPage implements OnInit {
     tiempo: "",
     precio: "",
     tipo: "",
-    fotos: ['../assets/icon/iconLogoMovimiento.png'],
+    fotos: ['../assets/icon/iconLogoMovimiento.png','../assets/icon/iconLogoMovimiento.png','../assets/icon/iconLogoMovimiento.png'],
   };
   listaProductos = [
     { tipo: "Plato" },
@@ -79,7 +79,7 @@ export class AltaProductoPage implements OnInit {
     }
   }
 
-  tomarFotografia() {
+  tomarFotografia(indice) {
     if (this.productoJson.fotos.length <= 3) {
       const options: CameraOptions = {
         quality: 100,
@@ -93,7 +93,7 @@ export class AltaProductoPage implements OnInit {
         var base64Str = 'data:image/jpeg;base64,' + imageData;
         var storageRef = firebase.storage().ref();
         let obtenerMili = new Date().getTime();
-        var nombreFoto = "productos/" + obtenerMili + "." + this.productoJson.nombre + ".jpg";
+        var nombreFoto = "productos/" + obtenerMili + "." + this.productoJson.nombre +'_'+(indice+1)+".jpg";
         var childRef = storageRef.child(nombreFoto);
         this.pathImagen.push(nombreFoto);
         childRef.putString(base64Str, 'data_url').then(function(snapshot) {
