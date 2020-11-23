@@ -117,7 +117,7 @@ export class HomePage {
 		this.tieneCorreo = localStorage.getItem('tieneCorreo');
 		if (this.tieneCorreo == 'conCorreo') {
 			this.correoUsuario = localStorage.getItem('correoUsuario');
-			this.bd.obtenerUsuariosBD('usuarios', this.correoUsuario).toPromise().then(snap => {
+			/*this.bd.obtenerUsuariosBD('usuarios', this.correoUsuario).toPromise().then(snap => {
 				const user: any = snap.docs[0].data();
 				return user;
 			}).then(user => {
@@ -221,7 +221,7 @@ export class HomePage {
 				}
 			}).then(()=>{
 				this.splash = false;
-			});
+			});*/
 
 			this.firestore.collection('usuarios').get().subscribe((querySnapShot) => {
 				querySnapShot.forEach(datos => {
