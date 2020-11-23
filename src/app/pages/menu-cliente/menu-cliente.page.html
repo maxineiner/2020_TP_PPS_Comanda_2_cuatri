@@ -2,23 +2,23 @@
 
 <ion-segment value="Listado" (ionChange)="seleccionarOpcion($event)" scrollable color="success">
   <ion-segment-button value="Listado">
-    <ion-label>Clientes</ion-label>
+    <ion-icon name="list-sharp"></ion-icon>
   </ion-segment-button>
   <ion-segment-button value="Alta">
-    <ion-label>Alta</ion-label>
+    <ion-icon name="add"></ion-icon>
   </ion-segment-button>
   <ion-segment-button value="Baja" *ngIf="clienteSeleccionado.isActive">
-    <ion-label>Baja</ion-label>
+    <ion-icon name="trash-sharp"></ion-icon>
   </ion-segment-button>
   <ion-segment-button value="Modificación" *ngIf="clienteSeleccionado.isActive">
-    <ion-label>Modificar</ion-label>
+    <ion-icon name="create-sharp"></ion-icon>
   </ion-segment-button>
 </ion-segment>
 
 <ion-content class="fondo">
 
   <app-listado-clientes *ngIf="opcion == 'Listado'" [clientes]="listado" [pendientes]="false"
-    (seleccionarCliente)="seleccionarCliente($event)">
+                        (seleccionarCliente)="seleccionarCliente($event)">
   </app-listado-clientes>
 
   <app-form-clientes *ngIf="opcion != 'Listado'" [opcion]="opcion" [cliente]="clienteSeleccionado">

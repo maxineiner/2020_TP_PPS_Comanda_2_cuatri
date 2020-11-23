@@ -3,12 +3,12 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Producto } from "src/app/clases/producto";
 import { ImagenService } from "src/app/services/imagen.service";
 import { ProductoService } from "src/app/services/producto.service";
-import { LoadingController, ToastController } from "@ionic/angular";
 import { Imagen } from 'src/app/clases/imagen';
 import { AuthService } from 'src/app/services/auth.service';
 import { Usuario } from 'src/app/clases/usuario';
 import { EmpleadoService } from 'src/app/services/empleado.service';
 import { Empleado } from 'src/app/clases/empleado';
+import { UIVisualService } from 'src/app/services/uivisual.service';
 
 enum OpcionForm
 {
@@ -26,7 +26,7 @@ export class FormProductoComponent
 {
   usuario: Empleado = <Empleado>AuthService.usuario;
   @Input() opcion: OpcionForm;
-  @Input() producto: Producto;
+  @Input() producto: Producto = new Producto();
   popoverOptions = {
     translucent: true,
     cancelText: "Cerrar",
@@ -44,8 +44,7 @@ export class FormProductoComponent
     private fb: FormBuilder,
     private productoService: ProductoService,
     private imagenService: ImagenService,
-    private toastController: ToastController,
-    private loadingController: LoadingController
+    private UIVisual: UIVisualService
   )
   {
     this.crearForm();
@@ -60,7 +59,7 @@ export class FormProductoComponent
   {
     try
     {
-      if (this.producto && this.opcion != OpcionForm.ALTA)
+      if (this.producto.id && this.opcion != OpcionForm.ALTA)
       {
         this.registroForm.setValue({
           nombre: this.producto.nombre,
@@ -126,7 +125,7 @@ export class FormProductoComponent
 
   async registrar()
   {
-    this.presentLoading("Guardando...", 5000);
+    UIVisualService.loading(10000);
     const imagenesGuardadas = await this.imagenService.crearArrayImagenes(this.fotos, "/productos");
 
     console.log(imagenesGuardadas);
@@ -136,12 +135,14 @@ export class FormProductoComponent
     this.productoService.registrar(new Producto(this.registroForm.value))
       .then(() =>
       {
-        this.presentToast("Alta exitosa", 2000);
+        UIVisualService.presentToast("Alta exitosa");
+        this.crearForm();
+        this.imgPreview = new Array<string>(3);
         console.log("Registrado correctamente.");
       })
       .catch((error) =>
       {
-        this.presentToast("No se pudo realizar el alta", 2000);
+        UIVisualService.presentToast("No se pudo realizar el alta");
         console.error("No se pudo realizar el alta.", error);
       });
   }
@@ -152,58 +153,48 @@ export class FormProductoComponent
   {
     console.log("Modificando Producto-------");
 
-    this.producto.nombre = this.registroForm.get("nombre").value;
-    this.producto.descripcion = this.registroForm.get("descripcion").value;
-    this.producto.minutosDeElaboracion = this.registroForm.get(
-      "minutosDeElaboracion"
-    ).value;
-    this.producto.precio = this.registroForm.get("precio").value;
-    this.producto.fotos = this.registroForm.get("fotos").value;
+    if (this.producto.isActive)
+    {
+      this.producto.nombre = this.registroForm.get("nombre").value;
+      this.producto.descripcion = this.registroForm.get("descripcion").value;
+      this.producto.minutosDeElaboracion = this.registroForm.get(
+        "minutosDeElaboracion"
+      ).value;
+      this.producto.precio = this.registroForm.get("precio").value;
+      this.producto.fotos = this.registroForm.get("fotos").value;
 
-    this.productoService
-      .actualizar(this.producto)
-      .then(() =>
-      {
-        this.presentToast("Modificación exitosa", 2000);
-        console.log("Modificado correctamente.");
-      })
-      .catch(() => this.presentToast("No se pudo modificar", 2000));
+      this.productoService
+        .actualizar(this.producto)
+        .then(() =>
+        {
+          UIVisualService.presentToast("Modificación exitosa");
+          console.log("Modificado correctamente.");
+        })
+        .catch(() => UIVisualService.presentToast("No se pudo modificar"));
+    }
   }
 
   borrarProducto()
   {
     console.log("Baja de producto------");
-    if (this.producto)
+    if (this.producto.isActive)
     {
       this.producto.isActive = false;
       this.productoService
         .actualizar(this.producto)
         .then(() =>
         {
-          this.presentToast("Baja realizada", 2000);
+          UIVisualService.presentToast("Baja realizada");
           this.registroForm.reset();
         })
-        .catch(() => this.presentToast("No se pudo realizar baja", 2000));
+        .catch(() => UIVisualService.presentToast("No se pudo realizar baja"));
+    }
+    else
+    {
+      UIVisualService.presentToast("Debe seleccionar un item del listado");
     }
   }
 
-  async presentToast(message, duration)
-  {
-    const toast = await this.toastController.create({
-      message,
-      duration,
-    });
-    toast.present();
-  }
 
-  async presentLoading(message, duration)
-  {
-    const loading = await this.loadingController.create({
-      message,
-      duration,
-      spinner: 'bubbles'
-    });
-    await loading.present();
-  }
 
 }

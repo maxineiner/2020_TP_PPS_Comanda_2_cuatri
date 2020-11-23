@@ -1,5 +1,4 @@
 import { Component, Input, OnInit } from '@angular/core'
-import { ToastController } from '@ionic/angular'
 import { Imagen } from 'src/app/clases/imagen'
 import { Mesa } from 'src/app/clases/mesa'
 import { ImagenService } from 'src/app/services/imagen.service'
@@ -23,7 +22,7 @@ export class FormMesasComponent implements OnInit
     @Input() opcion: OpcionForm
     @Input() mesa: Mesa
     popoverOptions = {
-        header: 'Seleccione el tipo',
+        mode: "md",
         translucent: true,
     }
     codigoQR: any
@@ -33,7 +32,6 @@ export class FormMesasComponent implements OnInit
     constructor(
         private mesaService: MesaService,
         private imagenService: ImagenService,
-        private toastController: ToastController,
         private UIVisual: UIVisualService
 
     ) { }
@@ -43,6 +41,10 @@ export class FormMesasComponent implements OnInit
         if (this.opcion == 'Alta')
         {
             this.mesa = new Mesa()
+        }
+        else
+        {
+            this.imgPreview = `data:image/jpeg;base64,${this.mesa.foto.base64}`
         }
     }
 
@@ -67,6 +69,7 @@ export class FormMesasComponent implements OnInit
     {
         if (this.mesa && !this.mesa.id)
         {
+            UIVisualService.loading(4000);
             // Se guarda imagen en DB y Storage
             const imagenGuardada = await this.imagenService.crearUnaImagen(
                 this.auxiliarFoto,
@@ -76,7 +79,12 @@ export class FormMesasComponent implements OnInit
 
             // Alta de mesa en DB
             this.mesaService.crear(this.mesa)
-                .then(() => UIVisualService.presentToast('Alta exitosa'))
+                .then(() =>
+                {
+                    UIVisualService.presentToast('Alta exitosa');
+                    this.mesa = new Mesa();
+                    this.imgPreview = null;
+                })
                 .catch(() => UIVisualService.presentToast('No se pudo realizar el alta'));
         }
         else
