@@ -21,6 +21,7 @@ import { Cliente } from '../clases/cliente';
 import { INotificacion, Respuesta } from '../interfaces/INotification';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { UIVisualService } from './uivisual.service';
+import { AlertController } from '@ionic/angular';
 
 const fcm = new FCM();
 const { PushNotifications } = Plugins;
@@ -39,7 +40,8 @@ export class NotificationsService
     private jefeService: JefeService,
     private empleadoService: EmpleadoService,
     private clienteService: ClienteService,
-    private http: HttpClient
+    private http: HttpClient,
+    private alertController: AlertController
   ) { }
 
   public initPush()
@@ -207,17 +209,28 @@ export class NotificationsService
   {
     if (this.rolesService.isEmpleado(usuario))
     {
-      UIVisualService.presentAlert(notificacion.title, notificacion.body);
+      this.presentAlert(notificacion.title, notificacion.body);
     }
     else if (this.rolesService.isJefe(usuario))
     {
-      UIVisualService.presentAlert(notificacion.title, notificacion.body);
+      this.presentAlert(notificacion.title, notificacion.body);
     }
   }
 
   manejarNotificacionSegundoPlano(notificacion: PushNotification, usuario: Usuario)
   {
     this.router.navigate([notificacion.data.ruta]);
+  }
+
+  async presentAlert(header, message)
+  {
+    const alert = await this.alertController.create({
+      header,
+      message,
+      buttons: ['Aceptar']
+    });
+
+    await alert.present();
   }
 
 

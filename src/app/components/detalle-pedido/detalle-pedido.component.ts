@@ -6,7 +6,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { MetadataMensaje } from 'src/app/services/mensajes.service';
 import { NotificationsService } from 'src/app/services/notifications.service';
 import { RolesService } from 'src/app/services/roles.service';
-import { UIVisualService } from 'src/app/services/uivisual.service';
+import { IBotonesGenerados, UIVisualService } from 'src/app/services/uivisual.service';
 
 @Component({
   selector: 'app-detalle-pedido',
@@ -17,56 +17,59 @@ export class DetallePedidoComponent implements OnInit
 {
   @Input() pedido: Pedido;
   usuario: Usuario = AuthService.usuario;
+  rol: string;
+  metadataMensaje: MetadataMensaje;
+  botonesActionSheet: IBotonesGenerados;
 
   constructor(private rolService: RolesService) 
   {
-    //this.pedido.calcularTotal();
   }
 
   ngOnInit() 
   {
     console.log(this.pedido);
-  }
-
-  async mostrarOpciones()
-  {
-    let rol;
     let mesa = null;
 
     if (this.rolService.isCliente(this.usuario))
     {
-      rol = 'Cliente';
+      this.rol = 'Cliente';
       mesa = this.pedido.mesa.numero;
     }
     else if (this.rolService.isEmpleadoMozo(this.usuario))
     {
-      rol = 'Mozo';
+      this.rol = 'Mozo';
     }
     else if (this.rolService.isEmpleadoCocinero(this.usuario))
     {
-      rol = 'Cocinero';
+      this.rol = 'Cocinero';
     }
     else if (this.rolService.isEmpleadoBartender(this.usuario))
     {
-      rol = 'Bartender';
+      this.rol = 'Bartender';
     }
 
-    let metadataMensaje: MetadataMensaje = {
+    this.metadataMensaje = {
       chatId: this.pedido.id,
       mesa: mesa
     };
 
-    UIVisualService.presentActionSheet(rol, this.pedido.estado, {
+    this.botonesActionSheet = {
       mostrarPlatos: { handler: UIVisualService.verPlatos, params: this.pedido },
       solicitar: { handler: "", params: this.pedido },
       confirmar: { handler: "", params: this.pedido },
       recibir: { handler: "", params: this.pedido },
       cerrar: { handler: UIVisualService.verCuenta, params: this.pedido },
-      chat: { handler: UIVisualService.verChat, params: metadataMensaje },
+      chat: { handler: UIVisualService.verChat, params: this.metadataMensaje },
       notificar: { handler: "", params: this.pedido },
       liberar: { handler: "", params: this.pedido },
       encuesta: { handler: UIVisualService.verEncuesta }
-    })
+    };
+  }
+
+  async mostrarOpciones()
+  {
+    UIVisualService.presentActionSheet(this.rol, this.pedido.estado, this.botonesActionSheet)
+    UIVisualService.loading();
   }
 
 

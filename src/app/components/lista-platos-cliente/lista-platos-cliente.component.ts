@@ -26,9 +26,8 @@ export class ListaPlatosClienteComponent implements OnInit
 
   constructor(private modalController: ModalController, private rolService: RolesService,
     private pedidoService: PedidoService, private toastController: ToastController,
-    private notificationService:NotificationsService,
-    private visual:UIVisualService
-    ) { }
+    private notificationService: NotificationsService
+  ) { }
 
   ngOnInit() 
   {
@@ -52,22 +51,24 @@ export class ListaPlatosClienteComponent implements OnInit
     if (!this.pedido.productos[index].isReady)
     {
       this.pedido.productos[index].isReady = true;
-      this.notificar(this.pedido,index);
+      this.notificar(this.pedido, index);
     }
     else if (this.pedido.productos[index].isReady)
     {
       this.pedido.productos[index].isReady = false;
     }
-    
+
     this.pedidoModificado = true;
     this.lista.closeSlidingItems();
   }
-  notificar(pedido:Pedido,index:number){
+
+  notificar(pedido: Pedido, index: number)
+  {
     let titulo = `Pedido Mesa ${pedido.mesa.numero} Listo`;
     let mensaje = `El producto ${pedido.productos[index].nombre} esta listo para entregar`;
-    this.notificationService.enviarNotificacion(titulo,mensaje,'/home/menu-pedidos','mozos')
-    .then(()=>UIVisualService.presentToast('Mozo Notificado'))
-    .catch(()=>UIVisualService.presentToast('No se pudo Notificar al mozo, pegale un grito'))
+    this.notificationService.enviarNotificacion(titulo, mensaje, '/home/menu-pedidos', 'mozos')
+      .then(() => this.presentToast('Mozo Notificado'))
+      .catch(() => this.presentToast('No se pudo Notificar al mozo, pegale un grito'))
   }
 
   cerrar()

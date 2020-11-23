@@ -51,7 +51,7 @@ export class MensajesService implements IDatabase<Mensaje>
           mensajes.push(Mensaje.CrearMensaje(data.id, data.texto, data.usuario,
             data.fecha, data.chatId, data.mesa));
         });
-        MensajesService.mensajes = mensajes;
+        MensajesService.mensajes = mensajes.sort(this.ordenarConsultas);
         resolve(MensajesService.mensajes);
       })
     });
@@ -75,6 +75,23 @@ export class MensajesService implements IDatabase<Mensaje>
         resolve(mensaje);
       });
     })
+  }
+
+
+  ordenarConsultas(mensajeA: Mensaje, mensajeB: Mensaje): number
+  {
+    if (Date.parse(mensajeA.fecha) > Date.parse(mensajeB.fecha))
+    {
+      return 1;
+    }
+    else if (Date.parse(mensajeA.fecha) < Date.parse(mensajeB.fecha))
+    {
+      return -1;
+    }
+    else
+    {
+      return 0;
+    }
   }
 
 }
