@@ -106,8 +106,8 @@
     <plugin name="cordova-plugin-ionic-webview" spec="^4.0.0" />
     <plugin name="cordova-plugin-ionic-keyboard" spec="^2.0.5" />
     <plugin name="cordova-plugin-googleplus" source="npm">
-        <variable name="WEB_APPLICATION_CLIENT_ID" value="186663344195-3oktg1dtr9nsgengjutv9suc44o7o938.apps.googleusercontent.com" />
-        <variable name="REVERSED_CLIENT_ID" value="186663344195-3oktg1dtr9nsgengjutv9suc44o7o938.apps.googleusercontent.com" />
+        <variable name="WEB_APPLICATION_CLIENT_ID" value="1035173945210-ok27280b72v60unf5q7it2j4o8jqd1ph.apps.googleusercontent.com" />
+        <variable name="REVERSED_CLIENT_ID" value="1035173945210-ok27280b72v60unf5q7it2j4o8jqd1ph.apps.googleusercontent.com" />
     </plugin>
     <allow-navigation href="http://localhost:8100" sessionid="15afd298" />
 </widget>

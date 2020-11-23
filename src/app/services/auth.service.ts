@@ -22,10 +22,10 @@ import { environment } from '../../environments/environment';
 import { FacebookData, FacebookPicture, LoginProvider, TwitterAuth } from '../interfaces/IProviders';
 import { Imagen } from '../clases/imagen';
 
+const { Http } = Plugins;
 const { FacebookLogin } = Plugins;
 const FACEBOOK_PERMISSIONS = ['public_profile', 'email'];
 const twitter = new Twitter();
-
 
 
 export const USERS_TEST =
@@ -85,7 +85,6 @@ export class AuthService
       let credential: firebase.auth.UserCredential;
       let params;
 
-
       params = (this.platform.is('android')) ?
         { 'webClientId': environment.webGoogleId, 'scope': 'email profile' } :
         params = {};
@@ -100,18 +99,11 @@ export class AuthService
           {
             console.log("FB LOGIN");
             const fbAuth = await FacebookLogin.login({ permissions: FACEBOOK_PERMISSIONS }) as FacebookLoginResponse;
-
-            console.log("FB AUTH");
-            console.log(`Facebook access token is ${fbAuth.accessToken.token}`);
-            console.log(`Facebook userId is ${fbAuth.accessToken.userId}`);
-            console.log(`Facebook permissions are ${fbAuth.accessToken.permissions}`);
-            // Login successful.
             const facebookCredential = firebase.auth.FacebookAuthProvider.credential(fbAuth.accessToken.token);
 
             console.log("FB CREDENTIAL");
-            console.log(facebookCredential.providerId);
+            console.log(facebookCredential);
             credential = await this.afAuth.signInWithCredential(facebookCredential);
-
           }
           else
           {
@@ -122,8 +114,8 @@ export class AuthService
         case LoginProvider.Google:
           if (this.platform.is('capacitor'))
           {
+            console.log("GOOGLE LOGIN");
             const googleAuth = await this.google.login(params);
-            console.log(googleAuth);
             const googleCredential = googleAuth.accessToken ?
               firebase.auth.GoogleAuthProvider.credential
                 (
@@ -131,6 +123,8 @@ export class AuthService
                   googleAuth.accessToken
                 ) :
               firebase.auth.GoogleAuthProvider.credential(googleAuth.idToken);
+
+            console.log("GOOGLE CREDENTIAL");
             console.log(googleCredential);
             credential = await this.afAuth.signInWithCredential(googleCredential);
           }
@@ -139,28 +133,21 @@ export class AuthService
             const googleAuth = await this.afAuth.signInWithPopup(new firebase.auth.GoogleAuthProvider())
             credential = googleAuth;
           }
-
           break;
         case LoginProvider.Github:
           const githubAuth = await this.afAuth.signInWithPopup(new firebase.auth.GithubAuthProvider());
           credential = githubAuth;
-          break
+          break;
         case LoginProvider.Twitter:
           if (this.platform.is('capacitor'))
           {
             console.log("TWITTER LOGIN");
             const twitterAuth: TwitterAuth = await twitter.login();
-
-            console.log("TWITTER AUTH");
-            console.log(`Twitter access token is ${twitterAuth.authToken}`);
-            console.log(`Twitter secret token is ${twitterAuth.authTokenSecret}`);
-            // Login successful.
-            const twitterCredential = firebase.auth.TwitterAuthProvider.credential(twitterAuth.authToken, twitterAuth.authTokenSecret);
+            const twitterCredential = await firebase.auth.TwitterAuthProvider
+              .credential(twitterAuth.authToken, twitterAuth.authTokenSecret);
 
             console.log("TWITTER CREDENTIAL");
-            console.log(twitterCredential.idToken);
-            console.log(twitterCredential.providerId);
-            console.log(twitterCredential.accessToken);
+            console.log(twitterCredential);
             credential = await this.afAuth.signInWithCredential(twitterCredential);
           }
           else
@@ -171,28 +158,23 @@ export class AuthService
           break
       }
 
-      console.log("CREDENCIAL");
-      console.log(credential.user.uid);
-      console.log(credential.user.displayName);
-      console.log(credential.user.email);
-      console.log(credential.user.photoURL);
-
       if (credential && credential.additionalUserInfo.isNewUser)
       {
         console.log("Nuevo Usuario");
-
         await this.onRegisterWithCredential(credential, provider);
       }
 
       if (credential)
       {
+        console.log(credential);
         this.isLogged = true;
         return credential;
       }
 
-    } catch (error)
+    }
+    catch (error)
     {
-      console.log('Login failed', error);
+      console.log('Error al iniciar sesión ', error);
       return null;
     }
   }
@@ -233,24 +215,42 @@ export class AuthService
     console.log(credential);
 
     usuario.nombre = nombre_apellido[0];
-    usuario.apellido = nombre_apellido[1];
+    usuario.apellido = nombre_apellido[1] ? nombre_apellido[1] : " ";
     usuario.id = credential.user.uid;
-    usuario.email = credential.user.email;
+    usuario.dni = " ";
+    usuario.email = credential.user.email ? credential.user.email : "Sin configurar";
+    usuario.foto = Imagen.CrearImagen(usuario.id, "_", credential.user.photoURL, new Date().toISOString(), "_");
 
     switch (provider)
     {
       case LoginProvider.Facebook:
         console.log("Facebook Provider")
-        const fbAuth: FacebookCurrentAccessTokenResponse = await FacebookLogin.getCurrentAccessToken();
+        usuario.foto.url = usuario.foto.url.concat("?width=1024&height=1024"); // Tamaño grande
+        // const fbAuth: FacebookCurrentAccessTokenResponse = await FacebookLogin.getCurrentAccessToken();
 
-        console.log(fbAuth.accessToken);
-        let foto = await this.retrieveFacebookPicture(fbAuth);
-        // usuario.foto = Imagen.CrearImagen(usuario.id, "_", foto.data.url, new Date().toISOString(), "_");
+        // console.log(fbAuth.accessToken);
+        // let foto = await this.retrieveFacebookPicture(fbAuth);
+        // // usuario.foto = Imagen.CrearImagen(usuario.id, "_", foto.data.url, new Date().toISOString(), "_");
 
-        // console.log(usuario);
-        // this.clienteService.crear(<Cliente>usuario, usuario.id);
+        // // console.log(usuario);
+        break;
+      case LoginProvider.Google:
+        console.log("Google Provider");
+
+        let auxUrl = usuario.foto.url.split("=")[0];
+        usuario.foto.url = auxUrl.concat("=s400-c"); // Tamaño mediano
+        break;
+      case LoginProvider.Twitter:
+        console.log("Twitter Provider");
+        usuario.foto.url = usuario.foto.url.replace("_normal", ""); // Tamaño mediano
+        break;
+      case LoginProvider.Github:
+        console.log("Github Provider");
         break;
     }
+
+    // Por defecto se crea un Cliente si no existe en DB
+    return this.clienteService.crear(<Cliente>usuario, usuario.id);
   }
 
   onRegisterCliente(cliente: Cliente)

@@ -48,7 +48,7 @@ export class LoginPage implements OnInit
     const credential = mailTest && passwordTest ?
       await this.authService.onLoginTesting(mailTest, passwordTest) :
       await this.authService.onLogin(this.usuario, provider);
-    const uid = credential.user.uid;
+    const uid = credential ? credential.user.uid : null;
 
     if (uid)
     {
@@ -85,8 +85,11 @@ export class LoginPage implements OnInit
       }
       console.log(AuthService.usuario)
 
-      this.cerrar();
-      this.router.navigate(['/home'])
+      if (AuthService.usuario)
+      {
+        this.cerrar();
+        this.router.navigate(['/home'])
+      }
     }
     else
     {

@@ -10,5 +10,7 @@ export const environment = {
     appId: "1:1035173945210:web:e50eecb284d6f44cff80c3"
   },
   googleClientId: "186663344195-19h789hdom23h2bbj90ao63hebdho10j.apps.googleusercontent.com",
-  webGoogleId: "186663344195-3oktg1dtr9nsgengjutv9suc44o7o938.apps.googleusercontent.com"
+  webGoogleId: "186663344195-3oktg1dtr9nsgengjutv9suc44o7o938.apps.googleusercontent.com",
+  githubClientId: "86e92b8a9d997b9e7358",
+  githubSecretId: "054025e75d84d469ed572498a4c39e741c4efa13"
 };
