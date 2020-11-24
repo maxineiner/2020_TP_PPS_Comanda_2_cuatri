@@ -42,9 +42,28 @@ export class AltaProductoPage implements OnInit {
       nombre: ['', [Validators.required, Validators.pattern('^[a-zA-Z]{3,10}$')]],
       descripcion: ['', [Validators.required, Validators.pattern('^[a-zA-Z]{3,20}$')]],
       tiempo: ['', [Validators.required, Validators.pattern('^[0-9]{3}$')]],
-      precio: ['', [Validators.required, Validators.pattern('^[0-9]{4}$')]],
+      precio: ['', [Validators.required, Validators.pattern('^[0-9]{3,5}$')]],
     });
   }
+
+  validation_messages = {
+    'nombre': [
+      { type: 'required', message: 'El nombre es requerido.' },
+      { type: 'pattern', message: 'Introduzca un nombre de mínimo 3 a 10 caracteres y no números.' }
+    ],
+    'descripcion': [
+      { type: 'required', message: 'El descripcion es requerida.' },
+      { type: 'pattern', message: 'Introduzca una descripcion de mínimo 3 a 20 caracteres y no números.' }
+    ],
+    'tiempo': [
+      { type: 'required', message: 'El tiempo es requerido.' },
+      { type: 'pattern', message: 'Introduzca un tiempo de 3 caracteres y no letras.' }
+    ],
+    'precio': [
+      { type: 'required', message: 'El precio es requerido.' },
+      { type: 'pattern', message: 'Introduzca un precio de mínimo 3 a 5 caracteres y no letras.' }
+    ],
+  };
 
   ngOnInit() {
     this.pickedName = "Plato";

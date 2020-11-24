@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from "@angular/fire/auth";
-import './../../../assets/js/smtp.js';
+// import './../../../assets/js/smtp.js';
 declare let Email: any;
 
 @Injectable({

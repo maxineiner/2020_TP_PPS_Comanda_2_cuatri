@@ -63,13 +63,40 @@ export class AltaClientePage implements OnInit {
       nombre: ['', [Validators.required, Validators.pattern('^[a-zA-Z]{3,20}$')]],
       apellido: ['', [Validators.required, Validators.pattern('^[a-zA-Z]{3,20}$')]],
       dni: ['', [Validators.required, Validators.pattern('^[0-9]{8}$')]],
-      contrasenia: ['', [Validators.pattern('^[a-z0-9_-]{6,18}$')]],
-      correo: ['', [Validators.required, Validators.email]],
+      contrasenia: ['', [Validators.required, Validators.pattern('^[a-z0-9_-]{6,18}$')]],
+      correo: ['', [Validators.required, Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+\\s*$')]],
     });
     this.miFormularioAnonimo = this.formBuilder.group({
       nombreAnonimo: ['', [Validators.required, Validators.pattern('^[a-zA-Z]{3,20}$')]],
     });
   }
+
+  validation_messages = {
+    'nombre': [
+      { type: 'required', message: 'El nombre es requerido.' },
+      { type: 'pattern', message: 'Introduzca un nombre de mínimo 3 a 20 caracteres y no números.' }
+    ],
+    'nombreAnonimo': [
+      { type: 'required', message: 'El nombre es requerido.' },
+      { type: 'pattern', message: 'Introduzca un nombre de mínimo 3 a 20 caracteres y no números.' }
+    ],
+    'apellido': [
+      { type: 'required', message: 'El apellido es requerido.' },
+      { type: 'pattern', message: 'Introduzca un apellido de mínimo 3 a 20 caracteres y no números.' }
+    ],
+    'dni': [
+      { type: 'required', message: 'El DNI es requerido.' },
+      { type: 'pattern', message: 'Introduzca un DNI válido(8 caracteres).' }
+    ],
+    'correo': [
+      { type: 'required', message: 'El correo electronico es requerido.' },
+      { type: 'pattern', message: 'Introduzca un correo electrónico válido.' }
+    ],
+    'contrasenia': [
+      { type: 'required', message: 'La contraseña es requerida.' },
+      { type: 'pattern', message: 'La contraseña debe tener entre 6 y 18 caracteres.' }
+    ]
+  };
 
   ngOnInit() {
     this.pickedName = "Cliente";
@@ -135,7 +162,7 @@ export class AltaClientePage implements OnInit {
       this.usuarioJson.foto = base64Str;
       let obtenerMili = new Date().getTime();
       var nombreFoto = "usuarios/" + obtenerMili + "." + this.usuarioJson.dni + ".jpg";
-      this.bd.subirImagen()
+      // this.bd.subirImagen()
       var storageRef = firebase.storage().ref();
       var childRef = storageRef.child(nombreFoto);
       this.pathImagen = nombreFoto;
