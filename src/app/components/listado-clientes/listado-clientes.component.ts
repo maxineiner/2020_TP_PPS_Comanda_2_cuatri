@@ -1,5 +1,4 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { LoadingController } from '@ionic/angular';
 import { Cliente } from 'src/app/clases/cliente';
 
 
@@ -15,12 +14,11 @@ export class ListadoClientesComponent implements OnInit
   @Output() seleccionarCliente: EventEmitter<Cliente> = new EventEmitter<Cliente>();
   loadingTime = 2000;
 
-  constructor(private loadingController: LoadingController)
+  constructor()
   { }
 
   ngOnInit() 
   {
-    this.presentLoading('Cargando clientes...');
   }
 
   /**
@@ -32,18 +30,5 @@ export class ListadoClientesComponent implements OnInit
     this.seleccionarCliente.emit(cliente);
   }
 
-  //TODO: do this method generic for all lists
-  async presentLoading(message: string, duration?: number)
-  {
-    if (duration === undefined || duration <= 0)
-    {
-      duration = this.loadingTime
-    }
-    const loading = await this.loadingController.create({
-      message,
-      duration,
-      spinner: 'crescent'
-    });
-    await loading.present();
-  }
+
 }

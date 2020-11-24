@@ -71,8 +71,10 @@ export class FormClientesComponent implements OnInit
         .onRegisterCliente(this.cliente)
         .then(() =>
         {
-          this.notifications.enviarNotificacion('Nuevo Cliente', `El cliente ${this.cliente.nombre} ${this.cliente.apellido} se acaba de registrar`, '/home/clientes-pendientes','jefes');
+          this.notifications.enviarNotificacion('Nuevo Cliente', `El cliente ${this.cliente.nombre} ${this.cliente.apellido} se acaba de registrar`, '/home/clientes-pendientes', 'jefes');
           UIVisualService.presentToast('Alta exitosa');
+          this.cliente = new Cliente();
+          this.imgPreview = null;
         })
         .catch(() => UIVisualService.presentToast('No se pudo realizar el alta'))
     }
@@ -89,13 +91,17 @@ export class FormClientesComponent implements OnInit
   {
     console.log('Modificar Cliente')
 
-    if (this.cliente)
+    if (this.cliente.id)
     {
       // Se actualiza Mesa en DB
       this.clienteService
         .actualizar(this.cliente)
         .then(() => UIVisualService.presentToast('Modificación exitosa'))
         .catch(() => UIVisualService.presentToast('No se pudo modificar'))
+    }
+    else
+    {
+      UIVisualService.presentToast('Seleccione un cliente del listado');
     }
   }
 
@@ -106,12 +112,16 @@ export class FormClientesComponent implements OnInit
   {
     console.log("Baja cliente");
 
-    if (this.cliente)
+    if (this.cliente.id)
     {
       this.clienteService
         .borradoLogico(this.cliente)
         .then(() => UIVisualService.presentToast('Baja realizada'))
         .catch(() => UIVisualService.presentToast('No se pudo realizar baja'))
+    }
+    else
+    {
+      UIVisualService.presentToast('Seleccione un cliente del listado');
     }
   }
 }

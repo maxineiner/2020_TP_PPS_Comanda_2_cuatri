@@ -1,29 +1,27 @@
 <app-header titulo="Menú"></app-header>
 
-<ion-segment value="Platos" (ionChange)="seleccionarOpcion($event)" scrollable color="success">
-  <ion-segment-button value="Platos">
-    <ion-label>
-      Platos
-    </ion-label>
+<ion-segment value="inicializarOpcion()" (ionChange)="seleccionarOpcion($event)" scrollable color="success">
+  <ion-segment-button value="Platos" *ngIf="!rolService.isEmpleadoBartender(usuario)">
+    <ion-icon name="pizza-outline"></ion-icon>
   </ion-segment-button>
 
-  <ion-segment-button value="Bebidas">
-    <ion-label>
-      Bebidas
-    </ion-label>
+  <ion-segment-button value="Bebidas" *ngIf="!rolService.isEmpleadoCocinero(usuario)">
+    <ion-icon name="wine-outline"></ion-icon>
   </ion-segment-button>
 
   <ion-segment-button value="Alta" *ngIf="rolService.isEmpleadoBartender(usuario) || 
-                                    rolService.isEmpleadoCocinero(usuario)">
-    <ion-label>Alta</ion-label>
+                                          rolService.isEmpleadoCocinero(usuario)">
+    <ion-icon name="add"></ion-icon>
   </ion-segment-button>
-  <ion-segment-button value="Baja" *ngIf="rolService.isEmpleadoBartender(usuario) || 
-                                  rolService.isEmpleadoCocinero(usuario)">
-    <ion-label>Baja</ion-label>
+  <ion-segment-button value="Baja" *ngIf="productoElegido.isActive && 
+                                          rolService.isEmpleadoBartender(usuario) || 
+                                          rolService.isEmpleadoCocinero(usuario)">
+    <ion-icon name="trash-sharp"></ion-icon>
   </ion-segment-button>
-  <ion-segment-button value="Modificación" *ngIf="rolService.isEmpleadoBartender(usuario) || 
-                                           rolService.isEmpleadoCocinero(usuario)">
-    <ion-label>Modificar</ion-label>
+  <ion-segment-button value="Modificación" *ngIf="productoElegido.isActive && 
+                                                  rolService.isEmpleadoBartender(usuario) || 
+                                                  rolService.isEmpleadoCocinero(usuario)">
+    <ion-icon name="create-sharp"></ion-icon>
   </ion-segment-button>
 </ion-segment>
 

@@ -61,7 +61,7 @@ export class UIVisualService
     UIVisualService.UI = this;
   }
 
-  static async loading()
+  static async loading(duration?: number)
   {
     const loading = await UIVisualService.UI.loadingController.create({
       message: '<ion-img src="/assets/img/logo.svg" alt="loading..." class="ion-no-padding spinner"></ion-img>',
@@ -69,7 +69,7 @@ export class UIVisualService
       mode: "ios",
       showBackdrop: false,
       spinner: null,
-      duration: 2000
+      duration: duration ? duration : 2000
     });
     await loading.present();
   }
@@ -333,45 +333,62 @@ export class UIVisualService
       header: 'Menú',
       mode: 'ios',
       translucent: true,
-      buttons: [{
-        text: 'Clientes',
-        icon: 'person-circle',
-        handler: () => UIVisualService.UI.router.navigate(['/home/menu-cliente'])
-      },
-      {
-        text: 'Empleados',
-        icon: 'accessibility-outline',
-        handler: () => UIVisualService.UI.router.navigate(['/home/menu-empleado'])
-      },
-      {
-        text: 'Supervisores',
-        icon: 'glasses-outline',
-        handler: () => UIVisualService.UI.router.navigate(['/home/menu-jefe'])
-      },
-      {
-        text: 'Mesas',
-        icon: 'storefront-outline',
-        handler: () => UIVisualService.UI.router.navigate(['/home/menu-mesa'])
-      },
-      {
-        text: 'Nuevos Clientes',
-        icon: 'person-add-outline',
-        handler: () => UIVisualService.UI.router.navigate(['/home/clientes-pendientes'])
-      },
-      {
-        text: 'Encuesta',
-        icon: 'analytics-outline',
-        handler: () => UIVisualService.verEncuesta()
-      },
-      {
-        text: 'Cerrar',
-        role: 'cancel',
-        handler: () =>
+      buttons: [
         {
-          console.log('Cerrar');
-        }
-      }
-      ]
+          text: 'Clientes',
+          icon: 'person-circle',
+          handler: () => UIVisualService.UI.router.navigate(['/home/menu-cliente'])
+        },
+        {
+          text: 'Empleados',
+          icon: 'accessibility-outline',
+          handler: () => 
+          {
+            this.loading();
+            UIVisualService.UI.router.navigate(['/home/menu-empleado'])
+          }
+        },
+        {
+          text: 'Supervisores',
+          icon: 'glasses-outline',
+          handler: () => 
+          {
+            this.loading();
+            UIVisualService.UI.router.navigate(['/home/menu-jefe']);
+          }
+        },
+        {
+          text: 'Mesas',
+          icon: 'storefront-outline',
+          handler: () => 
+          {
+            this.loading();
+            UIVisualService.UI.router.navigate(['/home/menu-mesa']);
+          }
+        },
+        {
+          text: 'Nuevos Clientes',
+          icon: 'person-add-outline',
+          handler: () => 
+          {
+            this.loading();
+            UIVisualService.UI.router.navigate(['/home/clientes-pendientes']);
+          }
+        },
+        {
+          text: 'Encuesta',
+          icon: 'analytics-outline',
+          handler: () => 
+          {
+            this.loading();
+            UIVisualService.verEncuesta();
+          }
+        },
+        {
+          text: 'Cerrar',
+          role: 'cancel',
+          handler: () => console.log('Cerrar')
+        }]
     });
 
     await actionSheet.present();

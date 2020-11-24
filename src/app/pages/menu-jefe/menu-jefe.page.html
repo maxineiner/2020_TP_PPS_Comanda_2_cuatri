@@ -2,16 +2,16 @@
 
 <ion-segment value="Listado" (ionChange)="seleccionarOpcion($event)" scrollable color="success">
   <ion-segment-button value="Listado">
-    <ion-label>Jefes</ion-label>
+    <ion-icon name="list-sharp"></ion-icon>
   </ion-segment-button>
   <ion-segment-button value="Alta">
-    <ion-label>Alta</ion-label>
+    <ion-icon name="add"></ion-icon>
   </ion-segment-button>
   <ion-segment-button value="Baja" *ngIf="jefeSeleccionado.isActive">
-    <ion-label>Baja</ion-label>
+    <ion-icon name="trash-sharp"></ion-icon>
   </ion-segment-button>
   <ion-segment-button value="Modificación" *ngIf="jefeSeleccionado.isActive">
-    <ion-label>Modificación</ion-label>
+    <ion-icon name="create-sharp"></ion-icon>
   </ion-segment-button>
 </ion-segment>
 

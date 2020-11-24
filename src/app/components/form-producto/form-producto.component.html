@@ -17,7 +17,7 @@
 
 
       <ion-item color="dark">
-        <ion-label>Descripcion</ion-label>
+        <ion-label position="floating">Descripcion</ion-label>
         <ion-input class="form-control" formControlName="descripcion" type="text" required>
         </ion-input>
         <div
@@ -47,7 +47,7 @@
 
 
       <ion-item color="dark">
-        <ion-label position="floating">Precio:</ion-label>
+        <ion-label position="floating">Precio:$</ion-label>
         <ion-input type="number" name="name" formControlName="precio" required>
         </ion-input>
         <div
@@ -79,7 +79,7 @@
     </ion-list>
 
 
-    <ion-button (click)="registrar()" color="dark" expand="block" type="submit"
+    <ion-button (click)="registrar()" color="success" expand="block" type="submit"
                 [disabled]="registroForm.pristine || registroForm.invalid" *ngIf="opcion == 'Alta'">
       Crear
     </ion-button>
@@ -89,7 +89,7 @@
       Modificar
     </ion-button>
 
-    <ion-button (click)="borrarProducto()" color="dark" expand="block" type="submit" *ngIf="opcion == 'Baja'">
+    <ion-button (click)="borrarProducto()" color="danger" expand="block" type="submit" *ngIf="opcion == 'Baja'">
       Eliminar
     </ion-button>
   </form>

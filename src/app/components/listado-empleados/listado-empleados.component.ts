@@ -11,14 +11,12 @@ export class ListadoEmpleadosComponent implements OnInit
 {
   @Input() empleados: Empleado[] = [];
   @Output() seleccionarEmpleado: EventEmitter<Empleado> = new EventEmitter<Empleado>();
-  loadingTime = 2000;
 
-  constructor(private loadingController: LoadingController)
+  constructor()
   { }
 
   ngOnInit() 
   {
-    this.presentLoading('Cargando empleados...');
   }
 
   /**
@@ -30,18 +28,4 @@ export class ListadoEmpleadosComponent implements OnInit
     this.seleccionarEmpleado.emit(empleado);
   }
 
-  //TODO: do this method generic for all lists
-  async presentLoading(message: string, duration?: number)
-  {
-    if (duration === undefined || duration <= 0)
-    {
-      duration = this.loadingTime
-    }
-    const loading = await this.loadingController.create({
-      message,
-      duration,
-      spinner: 'crescent'
-    });
-    await loading.present();
-  }
 }

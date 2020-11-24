@@ -45,9 +45,6 @@
 
       </ion-item>
 
-      <ion-item *ngIf="mesa.foto" color="dark">
-        <ion-img [src]="mesa.foto.url"></ion-img>
-      </ion-item>
     </ion-list>
 
   </form>
@@ -55,19 +52,19 @@
 <ion-footer>
   <ion-toolbar class="botones-form" color="dark">
     <!-- Se muestra accion segun tipo de llamado al formulario -->
-    <ion-button (click)="crearMesa()" color="primary" expand="block" size="large"
-                type="submit" [disabled]="formulario.invalid && !mesa.foto"
+    <ion-button (click)="crearMesa()" color="success" expand="block" size="large"
+                type="submit" [disabled]="formulario.invalid"
                 *ngIf="opcion == 'Alta'">
       Crear
     </ion-button>
 
-    <ion-button (click)="modificarMesa()" color="dark" expand="block" size="large"
+    <ion-button (click)="modificarMesa()" color="medium" expand="block" size="large"
                 type="submit" [disabled]="formulario.invalid"
                 *ngIf="opcion == 'Modificación'">
       Modificar
     </ion-button>
 
-    <ion-button (click)="borrarMesa()" color="dark" expand="block" size="large"
+    <ion-button (click)="borrarMesa()" color="danger" expand="block" size="large"
                 type="submit" *ngIf="opcion == 'Baja'">
       Eliminar
     </ion-button>

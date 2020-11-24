@@ -24,8 +24,8 @@ export class FormEmpleadosComponent implements OnInit
   @Input() opcion: OpcionForm;
   @Input() empleado: Empleado;
 
-  auxiliarFoto: Imagen
-  imgPreview: string
+  auxiliarFoto: Imagen;
+  imgPreview: string;
 
   popoverOptions = {
     header: "Seleccione el tipo",
@@ -61,6 +61,7 @@ export class FormEmpleadosComponent implements OnInit
   {
     if (this.empleado && !this.empleado.id)
     {
+      UIVisualService.loading(8000);
       // Se guarda imagen en DB y Storage
       const imagenGuardada = await this.imagenService.crearUnaImagen(
         this.auxiliarFoto,
@@ -70,7 +71,12 @@ export class FormEmpleadosComponent implements OnInit
 
       this.authService
         .onRegisterEmpleado(this.empleado)
-        .then(() => UIVisualService.presentToast('Alta exitosa'))
+        .then(() =>
+        {
+          UIVisualService.presentToast('Alta exitosa');
+          this.empleado = new Empleado();
+          this.imgPreview = null;
+        })
         .catch(() => UIVisualService.presentToast('No se pudo realizar el alta'))
     }
     else
@@ -86,13 +92,17 @@ export class FormEmpleadosComponent implements OnInit
   {
     console.log('Modificar Empleado')
 
-    if (this.empleado)
+    if (this.empleado.id)
     {
       // Se actualiza Mesa en DB
       this.empleadoService
         .actualizar(this.empleado)
         .then(() => UIVisualService.presentToast('Modificación exitosa'))
         .catch(() => UIVisualService.presentToast('No se pudo modificar'))
+    }
+    else
+    {
+      UIVisualService.presentToast('Seleccione empleado del listado');
     }
   }
 
@@ -103,12 +113,16 @@ export class FormEmpleadosComponent implements OnInit
   {
     console.log("Baja empleado");
 
-    if (this.empleado)
+    if (this.empleado.id)
     {
       this.empleadoService
         .borradoLogico(this.empleado)
         .then(() => UIVisualService.presentToast('Baja realizada'))
         .catch(() => UIVisualService.presentToast('No se pudo realizar baja'))
+    }
+    else
+    {
+      UIVisualService.presentToast('Seleccione empleado del listado');
     }
   }
 }

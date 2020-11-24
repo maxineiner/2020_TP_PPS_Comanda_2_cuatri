@@ -44,6 +44,7 @@ export class RegisterPage implements OnInit
   {
     if (this.cliente && !this.cliente.id)
     {
+      UIVisualService.loading(8000);
       // Se guarda imagen en DB y Storage
       const imagenGuardada = await this.imagenService.crearUnaImagen(
         this.auxiliarFoto,
@@ -55,7 +56,7 @@ export class RegisterPage implements OnInit
         .onRegisterCliente(this.cliente)
         .then(() =>
         {
-          this.notificationService.enviarNotificacion('Nuevo Cliente', `El cliente ${this.cliente.nombre} ${this.cliente.apellido} se acaba de registrar`, '/home/clientes-pendientes','jefes');
+          this.notificationService.enviarNotificacion('Nuevo Cliente', `El cliente ${this.cliente.nombre} ${this.cliente.apellido} se acaba de registrar`, '/home/clientes-pendientes', 'jefes');
           UIVisualService.presentToast('Alta exitosa');
           this.cerrar();
           this.presentLoginModal();

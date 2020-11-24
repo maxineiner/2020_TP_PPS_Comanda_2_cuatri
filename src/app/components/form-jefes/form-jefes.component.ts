@@ -70,7 +70,12 @@ export class FormJefesComponent implements OnInit
 
       this.authService
         .onRegisterJefe(this.jefe)
-        .then(() => UIVisualService.presentToast('Alta exitosa'))
+        .then(() =>
+        {
+          UIVisualService.presentToast('Alta exitosa');
+          this.jefe = new Jefe();
+          this.imgPreview = null;
+        })
         .catch(() => UIVisualService.presentToast('No se pudo realizar el alta'))
     }
     else
@@ -86,13 +91,17 @@ export class FormJefesComponent implements OnInit
   {
     console.log('Modificar Jefe')
 
-    if (this.jefe)
+    if (this.jefe.id)
     {
       // Se actualiza Mesa en DB
       this.jefeService
         .actualizar(this.jefe)
         .then(() => UIVisualService.presentToast('Modificación exitosa'))
         .catch(() => UIVisualService.presentToast('No se pudo modificar'))
+    }
+    else
+    {
+      UIVisualService.presentToast('Seleccione una persona del listado');
     }
   }
 
@@ -103,12 +112,16 @@ export class FormJefesComponent implements OnInit
   {
     console.log("Baja jefe");
 
-    if (this.jefe)
+    if (this.jefe.id)
     {
       this.jefeService
         .borradoLogico(this.jefe)
         .then(() => UIVisualService.presentToast('Baja realizada'))
         .catch(() => UIVisualService.presentToast('No se pudo realizar baja'))
+    }
+    else
+    {
+      UIVisualService.presentToast('Seleccione una persona del listado');
     }
   }
 }

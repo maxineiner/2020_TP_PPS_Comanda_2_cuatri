@@ -17,7 +17,7 @@ import { UIVisualService } from 'src/app/services/uivisual.service';
 export class MenuProductoPage implements OnInit, DoCheck
 {
   usuario: Usuario;
-  opcion: string = 'Platos';
+  opcion: string;
   platos: Producto[];
   bebidas: Producto[];
   productoElegido: Producto = new Producto();
@@ -46,7 +46,7 @@ export class MenuProductoPage implements OnInit, DoCheck
     UIVisualService.loading();
     // No es necesario inyectar el servicio por ser propiedad estática
     this.usuario = AuthService.usuario;
-
+    this.opcion = this.rolService.isEmpleadoBartender(this.usuario) ? "Bebidas" : "Platos";
     console.log("INIT");
     this.productoService.traerTodos().then(data =>
     {
@@ -66,6 +66,15 @@ export class MenuProductoPage implements OnInit, DoCheck
   {
     console.log(event);
     this.productoElegido = event;
+  }
+
+  inicializarOpcion()
+  {
+    if (this.rolService.isEmpleadoBartender(this.usuario))
+    {
+      return "Bebidas";
+    }
+    return "Platos";
   }
 
 }

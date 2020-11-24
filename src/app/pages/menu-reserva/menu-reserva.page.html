@@ -2,16 +2,16 @@
 
 <ion-segment value="Listado" (ionChange)="seleccionarOpcion($event)" scrollable color="success">
   <ion-segment-button value="Listado">
-    <ion-label>Reservas</ion-label>
+    <ion-icon name="list-sharp"></ion-icon>
   </ion-segment-button>
   <ion-segment-button value="Alta" *ngIf="rolService.isClienteAceptado(usuario)">
-    <ion-label>Alta</ion-label>
+    <ion-icon name="add"></ion-icon>
   </ion-segment-button>
   <ion-segment-button value="Baja" *ngIf="rolService.isClienteAceptado(usuario) && reservaElegida">
-    <ion-label>Baja</ion-label>
+    <ion-icon name="trash-sharp"></ion-icon>
   </ion-segment-button>
   <ion-segment-button value="Modificación" *ngIf="rolService.isClienteAceptado(usuario) && reservaElegida">
-    <ion-label>Modificar</ion-label>
+    <ion-icon name="create-sharp"></ion-icon>
   </ion-segment-button>
 </ion-segment>
 
