@@ -9,7 +9,7 @@
         <div [ngClass]="{'ion-text-end': idUsuario == mensaje.usuario.id , 
                   'ion-text-start': idUsuario != mensaje.usuario.id }">
           <ion-item class="ion-no-margin" lines="none"
-                    *ngIf="i == 0 || mensaje.usuario.id != mensajes[i-1].usuario.id" color="secondary">
+                    *ngIf="i == 0 || mensaje.usuario.id != mensajes[i-1].usuario.id" color="light">
 
             <ion-chip color="dark" mode="ios" outline="true" class="ion-no-margin"
                       *ngIf="idUsuario != mensaje.usuario.id">

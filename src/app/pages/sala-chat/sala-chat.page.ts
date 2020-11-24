@@ -20,14 +20,12 @@ export class SalaChatPage implements OnInit, DoCheck
   @Input() mesa: number;
 
   constructor(private mensajeService: MensajesService,
-    private modalController: ModalController,
-    private loadingController: LoadingController) 
+    private modalController: ModalController) 
   {
   }
 
   ngOnInit()
   {
-    this.presentLoading();
     this.mensajeService.leer()
       .then(mensajes => 
       {
@@ -39,7 +37,6 @@ export class SalaChatPage implements OnInit, DoCheck
   ngDoCheck(): void
   {
     this.mensajes = MensajesService.mensajes.filter(mensaje => mensaje.chatId == this.chatID);
-    console.log(this.mensajes);
   }
 
   enviar()
@@ -59,14 +56,6 @@ export class SalaChatPage implements OnInit, DoCheck
     this.modalController.dismiss();
   }
 
-  async presentLoading()
-  {
-    const loading = await this.loadingController.create({
-      duration: 2000,
-      spinner: 'crescent'
-    });
-    await loading.present();
-  }
 
 
 

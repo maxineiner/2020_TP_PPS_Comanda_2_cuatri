@@ -27,42 +27,14 @@ export class ConsultasPage implements OnInit, DoCheck
 
   ngDoCheck(): void
   {
-    const mensajesClientes = MensajesService.mensajes.sort(this.ordenarConsultas);
-    console.log(mensajesClientes);
-
-    for (const mensaje of mensajesClientes) 
-    {
-      let usuario = (<Cliente>mensaje.usuario);
-
-      if (!this.mensajes.find(m => m.chatId == mensaje.chatId) &&
-        usuario.estado == EstadoAceptacion.Aceptado || usuario.estado == EstadoAceptacion.Anonimo)
-      {
-        this.mensajes.push(mensaje);
-      }
-    }
+    let mensajesClientes = MensajesService.mensajes;
+    this.filtrarMensajesClientes(mensajesClientes);
   }
 
-  ngOnInit() 
+  async ngOnInit() 
   {
-    console.log("INIT");
     UIVisualService.loading();
-    this.mensajeService.leer().then(mensajes =>
-    {
-      const mensajesClientes = mensajes.sort(this.ordenarConsultas);
-      console.log(mensajesClientes);
-
-      for (const mensaje of mensajesClientes) 
-      {
-        let usuario = (<Cliente>mensaje.usuario);
-
-        if (!this.mensajes.find(m => m.chatId == mensaje.chatId) &&
-          usuario.estado == EstadoAceptacion.Aceptado || usuario.estado == EstadoAceptacion.Anonimo)
-        {
-          this.mensajes.push(mensaje);
-        }
-      }
-      console.log(this.mensajes);
-    });
+    await this.mensajeService.leer();
   }
 
   responder(mensaje: Mensaje)
@@ -77,22 +49,31 @@ export class ConsultasPage implements OnInit, DoCheck
     UIVisualService.verChat(infoMensaje);
   }
 
-  ordenarConsultas(mensajeA: Mensaje, mensajeB: Mensaje): number
+  filtrarMensajesClientes(mensajes: Mensaje[])
   {
+    console.log(mensajes);
 
-    if (Date.parse(mensajeA.fecha) < Date.parse(mensajeB.fecha))
+    if (mensajes)
     {
-      return 1;
+      for (const mensajeNuevo of mensajes) 
+      {
+        let usuario = (<Cliente>mensajeNuevo.usuario);
+        let mensaje = this.mensajes ? this.mensajes.find(m => m.chatId == mensajeNuevo.chatId) : null;
+
+        if (!mensaje &&
+          usuario.estado == EstadoAceptacion.Aceptado ||
+          usuario.estado == EstadoAceptacion.Anonimo)
+        {
+          this.mensajes.push(mensajeNuevo);
+        }
+        else if (mensaje)
+        {
+          let i = this.mensajes.indexOf(mensaje)
+          this.mensajes[i] = mensajeNuevo;
+        }
+
+      }
     }
-    else if (Date.parse(mensajeA.fecha) > Date.parse(mensajeB.fecha))
-    {
-      return -1;
-    }
-    else
-    {
-      return 0;
-    }
+    return this.mensajes;
   }
-
-
 }
