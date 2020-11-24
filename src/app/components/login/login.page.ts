@@ -1,13 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../../services/auth.service';
+import { AuthService, USERS_TEST } from '../../services/auth.service';
 import { Usuario } from 'src/app/clases/usuario';
 import { Cliente, EstadoAceptacion } from 'src/app/clases/cliente';
 import { JefeService } from 'src/app/services/jefe.service';
 import { EmpleadoService } from 'src/app/services/empleado.service';
 import { ClienteService } from 'src/app/services/cliente.service';
 import { Router } from '@angular/router';
-import { ActionSheetController, ModalController } from '@ionic/angular';
+import { ActionSheetController, AlertController, ModalController } from '@ionic/angular';
 import { Imagen } from 'src/app/clases/imagen';
+import { LoginProvider } from 'src/app/interfaces/IProviders';
 
 @Component({
   selector: 'app-login',
@@ -25,34 +26,29 @@ export class LoginPage implements OnInit
     private empleadoService: EmpleadoService,
     private clienteService: ClienteService,
     private modalController: ModalController,
-    private actionSheetController: ActionSheetController) { }
+    private actionSheetController: ActionSheetController,
+    private alertController: AlertController) { }
 
   ngOnInit()
   {
   }
 
-  async onLoginAnonymously()
+  // async login(provider: LoginProvider)
+  // {
+  //   const uid = await this.authService.onLogin(this.usuario, provider);
+
+  //   console.log(uid);
+
+  //   this.modalController.dismiss();
+  //   this.router.navigate(['/home']);
+  // }
+
+  async onLogin(provider: LoginProvider, mailTest?: string, passwordTest?: string)
   {
-    const uid = await this.authService.onLoginAnonymously();
-
-    if (uid)
-    {
-      console.log('Cliente anonimo logueado!');
-
-      let cliente = Cliente.CrearCliente(uid, "Anónimo", " ", "0", new Imagen(), " ", true, EstadoAceptacion.Anonimo, { isWaiting: false, horario: null })
-      console.log(cliente)
-
-      AuthService.usuario = cliente;
-      this.clienteService.crearAnonimo(cliente);
-
-      this.cerrar();
-      this.router.navigate(['/home'])
-    }
-  }
-
-  async onLogin()
-  {
-    const uid = await this.authService.onLogin(this.usuario);
+    const credential = mailTest && passwordTest ?
+      await this.authService.onLoginTesting(mailTest, passwordTest) :
+      await this.authService.onLogin(this.usuario, provider);
+    const uid = credential ? credential.user.uid : null;
 
     if (uid)
     {
@@ -84,56 +80,101 @@ export class LoginPage implements OnInit
       }
       else 
       {
-        console.log("usuario no encontrado")
+        console.log("usuario no encontrado");
         // mostrar error en pantalla
       }
       console.log(AuthService.usuario)
+
+      if (AuthService.usuario)
+      {
+        this.cerrar();
+        this.router.navigate(['/home'])
+      }
+    }
+    else
+    {
+      console.log("Sin UID " + uid);
+    }
+  }
+
+  async onLoginAnonymously()
+  {
+    const uid = await this.authService.onLoginAnonymously();
+
+    if (uid)
+    {
+      console.log('Cliente anonimo logueado!');
+
+      let cliente = Cliente.CrearCliente(uid, "Anónimo", " ", "0", new Imagen(), " ",
+        true, EstadoAceptacion.Anonimo,
+        { isWaiting: false, horario: null })
+      console.log(cliente)
+
+      AuthService.usuario = cliente;
+      this.clienteService.crearAnonimo(cliente);
 
       this.cerrar();
       this.router.navigate(['/home'])
     }
   }
 
-  async onLoginTesting(rol: string)
+  async onLoginMail()
   {
-    let uid;
+    const alert = await this.alertController.create({
+      header: 'Iniciar sesión',
+      cssClass: 'promptLogin',
+      inputs: [
+        {
+          name: 'mail',
+          type: 'text',
+          placeholder: 'Correo electrónico'
+        },
+        {
+          name: 'password',
+          type: 'password',
+          placeholder: 'Contraseña'
+        },
+      ],
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          handler: () => { }
+        },
+        {
+          text: 'Aceptar',
+          handler: (data) =>
+          {
+            this.usuario.email = data.mail;
+            this.usuario.password = data.password;
 
-    switch (rol)
-    {
-      case "Cliente":
-        uid = await this.authService.onLoginTesting("cliente@mail.com", "111111");
-        AuthService.usuario = await this.clienteService.leerPorID(uid);
-        break;
-      case "Supervisor":
-        uid = await this.authService.onLoginTesting("supervisor@mail.com", "111111");
-        AuthService.usuario = await this.jefeService.leerPorID(uid);
-        break;
-      case "Duenio":
-        uid = await this.authService.onLoginTesting("duenio@mail.com", "111111");
-        AuthService.usuario = await this.jefeService.leerPorID(uid);
-        break;
-      case "Mozo":
-        uid = await this.authService.onLoginTesting("mozo@mail.com", "111111");
-        AuthService.usuario = await this.empleadoService.leerPorID(uid);
-        break;
-      case "Bartender":
-        uid = await this.authService.onLoginTesting("bartender@mail.com", "111111");
-        AuthService.usuario = await this.empleadoService.leerPorID(uid);
-        break;
-      case "Cocinero":
-        uid = await this.authService.onLoginTesting("cocinero@mail.com", "111111");
-        AuthService.usuario = await this.empleadoService.leerPorID(uid);
-        break;
-    }
+            this.onLogin(LoginProvider.Email);
+          }
+        }
+      ]
+    });
 
-    console.log(AuthService.usuario);
-    this.cerrar();
-    this.router.navigate(['/home']);
+    await alert.present();
   }
 
-  cerrar()
+  async onLoginGoogle()
   {
-    this.modalController.dismiss();
+    this.onLogin(LoginProvider.Google);
+  }
+
+  async onLoginFacebook()
+  {
+    this.onLogin(LoginProvider.Facebook);
+  }
+
+  async onLoginTwitter()
+  {
+    this.onLogin(LoginProvider.Twitter);
+  }
+
+  async onLoginGithub()
+  {
+    this.onLogin(LoginProvider.Github);
   }
 
   async mostrarRoles()
@@ -144,57 +185,42 @@ export class LoginPage implements OnInit
       translucent: true,
       buttons: [{
         text: 'Cliente',
-        handler: () =>
-        {
-          this.onLoginTesting("Cliente");
-        }
+        handler: () => this.onLogin(LoginProvider.Email, USERS_TEST.cliente.mail, USERS_TEST.cliente.password)
       },
       {
         text: 'Supervisor',
-        handler: () =>
-        {
-          this.onLoginTesting("Supervisor");
-        }
+        handler: () => this.onLogin(LoginProvider.Email, USERS_TEST.supervisor.mail, USERS_TEST.supervisor.password)
       },
       {
         text: 'Dueño',
-        handler: () =>
-        {
-          this.onLoginTesting("Duenio");
-        }
+        handler: () => this.onLogin(LoginProvider.Email, USERS_TEST.duenio.mail, USERS_TEST.duenio.password)
       },
       {
         text: 'Mozo',
-        handler: () =>
-        {
-          this.onLoginTesting("Mozo");
-        }
+        handler: () => this.onLogin(LoginProvider.Email, USERS_TEST.mozo.mail, USERS_TEST.mozo.password)
       },
       {
         text: 'Cocinero',
-        handler: () =>
-        {
-          this.onLoginTesting("Cocinero");
-        }
+        handler: () => this.onLogin(LoginProvider.Email, USERS_TEST.cocinero.mail, USERS_TEST.cocinero.password)
       },
       {
         text: 'Bartender',
-        handler: () =>
-        {
-          this.onLoginTesting("Bartender");
-        }
+        handler: () => this.onLogin(LoginProvider.Email, USERS_TEST.bartender.mail, USERS_TEST.bartender.password)
       },
       {
         text: 'Cerrar',
         role: 'cancel',
-        handler: () =>
-        {
-          console.log('Cerrar');
-        }
+        handler: () => console.log('Cerrar')
       }]
     });
 
     await actionSheet.present();
   }
+
+  cerrar()
+  {
+    this.modalController.dismiss();
+  }
+
 
 }

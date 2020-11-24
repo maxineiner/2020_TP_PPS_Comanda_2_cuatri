@@ -22,12 +22,15 @@
     "@angular/platform-browser": "~10.0.0",
     "@angular/platform-browser-dynamic": "~10.0.0",
     "@angular/router": "~10.0.0",
+    "@capacitor-community/facebook-login": "^1.0.3",
+    "@capacitor-community/twitter": "^1.0.1",
     "@capacitor-community/fcm": "^1.0.8",
     "@capacitor-community/http": "^0.2.1",
     "@capacitor/android": "^2.4.2",
     "@capacitor/core": "2.4.2",
     "@ionic-native/barcode-scanner": "^5.29.0",
     "@ionic-native/core": "^5.0.0",
+    "@ionic-native/google-plus": "^5.29.0",
     "@ionic-native/ionic-webview": "^5.29.0",
     "@ionic-native/native-audio": "^5.29.0",
     "@ionic-native/splash-screen": "^5.0.0",
@@ -35,6 +38,7 @@
     "@ionic/angular": "^5.0.0",
     "@ionic/storage": "^2.3.1",
     "cordova-android": "^9.0.0",
+    "cordova-plugin-googleplus": "^8.5.1",
     "cordova-plugin-nativeaudio": "^3.0.9",
     "firebase": "^8.0.1",
     "highcharts": "^8.2.2",
@@ -87,6 +91,11 @@
       "cordova-plugin-ionic-keyboard": {},
       "phonegap-plugin-barcodescanner": {
         "ANDROID_SUPPORT_V4_VERSION": "27.+"
+      },
+      "cordova-plugin-googleplus": {
+        "WEB_APPLICATION_CLIENT_ID": "186663344195-3oktg1dtr9nsgengjutv9suc44o7o938.apps.googleusercontent.com",
+        "REVERSED_CLIENT_ID": "186663344195-3oktg1dtr9nsgengjutv9suc44o7o938.apps.googleusercontent.com",
+        "PLAY_SERVICES_VERSION": "15.0.1"
       }
     },
     "platforms": [

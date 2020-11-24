@@ -14,6 +14,18 @@
         "sound",
         "alert"
       ]
+    },
+    "GoogleAuth": {
+      "scopes": [
+        "profile",
+        "email"
+      ],
+      "serverClientId": "186663344195-14feil9uff8fge36qcq4ml5psjo4lk1l.apps.googleusercontent.com",
+      "forceCodeForRefreshToken": true
+    },
+    "TwitterPlugin": {
+      "consumerKey": "TZMvMlEA0R8hRueQNP7xgxXkP",
+      "consumerSecret": "zdIcivrN6QMaIlolSwFmGwvK4qeH5lhbLWdaXWbGYMhccA7ehs"
     }
   },
   "cordova": {}

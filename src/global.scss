@@ -184,6 +184,20 @@
   --spinner-color: var(--ion-color-success) !important; 
 }
 
+.spinner{
+  border-radius: 50% !important;
+}
+
+.promptLogin{
+  --background: var(--ion-color-dark) !important;
+  --color: var(--ion-color-light) !important;
+  opacity: 98% !important;
+}
+
+.alert-button-inner.sc-ion-alert-md{
+  color: var(--ion-color-light) !important;
+  --color: var(--ion-color-light) !important;
+}
 
 .sc-ion-loading-md-h 
 {

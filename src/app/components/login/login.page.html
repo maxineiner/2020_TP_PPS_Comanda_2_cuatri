@@ -12,37 +12,46 @@
 
 <ion-content class="fondo">
   <div id="container" class="contenido">
-    <form #formulario="ngForm">
-      <ion-list class="ion-no-padding ion-no-margin" color="dark">
-        <ion-item color="dark">
-          <ion-label>
-            Correo electrónico
-          </ion-label>
-          <ion-input type="email" name="email" [(ngModel)]="usuario.email"></ion-input>
-        </ion-item>
-        <ion-item color="dark">
-          <ion-label>
-            Contraseña
-          </ion-label>
-          <ion-input type="password" name="password" [min]="6" [(ngModel)]="usuario.password"></ion-input>
-        </ion-item>
 
-        <ion-button size="medium" (click)="onLoginAnonymously()" expand="full" color="medium" class="ion-no-margin">
-          Anónimo</ion-button>
+    <ion-button size="medium" (click)="onLoginGoogle()" expand="block" color="danger">
+      <ion-icon slot="start" name="logo-google"></ion-icon>
+      Entrar con Google+
+    </ion-button>
 
-        <ion-button size="large" (click)="onLogin()" expand="full" color="danger" class="ion-no-margin">Iniciar Sesión
-        </ion-button>
+    <ion-button size="medium" (click)="onLoginFacebook()" expand="block" color="primary">
+      <ion-icon slot="start" name="logo-facebook"></ion-icon>
+      Entrar con Facebook
+    </ion-button>
 
+    <ion-button size="medium" (click)="onLoginTwitter()" expand="block" color="twitter">
+      <ion-icon slot="start" name="logo-twitter"></ion-icon>
+      Entrar con Twitter
+    </ion-button>
 
-      </ion-list>
-    </form>
+    <!-- <ion-button size="medium" (click)="onLoginGithub()" expand="block" color="dark">
+      <ion-icon slot="start" name="logo-github"></ion-icon>
+      Entrar con Github
+    </ion-button> -->
+
+    <ion-button size="medium" (click)="onLoginAnonymously()" expand="block" color="secondary">
+      <ion-icon slot="start" name="walk-outline"></ion-icon>
+      Anónimo
+    </ion-button>
+
+    <ion-button size="medium" (click)="onLoginMail()" expand="block" color="tertiary">
+      <ion-icon slot="start" name="mail-outline"></ion-icon>
+      Correo electrónico
+    </ion-button>
 
   </div>
+
+
+
 
 </ion-content>
 <ion-footer>
   <ion-toolbar color="dark">
-    <ion-button (click)="mostrarRoles()" expand="full" fill="clear" size="large" color="danger">
+    <ion-button (click)="mostrarRoles()" expand="full" fill="clear" size="large" color="light">
       Login de testing
     </ion-button>
   </ion-toolbar>

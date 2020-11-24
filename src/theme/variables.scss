@@ -73,6 +73,49 @@
   --ion-color-green-white-contrast-rgb: 255,255,255;
   --ion-color-green-white-shade: #64ca50;
   --ion-color-green-white-tint: #80e96b;
+
+    // Twitter
+    --ion-color-twitter: #1b9dda;
+    --ion-color-twitter-rgb: 27,157,218;
+    --ion-color-twitter-contrast: #ffffff;
+    --ion-color-twitter-contrast-rgb: 255,255,255;
+    --ion-color-twitter-shade: #188ac0;
+    --ion-color-twitter-tint: #32a7de;
+  
+    // Facebook
+    --ion-color-facebook: #3d9bff;
+    --ion-color-facebook-rgb: 61,155,255;
+    --ion-color-facebook-contrast: #000000;
+    --ion-color-facebook-contrast-rgb: 0,0,0;
+    --ion-color-facebook-shade: #3688e0;
+    --ion-color-facebook-tint: #50a5ff;
+}
+
+.ion-color-green-white{
+  --ion-color-base: var( --ion-color-green-white) !important;
+  --ion-color-base-rgb: var(--ion-color-green-white-rgb) !important;
+  --ion-color-contrast: var(--ion-color-green-white-contrast) !important;
+  --ion-color-contrast-rgb: var(--ion-color-green-white-contrast-rgb) !important;
+  --ion-color-shade: var(--ion-color-green-white-shade) !important;
+  --ion-color-tint: var(--ion-color-green-white-tint) !important;
+}
+
+.ion-color-twitter {
+  --ion-color-base: var(--ion-color-twitter) !important;
+  --ion-color-base-rgb: var(--ion-color-twitter-rgb) !important;
+  --ion-color-contrast: var(--ion-color-twitter-contrast) !important;
+  --ion-color-contrast-rgb: var(--ion-color-twitter-contrast-rgb) !important;
+  --ion-color-shade: var(--ion-color-twitter-shade) !important;
+  --ion-color-tint: var(--ion-color-twitter-tint) !important;
+}
+
+.ion-color-facebook {
+  --ion-color-base: var(--ion-color-facebook) !important;
+  --ion-color-base-rgb: var(--ion-color-facebook-rgb) !important;
+  --ion-color-contrast: var(--ion-color-facebook-contrast) !important;
+  --ion-color-contrast-rgb: var(--ion-color-facebook-contrast-rgb) !important;
+  --ion-color-shade: var(--ion-color-facebook-shade) !important;
+  --ion-color-tint: var(--ion-color-facebook-tint) !important;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -146,15 +189,7 @@
     --ion-color-light-tint: #f5f6f9;
   }
 
-  .ion-color-green-white{
-    --ion-color-base: #72e65b;
-    --ion-color-base-rgb: 114,230,91;
-    --ion-color-contrast: #ffffff;
-    --ion-color-contrast-rgb: 255,255,255;
-    --ion-color-shade: #64ca50;
-    --ion-color-tint: #80e96b;
-  }
-
+ 
   /*
    * iOS Dark Theme
    * -------------------------------------------

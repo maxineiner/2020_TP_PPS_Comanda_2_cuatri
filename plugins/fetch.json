@@ -58,5 +58,27 @@
     "variables": {
       "ANDROID_SUPPORT_V4_VERSION": "27.+"
     }
+  },
+  "cordova-plugin-googleplus": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-googleplus@^8.5.1"
+    },
+    "is_top_level": true,
+    "variables": {
+      "WEB_APPLICATION_CLIENT_ID": "186663344195-3oktg1dtr9nsgengjutv9suc44o7o938.apps.googleusercontent.com",
+      "REVERSED_CLIENT_ID": "186663344195-3oktg1dtr9nsgengjutv9suc44o7o938.apps.googleusercontent.com",
+      "PLAY_SERVICES_VERSION": "15.0.1"
+    }
+  },
+  "cordova-plugin-facebook4": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-facebook4"
+    },
+    "is_top_level": true,
+    "variables": {
+      "APP_ID": "403795990654798"
+    }
   }
 }
