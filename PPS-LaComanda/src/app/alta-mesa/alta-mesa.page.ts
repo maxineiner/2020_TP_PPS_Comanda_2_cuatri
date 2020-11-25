@@ -41,11 +41,22 @@ export class AltaMesaPage implements OnInit {
     private st : AngularFireStorage,
     private complemetos : ComplementosService) {
       this.miFormulario = this.formBuilder.group({
-        comensales: ['', [Validators.required, Validators.pattern('^[0-9]{2}$')]],
-        numero: ['', [Validators.required, Validators.pattern('^[0-9]{2}$')]],
+        comensales: ['', [Validators.required, Validators.pattern('^[0-9]{1,2}$')]],
+        numero: ['', [Validators.required, Validators.pattern('^[0-9]{1,2}$')]],
      });
    }
-   
+  
+  validation_messages = {
+    'numero': [
+      { type: 'required', message: 'El numero es requerido.' },
+      { type: 'pattern', message: 'Introduzca un numero de mínimo 1 a 2 caracteres.' }
+    ],
+    'comensales': [
+      { type: 'required', message: 'Los comensales son requeridos.' },
+      { type: 'pattern', message: 'Introduzca la cantidad de comensales, mínimo 1 a 2 caracteres.' }
+    ],
+  };
+
   ngOnInit() {
     this.pickedName = "Cliente";
   }
