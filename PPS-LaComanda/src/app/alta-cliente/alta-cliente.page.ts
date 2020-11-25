@@ -135,7 +135,7 @@ export class AltaClientePage implements OnInit {
       this.usuarioJson.foto = base64Str;
       let obtenerMili = new Date().getTime();
       var nombreFoto = "usuarios/" + obtenerMili + "." + this.usuarioJson.dni + ".jpg";
-      this.bd.subirImagen()
+      //this.bd.subirImagen()
       var storageRef = firebase.storage().ref();
       var childRef = storageRef.child(nombreFoto);
       this.pathImagen = nombreFoto;

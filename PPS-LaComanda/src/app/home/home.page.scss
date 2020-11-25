@@ -60,7 +60,7 @@ h4.precioNombre {
 }
 
 .todoCompleto {
-    z-index: 9999999 !important;
+    z-index: 1 !important;
     width: 300px;
     height: 150px;
     position: fixed !important;
@@ -133,7 +133,7 @@ h4.precioNombre {
 }
 
 .loading {
-    z-index: 99999999 !important;
+    z-index: 10 !important;
     width: 150px;
     height: 150px;
     position: fixed !important;

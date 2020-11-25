@@ -1,14 +1,13 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection } from "@angular/fire/firestore";
 import { AngularFireStorage } from "@angular/fire/storage";
-import { AngularFireFunctions } from '@angular/fire/functions';
 
 @Injectable({
 	providedIn: 'root'
 })
 export class DatabaseService {
 
-	constructor(private firestore: AngularFirestore, private storage: AngularFireStorage, private functions: AngularFireFunctions) { }
+	constructor(private firestore: AngularFirestore, private storage: AngularFireStorage) { }
 
 	public crear(collection: string, data: any) {
 		return this.firestore.collection(collection).add(data);

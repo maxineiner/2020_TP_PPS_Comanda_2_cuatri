@@ -1,13 +1,15 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from "@angular/fire/auth";
-import './../../../assets/js/smtp.js';
-declare let Email: any;
+import { HttpClient, HttpHeaders } from '@angular/common/http'
+declare var Email: any;
 
 @Injectable({
 	providedIn: 'root'
 })
 export class AuthService {
-	constructor(private auth: AngularFireAuth) { }
+
+	public apiEmail = 'https://comanda-pgr-2020.herokuapp.com/email';
+	constructor(private auth: AngularFireAuth, private http: HttpClient) { }
 
 	login(email: string, password: string) {
 		return this.auth.signInWithEmailAndPassword(email, password).then(user => user.user.email);
@@ -33,17 +35,21 @@ export class AuthService {
 		return this.auth.signOut();
 	}
 
-	mandarEmail(correo:string, subject:string, content: string) {
-		Email.send({
-			Host: 'smtp.elasticemail.com',
-			Username: 'sebastianrilo@gmail.com',
-			Password: '26F84F0385696622E97D97F7106679CC6F3A',
-			To: correo,
-			From: `noreply@comanda-pgr.firebaseapp.com`,
-			Subject : subject,
-			body: content,
-		});
-}
+	mandarEmail(correo: string, subject: string, content: string) {
+		let body = {
+			destinatario: correo,
+			asunto: subject,
+			contenido: content,
+		};
+		let headers = {
+			headers: new HttpHeaders({
+				'Content-Type': 'application/json'
+			})
+		}
+		this.http.post(this.apiEmail, body, headers).subscribe(data =>{
+			console.log(data);
+		}).unsubscribe();
+	}
 
 
 }

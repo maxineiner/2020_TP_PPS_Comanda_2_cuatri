@@ -1,6 +1,3 @@
-<div id="custom-overlay" [style.display]="splash ? 'flex': 'none'">
-    <img src="../../assets/icon/gifAnimado.gif" class="loading">
-</div>
 <div class="ion-page" id="maincontent">
     <ion-header>
         <ion-toolbar color="fondo">
@@ -11,7 +8,10 @@
         </ion-toolbar>
     </ion-header>
     <ion-content class="contenidoTotal">
-        <ion-menu side="start" menuId="mainmenu" contentId="main">
+        <div id="custom-overlay" [style.display]="splash ? 'flex': 'none'">
+            <img src="../../assets/icon/gifAnimado.gif" class="loading">
+        </div>
+        <ion-menu side="start" menuId="mainmenu" contentId="main" class='menu'>
             <ion-content class='menu-content'>
                 <ion-list class='menu-content-list' *ngIf="perfilUsuario == 'Dueño' || perfilUsuario == 'Supervisor'" align="center">
                     <ion-item class='menu-content-item'>

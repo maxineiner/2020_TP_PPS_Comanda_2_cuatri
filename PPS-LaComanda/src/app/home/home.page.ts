@@ -15,6 +15,7 @@ import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 import { AngularFireStorage } from "@angular/fire/storage"
 import firebase from 'firebase/app';
 
+
 @Component({
 	selector: 'app-home',
 	templateUrl: 'home.page.html',
@@ -109,54 +110,64 @@ export class HomePage {
 	mostrarConsultaRealizada = false;
 
 	ngOnInit() {
-		this.splash = false;
 		this.contadorInterno = -1;
 		this.jsonEncuesta.fotos[0] = 'https://i.imgur.com/zH3i014.png';
 		this.jsonEncuesta.fotos[1] = 'https://i.imgur.com/zH3i014.png';
 		this.jsonEncuesta.fotos[2] = 'https://i.imgur.com/zH3i014.png';
 		this.tieneCorreo = localStorage.getItem('tieneCorreo');
+		this.listaUsuarios = [];
+		this.listaEspera = [];
+		this.listaPedidos = [];
+		this.listaPedidosFinalizados = [];
+		this.listaCuentasPagadas = [];
+		this.listaPedidoBartender = [];
+		this.listaPedidoCocinero = [];
 		if (this.tieneCorreo == 'conCorreo') {
 			this.correoUsuario = localStorage.getItem('correoUsuario');
-			/*this.bd.obtenerUsuariosBD('usuarios', this.correoUsuario).toPromise().then(snap => {
+			this.bd.obtenerUsuariosBD('usuarios', this.correoUsuario).toPromise().then(snap => {
 				const user: any = snap.docs[0].data();
+				this.perfilUsuario = user.perfil;
+				this.infoUsuario = user;
 				return user;
 			}).then(user => {
+				console.log(user)
 				switch (user.perfil) {
 					case "Dueño":
 					case "Supervisor":
 						this.bd.obtenerTodos('usuarios').subscribe(datos => {
-							this.listaUsuarios = [];
+							console.log(datos[0].payload.doc.data());
 							datos.forEach((dato: any) => {
-								if (dato.estado == 'esperando') {
-									this.listaUsuarios.push(dato);
+								let x: any = dato.payload.doc.data();
+								if (x.estado == 'esperando') {
+									this.listaUsuarios.push(x);
 								}
 							});
+							console.log(this.listaUsuarios);
 						});
 						break;
 					case "Mozo":
 						this.bd.obtenerTodos('listaEspera').subscribe(datos => {
-							this.listaEspera = [];
+
 							datos.forEach((dato: any) => {
-								if (dato.consulta == 'realizoConsulta') {
-									this.listaEspera.push(dato);
+								let x: any = dato.payload.doc.data();
+								if (x.consulta == 'realizoConsulta') {
+									this.listaEspera.push(x);
 								}
 							});
 							this.contadorMozoConsulta = this.listaEspera.length;
 						})
 						this.correoCliente = this.correoUsuario;
 						this.bd.obtenerTodos('pedidos').subscribe(datos => {
-							this.listaPedidos = [];
-							this.listaPedidosFinalizados = [];
-							this.listaCuentasPagadas = [];
 							datos.forEach((dato: any) => {
-								if (dato.estadoPedido == 'enEspera') {
-									this.listaPedidos.push(dato);
+								let x: any = dato.payload.doc.data();
+								if (x.estadoPedido == 'enEspera') {
+									this.listaPedidos.push(x);
 								}
-								else if (dato.estadoBartender == 'finalizado' && dato.estadoChef == 'finalizado' && dato.estadoPedido == 'enPreparacion') {
-									this.listaPedidosFinalizados.push(dato);
+								else if (x.estadoBartender == 'finalizado' && x.estadoChef == 'finalizado' && x.estadoPedido == 'enPreparacion') {
+									this.listaPedidosFinalizados.push(x);
 								}
-								else if (dato.estadoPedido == 'pagado') {
-									this.listaCuentasPagadas.push(dato);
+								else if (x.estadoPedido == 'pagado') {
+									this.listaCuentasPagadas.push(x);
 								}
 							})
 							this.contadorMozoPedidoPendiente = this.listaPedidos.length;
@@ -166,240 +177,141 @@ export class HomePage {
 						break;
 					case "Bartender":
 						this.bd.obtenerTodos('pedidos').subscribe(datos => {
-							this.listaPedidoBartender = [];
 							datos.forEach((dato: any) => {
-								if ((dato.estadoBartender == 'enProceso' || dato.estadoBartender == 'enPreparacion') && (dato.estadoPedido == "pendiente" || dato.estadoPedido == "enPreparacion")) {
-									this.listaPedidoBartender.push(dato);
+								let x: any = dato.payload.doc.data();
+								if ((x.estadoBartender == 'enProceso' || x.estadoBartender == 'enPreparacion') && (x.estadoPedido == "pendiente" || x.estadoPedido == "enPreparacion")) {
+									this.listaPedidoBartender.push(x);
 								}
 							});
 						});
 						break;
 					case "Cocinero":
 						this.bd.obtenerTodos('pedidos').subscribe(datos => {
-							this.listaPedidoCocinero = [];
 							datos.forEach((dato: any) => {
-								if ((dato.estadoChef == 'enProceso' || dato.estadoChef == 'enPreparacion') && (dato.estadoPedido == "pendiente" || dato.estadoPedido == "enPreparacion")) {
-									this.listaPedidoCocinero.push(dato);
+								let x: any = dato.payload.doc.data();
+								if ((x.estadoChef == 'enProceso' || x.estadoChef == 'enPreparacion') && (x.estadoPedido == "pendiente" || x.estadoPedido == "enPreparacion")) {
+									this.listaPedidoCocinero.push(x);
 								}
 							});
 						});
 						break;
 					case "Metre":
 						this.bd.obtenerTodos('listaEspera').subscribe(datos => {
-							this.listaEspera = [];
 							datos.forEach((dato: any) => {
-								if (dato.estadoMesa == 'enEspera') {
-									this.listaEspera.push(dato);
+								let x: any = dato.payload.doc.data();
+								if (x.estadoMesa == 'enEspera') {
+									this.listaEspera.push(x);
 								}
 							});
 						});
 						break;
 					case "Cliente":
 						this.bd.obtenerTodos('listaEspera').subscribe(datos => {
-							this.listaEspera = [];
 							datos.forEach((datoCl: any) => {
-								if (datoCl.estadoMesa == 'mesaAsignada' && datoCl.nombreUsuario == this.infoUsuario.nombre) {
-									this.informarEstadoMesa.mesa = datoCl.mesa;
+								let x: any = datoCl.payload.doc.data();
+								if (x.estadoMesa == 'mesaAsignada' && x.nombreUsuario == this.infoUsuario.nombre) {
+									this.informarEstadoMesa.mesa = x.mesa;
 									this.informarEstadoMesa.seAsignoMesa = "si";
-									console.log(datoCl.consultaMozo);
-									if (datoCl.consultaMozo != '') {
+									console.log(x.consultaMozo);
+									if (x.consultaMozo != '') {
 										console.log("estoy aca tambien");
-										this.listaEspera.push(datoCl);
+										this.listaEspera.push(x);
 									}
 								}
 							});
 						});
-						let fb2 = this.firestore.collection('pedidos');
-						fb2.valueChanges().subscribe(datos => {
+						let fb2 = this.bd.obtenerTodos('pedidos').subscribe(datos => {
 							datos.forEach((datoCl: any) => {
-								if (datoCl.estadoPedido == "finalizado" && datoCl.mesa == this.informarEstadoMesa.mesa) {
+								let x: any = datoCl.payload.doc.data();
+								if (x.estadoPedido == "finalizado" && x.mesa == this.informarEstadoMesa.mesa) {
 									this.presentAlert();
 								}
 							});
 						});
 						break;
 				}
-			}).then(()=>{
+			}).then(() => {
+				this.cargarProductos();
+				console.log('fin de splash');
+				console.log('fin de init');
 				this.splash = false;
-			});*/
-
-			this.firestore.collection('usuarios').get().subscribe((querySnapShot) => {
-				querySnapShot.forEach(datos => {
-					if (datos.data().correo == this.correoUsuario) {
-						this.perfilUsuario = datos.data().perfil;
-						this.infoUsuario = datos.data();
-						if (this.perfilUsuario == 'Dueño' || this.perfilUsuario == 'Supervisor') {
-							let fb = this.firestore.collection('usuarios');
-							fb.valueChanges().subscribe(datos => {
-								this.listaUsuarios = [];
-								datos.forEach((dato: any) => {
-									if (dato.estado == 'esperando') {
-										this.listaUsuarios.push(dato);
-									}
-								});
-							})
-						}
-						else if (this.perfilUsuario == 'Mozo') {
-							let fb = this.firestore.collection('listaEspera');
-							fb.valueChanges().subscribe(datos => {
-								this.listaEspera = [];
-								datos.forEach((dato: any) => {
-									if (dato.consulta == 'realizoConsulta') {
-										this.listaEspera.push(dato);
-									}
-								});
-								this.contadorMozoConsulta = this.listaEspera.length;
-							})
-							this.correoCliente = this.correoUsuario;
-							let fb2 = this.firestore.collection('pedidos');
-							fb2.valueChanges().subscribe(datos => {
-								this.listaPedidos = [];
-								this.listaPedidosFinalizados = [];
-								this.listaCuentasPagadas = [];
-								datos.forEach((dato: any) => {
-									if (dato.estadoPedido == 'enEspera') {
-										this.listaPedidos.push(dato);
-									}
-									else if (dato.estadoBartender == 'finalizado' && dato.estadoChef == 'finalizado' && dato.estadoPedido == 'enPreparacion') {
-										this.listaPedidosFinalizados.push(dato);
-									}
-									else if (dato.estadoPedido == 'pagado') {
-										this.listaCuentasPagadas.push(dato);
-									}
-								})
-								this.contadorMozoPedidoPendiente = this.listaPedidos.length;
-								this.contadorMozoPedidoFinalizado = this.listaPedidosFinalizados.length;
-								this.contadorMozoCuentaPagada = this.listaCuentasPagadas.length;
-							})
-						}
-						else if (this.perfilUsuario == 'Cocinero') {
-							this.infoUsuario = datos.data();
-							let fb = this.firestore.collection('pedidos');
-							fb.valueChanges().subscribe(datos => {
-								this.listaPedidoCocinero = [];
-								datos.forEach((dato: any) => {
-									if ((dato.estadoChef == 'enProceso' || dato.estadoChef == 'enPreparacion') && (dato.estadoPedido == "pendiente" || dato.estadoPedido == "enPreparacion")) {
-										this.listaPedidoCocinero.push(dato);
-									}
-								});
-							})
-						}
-						else if (this.perfilUsuario == 'BarTender') {
-							this.infoUsuario = datos.data();
-							let fb = this.firestore.collection('pedidos');
-							fb.valueChanges().subscribe(datos => {
-								this.listaPedidoBartender = [];
-								datos.forEach((dato: any) => {
-									if ((dato.estadoBartender == 'enProceso' || dato.estadoBartender == 'enPreparacion') && (dato.estadoPedido == "pendiente" || dato.estadoPedido == "enPreparacion")) {
-										this.listaPedidoBartender.push(dato);
-									}
-								});
-							})
-						}
-						else if (this.perfilUsuario == 'Metre') {
-							this.infoUsuario = datos.data();
-							let fb = this.firestore.collection('listaEspera');
-							fb.valueChanges().subscribe(datos => {
-								this.listaEspera = [];
-								datos.forEach((dato: any) => {
-									if (dato.estadoMesa == 'enEspera') {
-										this.listaEspera.push(dato);
-									}
-								});
-							})
-						}
-						else if (this.perfilUsuario == 'Cliente') {
-							this.correoCliente = this.correoUsuario;
-							let fb = this.firestore.collection('listaEspera');
-							fb.valueChanges().subscribe(datos => {
-								this.listaEspera = [];
-								datos.forEach((datoCl: any) => {
-									if (datoCl.estadoMesa == 'mesaAsignada' && datoCl.nombreUsuario == this.infoUsuario.nombre) {
-										this.informarEstadoMesa.mesa = datoCl.mesa;
-										this.informarEstadoMesa.seAsignoMesa = "si";
-										console.log(datoCl.consultaMozo);
-										if (datoCl.consultaMozo != '') {
-											console.log("estoy aca tambien");
-											this.listaEspera.push(datoCl);
-										}
-									}
-								});
-							})
-							let fb2 = this.firestore.collection('pedidos');
-							fb2.valueChanges().subscribe(datos => {
-								datos.forEach((datoCl: any) => {
-									if (datoCl.estadoPedido == "finalizado" && datoCl.mesa == this.informarEstadoMesa.mesa) {
-										this.presentAlert();
-									}
-								});
-							})
-						}
-					}
-				})
-			})
+			});
 		}
 		else {
 			let variable = localStorage.getItem('nombreAnonimo');
 			this.perfilUsuario = "Anonimo";
-			this.firestore.collection('usuarios').get().subscribe((querySnapShot) => {
+			this.bd.obtenerTodos('usuarios').toPromise().then(querySnapShot => {
 				querySnapShot.forEach((doc) => {
-					if (doc.data().nombre == variable && doc.data().perfil == this.perfilUsuario) {
-						this.nombreAnonimo.nombre = doc.data().nombre;
-						this.nombreAnonimo.foto = doc.data().foto;
-						this.nombreAnonimo.perfil = doc.data().perfil;
+					let x: any = doc.payload.doc.data();
+					if (x.nombre == variable && x.perfil == this.perfilUsuario) {
+						this.nombreAnonimo.nombre = x.nombre;
+						this.nombreAnonimo.foto = x.foto;
+						this.nombreAnonimo.perfil = x.perfil;
 					}
-				})
-			})
-			let fb = this.firestore.collection('listaEspera');
-			fb.valueChanges().subscribe(datos => {
-				this.listaEspera = [];
-				datos.forEach((datoCl: any) => {
-					if (datoCl.estadoMesa == 'mesaAsignada' && datoCl.nombreUsuario == this.nombreAnonimo.nombre) {
-						this.informarEstadoMesa.mesa = datoCl.mesa;
-						this.informarEstadoMesa.seAsignoMesa = "si";
-						if (datoCl.consultaMozo != '') {
-							this.listaEspera.push(datoCl);
+				});
+				return this.nombreAnonimo;
+			}).then(nombreAnonimo => {
+				let fb = this.bd.obtenerTodos('listaEspera').subscribe(datos => {
+					this.listaEspera = [];
+					datos.forEach((datoCl: any) => {
+						let x: any = datoCl.payload.doc.data();
+						if (x.estadoMesa == 'mesaAsignada' && x.nombreUsuario == this.nombreAnonimo.nombre) {
+							this.informarEstadoMesa.mesa = x.mesa;
+							this.informarEstadoMesa.seAsignoMesa = "si";
+							if (x.consultaMozo != '') {
+								this.listaEspera.push(x);
+							}
 						}
-					}
+					});
 				});
-			})
-			let fb2 = this.firestore.collection('pedidos');
-			fb2.valueChanges().subscribe(datos => {
-				datos.forEach((datoCl: any) => {
-					if (datoCl.estadoPedido == "finalizado" && datoCl.mesa == this.informarEstadoMesa.mesa) {
-						this.presentAlert();
-					}
-				});
-			})
+			}).then(() => {
+				let fb2 = this.bd.obtenerTodos('pedidos').subscribe(datos => {
+					datos.forEach((datoCl: any) => {
+						let x: any = datoCl.payload.doc.data();
+						if (x.estadoPedido == "finalizado" && x.mesa == this.informarEstadoMesa.mesa) {
+							this.presentAlert();
+						}
+					});
+				})
+			}).then(() => {
+				this.cargarProductos();
+				console.log('fin de init');
+				this.splash = false;
+			});
 		}
-		this.cargarProductos();
 	}
 
 	organizarUsuario(usuario, estado) {
 		let indice = this.listaUsuarios.indexOf(usuario);
+		let asuntoCorreo: string = 'Habilitacion de cuenta para la comanda'
+		let mensajeCorreo: string = '';
 		this.listaUsuarios.splice(indice, 1);
-		this.firestore.collection('usuarios').get().subscribe((querySnapShot) => {
+		this.bd.obtenerTodos('usuarios').subscribe((querySnapShot) => {
 			querySnapShot.forEach((doc) => {
-				if (doc.data().correo == usuario.correo) {
+				let x: any = doc.payload.doc;
+				if (x.data().correo == usuario.correo) {
 					if (estado == "rechazado") {
 						usuario.estado = estado;
-						this.bd.actualizar('usuarios', usuario, doc.id);
+						this.bd.actualizar('usuarios', usuario, x.id);
 						this.listaUsuarios = [];
+						mensajeCorreo = '<i>Tu registro ha sido rechazado. no podrias loguearte con esta cuenta</i>'
 					}
 					else {
-						if (doc.data().perfil == "Cliente") {
+						if (x.data().perfil == "Cliente") {
 							usuario.estado = estado;
-							this.bd.actualizar('usuarios', usuario, doc.id);
+							this.bd.actualizar('usuarios', usuario, x.id);
 							this.auth.registrarUsuario(usuario.correo, usuario.contrasenia);
 							this.listaUsuarios = [];
 						}
 						else {
 							usuario.estado = estado;
-							this.bd.actualizar('usuarios', usuario, doc.id);
+							this.bd.actualizar('usuarios', usuario, x.id);
 							this.listaUsuarios = [];
 						}
+						mensajeCorreo = '<i>Tu registro ha sido aceptado. ya puedes loguearte con esta cuenta</i>'
 					}
 					this.listaUsuarios = [];
+					//this.auth.mandarEmail(usuario.correo, asuntoCorreo, mensajeCorreo);
 				}
 			})
 		})
@@ -407,68 +319,40 @@ export class HomePage {
 
 	listaEsperaQRCliente() {
 		let auxiliar;
-		/*this.barcodeScanner.scan().then(barcodeData => {
-			auxiliar = barcodeData.text;
-			this.firestore.collection('usuarios').get().subscribe((querySnapShot) => {
-				querySnapShot.forEach((doc) => {
-					if (doc.data().correo == this.correoCliente) {
-						switch (auxiliar) {
-							case "enEspera":
-								this.usuarioMesa.nombreUsuario = doc.data().nombre;
-								this.usuarioMesa.estadoMesa = "enEspera";
-								this.usuarioMesa.perfilUsuario = doc.data().perfil;
-								this.bd.crear('listaEspera', this.usuarioMesa);
-								break;
-							default:
-								this.firestore.collection('listaMesas').get().subscribe((qSnapSh => {
-									qSnapSh.forEach((mesa) => {
-										if (mesa.data().numero == auxiliar) {
-											this.complemento.presentToastConMensajeYColor(`La mesa se encuentra ${mesa.data().estado} por favor, solicite al metre para asignarle una mesa.`, 'danger');
-										}
-									})
-								}))
-								break;
-						}
+		this.qr.scan().then(data => {
+			if (data.text === 'listaEspera') {
+				this.bd.obtenerUsuariosBD('usuarios', this.correoCliente).toPromise().then(snap => {
+					let x = snap.docs[0].data();
+					if (x.estadoMesa === 'aceptado') {
+						this.usuarioMesa.nombreUsuario = x.nombre;
+						this.usuarioMesa.estadoMesa = "enEspera";
+						this.usuarioMesa.perfilUsuario = x.perfil;
+						return this.bd.crear('listaEspera', this.usuarioMesa);
 					}
-					this.listaEspera = [];
-				})
-			})
-		}).catch(err => {
-			console.log('Error', err);
-		});*/
+				}).then(data => {
+					this.complemento.presentToastConMensajeYColor('Ya se encuentra en la lista de espera. por favor, solicite al metre para asignarle una mesa.', 'primary');
+				});
+			}
+		});
 	}
 
 	listaEsperaQRAnonimo() {
 		let auxiliar;
-		/*this.barcodeScanner.scan().then(barcodeData => {
-			auxiliar = barcodeData.text;
-			this.firestore.collection('usuarios').get().subscribe((querySnapShot) => {
-				querySnapShot.forEach((doc) => {
-					if (doc.data().nombre == this.nombreAnonimo.nombre) {
-						switch (auxiliar) {
-							case "enEspera":
-								this.usuarioMesa.nombreUsuario = doc.data().nombre;
-								this.usuarioMesa.estadoMesa = "enEspera";
-								this.usuarioMesa.perfilUsuario = doc.data().perfil;
-								this.bd.crear('listaEspera', this.usuarioMesa);
-								break;
-							default:
-								this.firestore.collection('listaMesas').get().subscribe((qSnapSh => {
-									qSnapSh.forEach((mesa) => {
-										if (mesa.data().numero == auxiliar) {
-											this.complemento.presentToastConMensajeYColor(`La mesa se encuentra ${mesa.data().estado} por favor, solicite al metre para asignarle una mesa.`, 'danger');
-										}
-									})
-								}))
-								break;
-						}
+		this.qr.scan().then(data => {
+			if (data.text === 'listaEspera') {
+				this.bd.obtenerUsuariosBD('usuarios', this.correoCliente).toPromise().then(snap => {
+					let x = snap.docs[0].data();
+					if (x.estadoMesa === 'aceptado') {
+						this.usuarioMesa.nombreUsuario = x.nombre;
+						this.usuarioMesa.estadoMesa = "enEspera";
+						this.usuarioMesa.perfilUsuario = x.perfil;
+						return this.bd.crear('listaEspera', this.usuarioMesa);
 					}
-					this.listaEspera = [];
-				})
-			})
-		}).catch(err => {
-			console.log('Error', err);
-		});*/
+				}).then(data => {
+					this.complemento.presentToastConMensajeYColor('Ya se encuentra en la lista de espera. por favor, solicite al metre para asignarle una mesa.', 'primary');
+				});
+			}
+		});
 	}
 
 	cerrarSesion() {
@@ -479,6 +363,15 @@ export class HomePage {
 			this.router.navigate(['/login']);
 		})
 	}
+
+	/*inicializarPushNotifications(uid) {
+		this.fmc.getToken(uid);
+		this.fmc.escucharNotificaciones().pipe(
+			tap(msg => {
+				this.complemento.presentToastConMensajeYColor(msg.body, 'primary');
+				})
+			);
+	}*/
 
 	comprobarMesas(mesa) {
 		localStorage.setItem('usuarioSelMesa', JSON.stringify(mesa));
@@ -494,24 +387,24 @@ export class HomePage {
 
 	darPropina() {
 		let auxiliar;
-		/*this.barcodeScanner.scan().then(barcodeData => {
+		this.qr.scan().then(barcodeData => {
 			auxiliar = barcodeData.text;
 			switch (auxiliar) {
 				case "Excelente":
 					this.propina = "Excelente -> 20%";
-					this.jsonCuenta.precioTotal = this.jsonCuenta.precioTotal * 0.2 + this.jsonCuenta.precioTotal;
+					this.jsonCuenta.precioTotal = this.jsonCuenta.precioTotal * 1.2;
 					break;
 				case "Muy bien":
 					this.propina = "Muy bien -> 15%";
-					this.jsonCuenta.precioTotal = this.jsonCuenta.precioTotal * 0.15 + this.jsonCuenta.precioTotal;
+					this.jsonCuenta.precioTotal = this.jsonCuenta.precioTotal * 1.15;
 					break;
 				case "Bien":
 					this.propina = "Bien -> 10%";
-					this.jsonCuenta.precioTotal = this.jsonCuenta.precioTotal * 0.1 + this.jsonCuenta.precioTotal;
+					this.jsonCuenta.precioTotal = this.jsonCuenta.precioTotal * 1.1;
 					break;
 				case "Regular":
 					this.propina = "Regular -> 5%";
-					this.jsonCuenta.precioTotal = this.jsonCuenta.precioTotal * 0.05 + this.jsonCuenta.precioTotal;
+					this.jsonCuenta.precioTotal = this.jsonCuenta.precioTotal * 1.05;
 					break;
 				case "Malo":
 					this.propina = "Malo -> 0%";
@@ -519,7 +412,7 @@ export class HomePage {
 			}
 		}).catch(err => {
 			console.log('Error', err);
-		})*/
+		});
 	}
 
 	mostrarCuentaLista() {
@@ -531,10 +424,11 @@ export class HomePage {
 			this.splash = false;
 		}, 5000);
 
-		this.firestore.collection('pedidos').get().subscribe((querySnapShot) => {
+		this.bd.obtenerTodos('pedidos').subscribe((querySnapShot) => {
 			querySnapShot.forEach((doc) => {
-				if (doc.data().mesa == this.informarEstadoMesa.mesa) {
-					doc.data().platosPlato.forEach(element => {
+				let x: any = doc.payload.doc.data();
+				if (x.mesa == this.informarEstadoMesa.mesa) {
+					x.platosPlato.forEach(element => {
 						this.firestore.collection('productos').get().subscribe((querySnapShot) => {
 							querySnapShot.forEach((docP) => {
 								if (element == docP.data().nombre) {
@@ -549,7 +443,7 @@ export class HomePage {
 							})
 						});
 					});
-					doc.data().platosPostre.forEach(element => {
+					x.platosPostre.forEach(element => {
 						this.firestore.collection('productos').get().subscribe((querySnapShot) => {
 							querySnapShot.forEach((docP) => {
 								if (element == docP.data().nombre) {
@@ -565,7 +459,7 @@ export class HomePage {
 						});
 					});
 
-					doc.data().platosBebida.forEach(element => {
+					x.platosBebida.forEach(element => {
 						this.firestore.collection('productos').get().subscribe((querySnapShot) => {
 							querySnapShot.forEach((docP) => {
 								if (element == docP.data().nombre) {
@@ -581,7 +475,7 @@ export class HomePage {
 
 						});
 					});
-					this.jsonCuenta.precioTotal = doc.data().precioTotal;
+					this.jsonCuenta.precioTotal = x.precioTotal;
 				}
 			})
 		})
@@ -590,18 +484,20 @@ export class HomePage {
 	pagarCuenta() {
 		let auxPedido;
 		let auxLisEsp;
-		this.firestore.collection('pedidos').get().subscribe((querySnapShot) => {
+		this.bd.obtenerTodos('pedidos').subscribe((querySnapShot) => {
 			querySnapShot.forEach((doc) => {
-				if (doc.data().mesa == this.informarEstadoMesa.mesa) {
-					auxPedido = doc.data();
+				let x: any = doc.payload.doc;
+				if (x.data().mesa == this.informarEstadoMesa.mesa) {
+					auxPedido = x.data();
 					auxPedido.estadoPedido = "pagado"
-					this.bd.actualizar("pedidos", auxPedido, doc.id);
-					this.firestore.collection('listaEspera').get().subscribe((querySnapShot) => {
+					this.bd.actualizar("pedidos", auxPedido, x.id);
+					this.bd.obtenerTodos('listaEspera').subscribe((querySnapShot) => {
 						querySnapShot.forEach((docDos) => {
-							if (this.informarEstadoMesa.mesa == docDos.data().mesa) {
+							let y: any = docDos.payload.doc;
+							if (this.informarEstadoMesa.mesa == y.data().mesa) {
 								this.informarEstadoMesa.mesa = "";
 								this.informarEstadoMesa.seAsignoMesa = "no";
-								this.firestore.collection('listaEspera').doc(docDos.id).delete();
+								this.firestore.collection('listaEspera').doc(y.id).delete();
 								this.mostrarCuentaBoton = false;
 								this.mostrarEncuestaBoton = false;
 								this.complemento.presentToastConMensajeYColor("Su pago esta por ser confirmado, gracias por utilizarnos!", "success");
@@ -616,76 +512,67 @@ export class HomePage {
 	qrMesa() {
 		localStorage.setItem("mesa", this.informarEstadoMesa.mesa);
 		let auxMesa;
-		/*this.barcodeScanner.scan().then(barcodeData => {
-			auxMesa = JSON.parse(barcodeData.text);
-			let auxMesaString = auxMesa.toString();
-			this.firestore.collection('listaMesas').get().subscribe((querySnapShot) => {
-				querySnapShot.forEach((doc) => {
-					if (doc.data().numero == auxMesaString)
-					{
-						if (this.informarEstadoMesa.mesa == auxMesaString) {
-							this.mostrarCuentaDiv = false;
-							this.mostrarEncuestaDiv = false;
-							this.mensajeEscanearMesa = true;
-							this.mostrarConsultaRealizada = false;
-							this.mostrarBotonConsulta = true;
-							this.mostrarProductos = true;
-							let fb = this.firestore.collection('pedidos');
-							fb.valueChanges().subscribe(datos => {
-								datos.forEach((dato: any) => {
-									if (this.informarEstadoMesa.mesa == dato.mesa)
-									{
-										if (dato.estadoPedido == 'finalizado') {
-											this.complemento.presentToastConMensajeYColor("Su pedido se finalizo con exito", "success");
-											if (this.banderaQrMesa == true) {
-												this.complemento.presentToastConMensajeYColor("Podra acceder a la encuesta y a la cuenta", "success");
-												this.mostrarCuentaBoton = true;
-												this.mostrarEncuestaBoton = true;
-											}
-											else {
-												this.banderaQrMesa = true;
-											}
-										}
-										else if (dato.estadoPedido == 'enProceso') {
-											this.complemento.presentToastConMensajeYColor("Su pedido esta pendiente del mozo", "primary");
-										}
-										else if (dato.estadoPedido == 'enPreparacion') {
-											this.complemento.presentToastConMensajeYColor(`Su pedido esta en preparacion, tiempo aprox ${dato.tiempoTotal}minutos`, "primary");
-										}
+		this.qr.scan().then(data => {
+			this.bd.obtenerPorId('listaMesas', data.text).toPromise().then(snap => {
+				let x: any = snap.payload;
+				if (x.id === data.text && (x.cliente === this.correoUsuario || x.cliente === this.nombreAnonimo)) {
+					this.mostrarCuentaDiv = false;
+					this.mostrarEncuestaDiv = false;
+					this.mensajeEscanearMesa = true;
+					this.mostrarConsultaRealizada = false;
+					this.mostrarBotonConsulta = true;
+					this.mostrarProductos = true;
+					this.bd.obtenerTodos('pedidos').subscribe(datos => {
+						datos.forEach((dato: any) => {
+							let y: any = dato.payload.doc.data()
+							if (this.informarEstadoMesa.mesa == y.mesa) {
+								if (y.estadoPedido == 'finalizado') {
+									this.complemento.presentToastConMensajeYColor("Su pedido se finalizo con exito", "success");
+									if (this.banderaQrMesa == true) {
+										this.complemento.presentToastConMensajeYColor("Podra acceder a la encuesta y a la cuenta", "success");
+										this.mostrarCuentaBoton = true;
+										this.mostrarEncuestaBoton = true;
 									}
-								});
-							})
-						}
-						else {
-							this.complemento.presentToastConMensajeYColor(`La mesa ${auxMesaString} en estado ${doc.data().estado} no le corresponde, vuelva a escanear el qr `, "primary");
-						}
-					}
-				})
-			})
-		}).catch(err => {
-			console.log('Error', err);
-		});*/
+									else {
+										this.banderaQrMesa = true;
+									}
+								}
+								else if (y.estadoPedido == 'enProceso') {
+									this.complemento.presentToastConMensajeYColor("Su pedido esta pendiente del mozo", "primary");
+								}
+								else if (y.estadoPedido == 'enPreparacion') {
+									this.complemento.presentToastConMensajeYColor('Su pedido esta en preparacion, tiempo aprox ' + y.tiempoTotal + ' minutos', "primary");
+								}
+							}
+						});
+					})
+				}
+				else {
+					this.complemento.presentToastConMensajeYColor('La mesa ' + x.data().numero + ' en estado ' + x.data().estado + ' no le corresponde, vuelva a escanear el qr ', "primary");
+				}
+			});
+		});
 	}
 
 	cargarProductos() {
-		let fb = this.firestore.collection('productos');
-		fb.valueChanges().subscribe(datos => {
+		let fb = this.bd.obtenerTodos('productos').subscribe(datos => {
 			this.listaProductos = [];
 			datos.forEach((dato: any) => {
-				this.listaProductos.push(dato);
+				this.listaProductos.push(dato.payload.doc.data());
 			});
 		})
 	}
 
 	consultarMozo(numeroMesa) {
 		let auxConsulta;
-		this.firestore.collection('listaEspera').get().subscribe((querySnapShot) => {
+		this.bd.obtenerTodos('listaEspera').subscribe((querySnapShot) => {
 			querySnapShot.forEach(dato => {
-				if (dato.data().mesa == numeroMesa) {
-					auxConsulta = dato.data();
+				let x: any = dato.payload.doc;
+				if (x.data().mesa == numeroMesa) {
+					auxConsulta = x.data();
 					auxConsulta.consulta = "realizoConsulta";
 					auxConsulta.consultaDescripcion = this.consulta;
-					this.bd.actualizar('listaEspera', auxConsulta, dato.id);
+					this.bd.actualizar('listaEspera', auxConsulta, x.id);
 					this.cancelarConsulta();
 					this.complemento.presentToastConMensajeYColor("Su consulta se realizo con exito,espere a que el mozo se acerce.", "success");
 				}
@@ -726,14 +613,15 @@ export class HomePage {
 
 	enviarPedidos(mesa) {
 		let auxPedido;
-		this.firestore.collection('pedidos').get().subscribe((querySnapShot) => {
+		this.bd.obtenerTodos('pedidos').subscribe((querySnapShot) => {
 			querySnapShot.forEach(dato => {
-				if (dato.data().mesa == mesa) {
-					auxPedido = dato.data();
+				let x: any = dato.payload.doc;
+				if (x.data().mesa == mesa) {
+					auxPedido = x.data();
 					auxPedido.estadoChef = "enProceso";
 					auxPedido.estadoBartender = "enProceso";
 					auxPedido.estadoPedido = "pendiente";
-					this.bd.actualizar('pedidos', auxPedido, dato.id);
+					this.bd.actualizar('pedidos', auxPedido, x.id);
 					this.cancelarConsulta();
 				}
 			})
@@ -742,12 +630,13 @@ export class HomePage {
 
 	cancelarPedido(mesa) {
 		let auxPedido;
-		this.firestore.collection('pedidos').get().subscribe((querySnapShot) => {
+		this.bd.obtenerTodos('pedidos').subscribe((querySnapShot) => {
 			querySnapShot.forEach(dato => {
-				if (dato.data().mesa == mesa) {
-					auxPedido = dato.data();
+				let x: any = dato.payload.doc;
+				if (x.data().mesa == mesa) {
+					auxPedido = x.data();
 					auxPedido.estadoPedido = "cancelado";
-					this.bd.actualizar('pedidos', auxPedido, dato.id);
+					this.bd.actualizar('pedidos', auxPedido, x.id);
 					this.cancelarConsulta();
 				}
 			})
@@ -756,12 +645,13 @@ export class HomePage {
 
 	enviarPedidoFinalizado(mesa) {
 		let auxPedido;
-		this.firestore.collection('pedidos').get().subscribe((querySnapShot) => {
+		this.bd.obtenerTodos('pedidos').subscribe((querySnapShot) => {
 			querySnapShot.forEach(dato => {
-				if (dato.data().mesa == mesa) {
-					auxPedido = dato.data();
+				let x: any = dato.payload.doc;
+				if (x.data().mesa == mesa) {
+					auxPedido = x.data();
 					auxPedido.estadoPedido = "finalizado";
-					this.bd.actualizar('pedidos', auxPedido, dato.id);
+					this.bd.actualizar('pedidos', auxPedido, x.id);
 				}
 			})
 		});
@@ -769,33 +659,34 @@ export class HomePage {
 
 	elaborarPedido(mesa, estadoPedido, perfil) {
 		let auxPedido;
-		this.firestore.collection('pedidos').get().subscribe((querySnapShot) => {
+		this.bd.obtenerTodos('pedidos').subscribe((querySnapShot) => {
 			querySnapShot.forEach(dato => {
-				if (dato.data().mesa == mesa) {
+				let x: any = dato.payload.doc;
+				if (x.data().mesa == mesa) {
 					if (perfil == "BarTender" && estadoPedido == "enPreparacion") {
-						auxPedido = dato.data();
+						auxPedido = x.data();
 						auxPedido.estadoBartender = estadoPedido;
 						auxPedido.estadoPedido = estadoPedido;
-						this.bd.actualizar('pedidos', auxPedido, dato.id);
+						this.bd.actualizar('pedidos', auxPedido, x.id);
 						this.cancelarConsulta();
 					}
 					else if (perfil == "BarTender" && estadoPedido == "finalizado") {
-						auxPedido = dato.data();
+						auxPedido = x.data();
 						auxPedido.estadoBartender = estadoPedido;
-						this.bd.actualizar('pedidos', auxPedido, dato.id);
+						this.bd.actualizar('pedidos', auxPedido, x.id);
 						this.cancelarConsulta();
 					}
 					if (perfil == "Cocinero" && estadoPedido == "enPreparacion") {
-						auxPedido = dato.data();
+						auxPedido = x.data();
 						auxPedido.estadoChef = estadoPedido;
 						auxPedido.estadoPedido = estadoPedido;
-						this.bd.actualizar('pedidos', auxPedido, dato.id);
+						this.bd.actualizar('pedidos', auxPedido, x.id);
 						this.cancelarConsulta();
 					}
 					else if (perfil == "Cocinero" && estadoPedido == "finalizado") {
-						auxPedido = dato.data();
+						auxPedido = x.data();
 						auxPedido.estadoChef = estadoPedido;
-						this.bd.actualizar('pedidos', auxPedido, dato.id);
+						this.bd.actualizar('pedidos', auxPedido, x.id);
 						this.cancelarConsulta();
 					}
 				}
@@ -891,16 +782,18 @@ export class HomePage {
 
 	liberarMesa(mesa) {
 		let auxMesa;
-		this.firestore.collection('pedidos').get().subscribe((querySnapShot) => {
+		this.bd.obtenerTodos('pedidos').subscribe((querySnapShot) => {
 			querySnapShot.forEach(dato => {
-				if (mesa == dato.data().mesa) {
-					this.firestore.collection('listaMesas').get().subscribe((querySnapShot) => {
+				let x: any = dato.payload.doc;
+				if (mesa == x.data().mesa) {
+					this.bd.obtenerTodos('listaMesas').subscribe((querySnapShot) => {
 						querySnapShot.forEach(datoMesa => {
-							if (mesa == datoMesa.data().numero) {
-								auxMesa = datoMesa.data();
+							let y: any = datoMesa.payload.doc;
+							if (mesa == y.data().numero) {
+								auxMesa = y.data();
 								auxMesa.estado = "desocupada";
-								this.bd.actualizar("listaMesas", auxMesa, datoMesa.id);
-								this.firestore.collection('pedidos').doc(dato.id).delete();
+								this.bd.actualizar("listaMesas", auxMesa, y.id);
+								this.firestore.collection('pedidos').doc(x.id).delete();
 								this.complemento.presentToastConMensajeYColor("La mesa a sido liberada", "success");
 							}
 						})
@@ -912,13 +805,14 @@ export class HomePage {
 
 	consultaConExito(espera, consultaMozo) {
 		let auxListaEspera;
-		this.firestore.collection('listaEspera').get().subscribe((querySnapShot) => {
+		this.bd.obtenerTodos('listaEspera').subscribe((querySnapShot) => {
 			querySnapShot.forEach(dato => {
-				if (dato.data().mesa == espera.mesa) {
-					auxListaEspera = dato.data();
+				let x: any = dato.payload.doc;
+				if (x.data().mesa == espera.mesa) {
+					auxListaEspera = x.data();
 					auxListaEspera.consulta = 'noRealizo';
 					auxListaEspera.consultaMozo = consultaMozo;
-					this.bd.actualizar('listaEspera', auxListaEspera, dato.id);
+					this.bd.actualizar('listaEspera', auxListaEspera, x.id);
 					this.complemento.presentToastConMensajeYColor('La consulta fue completada con exito!', 'success');
 				}
 			})
