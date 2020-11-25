@@ -55,10 +55,37 @@ export class AltaEmpleadoPage implements OnInit {
       apellido: ['', [Validators.required, Validators.pattern('^[a-zA-Z]{3,10}$')]],
       dni: ['', [Validators.required, Validators.pattern('^[0-9]{8}$')]],
       cuil: ['', [Validators.required, Validators.pattern('^[0-9]{11}$')]],
-      contrasenia: ['', [Validators.required]],
-      correo: ['', [Validators.required, Validators.email]],
+      contrasenia: ['', [Validators.required, Validators.pattern('^[a-z0-9_-]{6,18}$')] ],
+      correo: ['', [Validators.required, Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+\\s*$')]],
     });
   }
+
+  validation_messages = {
+    'nombre': [
+      { type: 'required', message: 'El nombre es requerido.' },
+      { type: 'pattern', message: 'Introduzca un nombre de mínimo 3 a 10 caracteres y no números.' }
+    ],
+    'apellido': [
+      { type: 'required', message: 'El apellido es requerido.' },
+      { type: 'pattern', message: 'Introduzca un apellido de mínimo 3 a 10 caracteres y no números.' }
+    ],
+    'dni': [
+      { type: 'required', message: 'El DNI es requerido.' },
+      { type: 'pattern', message: 'Introduzca un DNI válido(8 caracteres).' }
+    ],
+    'cuil': [
+      { type: 'required', message: 'El cuil es requerido.' },
+      { type: 'pattern', message: 'Introduzca un cuil válido(11 caracteres).' }
+    ],
+    'correo': [
+      { type: 'required', message: 'El correo electronico es requerido.' },
+      { type: 'pattern', message: 'Introduzca un correo electrónico válido.' }
+    ],
+    'contrasenia': [
+      { type: 'required', message: 'La contraseña es requerida.' },
+      { type: 'pattern', message: 'La contraseña debe tener entre 6 y 18 caracteres.' }
+    ]
+  };
 
   ngOnInit() {
     this.pickedName = "Mozo";
