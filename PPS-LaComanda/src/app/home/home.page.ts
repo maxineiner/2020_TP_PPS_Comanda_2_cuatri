@@ -14,6 +14,7 @@ import { flatten } from '@angular/compiler';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 import { AngularFireStorage } from "@angular/fire/storage"
 import firebase from 'firebase/app';
+import { firebaseErrors } from '../../assets/scripts/errores';
 
 
 @Component({
@@ -22,360 +23,229 @@ import firebase from 'firebase/app';
 	styleUrls: ['home.page.scss'],
 })
 export class HomePage {
-	splash = true;
-	perfilUsuario: any;
-	coleccionRef;
-	tieneCorreo: string;
-	nombreAnonimo = {
-		nombre: '',
-		foto: '',
-		perfil: '',
-	};
 	listaUsuarios = [];
 	listaEspera = [];
 	listaPedidos = [];
-	constructor(private router: Router,
-		private qr: BarcodeScanner,
-		private menu: MenuController,
-		private firestore: AngularFirestore,
-		private bd: DatabaseService,
-		public complemento: ComplementosService,
-		private camera: Camera,
-		private auth: AuthService,
-		private st: AngularFireStorage,
-		public alertController: AlertController,
-		private platform: Platform,
-		private splashScreen: SplashScreen,
-		private statusBar: StatusBar) {
-	}
-	usuarioMesa = {
-		mesa: "",
-		estadoMesa: "",
-		nombreUsuario: "",
-		perfilUsuario: "",
-		consulta: "noRealizo",
-		consultaMozo: "",
-		consultaDescripcion: "",
-	}
-	anonimoNombre;
-	anonimoFoto;
-	usuarioAnonimo: any;
-	correoCliente;
-	infoUsuario: any;
-	correoUsuario: string;
-	informarEstadoMesa = {
-		mesa: "",
-		seAsignoMesa: "no",
-	};
-	mostrarProductos: boolean = false;
 	listaProductos = [];
-	listaPedidoCocinero = [];
-	listaPedidoBartender = [];
-	listaPedidosFinalizados = [];
+	listaConsultas = [];
+	pathImagenesEncuesta = ['A', 'B', 'C'];
+	pathImagen = [];
+	uidUsuario: string;
+	infoUsuario: any;
 	contadorMozoConsulta = 0;
-	contadorMozoPedidoFinalizado = 0;
+	contadorMozoPedidoPagado = 0;
 	contadorMozoPedidoPendiente = 0;
 	contadorMozoCuentaPagada = 0;
-	listaCuentasPagadas = [];
+	respuestaConsulta: string;
+	consulta: string;
 	contadorInterno;
-	pathImagenesEncuesta = [];
-	pathImagen = [];
+	propina;
+	gradoSatisfaccion;
+	gradoSatisfaccionRes;
+	lEsperaCantidad: string = null;
+	lEsperaTipo: string = null;
+	mostrarProductos: boolean = false;
 	mostrarCuentaBoton = false;
 	mostrarEncuestaBoton = false;
 	mostrarCuentaDiv = false;
 	mostrarEncuestaDiv = false;
-	propina;
+	mensajeEscanearMesa = false;
+	banderaQrMesa = false;
+	deplegarConsultaMozo: boolean = false;
+	banderaMostrarPedidos = false;
+	banderaMostrarConsultas = false;
+	mostrarPedidoPagado: boolean = false;
+	mostrarPedidoPreparado: boolean = false;
+	banderaMostrarCuentasPagadas = false;
+	mostrarBotonConsulta = false;
+	mostrarConsultaRealizada = false;
+	mostrarBotonServido: boolean = false;
+	splash = false;
 	jsonCuenta = {
+		id: null,
 		pedidos: [],
 		propina: this.propina,
 		precioTotal: 0
 	}
-	mensajeEscanearMesa = false;
-	banderaQrMesa = false;
-	deplegarConsultaMozo: boolean = false;
-	consulta: string;
-	banderaMostrarPedidos = false;
-	banderaMostrarConsultas = false;
-	mostrarPedidoFinalizado: boolean = false;
-	banderaMostrarCuentasPagadas = false;
-	gradoSatisfaccion;
-	gradoSatisfaccionRes;
 	jsonEncuesta = {
 		preguntaUno: 0,
 		preguntaDos: 0,
 		fotos: [],
 	}
-	consultaMozo: string;
-	mostrarBotonConsulta = false;
-	mostrarConsultaRealizada = false;
+	informarEstadoMesa = {
+		mesa: "",
+		seAsignoMesa: "no",
+	};
+
+	constructor(private router: Router, private qr: BarcodeScanner, private camera: Camera, private menu: MenuController,
+		public alertController: AlertController, private bd: DatabaseService, public complemento: ComplementosService,
+		private auth: AuthService, private st: AngularFireStorage) { }
 
 	ngOnInit() {
+		this.splash = true;
 		this.contadorInterno = -1;
 		this.jsonEncuesta.fotos[0] = 'https://i.imgur.com/zH3i014.png';
 		this.jsonEncuesta.fotos[1] = 'https://i.imgur.com/zH3i014.png';
 		this.jsonEncuesta.fotos[2] = 'https://i.imgur.com/zH3i014.png';
-		this.tieneCorreo = localStorage.getItem('tieneCorreo');
 		this.listaUsuarios = [];
 		this.listaEspera = [];
 		this.listaPedidos = [];
-		this.listaPedidosFinalizados = [];
-		this.listaCuentasPagadas = [];
-		this.listaPedidoBartender = [];
-		this.listaPedidoCocinero = [];
-		if (this.tieneCorreo == 'conCorreo') {
-			this.correoUsuario = localStorage.getItem('correoUsuario');
-			this.bd.obtenerUsuariosBD('usuarios', this.correoUsuario).toPromise().then(snap => {
-				const user: any = snap.docs[0].data();
-				this.perfilUsuario = user.perfil;
-				this.infoUsuario = user;
-				return user;
-			}).then(user => {
-				console.log(user)
-				switch (user.perfil) {
-					case "Dueño":
-					case "Supervisor":
-						this.bd.obtenerTodos('usuarios').subscribe(datos => {
-							console.log(datos[0].payload.doc.data());
-							datos.forEach((dato: any) => {
-								let x: any = dato.payload.doc.data();
-								if (x.estado == 'esperando') {
-									this.listaUsuarios.push(x);
-								}
-							});
-							console.log(this.listaUsuarios);
+		this.listaConsultas = [];
+		this.uidUsuario = localStorage.getItem('uidUsuario');
+		this.bd.obtenerPorIdPromise('usuarios', this.uidUsuario).then(snap => {
+			const user: any = snap.data() as any;
+			this.infoUsuario = user;
+			return this.infoUsuario;
+		}).then(user => {
+			console.log(user)
+			switch (user.perfil) {
+				case "Dueño":
+				case "Supervisor":
+					this.bd.obtenerTodosTiempoReal('usuarios').onSnapshot(snap => {
+						this.listaUsuarios = snap.docs.map(dato => {
+							const x: any = dato.data() as any;
+							x['id'] = dato.id;
+							return { ...x };
+						}).filter(x => x.estado === false);
+					});
+					break;
+				case "Mozo":
+					this.bd.obtenerTodosTiempoReal('consultas').onSnapshot(datos => {
+						this.listaConsultas = datos.docs.map(dato => {
+							const x: any = dato.data() as any;
+							x['id'] = dato.id;
+							return { ...x };
 						});
-						break;
-					case "Mozo":
-						this.bd.obtenerTodos('listaEspera').subscribe(datos => {
-
-							datos.forEach((dato: any) => {
-								let x: any = dato.payload.doc.data();
-								if (x.consulta == 'realizoConsulta') {
-									this.listaEspera.push(x);
-								}
-							});
-							this.contadorMozoConsulta = this.listaEspera.length;
-						})
-						this.correoCliente = this.correoUsuario;
-						this.bd.obtenerTodos('pedidos').subscribe(datos => {
-							datos.forEach((dato: any) => {
-								let x: any = dato.payload.doc.data();
-								if (x.estadoPedido == 'enEspera') {
-									this.listaPedidos.push(x);
-								}
-								else if (x.estadoBartender == 'finalizado' && x.estadoChef == 'finalizado' && x.estadoPedido == 'enPreparacion') {
-									this.listaPedidosFinalizados.push(x);
-								}
-								else if (x.estadoPedido == 'pagado') {
-									this.listaCuentasPagadas.push(x);
-								}
-							})
-							this.contadorMozoPedidoPendiente = this.listaPedidos.length;
-							this.contadorMozoPedidoFinalizado = this.listaPedidosFinalizados.length;
-							this.contadorMozoCuentaPagada = this.listaCuentasPagadas.length;
+					});
+					this.bd.obtenerTodosTiempoReal('pedidos').onSnapshot(datos => {
+						this.listaPedidos = datos.docs.map(dato => {
+							const x: any = dato.data() as any;
+							x['id'] = dato.id;
+							return { ...x };
 						});
-						break;
-					case "Bartender":
-						this.bd.obtenerTodos('pedidos').subscribe(datos => {
-							datos.forEach((dato: any) => {
-								let x: any = dato.payload.doc.data();
-								if ((x.estadoBartender == 'enProceso' || x.estadoBartender == 'enPreparacion') && (x.estadoPedido == "pendiente" || x.estadoPedido == "enPreparacion")) {
-									this.listaPedidoBartender.push(x);
-								}
-							});
+						console.log(this.listaPedidos);
+					});
+					break;
+				case "BarTender":
+					this.bd.obtenerTodosTiempoReal('pedidos').onSnapshot(datos => {
+						this.listaPedidos = datos.docs.map(dato => {
+							const x: any = dato.data() as any;
+							x['id'] = dato.id;
+							return { ...x };
+						}).filter(x => x.estado == "Pendiente" || x.estado == "EnPreparacion")
+					});
+					break;
+				case "Cocinero":
+					this.bd.obtenerTodosTiempoReal('pedidos').onSnapshot(datos => {
+						this.listaPedidos = datos.docs.map(dato => {
+							const x: any = dato.data() as any;
+							x['id'] = dato.id;
+							return { ...x };
+						}).filter(x => x.estado == "Pendiente" || x.estado == "EnPreparacion")
+					});
+					break;
+				case "Metre":
+					this.bd.obtenerTodosTiempoReal('listaEspera').onSnapshot(datos => {
+						this.listaEspera = datos.docs.map(dato => {
+							const x: any = dato.data() as any;
+							x['id'] = dato.id;
+							return { ...x };
 						});
-						break;
-					case "Cocinero":
-						this.bd.obtenerTodos('pedidos').subscribe(datos => {
-							datos.forEach((dato: any) => {
-								let x: any = dato.payload.doc.data();
-								if ((x.estadoChef == 'enProceso' || x.estadoChef == 'enPreparacion') && (x.estadoPedido == "pendiente" || x.estadoPedido == "enPreparacion")) {
-									this.listaPedidoCocinero.push(x);
-								}
-							});
+					});
+					break;
+				case "Cliente":
+				case "Anonimo":
+					if (this.infoUsuario.estadoMesa === false) {
+						this.bd.obtenerPorId('listaEspera', this.uidUsuario).subscribe(snap => {
+							const x: any = snap.payload.data() as any;
+							this.listaEspera.push({ ...x });
 						});
-						break;
-					case "Metre":
-						this.bd.obtenerTodos('listaEspera').subscribe(datos => {
-							datos.forEach((dato: any) => {
-								let x: any = dato.payload.doc.data();
-								if (x.estadoMesa == 'enEspera') {
-									this.listaEspera.push(x);
-								}
-							});
+					} else {
+						let fb2 = this.bd.obtenerTodosTiempoReal('consultas').onSnapshot(datos => {
+							this.listaConsultas = datos.docs.map(dato => {
+								const x: any = dato.data() as any;
+								x['id'] = dato.id;
+								return { ...x };
+							}).filter(x => x.mesa === this.infoUsuario.estadoMesa);
 						});
-						break;
-					case "Cliente":
-						this.bd.obtenerTodos('listaEspera').subscribe(datos => {
-							datos.forEach((datoCl: any) => {
-								let x: any = datoCl.payload.doc.data();
-								if (x.estadoMesa == 'mesaAsignada' && x.nombreUsuario == this.infoUsuario.nombre) {
-									this.informarEstadoMesa.mesa = x.mesa;
-									this.informarEstadoMesa.seAsignoMesa = "si";
-									console.log(x.consultaMozo);
-									if (x.consultaMozo != '') {
-										console.log("estoy aca tambien");
-										this.listaEspera.push(x);
-									}
-								}
-							});
-						});
-						let fb2 = this.bd.obtenerTodos('pedidos').subscribe(datos => {
-							datos.forEach((datoCl: any) => {
-								let x: any = datoCl.payload.doc.data();
-								if (x.estadoPedido == "finalizado" && x.mesa == this.informarEstadoMesa.mesa) {
-									this.presentAlert();
-								}
-							});
-						});
-						break;
-				}
-			}).then(() => {
-				this.cargarProductos();
-				console.log('fin de splash');
-				console.log('fin de init');
-				this.splash = false;
-			});
-		}
-		else {
-			let variable = localStorage.getItem('nombreAnonimo');
-			this.perfilUsuario = "Anonimo";
-			this.bd.obtenerTodos('usuarios').toPromise().then(querySnapShot => {
-				querySnapShot.forEach((doc) => {
-					let x: any = doc.payload.doc.data();
-					if (x.nombre == variable && x.perfil == this.perfilUsuario) {
-						this.nombreAnonimo.nombre = x.nombre;
-						this.nombreAnonimo.foto = x.foto;
-						this.nombreAnonimo.perfil = x.perfil;
+						this.informarEstadoMesa.mesa = this.infoUsuario.estadoMesa;
+						this.informarEstadoMesa.seAsignoMesa = 'si';
 					}
-				});
-				return this.nombreAnonimo;
-			}).then(nombreAnonimo => {
-				let fb = this.bd.obtenerTodos('listaEspera').subscribe(datos => {
-					this.listaEspera = [];
-					datos.forEach((datoCl: any) => {
-						let x: any = datoCl.payload.doc.data();
-						if (x.estadoMesa == 'mesaAsignada' && x.nombreUsuario == this.nombreAnonimo.nombre) {
-							this.informarEstadoMesa.mesa = x.mesa;
-							this.informarEstadoMesa.seAsignoMesa = "si";
-							if (x.consultaMozo != '') {
-								this.listaEspera.push(x);
-							}
-						}
-					});
-				});
-			}).then(() => {
-				let fb2 = this.bd.obtenerTodos('pedidos').subscribe(datos => {
-					datos.forEach((datoCl: any) => {
-						let x: any = datoCl.payload.doc.data();
-						if (x.estadoPedido == "finalizado" && x.mesa == this.informarEstadoMesa.mesa) {
-							this.presentAlert();
-						}
-					});
-				})
-			}).then(() => {
-				this.cargarProductos();
-				console.log('fin de init');
-				this.splash = false;
-			});
-		}
+					break;
+			}
+		}).then(() => {
+			this.cargarProductos();
+			this.splash = false;
+			console.log('fin de init');
+		});
 	}
 
-	organizarUsuario(usuario, estado) {
-		let indice = this.listaUsuarios.indexOf(usuario);
-		let asuntoCorreo: string = 'Habilitacion de cuenta para la comanda'
-		let mensajeCorreo: string = '';
-		this.listaUsuarios.splice(indice, 1);
-		this.bd.obtenerTodos('usuarios').subscribe((querySnapShot) => {
-			querySnapShot.forEach((doc) => {
-				let x: any = doc.payload.doc;
-				if (x.data().correo == usuario.correo) {
-					if (estado == "rechazado") {
-						usuario.estado = estado;
-						this.bd.actualizar('usuarios', usuario, x.id);
-						this.listaUsuarios = [];
-						mensajeCorreo = '<i>Tu registro ha sido rechazado. no podrias loguearte con esta cuenta</i>'
-					}
-					else {
-						if (x.data().perfil == "Cliente") {
-							usuario.estado = estado;
-							this.bd.actualizar('usuarios', usuario, x.id);
-							this.auth.registrarUsuario(usuario.correo, usuario.contrasenia);
-							this.listaUsuarios = [];
-						}
-						else {
-							usuario.estado = estado;
-							this.bd.actualizar('usuarios', usuario, x.id);
-							this.listaUsuarios = [];
-						}
-						mensajeCorreo = '<i>Tu registro ha sido aceptado. ya puedes loguearte con esta cuenta</i>'
-					}
-					this.listaUsuarios = [];
-					//this.auth.mandarEmail(usuario.correo, asuntoCorreo, mensajeCorreo);
-				}
+	cargarProductos() {
+		this.listaProductos = [];
+		let fb = this.bd.obtenerTodos('productos').subscribe(datos => {
+			this.listaProductos = datos.map(snap => {
+				const x: any = snap.payload.doc.data() as any;
+				x['id'] = snap.payload.doc.id;
+				return { ...x };
 			})
 		})
 	}
 
-	listaEsperaQRCliente() {
-		let auxiliar;
-		this.qr.scan().then(data => {
-			if (data.text === 'listaEspera') {
-				this.bd.obtenerUsuariosBD('usuarios', this.correoCliente).toPromise().then(snap => {
-					let x = snap.docs[0].data();
-					if (x.estadoMesa === 'aceptado') {
-						this.usuarioMesa.nombreUsuario = x.nombre;
-						this.usuarioMesa.estadoMesa = "enEspera";
-						this.usuarioMesa.perfilUsuario = x.perfil;
-						return this.bd.crear('listaEspera', this.usuarioMesa);
-					}
-				}).then(data => {
-					this.complemento.presentToastConMensajeYColor('Ya se encuentra en la lista de espera. por favor, solicite al metre para asignarle una mesa.', 'primary');
-				});
-			}
-		});
-	}
-
-	listaEsperaQRAnonimo() {
-		let auxiliar;
-		this.qr.scan().then(data => {
-			if (data.text === 'listaEspera') {
-				this.bd.obtenerUsuariosBD('usuarios', this.correoCliente).toPromise().then(snap => {
-					let x = snap.docs[0].data();
-					if (x.estadoMesa === 'aceptado') {
-						this.usuarioMesa.nombreUsuario = x.nombre;
-						this.usuarioMesa.estadoMesa = "enEspera";
-						this.usuarioMesa.perfilUsuario = x.perfil;
-						return this.bd.crear('listaEspera', this.usuarioMesa);
-					}
-				}).then(data => {
-					this.complemento.presentToastConMensajeYColor('Ya se encuentra en la lista de espera. por favor, solicite al metre para asignarle una mesa.', 'primary');
-				});
-			}
-		});
-	}
-
 	cerrarSesion() {
 		this.auth.logout().then(() => {
-			this.correoUsuario = "";
+			this.uidUsuario = "";
+			this.infoUsuario = null;
+			localStorage.removeItem('uidUsuario');
 			localStorage.removeItem('tieneCorreo');
-			localStorage.removeItem('correoUsuario');
+		}).then(() => {
+			this.complemento.playAudio('error');
 			this.router.navigate(['/login']);
 		})
 	}
 
-	/*inicializarPushNotifications(uid) {
-		this.fmc.getToken(uid);
-		this.fmc.escucharNotificaciones().pipe(
-			tap(msg => {
-				this.complemento.presentToastConMensajeYColor(msg.body, 'primary');
-				})
-			);
-	}*/
+	//EXCLUSIVO DE DUEÑO / SUPERVISOR 
+	organizarUsuario(usuario, estado) {
+		let asuntoCorreo: string = 'Habilitacion de cuenta para la comanda'
+		let mensajeCorreo: string = '';
+		this.bd.obtenerPorIdPromise('usuarios', usuario.id).then(user => {
+			const x: any = user.data() as any;
+			if (estado == null) {
+				x.estado = estado;
+				this.bd.actualizar('usuarios', x, usuario.id);
+				mensajeCorreo = '<i>Tu registro ha sido rechazado. no podrias loguearte con esta cuenta</i>'
+			} else {
+				x.estado = estado;
+				this.bd.actualizar('usuarios', x, usuario.id);
+				mensajeCorreo = '<i>Tu registro ha sido aceptado. ya puedes loguearte con esta cuenta</i>'
+			}
+			this.auth.mandarEmail(usuario.correo, asuntoCorreo, mensajeCorreo);
+		});
+	}
 
-	comprobarMesas(mesa) {
-		localStorage.setItem('usuarioSelMesa', JSON.stringify(mesa));
-		this.router.navigate(['/listado-mesas']);
+	//EXCLUSIVO CLIENTES REG / ANON
+	listaEsperaQRCliente(cantidad, tipo) {
+		this.qr.scan().then(data => {
+			this.splash = true;
+			if (data.text === 'listaEspera') {
+				this.bd.obtenerPorIdPromise('usuarios', this.uidUsuario).then(snap => {
+					const x: any = snap.data() as any;
+					if (!x.estadoMesa) {
+						let y = {
+							idCliente: this.uidUsuario,
+							nombre: this.infoUsuario.nombre,
+							fechaDeEntrada: Date.now(),
+							comensales: cantidad,
+							tipo: tipo
+						}
+						return this.bd.crearConId('listaEspera', y, this.uidUsuario);
+					}
+				}).then(data => {
+					this.complemento.presentToastConMensajeYColor('Ya se encuentra en la lista de espera. por favor, aguarde a que el metre le asigne una mesa.', 'primary');
+				}).catch(err => this.complemento.presentToastConMensajeYColor(firebaseErrors(err), 'danger')).finally(() => {
+					this.splash = false;
+				});
+			}
+		});
 	}
 
 	mostrarEncuestaLista() {
@@ -383,6 +253,77 @@ export class HomePage {
 		this.mostrarEncuestaDiv = true;
 		this.mostrarProductos = false;
 		this.mostrarConsultaRealizada = false;
+	}
+
+	mostrarCuentaLista() {
+		this.splash = true;
+		this.mostrarCuentaDiv = true;
+		this.mostrarEncuestaDiv = false;
+		this.mostrarProductos = false;
+		this.bd.obtenerTodosCampoValor('pedidos', 'cliente', this.uidUsuario).toPromise().then(snaps => {
+			let ref = snaps.docs.find(doc => doc.data().estado !== 'Pagado');
+			if (ref !== undefined) {
+				const x: any = ref.data() as any;
+				x['id'] = ref.id;
+				this.jsonCuenta.id = x.id;
+				this.jsonCuenta.pedidos = x.productos;
+				this.jsonCuenta.precioTotal = x.precioTotal;
+				this.splash = false;
+			}
+		});
+	}
+
+	qrMesa() {
+		localStorage.setItem("mesa", this.informarEstadoMesa.mesa);
+		this.qr.scan().then(data => {
+			this.splash = true;
+			return this.bd.obtenerPorIdPromise('mesas', data.text).then(snap => {
+				const x: any = snap.data() as any;
+				x['id'] = snap.id;
+				if (x.id === data.text && x.cliente === this.uidUsuario) {
+					this.mostrarCuentaDiv = false;
+					this.mostrarEncuestaDiv = false;
+					this.mensajeEscanearMesa = true;
+					this.mostrarConsultaRealizada = false;
+					this.mostrarBotonConsulta = true;
+					this.mostrarProductos = true;
+					this.bd.obtenerTodosPromise('pedidos').then(datos => {
+						datos.forEach(dato => {
+							const y: any = dato.data() as any;
+							console.log(x);
+							console.log(y);
+							if (x.id === y.mesa) {
+								if (y.estado === 'Servido') {
+									this.banderaQrMesa = true;
+									if (this.banderaQrMesa == true) {
+										this.complemento.presentToastConMensajeYColor("Podra acceder a la encuesta y a la cuenta", "success");
+										this.mostrarCuentaBoton = true;
+										this.mostrarEncuestaBoton = true;
+									}
+								} else if (y.estado == 'Pendiente') {
+									this.complemento.presentToastConMensajeYColor("Su pedido esta esperando confirmacion de un mozo.", "primary");
+								} else if (y.estado == 'EnPreparacion') {
+									this.complemento.presentToastConMensajeYColor('Su pedido esta en preparacion, tiempo aprox ' + y.tiempoTotal + ' segundos', "primary");
+								} else if (y.estado == 'Preparado') {
+									this.complemento.presentToastConMensajeYColor("Su pedido ya esta listo. Enseguida se le llevara a la mesa.", "primary");
+								} else if (y.estado == 'Servido-A') {
+									this.mostrarBotonServido = true;
+									this.complemento.presentToastConMensajeYColor("El mozo a llevado su pedido a la mesa. Confirma la recepcion.", "primary");
+								} else if (y.estado == 'Pagado') {
+									this.complemento.presentToastConMensajeYColor("Ya esta todo pagado. en unos momento el Mozo le dara de alta", "primary");
+								}
+							} else {
+								this.complemento.presentToastConMensajeYColor('La mesa ' + x.numero + ' no es la misma del pedido.', "danger");
+							}
+						});
+					})
+				} else {
+					this.complemento.presentToastConMensajeYColor('La mesa ' + x.numero + ' en estado ' + x.estado + ' no le corresponde, vuelva a escanear el qr ', "danger");
+				}
+			});
+		}).catch(err => this.complemento.presentToastConMensajeYColor(firebaseErrors(err), 'danger')).finally(() => {
+			this.splash = false;
+		});;
 	}
 
 	darPropina() {
@@ -411,173 +352,55 @@ export class HomePage {
 					break;
 			}
 		}).catch(err => {
-			console.log('Error', err);
+			this.complemento.presentToastConMensajeYColor(firebaseErrors(err), 'danger');
 		});
 	}
 
-	mostrarCuentaLista() {
-		this.mostrarCuentaDiv = true;
-		this.mostrarEncuestaDiv = false;
-		this.mostrarProductos = false;
+	confirmarRecepcionPedido() {
 		this.splash = true;
-		setTimeout(() => {
-			this.splash = false;
-		}, 5000);
-
-		this.bd.obtenerTodos('pedidos').subscribe((querySnapShot) => {
-			querySnapShot.forEach((doc) => {
-				let x: any = doc.payload.doc.data();
-				if (x.mesa == this.informarEstadoMesa.mesa) {
-					x.platosPlato.forEach(element => {
-						this.firestore.collection('productos').get().subscribe((querySnapShot) => {
-							querySnapShot.forEach((docP) => {
-								if (element == docP.data().nombre) {
-									let jsonPedido = {
-										precioUnitario: 0,
-										nombreProducto: ""
-									}
-									jsonPedido.precioUnitario = docP.data().precio;
-									jsonPedido.nombreProducto = element;
-									this.jsonCuenta.pedidos.push(jsonPedido);
-								}
-							})
-						});
-					});
-					x.platosPostre.forEach(element => {
-						this.firestore.collection('productos').get().subscribe((querySnapShot) => {
-							querySnapShot.forEach((docP) => {
-								if (element == docP.data().nombre) {
-									let jsonPedido = {
-										precioUnitario: 0,
-										nombreProducto: ""
-									}
-									jsonPedido.precioUnitario = docP.data().precio;
-									jsonPedido.nombreProducto = element;
-									this.jsonCuenta.pedidos.push(jsonPedido);
-								}
-							})
-						});
-					});
-
-					x.platosBebida.forEach(element => {
-						this.firestore.collection('productos').get().subscribe((querySnapShot) => {
-							querySnapShot.forEach((docP) => {
-								if (element == docP.data().nombre) {
-									let jsonPedido = {
-										precioUnitario: 0,
-										nombreProducto: ""
-									}
-									jsonPedido.precioUnitario = docP.data().precio;
-									jsonPedido.nombreProducto = element;
-									this.jsonCuenta.pedidos.push(jsonPedido);
-								}
-							})
-
-						});
-					});
-					this.jsonCuenta.precioTotal = x.precioTotal;
-				}
-			})
-		})
+		this.bd.obtenerTodosCampoValor('pedidos', 'cliente', this.uidUsuario).toPromise().then(snap => {
+			const x: any = snap.docs[0].data() as any;
+			x.estado = 'Servido';
+			return this.bd.actualizar('pedidos', x, snap.docs[0].id);
+		}).then(() => {
+			this.mostrarBotonServido = false;
+			this.complemento.presentToastConMensajeYColor("Su recepcion del pedido fue registrada", "success");
+		}).catch(err => {
+			this.complemento.presentToastConMensajeYColor(firebaseErrors(err), 'danger');
+		}).finally(() => this.splash = false);
 	}
 
 	pagarCuenta() {
-		let auxPedido;
-		let auxLisEsp;
-		this.bd.obtenerTodos('pedidos').subscribe((querySnapShot) => {
-			querySnapShot.forEach((doc) => {
-				let x: any = doc.payload.doc;
-				if (x.data().mesa == this.informarEstadoMesa.mesa) {
-					auxPedido = x.data();
-					auxPedido.estadoPedido = "pagado"
-					this.bd.actualizar("pedidos", auxPedido, x.id);
-					this.bd.obtenerTodos('listaEspera').subscribe((querySnapShot) => {
-						querySnapShot.forEach((docDos) => {
-							let y: any = docDos.payload.doc;
-							if (this.informarEstadoMesa.mesa == y.data().mesa) {
-								this.informarEstadoMesa.mesa = "";
-								this.informarEstadoMesa.seAsignoMesa = "no";
-								this.firestore.collection('listaEspera').doc(y.id).delete();
-								this.mostrarCuentaBoton = false;
-								this.mostrarEncuestaBoton = false;
-								this.complemento.presentToastConMensajeYColor("Su pago esta por ser confirmado, gracias por utilizarnos!", "success");
-							}
-						})
-					});
-				}
-			})
-		});
-	}
-
-	qrMesa() {
-		localStorage.setItem("mesa", this.informarEstadoMesa.mesa);
-		let auxMesa;
-		this.qr.scan().then(data => {
-			this.bd.obtenerPorId('listaMesas', data.text).toPromise().then(snap => {
-				let x: any = snap.payload;
-				if (x.id === data.text && (x.cliente === this.correoUsuario || x.cliente === this.nombreAnonimo)) {
-					this.mostrarCuentaDiv = false;
-					this.mostrarEncuestaDiv = false;
-					this.mensajeEscanearMesa = true;
-					this.mostrarConsultaRealizada = false;
-					this.mostrarBotonConsulta = true;
-					this.mostrarProductos = true;
-					this.bd.obtenerTodos('pedidos').subscribe(datos => {
-						datos.forEach((dato: any) => {
-							let y: any = dato.payload.doc.data()
-							if (this.informarEstadoMesa.mesa == y.mesa) {
-								if (y.estadoPedido == 'finalizado') {
-									this.complemento.presentToastConMensajeYColor("Su pedido se finalizo con exito", "success");
-									if (this.banderaQrMesa == true) {
-										this.complemento.presentToastConMensajeYColor("Podra acceder a la encuesta y a la cuenta", "success");
-										this.mostrarCuentaBoton = true;
-										this.mostrarEncuestaBoton = true;
-									}
-									else {
-										this.banderaQrMesa = true;
-									}
-								}
-								else if (y.estadoPedido == 'enProceso') {
-									this.complemento.presentToastConMensajeYColor("Su pedido esta pendiente del mozo", "primary");
-								}
-								else if (y.estadoPedido == 'enPreparacion') {
-									this.complemento.presentToastConMensajeYColor('Su pedido esta en preparacion, tiempo aprox ' + y.tiempoTotal + ' minutos', "primary");
-								}
-							}
-						});
-					})
-				}
-				else {
-					this.complemento.presentToastConMensajeYColor('La mesa ' + x.data().numero + ' en estado ' + x.data().estado + ' no le corresponde, vuelva a escanear el qr ', "primary");
-				}
-			});
-		});
-	}
-
-	cargarProductos() {
-		let fb = this.bd.obtenerTodos('productos').subscribe(datos => {
-			this.listaProductos = [];
-			datos.forEach((dato: any) => {
-				this.listaProductos.push(dato.payload.doc.data());
-			});
+		this.splash = true;
+		this.bd.obtenerPorIdPromise('pedidos', this.jsonCuenta.id).then(pedidoRef => {
+			const x: any = pedidoRef.data() as any;
+			x.estado = 'Pagado';
+			return this.bd.actualizar('pedidos', x, this.jsonCuenta.id)
+		}).catch(err => this.complemento.presentToastConMensajeYColor(firebaseErrors(err), 'danger')).finally(() => {
+			this.mostrarCuentaBoton = false;
+			this.mostrarEncuestaBoton = false;
+			this.splash = false;
+			this.complemento.presentToastConMensajeYColor("Su pago esta por ser confirmado, gracias por utilizarnos!", "success");
 		})
 	}
 
-	consultarMozo(numeroMesa) {
-		let auxConsulta;
-		this.bd.obtenerTodos('listaEspera').subscribe((querySnapShot) => {
-			querySnapShot.forEach(dato => {
-				let x: any = dato.payload.doc;
-				if (x.data().mesa == numeroMesa) {
-					auxConsulta = x.data();
-					auxConsulta.consulta = "realizoConsulta";
-					auxConsulta.consultaDescripcion = this.consulta;
-					this.bd.actualizar('listaEspera', auxConsulta, x.id);
-					this.cancelarConsulta();
-					this.complemento.presentToastConMensajeYColor("Su consulta se realizo con exito,espere a que el mozo se acerce.", "success");
-				}
-			})
-		});
+	consultarMozo() {
+		this.splash = true;
+		this.bd.obtenerPorIdPromise('mesas', this.infoUsuario.estadoMesa).then(mesaRef => {
+			let consulta = {
+				cliente: this.infoUsuario.nombre,
+				mesa: mesaRef.data().numero,
+				fecha: Date.now(),
+				descripcion: this.consulta,
+				estado: false
+			}
+			return consulta
+		}).then(consulta => {
+			return this.bd.crear('consultas', consulta)
+		}).then(() => {
+			this.cancelarConsulta();
+			this.complemento.presentToastConMensajeYColor("Su consulta se realizo con exito,espere a que un mozo se acerce.", "success");
+		}).catch(err => this.complemento.presentToastConMensajeYColor(firebaseErrors(err), 'danger')).finally(() => this.splash = false);
 	}
 
 	desplegarConsulta() {
@@ -589,241 +412,131 @@ export class HomePage {
 		this.deplegarConsultaMozo = false;
 	}
 
-	mostrarPedidos() {
-		this.banderaMostrarPedidos = true;
-		this.banderaMostrarConsultas = false;
-		this.mostrarPedidoFinalizado = false
-		this.banderaMostrarCuentasPagadas = false;
-	}
-
-	mostrarConsultas() {
-		this.banderaMostrarPedidos = false;
-		this.banderaMostrarConsultas = true;
-		this.mostrarPedidoFinalizado = false;
-		this.banderaMostrarCuentasPagadas = false;
-	}
-
-	mostrarPedidosFinalizados() {
-		this.banderaMostrarPedidos = false;
-		this.banderaMostrarConsultas = false;
-		this.mostrarPedidoFinalizado = true;
-		this.banderaMostrarCuentasPagadas = false;
-	}
-
-
-	enviarPedidos(mesa) {
-		let auxPedido;
-		this.bd.obtenerTodos('pedidos').subscribe((querySnapShot) => {
-			querySnapShot.forEach(dato => {
-				let x: any = dato.payload.doc;
-				if (x.data().mesa == mesa) {
-					auxPedido = x.data();
-					auxPedido.estadoChef = "enProceso";
-					auxPedido.estadoBartender = "enProceso";
-					auxPedido.estadoPedido = "pendiente";
-					this.bd.actualizar('pedidos', auxPedido, x.id);
-					this.cancelarConsulta();
-				}
-			})
-		});
-	}
-
-	cancelarPedido(mesa) {
-		let auxPedido;
-		this.bd.obtenerTodos('pedidos').subscribe((querySnapShot) => {
-			querySnapShot.forEach(dato => {
-				let x: any = dato.payload.doc;
-				if (x.data().mesa == mesa) {
-					auxPedido = x.data();
-					auxPedido.estadoPedido = "cancelado";
-					this.bd.actualizar('pedidos', auxPedido, x.id);
-					this.cancelarConsulta();
-				}
-			})
-		});
-	}
-
-	enviarPedidoFinalizado(mesa) {
-		let auxPedido;
-		this.bd.obtenerTodos('pedidos').subscribe((querySnapShot) => {
-			querySnapShot.forEach(dato => {
-				let x: any = dato.payload.doc;
-				if (x.data().mesa == mesa) {
-					auxPedido = x.data();
-					auxPedido.estadoPedido = "finalizado";
-					this.bd.actualizar('pedidos', auxPedido, x.id);
-				}
-			})
-		});
-	}
-
-	elaborarPedido(mesa, estadoPedido, perfil) {
-		let auxPedido;
-		this.bd.obtenerTodos('pedidos').subscribe((querySnapShot) => {
-			querySnapShot.forEach(dato => {
-				let x: any = dato.payload.doc;
-				if (x.data().mesa == mesa) {
-					if (perfil == "BarTender" && estadoPedido == "enPreparacion") {
-						auxPedido = x.data();
-						auxPedido.estadoBartender = estadoPedido;
-						auxPedido.estadoPedido = estadoPedido;
-						this.bd.actualizar('pedidos', auxPedido, x.id);
-						this.cancelarConsulta();
-					}
-					else if (perfil == "BarTender" && estadoPedido == "finalizado") {
-						auxPedido = x.data();
-						auxPedido.estadoBartender = estadoPedido;
-						this.bd.actualizar('pedidos', auxPedido, x.id);
-						this.cancelarConsulta();
-					}
-					if (perfil == "Cocinero" && estadoPedido == "enPreparacion") {
-						auxPedido = x.data();
-						auxPedido.estadoChef = estadoPedido;
-						auxPedido.estadoPedido = estadoPedido;
-						this.bd.actualizar('pedidos', auxPedido, x.id);
-						this.cancelarConsulta();
-					}
-					else if (perfil == "Cocinero" && estadoPedido == "finalizado") {
-						auxPedido = x.data();
-						auxPedido.estadoChef = estadoPedido;
-						this.bd.actualizar('pedidos', auxPedido, x.id);
-						this.cancelarConsulta();
-					}
-				}
-			})
-		});
-	}
-
-	cambioRango(event) {
-		this.gradoSatisfaccion = event.detail.value;
-	}
-	cambioRangoRes(event) {
-		console.log(event.detail.value);
-		this.gradoSatisfaccionRes = event.detail.value;
-	}
-
-	async presentAlert() {
-		const alert = await this.alertController.create({
-			cssClass: 'success',
-			header: 'Su pedido se a completado',
-			buttons: [
-				{
-					text: 'Cancelar',
-					role: 'cancel',
-					cssClass: 'success',
-					handler: (bla) => {
-						console.log("confirm cancel:blah");
-					}
-				},
-				{
-					text: 'Okey',
-					cssClass: 'success',
-					handler: (ok) => {
-						console.log("Confirmar");
-					}
-				}
-			]
-		});
-		await alert.present();
-	}
-
-	tomarTresFotografias() {
-		if (this.jsonEncuesta.fotos.length <= 3) {
-			const options: CameraOptions = {
-				quality: 100,
-				targetHeight: 600,
-				targetWidth: 600,
-				destinationType: this.camera.DestinationType.DATA_URL,
-				encodingType: this.camera.EncodingType.JPEG,
-				mediaType: this.camera.MediaType.PICTURE,
-			}
-			this.camera.getPicture(options).then((imageData) => {
-				var base64Str = 'data:image/jpeg;base64,' + imageData;
-				var storageRef = firebase.storage().ref();
-				let obtenerMili = new Date().getTime();
-				var nombreFoto = "encuestas/" + obtenerMili + ".jpg";
-				var childRef = storageRef.child(nombreFoto);
-				this.pathImagen.push(nombreFoto);
-				childRef.putString(base64Str, 'data_url').then(function(snapshot) {
-					this.pathImagen.array.forEach(element => {
-						this.st.storage.ref(element).getDownloadURL().then((link) => {
-							this.this.jsonEncuesta.fotos.push(link);
-						});
-					});
-				})
-			}, (Err) => {
-				alert(JSON.stringify(Err));
-			})
-		}
-	}
-
-	verEncuestas() {
-		this.router.navigate(['encuestas']);
-	}
-
-	enviarEncuesta() {
-		this.jsonEncuesta.preguntaUno = this.gradoSatisfaccion;
-		this.jsonEncuesta.preguntaDos = this.gradoSatisfaccionRes;
-		this.bd.crear('encuestas', this.jsonEncuesta);
-		this.complemento.presentToastConMensajeYColor('¡Su encuesta se finalizo con exito!', 'success');
-		this.mostrarEncuestaDiv = false;
-		this.contadorInterno = -1;
-		this.jsonEncuesta.fotos[0] = 'https://i.imgur.com/zH3i014.png';
-		this.jsonEncuesta.fotos[1] = 'https://i.imgur.com/zH3i014.png';
-		this.jsonEncuesta.fotos[2] = 'https://i.imgur.com/zH3i014.png';
-	}
-
-	mostrarCuentasPagadas() {
-		this.banderaMostrarPedidos = false;
-		this.banderaMostrarConsultas = false;
-		this.mostrarPedidoFinalizado = false;
-		this.banderaMostrarCuentasPagadas = true;
-	}
-
-	liberarMesa(mesa) {
-		let auxMesa;
-		this.bd.obtenerTodos('pedidos').subscribe((querySnapShot) => {
-			querySnapShot.forEach(dato => {
-				let x: any = dato.payload.doc;
-				if (mesa == x.data().mesa) {
-					this.bd.obtenerTodos('listaMesas').subscribe((querySnapShot) => {
-						querySnapShot.forEach(datoMesa => {
-							let y: any = datoMesa.payload.doc;
-							if (mesa == y.data().numero) {
-								auxMesa = y.data();
-								auxMesa.estado = "desocupada";
-								this.bd.actualizar("listaMesas", auxMesa, y.id);
-								this.firestore.collection('pedidos').doc(x.id).delete();
-								this.complemento.presentToastConMensajeYColor("La mesa a sido liberada", "success");
-							}
-						})
-					});
-				}
-			})
-		});
-	}
-
-	consultaConExito(espera, consultaMozo) {
-		let auxListaEspera;
-		this.bd.obtenerTodos('listaEspera').subscribe((querySnapShot) => {
-			querySnapShot.forEach(dato => {
-				let x: any = dato.payload.doc;
-				if (x.data().mesa == espera.mesa) {
-					auxListaEspera = x.data();
-					auxListaEspera.consulta = 'noRealizo';
-					auxListaEspera.consultaMozo = consultaMozo;
-					this.bd.actualizar('listaEspera', auxListaEspera, x.id);
-					this.complemento.presentToastConMensajeYColor('La consulta fue completada con exito!', 'success');
-				}
-			})
-		})
-	}
 	botonMostrarConsulta(numeroMesa) {
 		this.mostrarCuentaDiv = false;
 		this.mostrarEncuestaDiv = false;
 		this.mostrarProductos = false;
 		this.mostrarConsultaRealizada = true;
 	}
+
+	//EXCLUSIVO DE METRE
+	comprobarMesas(item) {
+		localStorage.setItem('itemListaDeEspera', JSON.stringify(item));
+		this.router.navigate(['/listado-mesas']);
+	}
+
+	//EXCLUSIVO DE MOZO
+	consultaConExito(consulta) {
+		this.splash = true;
+		consulta.estado = true;
+		consulta['respuesta'] = this.respuestaConsulta;
+		this.bd.actualizar('consultas', consulta, consulta.id).then(() => {
+			this.complemento.presentToastConMensajeYColor('La consulta fue resuelta con exito!', 'success');
+		}).catch(err => {
+			this.complemento.presentToastConMensajeYColor(firebaseErrors(err), 'danger');
+		}).finally(() => this.splash = false);
+	}
+
+	liberarMesa(pedido) {
+		this.splash = true;
+		this.bd.obtenerPorIdPromise('mesas', pedido.mesa).then(refMesa => {
+			const x: any = refMesa.data() as any;
+			x.estado = 'Libre',
+				x.cliente = null
+			return this.bd.actualizar('mesas', x, pedido.mesa);
+		}).then(() => {
+			return this.bd.obtenerPorIdPromise('usuarios', pedido.cliente).then(userRef => {
+				const x: any = userRef.data() as any;
+				x.estadoMesa = false;
+				return this.bd.actualizar('usuarios', x, pedido.cliente).then(() => {
+					this.complemento.presentToastConMensajeYColor("La mesa a sido liberada", "success");
+				});
+			});
+		}).then(() => {
+			return this.modificarEstadoPedido(pedido, 'Finalizado');
+		}).catch(err => {
+			this.complemento.presentToastConMensajeYColor(firebaseErrors(err), 'danger');
+		}).finally(() => this.splash = false);
+	}
+
+	mostrarPedidos() {
+		this.banderaMostrarPedidos = true;
+		this.banderaMostrarConsultas = false;
+		this.mostrarPedidoPagado = false
+		this.banderaMostrarCuentasPagadas = false;
+	}
+
+	mostrarConsultas() {
+		this.banderaMostrarPedidos = false;
+		this.banderaMostrarConsultas = true;
+		this.mostrarPedidoPagado = false;
+		this.banderaMostrarCuentasPagadas = false;
+	}
+
+	mostrarPedidosPreparados() {
+		this.banderaMostrarPedidos = false;
+		this.banderaMostrarConsultas = false;
+		this.mostrarPedidoPreparado = true;
+		this.banderaMostrarCuentasPagadas = false;
+	}
+
+
+
+	mostrarCuentasPagadas() {
+		this.banderaMostrarPedidos = false;
+		this.banderaMostrarConsultas = false;
+		this.mostrarPedidoPagado = false;
+		this.banderaMostrarCuentasPagadas = true;
+	}
+
+	modificarEstadoPedido(pedido, estado) {
+		if (pedido.estado !== 'Finalizado') {
+			this.splash = true;
+			pedido.estado = estado;
+			this.bd.actualizar('pedidos', pedido, pedido.id).then(() => {
+				this.complemento.presentToastConMensajeYColor('Estado de pedido modificado.', 'success')
+			}).catch(err => {
+				this.complemento.presentToastConMensajeYColor(firebaseErrors(err), 'danger');
+			}).finally(() => {
+				this.splash = false
+				this.cancelarConsulta();
+			});
+		}
+	}
+
+	//FUNCIONES ESPECIFICAS DE BARTENDER / COCINERO
+	elaborarPedido(pedido: any) {
+		console.log(pedido);
+		this.splash = true;
+		pedido.productos.forEach(p => {
+			if (this.infoUsuario.perfil === 'Cocinero' && (p.tipo === 'Plato' || p.tipo === 'Postre')) {
+				p.estado = true;
+			} else if (this.infoUsuario.perfil === 'BarTender' && p.tipo === 'Bebida') {
+				p.estado = true;
+			}
+		})
+		console.log(pedido.productos);
+		if (pedido.productos.every(p => p.estado === true)) {
+			pedido.estado = 'Preparado';
+			return this.bd.actualizar('pedidos', pedido, pedido.id).then(() => {
+				this.complemento.presentToastConMensajeYColor("Todos los Productos del pedido preparados", "success");
+			}).catch(err => {
+				this.complemento.presentToastConMensajeYColor(firebaseErrors(err), 'danger');
+			}).finally(() => {
+				this.splash = false;
+			});
+		} else {
+			this.bd.actualizar('pedidos', pedido, pedido.id).then(() => {
+				this.complemento.presentToastConMensajeYColor("Productos de sector preparados", "success");
+			}).catch(err => {
+				this.complemento.presentToastConMensajeYColor(firebaseErrors(err), 'danger');
+			}).finally(() => {
+				this.splash = false;
+			});
+		}
+	}
+
+	//EXCLUSIVO DE ENCUESTAS
 	tomarFotosEncuesta() {
 		const options: CameraOptions = {
 			quality: 100,
@@ -850,5 +563,30 @@ export class HomePage {
 	manejadorEncuesta() {
 		this.tomarFotosEncuesta();
 		this.contadorInterno += 1;
+	}
+
+	cambioRango(event) {
+		this.gradoSatisfaccion = event.detail.value;
+	}
+	cambioRangoRes(event) {
+		console.log(event.detail.value);
+		this.gradoSatisfaccionRes = event.detail.value;
+	}
+
+	verEncuestas() {
+		this.router.navigate(['encuestas']);
+	}
+
+	enviarEncuesta() {
+		this.jsonEncuesta.preguntaUno = this.gradoSatisfaccion;
+		this.jsonEncuesta.preguntaDos = this.gradoSatisfaccionRes;
+		this.bd.crear('encuestas', this.jsonEncuesta).then(() => {
+			this.complemento.presentToastConMensajeYColor('¡Su encuesta se finalizo con exito!', 'success');
+			this.mostrarEncuestaDiv = false;
+			this.contadorInterno = -1;
+			this.jsonEncuesta.fotos[0] = 'https://i.imgur.com/zH3i014.png';
+			this.jsonEncuesta.fotos[1] = 'https://i.imgur.com/zH3i014.png';
+			this.jsonEncuesta.fotos[2] = 'https://i.imgur.com/zH3i014.png';
+		});
 	}
 }

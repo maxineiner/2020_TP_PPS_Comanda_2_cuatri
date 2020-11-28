@@ -7,6 +7,7 @@ import { AuthService } from 'src/app/servicios/auth.service';
 import { AngularFireStorage } from "@angular/fire/storage"
 import { ComplementosService } from 'src/app/servicios/complementos.service';
 import firebase from 'firebase/app';
+import { firebaseErrors } from '../../assets/scripts/errores';
 
 @Component({
   selector: 'app-alta-empleado',
@@ -14,20 +15,14 @@ import firebase from 'firebase/app';
   styleUrls: ['./alta-empleado.page.scss'],
 })
 export class AltaEmpleadoPage implements OnInit {
-  pickedName: string;
+  pickedName: string = 'Mozo';
   miFormulario: FormGroup;
-  pathImagen: string;
+  splash: boolean = false;
   usuarioJson = {
-    nombre: "",
-    apellido: "",
-    dni: "",
     foto: "../../assets/icon/iconLogoMovimiento.png",
-    cuil: "",
-    perfil: "",
-    contrasenia: "",
-    correo: "",
+    perfil: "Mozo",
+    estado: true,
   };
-
   barcodeOptions = {
     "prompt": "Place a barcode inside the scan area",
     "formats": "QR_CODE,PDF_417",
@@ -51,11 +46,11 @@ export class AltaEmpleadoPage implements OnInit {
     private complemetos: ComplementosService) {
 
     this.miFormulario = this.formBuilder.group({
-      nombre: ['', [Validators.required, Validators.pattern('^[a-zA-Z]{3,10}$')]],
-      apellido: ['', [Validators.required, Validators.pattern('^[a-zA-Z]{3,10}$')]],
+      nombre: ['', [Validators.required, Validators.pattern('^[a-zA-ZñÑ]{3,10}$')]],
+      apellido: ['', [Validators.required, Validators.pattern('^[a-zA-ZñÑ]{3,10}$')]],
       dni: ['', [Validators.required, Validators.pattern('^[0-9]{8}$')]],
       cuil: ['', [Validators.required, Validators.pattern('^[0-9]{11}$')]],
-      contrasenia: ['', [Validators.required, Validators.pattern('^[a-z0-9_-]{6,18}$')] ],
+      contrasenia: ['', [Validators.required, Validators.pattern('^[a-zA-ZñÑ0-9_-]{6,18}$')]],
       correo: ['', [Validators.required, Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+\\s*$')]],
     });
   }
@@ -88,36 +83,8 @@ export class AltaEmpleadoPage implements OnInit {
   };
 
   ngOnInit() {
-    this.pickedName = "Mozo";
     this.usuarioJson.perfil = this.pickedName;
   }
-
-  registrar(perfil) {
-    if (this.pathImagen != null) {
-      this.st.storage.ref(this.pathImagen).getDownloadURL().then((link) => {
-        this.usuarioJson.foto = link;
-        this.bd.crear('empleados', this.usuarioJson);
-      });
-    }
-    else {
-      this.bd.crear('empleados', this.usuarioJson);
-    }
-    this.auth.registrarUsuario(this.usuarioJson.correo, this.usuarioJson.contrasenia);
-    this.complemetos.presentToastConMensajeYColor("¡El " + perfil + " se creo con exito!", "primary");
-    this.limpiarCampos();
-  }
-
-  limpiarCampos() {
-    this.usuarioJson.nombre = "";
-    this.usuarioJson.apellido = "";
-    this.usuarioJson.dni = "";
-    this.usuarioJson.foto = "../../assets/icon/iconLogoMovimiento.png",
-      this.usuarioJson.cuil = "";
-    this.usuarioJson.perfil = this.pickedName;
-    this.usuarioJson.contrasenia = "";
-    this.usuarioJson.correo = "";
-  }
-
 
   tomarFotografia() {
     const options: CameraOptions = {
@@ -128,28 +95,14 @@ export class AltaEmpleadoPage implements OnInit {
       encodingType: this.camera.EncodingType.JPEG,
       mediaType: this.camera.MediaType.PICTURE,
     }
-
     this.camera.getPicture(options).then((imageData) => {
       var base64Str = 'data:image/jpeg;base64,' + imageData;
       this.usuarioJson.foto = base64Str;
-      var storageRef = firebase.storage().ref();
-      let obtenerMili = new Date().getTime();
-      var nombreFoto = "empleados/" + obtenerMili + "." + this.usuarioJson.dni + ".jpg";
-      var childRef = storageRef.child(nombreFoto);
-      this.pathImagen = nombreFoto;
-      childRef.putString(base64Str, 'data_url').then(function(snapshot) {
-      })
-    }, (Err) => {
-      alert(JSON.stringify(Err));
-    })
+    });
   }
 
   pickerUser(pickedName) {
-    this.listaPerfiles.forEach((usuario) => {
-      if (usuario.perfil == pickedName) {
-        this.usuarioJson.perfil = pickedName;
-      }
-    })
+    this.usuarioJson.perfil = pickedName;
   }
 
   escanearDni() {
@@ -169,5 +122,29 @@ export class AltaEmpleadoPage implements OnInit {
         this.miFormulario.controls.nombre.setValue(x[5]);
       }
     });
+  }
+
+  registrar(perfil) {
+    this.splash = true;
+    this.usuarioJson['nombre'] = this.miFormulario.value.nombre;
+    this.usuarioJson['apellido'] = this.miFormulario.value.apellido;
+    this.usuarioJson['dni'] = this.miFormulario.value.dni;
+    this.usuarioJson['cuil'] = this.miFormulario.value.cuil;
+    this.usuarioJson['contrasenia'] = this.miFormulario.value.contrasenia;
+    this.usuarioJson['correo'] = this.miFormulario.value.correo;
+    this.auth.registrarUsuario(this.usuarioJson).then(() => {
+      this.limpiarCampos();
+      this.complemetos.presentToastConMensajeYColor("¡El " + perfil + " se creo con exito!", "primary");
+    }).catch(err => {
+        this.complemetos.presentToastConMensajeYColor(firebaseErrors(err), "danger");
+      }).finally(()=>{
+        this.splash = false;
+      });;
+  }
+
+  limpiarCampos() {
+    this.pickedName = "Mozo";
+    this.usuarioJson.foto = "../../assets/icon/iconLogoMovimiento.png",
+    this.usuarioJson.perfil = "Mozo";
   }
 }

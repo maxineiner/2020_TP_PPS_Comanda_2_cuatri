@@ -33,10 +33,10 @@ ion-button {
     margin-top: 2% !important;
 }
 
-ion-card{
-  border-radius: 15px;
-  position: relative;
-  --background: rgb(199,37,37,0.7);
+ion-card {
+    border-radius: 15px;
+    position: relative;
+    --background: rgb(199, 37, 37, 0.7);
 }
 
 ion-item {
@@ -71,4 +71,21 @@ h1::after {
 .divTop {
     z-index: 99999;
     top: -100;
+}
+
+.loading {
+    z-index: 99999999 !important;
+    width: 150px;
+    height: 150px;
+    position: fixed !important;
+    top: 35%;
+    left: 30%;
+}
+
+.validation-errors {
+    padding: 0 10px;
+}
+
+.error-message {
+    color: var(--ion-color-cubiertos);
 }

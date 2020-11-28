@@ -23,6 +23,7 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
+import { Vibration } from '@ionic-native/vibration/ngx';
 import { ComplementosService } from './servicios/complementos.service';
 
 @NgModule({
@@ -44,6 +45,7 @@ import { ComplementosService } from './servicios/complementos.service';
 		SplashScreen,
 		Camera,
 		BarcodeScanner,
+		Vibration,
 		{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
 	],
 	bootstrap: [AppComponent]

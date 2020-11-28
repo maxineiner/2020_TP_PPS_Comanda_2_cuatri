@@ -1,5 +1,8 @@
 <ion-content>
-    <ion-card color='fondo'>
+    <div id="custom-overlay" [style.display]="splash ? 'flex': 'none'">
+        <img src="../../assets/icon/gifAnimado.gif" class="loading">
+    </div>
+    <ion-card *ngIf='!splash' color='fondo'>
         <ion-card-header>
             <div align="center">
                 <img src="../../assets/icon/iconLogoMovimiento.png" alt="" width="100px" height="100px" class="icon">

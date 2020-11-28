@@ -4,11 +4,12 @@ import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 import { DatabaseService } from "../servicios/database.service";
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import firebase from 'firebase/app';
-import {AngularFireStorage} from "@angular/fire/storage"
+import { AngularFireStorage } from "@angular/fire/storage"
 import { Usuariosbd } from "../clases/usuariosbd";
 import { ComplementosService } from 'src/app/servicios/complementos.service';
 import { BarcodeScanner, BarcodeScannerOptions } from '@ionic-native/barcode-scanner/ngx';
 import { AuthService } from '../servicios/auth.service';
+import { firebaseErrors } from '../../assets/scripts/errores';
 
 @Component({
   selector: 'app-alta-supervisor',
@@ -16,22 +17,13 @@ import { AuthService } from '../servicios/auth.service';
   styleUrls: ['./alta-supervisor.page.scss'],
 })
 export class AltaSupervisorPage implements OnInit {
-
-  qrScan:any;
-
-  pickedName : string;
-  miFormulario : FormGroup;
-  pathImagen : string;
-
+  pickedName: string = 'Dueño';
+  miFormulario: FormGroup;
+  splash:boolean = false;
   usuarioJson = {
-    nombre : "",
-    apellido : "",
-    dni : "",
-    foto :  "../assets/icon/iconLogoMovimiento.png",
-    cuil : "",
-    perfil : "",
-    contrasenia: "",
-    correo : "",
+    foto: "../../assets/icon/iconLogoMovimiento.png",
+    perfil: "",
+    estado: true,
   };
 
   barcodeOptions = {
@@ -40,29 +32,29 @@ export class AltaSupervisorPage implements OnInit {
     "orientation": "landscape"
   };
 
-  listaPerfiles = [ 
-    { perfil : "Supervisor" },
-    { perfil : "Dueño" }
+  listaPerfiles = [
+    { perfil: "Supervisor" },
+    { perfil: "Dueño" }
   ]
 
   constructor(
-    private qr : BarcodeScanner,
-    private camera : Camera,
-    private bd : DatabaseService,
+    private qr: BarcodeScanner,
+    private camera: Camera,
+    private bd: DatabaseService,
     private formBuilder: FormBuilder,
-    private auth : AuthService,
-    private st : AngularFireStorage,
-    private complemetos : ComplementosService) {
-      this.miFormulario = this.formBuilder.group({
-        nombre: ['', [Validators.required, Validators.pattern('^[a-zA-Z]{3,10}$')]],
-        apellido: ['', [Validators.required, Validators.pattern('^[a-zA-Z]{3,10}$')]],
-        dni: ['', [Validators.required, Validators.pattern('^[0-9]{8}$')]],
-        cuil :  ['', [Validators.required, Validators.pattern('^[0-9]{11}$')]],
-        contrasenia: ['', [Validators.required, Validators.pattern('^[a-z0-9_-]{6,18}$')] ],
-        correo: ['', [Validators.required, Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+\\s*$')]],
-     });
-   }
-   
+    private auth: AuthService,
+    private st: AngularFireStorage,
+    private complemetos: ComplementosService) {
+    this.miFormulario = this.formBuilder.group({
+      nombre: ['', [Validators.required, Validators.pattern('^[a-zA-ZñÑ]{3,10}$')]],
+      apellido: ['', [Validators.required, Validators.pattern('^[a-zA-ZñÑ]{3,10}$')]],
+      dni: ['', [Validators.required, Validators.pattern('^[0-9]{8}$')]],
+      cuil: ['', [Validators.required, Validators.pattern('^[0-9]{11}$')]],
+      contrasenia: ['', [Validators.required, Validators.pattern('^[a-zA-ZñÑ0-9_-]{6,18}$')]],
+      correo: ['', [Validators.required, Validators.email]],
+    });
+  }
+
   validation_messages = {
     'nombre': [
       { type: 'required', message: 'El nombre es requerido.' },
@@ -82,7 +74,7 @@ export class AltaSupervisorPage implements OnInit {
     ],
     'correo': [
       { type: 'required', message: 'El correo electronico es requerido.' },
-      { type: 'pattern', message: 'Introduzca un correo electrónico válido.' }
+      { type: 'email', message: 'Introduzca un correo electrónico válido.' }
     ],
     'contrasenia': [
       { type: 'required', message: 'La contraseña es requerida.' },
@@ -91,75 +83,26 @@ export class AltaSupervisorPage implements OnInit {
   };
 
   ngOnInit() {
-  this.pickedName = "Dueño";
-  this.usuarioJson.perfil = this.pickedName;
+    this.usuarioJson.perfil = this.pickedName;
   }
 
-  registrar(perfil)
-  {
-    if(this.pathImagen != null){
-      this.st.storage.ref(this.pathImagen).getDownloadURL().then((link) =>
-      {
-        this.usuarioJson.foto = link;
-        this.bd.crear('usuarios',this.usuarioJson);
-      });
-    }
-    else
-    {
-      this.bd.crear('usuarios',this.usuarioJson);
-    }
-   this.auth.registrarUsuario(this.usuarioJson.correo,this.usuarioJson.contrasenia);
-    this.complemetos.presentToastConMensajeYColor("¡El "+perfil +" se creo con exito!","primary");
-    this.limpiarCampos();
+  pickerUser(pickedName) {
+    this.usuarioJson.perfil = pickedName;
   }
 
-  limpiarCampos()
-  {
-    this.usuarioJson.nombre = "";
-    this.usuarioJson.apellido = ""; 
-    this.usuarioJson.dni = "";  
-    this.usuarioJson.foto = "../assets/icon/iconLogoMovimiento.png",
-    this.usuarioJson.cuil = "";  
-    this.usuarioJson.perfil = this.pickedName;  
-    this.usuarioJson.contrasenia = "";  
-    this.usuarioJson.correo = ""; 
-  }
-
-  
-  tomarFotografia()
-  {
-    const options: CameraOptions =  { 
-      quality:100,
-      targetHeight:600,
-      targetWidth:600,
+  tomarFotografia() {
+    const options: CameraOptions = {
+      quality: 100,
+      targetHeight: 600,
+      targetWidth: 600,
       destinationType: this.camera.DestinationType.DATA_URL,
       encodingType: this.camera.EncodingType.JPEG,
       mediaType: this.camera.MediaType.PICTURE,
     }
-
-    this.camera.getPicture(options).then((imageData)=> {
-      var base64Str = 'data:image/jpeg;base64,'+imageData;
+    this.camera.getPicture(options).then((imageData) => {
+      var base64Str = 'data:image/jpeg;base64,' + imageData;
       this.usuarioJson.foto = base64Str;
-      var storageRef = firebase.storage().ref();
-      let obtenerMili = new Date().getTime(); 
-      var nombreFoto = "usuarios/"+obtenerMili+"."+this.usuarioJson.dni+".jpg";
-      var childRef = storageRef.child(nombreFoto);
-      this.pathImagen = nombreFoto;
-      childRef.putString(base64Str,'data_url').then(function(snapshot)
-      {
-      })
-    },(Err)=>{
-      alert(JSON.stringify(Err));
-    })
-  }
-
-  pickerUser(pickedName){
-    this.listaPerfiles.forEach((usuario) =>{
-      if(usuario.perfil == pickedName )
-      {
-        this.usuarioJson.perfil = pickedName;
-      }
-    })
+    });
   }
 
   escanearDni() {
@@ -181,4 +124,27 @@ export class AltaSupervisorPage implements OnInit {
     });
   }
 
+  registrar(perfil) {
+    this.splash = true;
+    this.usuarioJson['nombre'] = this.miFormulario.value.nombre;
+    this.usuarioJson['apellido'] = this.miFormulario.value.apellido;
+    this.usuarioJson['dni'] = this.miFormulario.value.dni;
+    this.usuarioJson['cuil'] = this.miFormulario.value.cuil;
+    this.usuarioJson['contrasenia'] = this.miFormulario.value.contrasenia;
+    this.usuarioJson['correo'] = this.miFormulario.value.correo;
+    this.auth.registrarUsuario(this.usuarioJson).then(() => {
+      this.limpiarCampos();
+      this.complemetos.presentToastConMensajeYColor("¡El " + perfil + " se creo con exito!", "primary");
+    }).catch(err =>{
+        this.complemetos.presentToastConMensajeYColor(firebaseErrors(err), "danger");
+    }).finally(()=>{
+      this.splash = false;
+    });
+  }
+
+  limpiarCampos() {
+    this.pickedName = 'Dueño'
+    this.usuarioJson.foto = "../../assets/icon/iconLogoMovimiento.png",
+      this.usuarioJson.perfil = this.pickedName;
+  }
 }

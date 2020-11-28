@@ -7,33 +7,20 @@
 <ion-content>
     <ion-card class="todoCompleto" *ngIf="variabledesplegarPedido == true">
         <ion-item class="labels" color="transparent" style="background-color: transparent !important;">
-            <ion-label position="stacked" style="color: snow;">INFORMACION DEL PEDIDO:</ion-label>
+            <ion-label size='large' position="stacked" style="color: snow;">INFORMACION DEL PEDIDO:</ion-label>
             <br>
             <div *ngIf="pedidoEnFormatoJSON != null">
-                <h5 style="color: snow;">Su pedido son los siguientes platos:</h5>
-                <div *ngIf='contadorPlatos != 0'>
-                    <h2 style="color: snow;"> Platos principales: </h2>
-                    <div style="color: snow;" *ngFor="let plato of pedidoEnFormatoJSON.platosPlato">
-                        {{plato}}
-                    </div>
-                </div>
-                <div *ngIf='contadorBebidas != 0'>
-                    <h2 style="color: snow;"> Bebidas: </h2>
-                    <div style="color: snow;" *ngFor="let plato of pedidoEnFormatoJSON.platosBebida">
-                        {{plato}}
-                    </div>
-                </div>
-                <div *ngIf='contadorPostres != 0'>
-                    <h2 style="color: snow;"> Postres: </h2>
-                    <div style="color: snow;" *ngFor="let plato of pedidoEnFormatoJSON.platosPostre">
-                        {{plato}}
-                    </div>
+                <p style="color: snow;">Su pedido son los siguientes platos:</p>
+                <div style="background-color: var(--ion-color-fondo); border-radius: 10px; padding: 5px;  margin: 5px;" *ngFor='let producto of pedidoEnFormatoJSON.productos'>
+                    <small>nombre: {{producto.nombre}}</small> <br>
+                    <small>cantidad: {{producto.cantidad}}</small> <br>
+                    <small>precio: ${{producto.precio}}</small>
                 </div>
                 <p class="alineacion-derecha-platito"> Precio total:
                     <span class="precio"> ${{pedidoEnFormatoJSON.precioTotal}}</span>
                 </p>
                 <p class="alineacion-derecha-platito"> Tiempo total:
-                    <span class="precio"> {{pedidoEnFormatoJSON.tiempoTotal[0]}} minutos</span>
+                    <span class="precio"> {{pedidoEnFormatoJSON.tiempoTotal}} minutos</span>
                 </p>
             </div>
         </ion-item>
@@ -62,8 +49,7 @@
         <ion-card style="background-color: rgba(0, 0, 0, 0.568);" *ngIf="mostrarPlatoPrincipal == true">
             <ion-card-content align="center" style="font-size: 20px;color: white; background-color: black;">
                 <p class="alineacion-derecha-platito">{{producto.nombre}}
-                    <span class="tiempo" *ngIf="producto.nombre == 'Hamburguesa'"> Cantidad :{{cantidadJson.cantHamb}}</span>
-                    <span class="tiempo" *ngIf="producto.nombre == 'Pizza'">Cantidad :{{cantidadJson.cantPizza}}</span>
+                    <span class="tiempo"> precio : {{producto.precio}}</span>
                 </p>
             </ion-card-content>
             <ion-item color="transparent" style="background-color: transparent !important; color: transparent;">
@@ -81,12 +67,12 @@
                 <ion-grid>
                     <ion-row>
                         <ion-col col-6>
-                            <ion-button (click)="cargarJSONPedidosPlatos(producto.nombre, producto.tipo, producto.precio, producto.tiempo)" expand="block" color="success">
+                            <ion-button (click)="cargarJSONPedidosPlatos(producto)" expand="block" color="success">
                                 <ion-icon name="add-circle-outline"></ion-icon>Agregar
                             </ion-button>
                         </ion-col>
                         <ion-col col-6>
-                            <ion-button (click)="removerJSONPedidosPlatos(producto.nombre, producto.tipo, producto.precio, producto.tiempo)" expand="block" color="danger">
+                            <ion-button (click)="removerJSONPedidosPlatos(producto)" expand="block" color="danger">
                                 <ion-icon name="remove-circle-outline"></ion-icon>Eliminar
                             </ion-button>
                         </ion-col>
@@ -108,8 +94,8 @@
     <div *ngFor="let bebida of listaProductosTipoBebida">
         <ion-card style="background-color: rgba(0, 0, 0, 0.568);" *ngIf="mostrarBebida == true">
             <ion-card-content align="center" style="font-size: 20px;color: white; background-color: black;">
-                <p class="alineacion-derecha-platito"> {{bebida.nombre}}
-                    <span class="tiempo"> Cantidad :{{cantidadJson.cantPepsi}}</span>
+                <p class="alineacion-derecha-platito">{{bebida.nombre}}
+                    <span class="tiempo">precio :{{bebida.precio}}</span>
                 </p>
                 <div style="font-size: 20px;color: white;">
                 </div>
@@ -129,12 +115,12 @@
                 <ion-grid>
                     <ion-row>
                         <ion-col col-6>
-                            <ion-button (click)="cargarJSONPedidosPlatos(bebida.nombre, bebida.tipo, bebida.precio, bebida.tiempo)" expand="block" color="success">
+                            <ion-button (click)="cargarJSONPedidosPlatos(bebida)" expand="block" color="success">
                                 <ion-icon name="add-circle-outline"></ion-icon>Agregar
                             </ion-button>
                         </ion-col>
                         <ion-col col-6>
-                            <ion-button (click)="removerJSONPedidosPlatos(bebida.nombre, bebida.tipo, bebida.precio, bebida.tiempo)" expand="block" color="danger">
+                            <ion-button (click)="removerJSONPedidosPlatos(bebida)" expand="block" color="danger">
                                 <ion-icon name="remove-circle-outline"></ion-icon>Eliminar
                             </ion-button>
                         </ion-col>
@@ -157,8 +143,7 @@
         <ion-card style="background-color: rgba(0, 0, 0, 0.568);" *ngIf="mostrarPostre == true">
             <ion-card-content align="center" style="font-size: 20px;color: white; background-color: black;">
                 <p class="alineacion-derecha-platito">{{postre.nombre}}
-                    <span class="tiempo" *ngIf="postre.nombre == 'Volcan de chocolate'">Cantidad :{{cantidadJson.cantVolc}}</span>
-                    <span class="tiempo" *ngIf="postre.nombre == 'Pastel de limón'"> Cantidad :{{cantidadJson.cantLemon}}</span>
+                    <span class="tiempo">precio : {{postre.precio}}</span>
                 </p>
             </ion-card-content>
             <ion-item color="transparent" style="background-color: transparent !important; color: transparent;">
@@ -176,12 +161,12 @@
                 <ion-grid>
                     <ion-row>
                         <ion-col col-6>
-                            <ion-button (click)="cargarJSONPedidosPlatos(postre.nombre, postre.tipo, postre.precio, postre.tiempo)" expand="block" color="success">
+                            <ion-button (click)="cargarJSONPedidosPlatos(postre)" expand="block" color="success">
                                 <ion-icon name="add-circle-outline"></ion-icon>Agregar
                             </ion-button>
                         </ion-col>
                         <ion-col col-6>
-                            <ion-button (click)="removerJSONPedidosPlatos(postre.nombre, postre.tipo, postre.precio, postre.tiempo)" expand="block" color="danger">
+                            <ion-button (click)="removerJSONPedidosPlatos(postre)" expand="block" color="danger">
                                 <ion-icon name="remove-circle-outline"></ion-icon>Eliminar
                             </ion-button>
                         </ion-col>
@@ -196,6 +181,6 @@
 </ion-content>
 <ion-footer>
     <ion-button (click)="desplegarPedido()" color="success" expand="block">CONFIRMAR PEDIDO</ion-button>
-    <ion-item color="danger" expand="block">TIEMPO TOTAL - Aprox: {{pedidoEnFormatoJSON.tiempoTotal[0]}} min</ion-item>
+    <ion-item color="danger" expand="block">TIEMPO TOTAL - Aprox: {{pedidoEnFormatoJSON.tiempoTotal}} min</ion-item>
     <ion-item color="success" expand="block">PRECIO TOTAL: ${{pedidoEnFormatoJSON.precioTotal}}</ion-item>
 </ion-footer>

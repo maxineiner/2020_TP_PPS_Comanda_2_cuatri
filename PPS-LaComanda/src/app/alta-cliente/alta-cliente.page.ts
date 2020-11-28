@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
-import { DatabaseService } from "../servicios/database.service";
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
-import firebase from 'firebase/app';
-import { AngularFireStorage } from "@angular/fire/storage"
-import { Usuariosbd } from "../clases/usuariosbd";
-import { ComplementosService } from 'src/app/servicios/complementos.service';
-
-import { BarcodeScanner, BarcodeScannerOptions } from '@ionic-native/barcode-scanner/ngx';
 import { Router } from '@angular/router';
+import { BarcodeScanner, BarcodeScannerOptions } from '@ionic-native/barcode-scanner/ngx';
+import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
+import firebase from 'firebase/app';
+import { Usuariosbd } from "../clases/usuariosbd";
+import { ComplementosService } from '../servicios/complementos.service';
+import { AuthService } from '../servicios/auth.service';
+import { DatabaseService } from "../servicios/database.service";
+import { firebaseErrors } from '../../assets/scripts/errores';
 
 @Component({
   selector: 'app-alta-cliente',
@@ -16,36 +16,21 @@ import { Router } from '@angular/router';
   styleUrls: ['./alta-cliente.page.scss'],
 })
 export class AltaClientePage implements OnInit {
-  pickedName: string;
+  pickedName: string = "Cliente";
   miFormulario: FormGroup;
   miFormularioAnonimo: FormGroup;
+  splash: boolean = false;
   usuarioJson = {
-    nombre: "",
-    apellido: "",
-    dni: "",
     foto: "../../assets/icon/iconLogoMovimiento.png",
     perfil: "Cliente",
-    correo: "",
-    contrasenia: "",
-    estado: "esperando",
-    estadoMesa: "sinMesa",
+    estado: false,
+    estadoMesa: false,
   };
-
   barcodeOptions = {
     "prompt": "Place a barcode inside the scan area",
     "formats": "QR_CODE,PDF_417",
     "orientation": "landscape"
   };
-
-  anonimoJson = {
-    nombre: "",
-    foto: "../../assets/icon/iconLogoMovimiento.png",
-    perfil: "Anonimo",
-    estado: "esperando",
-    estadoMesa: "sinMesa"
-  };
-  pathImagen: string;
-
   listaPerfiles = [
     { perfil: "Cliente" },
     { perfil: "Anonimo" }
@@ -57,17 +42,17 @@ export class AltaClientePage implements OnInit {
     private camera: Camera,
     private bd: DatabaseService,
     private formBuilder: FormBuilder,
-    private st: AngularFireStorage,
+    private auth: AuthService,
     private complemetos: ComplementosService) {
     this.miFormulario = this.formBuilder.group({
-      nombre: ['', [Validators.required, Validators.pattern('^[a-zA-Z]{3,20}$')]],
-      apellido: ['', [Validators.required, Validators.pattern('^[a-zA-Z]{3,20}$')]],
+      nombre: ['', [Validators.required, Validators.pattern('^[a-zA-ZñÑ]{3,20}$')]],
+      apellido: ['', [Validators.required, Validators.pattern('^[a-zA-ZñÑ]{3,20}$')]],
       dni: ['', [Validators.required, Validators.pattern('^[0-9]{8}$')]],
-      contrasenia: ['', [Validators.required, Validators.pattern('^[a-z0-9_-]{6,18}$')]],
+      contrasenia: ['', [Validators.required, Validators.pattern('^[a-zA-ZñÑ0-9_-]{6,18}$')]],
       correo: ['', [Validators.required, Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+\\s*$')]],
     });
     this.miFormularioAnonimo = this.formBuilder.group({
-      nombreAnonimo: ['', [Validators.required, Validators.pattern('^[a-zA-Z]{3,20}$')]],
+      nombreAnonimo: ['', [Validators.required, Validators.pattern('^[a-zA-ZñÑ]{3,20}$')]],
     });
   }
 
@@ -99,53 +84,11 @@ export class AltaClientePage implements OnInit {
   };
 
   ngOnInit() {
-    this.pickedName = "Cliente";
+    this.usuarioJson.perfil = "Cliente";
   }
 
   pickerUser(pickedName) {
-    this.listaPerfiles.forEach((usuario) => {
-      if (usuario.perfil == pickedName && pickedName == "Cliente") {
-        this.usuarioJson.perfil = pickedName;
-      }
-      else {
-        this.anonimoJson.perfil = pickedName;
-      }
-    })
-  }
-
-  registrar() {
-    if (this.pathImagen != null) {
-      this.st.storage.ref(this.pathImagen).getDownloadURL().then((link) => {
-        this.usuarioJson.foto = link;
-        this.anonimoJson.foto = link;
-        if (this.pickedName == "Cliente") {
-          this.bd.crear('usuarios', this.usuarioJson);
-          this.limpiarCampos();
-          this.complemetos.presentToastConMensajeYColor("El estado del cliente esta pendiente al registro.", "primary");
-        }
-        else {
-          this.bd.crear('usuarios', this.anonimoJson);
-          localStorage.setItem('nombreAnonimo', this.anonimoJson.nombre);
-          localStorage.setItem('tieneCorreo', 'sinCorreo');
-          this.complemetos.presentToastConMensajeYColor("Anónimo exitoso", "primary");
-          this.router.navigate(['/home']);
-        }
-      });
-    }
-    else {
-      if (this.pickedName == "Cliente") {
-        this.bd.crear('usuarios', this.usuarioJson);
-        this.limpiarCampos();
-        this.complemetos.presentToastConMensajeYColor("El estado del cliente esta pendiente al registro.", "primary");
-      }
-      else {
-        this.bd.crear('usuarios', this.anonimoJson);
-        localStorage.setItem('nombreAnonimo', this.anonimoJson.nombre);
-        localStorage.setItem('tieneCorreo', 'sinCorreo');
-        this.router.navigate(['/home']);
-        this.complemetos.presentToastConMensajeYColor("Anónimo exitoso", "primary");
-      }
-    }
+    this.usuarioJson.perfil = pickedName;
   }
 
   tomarFotografia() {
@@ -160,52 +103,70 @@ export class AltaClientePage implements OnInit {
     this.camera.getPicture(options).then((imageData) => {
       var base64Str = 'data:image/jpeg;base64,' + imageData;
       this.usuarioJson.foto = base64Str;
-      let obtenerMili = new Date().getTime();
-      var nombreFoto = "usuarios/" + obtenerMili + "." + this.usuarioJson.dni + ".jpg";
-      var storageRef = firebase.storage().ref();
-      var childRef = storageRef.child(nombreFoto);
-      this.pathImagen = nombreFoto;
-      childRef.putString(base64Str, 'data_url').then(function(snapshot) { })
-    }, (Err) => {
-      alert(JSON.stringify(Err));
-    })
+    });
   }
-
   escanearDni() {
     let auxDni;
-    let scanSub = this.qr.scan(this.barcodeOptions).then( dataString =>{
-    let x: any = [];
-    x = dataString.text.split('@');
-    if (x.length == 8 || x.length == 9) {
-      this.miFormulario.controls.apellido.setValue(x[1]);
-      this.miFormulario.controls.nombre.setValue(x[2]);
-      this.miFormulario.controls.dni.setValue(x[4]);
-    } else {
-      this.miFormulario.controls.dni.setValue(x[1]);
-      this.miFormulario.controls.apellido.setValue(x[4]);
-      this.miFormulario.controls.nombre.setValue(x[5]);
-    }
-  });
-}
-
-limpiarCampos() {
-  this.usuarioJson = {
-    nombre: "",
-    apellido: "",
-    dni: "",
-    foto: "../../assets/icon/iconLogoMovimiento.png",
-    perfil: "Cliente",
-    correo: "",
-    contrasenia: "",
-    estado: "esperando",
-    estadoMesa: "sinMesa"
-  };
-  this.anonimoJson = {
-    nombre: "",
-    foto: "../../assets/icon/iconLogoMovimiento.png",
-    perfil: "Anonimo",
-    estado: "esperando",
-    estadoMesa: "sinMesa"
+    let scanSub = this.qr.scan(this.barcodeOptions).then(dataString => {
+      let x: any = [];
+      x = dataString.text.split('@');
+      if (x.length == 8 || x.length == 9) {
+        this.miFormulario.controls.apellido.setValue(x[1]);
+        this.miFormulario.controls.nombre.setValue(x[2]);
+        this.miFormulario.controls.dni.setValue(x[4]);
+      } else {
+        this.miFormulario.controls.dni.setValue(x[1]);
+        this.miFormulario.controls.apellido.setValue(x[4]);
+        this.miFormulario.controls.nombre.setValue(x[5]);
+      }
+    });
   }
-}
+
+  registrar() {
+    this.splash = true;
+    if (this.pickedName == "Cliente") {
+      this.usuarioJson['nombre'] = this.miFormulario.value.nombre;
+      this.usuarioJson['apellido'] = this.miFormulario.value.apellido;
+      this.usuarioJson['dni'] = this.miFormulario.value.dni;
+      this.usuarioJson['correo'] = this.miFormulario.value.correo;
+      this.usuarioJson['contrasenia'] = this.miFormulario.value.contrasenia;
+      this.auth.registrarUsuario(this.usuarioJson).then(() => {
+        this.limpiarCampos();
+        this.complemetos.presentToastConMensajeYColor("El estado del cliente esta pendiente al registro.", "primary");
+        setTimeout(() => {
+          this.router.navigate(['/']);
+        }, 3000);
+      }).catch(err => {
+        this.complemetos.presentToastConMensajeYColor(firebaseErrors(err), "danger");
+      }).finally(() => {
+        this.splash = false;
+      });
+    } else {
+      this.usuarioJson.estado = true;
+      this.usuarioJson['nombre'] = this.miFormularioAnonimo.value.nombreAnonimo;
+      this.auth.registrarUsuarioAnonimo(this.usuarioJson).then(id => {
+        localStorage.setItem('uidUsuario', id);
+        localStorage.setItem('tieneCorreo', 'sinCorreo');
+        this.limpiarCampos();
+        this.complemetos.presentToastConMensajeYColor("Anónimo exitoso", "primary");
+        setTimeout(() => {
+          this.router.navigate(['/home']);
+        }, 3000);
+      }).catch(err => {
+        this.complemetos.presentToastConMensajeYColor(firebaseErrors(err), "danger");
+      }).finally(() => {
+        this.splash = false;
+      });
+    }
+  }
+
+  limpiarCampos() {
+    this.pickedName = 'Cliente';
+    this.usuarioJson = {
+      foto: "../../assets/icon/iconLogoMovimiento.png",
+      perfil: "Cliente",
+      estado: false,
+      estadoMesa: false,
+    };
+  }
 }

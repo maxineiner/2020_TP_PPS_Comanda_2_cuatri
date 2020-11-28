@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from "@angular/router";
 import { ComplementosService } from "../servicios/complementos.service"
 import { AuthService } from "../servicios/auth.service";
-import { Usuario } from "../clases/usuario";
-import { timer } from 'rxjs';
+import { DatabaseService } from '../servicios/database.service';
+import { firebaseErrors } from '../../assets/scripts/errores';
 
 @Component({
 	selector: 'app-login',
@@ -14,6 +14,7 @@ export class LoginPage implements OnInit {
 	email: string;
 	password: string;
 	pickedName = null;
+	splash: boolean = false;
 	listaUsuarios = [
 		{ id: 1, correo: "duenio@duenio.com", clave: "111111", perfil: "Dueño" },
 		{ id: 2, correo: "supervisor@supervisor.com", clave: "222222", perfil: "Supervisor" },
@@ -23,30 +24,32 @@ export class LoginPage implements OnInit {
 		{ id: 6, correo: "bartender@bartender.com", clave: "666666", perfil: "BarTender" }
 	]
 
-	constructor(
-		private authService: AuthService,
-		private complementos: ComplementosService,
-		public router: Router,
+	constructor(private auth: AuthService, private bd: DatabaseService,
+		private complementos: ComplementosService, public router: Router) { }
 
-	) { }
-
-	ngOnInit() {
-		localStorage.removeItem('tieneCorreo');
-		localStorage.removeItem('correoUsuario');
-	}
+	ngOnInit() { }
 
 	public onSubmitLogin() {
-		this.authService.login(this.email, this.password).then((res: any) => {
-				let audio = new Audio();
-				audio.src = 'assets/audio/login/sonidoBotonSUCESS.mp3';
-				audio.play();
-				timer(1000).subscribe(() => {
-					this.router.navigate(['/home']);
-					localStorage.setItem('correoUsuario', res);
+		this.splash = true;
+		this.auth.login(this.email, this.password).then(res => {
+			return this.bd.obtenerPorIdPromise('usuarios', res).then(user => {
+				if (user.data().estado === true) {
+					localStorage.setItem('uidUsuario', res);
 					localStorage.setItem('tieneCorreo', 'conCorreo');
 					this.onClearAll();
-				});
-			}).catch(err => this.complementos.ngValidarError(err.code));
+					this.complementos.playAudio('success');
+					this.router.navigate(['/home']);
+				} 
+				else if(user.data().estado === false)
+				{
+					this.complementos.presentToastConMensajeYColor('Esta cuenta aun no esta habilitada.', 'danger');
+				} else if (user.data().estado === null){
+					this.complementos.presentToastConMensajeYColor('Esta cuenta fue rechazada. no podras acceder con ella', 'danger');
+				}
+			});
+		}).catch(err => this.complementos.presentToastConMensajeYColor(firebaseErrors(err),'danger')).finally(()=>{
+			this.splash = false;
+		});
 	}
 
 	public onClearAll() {
@@ -59,9 +62,8 @@ export class LoginPage implements OnInit {
 			if (user.correo === pickedName) {
 				this.email = user.correo;
 				this.password = user.clave;
-				return;
 			}
-		})
+		});
 	}
 
 	registrarUsuario() {

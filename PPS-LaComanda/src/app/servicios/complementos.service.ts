@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-//import { Usuario } from '../clases/usuario';
+import { Vibration } from '@ionic-native/vibration/ngx';
 import { ToastController, LoadingController } from '@ionic/angular';
 import { timer } from 'rxjs';
 import { stringify } from 'querystring';
@@ -8,23 +8,29 @@ import { stringify } from 'querystring';
 	providedIn: 'root'
 })
 export class ComplementosService {
-	public flagSonidos: boolean;
-	qrScan: any;
+	public flagSonidos: boolean = true;
+	public splash: boolean = false;
 
-	constructor(public toastController: ToastController, public loadingController: LoadingController,) { }
+	constructor(public toastController: ToastController, public loadingController: LoadingController, public vib: Vibration) { }
 
-	async presentLoading() {
-		const loading = await this.loadingController.create({
-			//message: `Cargando...`,
-			//message: `<img src="../../../assets/icon/iconLogoMovimiento.png" class = "intentoDeAnimacion">`,
-			//message: `<img src="../../../assets/icon/gifAnimado.gif">`,
-			duration: 3000,
-			translucent: true,
-			// cssClass: 'custom-class custom-loading'
-		});
-		await loading.present();
-		const { role, data } = await loading.onDidDismiss();
-		console.log('Loading dismissed!');
+	playAudio(tipoAudio) {
+		if (this.flagSonidos) {
+			if (this.flagSonidos) {
+				let audio = new Audio();
+				if (tipoAudio === 'success') {
+					audio.src = '../../assets/audio/login/sonidoBotonSUCESS.mp3';
+				} else if (tipoAudio === 'error') {
+					audio.src = '../../assets/audio/login/sonidoBotonBORRAR.mp3';
+				} else if (tipoAudio === 'notification') {
+					audio.src = '../../assets/audio/login/sonidoBotonNOTIFICATION.mp3';
+				}
+				audio.play();
+			}
+		}
+	}
+
+	toggleSonidos() {
+		this.flagSonidos = !this.flagSonidos;
 	}
 
 	// Muestro el toast, mensaje de error. 
@@ -68,9 +74,19 @@ export class ComplementosService {
 		this.presentToast(err);
 	}
 
+
+
 	// Muestro el toast, mensaje de error. 
 	async presentToastConMensajeYColor(msg: string, color: string) {
 		console.log(msg);
+		if (color === 'danger') {
+			this.playAudio('error');
+			this.vib.vibrate(1000);
+		} else if ('success') {
+			this.playAudio('success');
+		} else {
+			this.playAudio('notification');
+		}
 		const toast = await this.toastController.create({
 			message: msg,
 			position: 'bottom',

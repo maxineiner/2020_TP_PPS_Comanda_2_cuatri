@@ -7,7 +7,10 @@
     </ion-toolbar>
 </ion-header>
 <ion-content>
-    <ion-card>
+    <div id="custom-overlay" [style.display]="splash ? 'flex': 'none'">
+        <img src="../../assets/icon/gifAnimado.gif" class="loading">
+    </div>
+    <ion-card *ngIf='!splash'>
         <ion-card-header>
             <div align="center">
                 <img [src]="mesaJson.foto" alt="" width="100px" height="100px" class="icon">
@@ -22,7 +25,7 @@
         <form [formGroup]="miFormulario">
             <ion-item class="labels" fill="outline">
                 <br>
-                <ion-input type="text" [(ngModel)]="mesaJson.numero" formControlName="numero" placeholder="Numero..."></ion-input>
+                <ion-input type="number" [(ngModel)]="mesaJson.numero" formControlName="numero" placeholder="Numero..." min='1' max='99'></ion-input>
             </ion-item>
             <div class="validation-errors">
                     <ng-container *ngFor="let validation of validation_messages.numero">
@@ -34,7 +37,7 @@
                 </div>
             <ion-item class="labels">
                 <br>
-                <ion-input type="text" [(ngModel)]="mesaJson.comensales" formControlName="comensales" placeholder="Comensales..."></ion-input>
+                <ion-input type="number" [(ngModel)]="mesaJson.comensales" formControlName="comensales" placeholder="Comensales..." min='1' max='99'></ion-input>
             </ion-item>
             <div class="validation-errors">
                     <ng-container *ngFor="let validation of validation_messages.comensales">
