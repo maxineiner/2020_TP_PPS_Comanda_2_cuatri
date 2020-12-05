@@ -35,16 +35,14 @@ export class HomePage implements OnInit {
 		this.listaConsultas = [];
 		this.listaReservas = [];
 		this.uidUsuario = localStorage.getItem('uidUsuario');
-		this.bd.obtenerPorIdPromise('usuarios', this.uidUsuario).then(snap => {
+		this.bd.obtenerPorId('usuarios', this.uidUsuario).onSnapshot(snap => {
 			const user: any = snap.data() as any;
 			user['id'] = snap.id;
 			this.infoUsuario = user;
 			this.fmc.usuario = this.infoUsuario;
 			this.fmc.fechasubscripcion = Date.now();
-			return this.infoUsuario;
-		}).then(user => {
-			console.log(user)
-			switch (user.perfil) {
+			console.log(this.infoUsuario)
+			switch (this.infoUsuario) {
 				case "Dueño":
 				case "Supervisor":
 					this.arraySubs.add(this.bd.obtenerTodosTiempoReal('usuarios').onSnapshot(snap => {
@@ -131,11 +129,12 @@ export class HomePage implements OnInit {
 						})
 					}));
 					break;
-				}
-		}).then(() => {
-			this.cargarProductos();
-			this.splash = false;
-			console.log('fin de init');
+			}
+			setTimeout(() => {
+				this.cargarProductos();
+				this.splash = false;
+				console.log('fin de init');
+			}, 2000);
 		});
 	}
 

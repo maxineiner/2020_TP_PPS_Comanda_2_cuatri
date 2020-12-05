@@ -108,6 +108,9 @@ export class SeccionClientesComponent implements OnInit {
 				}).catch(err => this.complemento.presentToastConMensajeYColor(firebaseErrors(err), 'danger')).finally(() => {
 					this.splash = false;
 				});
+			} else{
+				this.splash = false;
+				this.complemento.presentToastConMensajeYColor('qr Equivocado.', 'danger');
 			}
 		});
 	}

@@ -36,7 +36,7 @@ export class DatabaseService {
 	}
 
 	public obtenerPorId(coleccion: string, id: string) {
-		return this.firestore.collection(coleccion).doc(id).snapshotChanges();
+		return this.firestoreA.collection(coleccion).doc(id);
 	}
 
 	public obtenerTodos(coleccion: string) {
