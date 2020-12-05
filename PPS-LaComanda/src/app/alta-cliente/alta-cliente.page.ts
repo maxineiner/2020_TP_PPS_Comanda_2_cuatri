@@ -1,14 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { Validators, FormBuilder, FormGroup } from '@angular/forms';
-import { Router } from '@angular/router';
 import { BarcodeScanner, BarcodeScannerOptions } from '@ionic-native/barcode-scanner/ngx';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
-import firebase from 'firebase/app';
-import { Usuariosbd } from "../clases/usuariosbd";
-import { ComplementosService } from '../servicios/complementos.service';
-import { AuthService } from '../servicios/auth.service';
-import { DatabaseService } from "../servicios/database.service";
-import { firebaseErrors } from '../../assets/scripts/errores';
+import { AuthService } from 'src/app/servicios/auth.service';
+import { ComplementosService } from 'src/app/servicios/complementos.service';
+import { DatabaseService } from 'src/app/servicios/database.service';
+import { Validators, FormBuilder, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
+import { firebaseErrors } from 'src/assets/scripts/errores';
+import { FmcService } from 'src/app/servicios/fmc.service';
 
 @Component({
   selector: 'app-alta-cliente',
@@ -17,8 +16,8 @@ import { firebaseErrors } from '../../assets/scripts/errores';
 })
 export class AltaClientePage implements OnInit {
   pickedName: string = "Cliente";
-  miFormulario: FormGroup;
   miFormularioAnonimo: FormGroup;
+  miFormulario: FormGroup;
   splash: boolean = false;
   usuarioJson = {
     foto: "../../assets/icon/iconLogoMovimiento.png",
@@ -43,7 +42,8 @@ export class AltaClientePage implements OnInit {
     private bd: DatabaseService,
     private formBuilder: FormBuilder,
     private auth: AuthService,
-    private complemetos: ComplementosService) {
+    private complemetos: ComplementosService,
+    private fmc: FmcService) {
     this.miFormulario = this.formBuilder.group({
       nombre: ['', [Validators.required, Validators.pattern('^[a-zA-ZñÑ]{3,20}$')]],
       apellido: ['', [Validators.required, Validators.pattern('^[a-zA-ZñÑ]{3,20}$')]],
@@ -99,6 +99,7 @@ export class AltaClientePage implements OnInit {
       destinationType: this.camera.DestinationType.DATA_URL,
       encodingType: this.camera.EncodingType.JPEG,
       mediaType: this.camera.MediaType.PICTURE,
+      correctOrientation: true
     }
     this.camera.getPicture(options).then((imageData) => {
       var base64Str = 'data:image/jpeg;base64,' + imageData;
@@ -139,6 +140,7 @@ export class AltaClientePage implements OnInit {
       }).catch(err => {
         this.complemetos.presentToastConMensajeYColor(firebaseErrors(err), "danger");
       }).finally(() => {
+        this.fmc.enviarNotificacion('nuevoCliente','se ha registrado un nuevo cliente','Grupo');
         this.splash = false;
       });
     } else {

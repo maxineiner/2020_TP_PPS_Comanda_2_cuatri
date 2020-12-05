@@ -7,7 +7,7 @@ import { AuthService } from 'src/app/servicios/auth.service';
 import { AngularFireStorage } from "@angular/fire/storage"
 import { ComplementosService } from 'src/app/servicios/complementos.service';
 import firebase from 'firebase/app';
-import { firebaseErrors } from '../../assets/scripts/errores';
+import { firebaseErrors } from 'src/assets/scripts/errores';
 
 @Component({
   selector: 'app-alta-empleado',
@@ -94,6 +94,7 @@ export class AltaEmpleadoPage implements OnInit {
       destinationType: this.camera.DestinationType.DATA_URL,
       encodingType: this.camera.EncodingType.JPEG,
       mediaType: this.camera.MediaType.PICTURE,
+      correctOrientation: true
     }
     this.camera.getPicture(options).then((imageData) => {
       var base64Str = 'data:image/jpeg;base64,' + imageData;

@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
-import { DatabaseService } from "../servicios/database.service";
+import { DatabaseService } from 'src/app/servicios/database.service';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import firebase from 'firebase/app';
 import { AngularFireStorage } from "@angular/fire/storage"
 import { Usuariosbd } from "../clases/usuariosbd";
 import { ComplementosService } from 'src/app/servicios/complementos.service';
 import { BarcodeScanner, BarcodeScannerOptions } from '@ionic-native/barcode-scanner/ngx';
-import { AuthService } from '../servicios/auth.service';
-import { firebaseErrors } from '../../assets/scripts/errores';
+import { AuthService } from 'src/app/servicios/auth.service';
+import { firebaseErrors } from 'src/assets/scripts/errores';
 
 @Component({
   selector: 'app-alta-supervisor',
@@ -98,6 +98,7 @@ export class AltaSupervisorPage implements OnInit {
       destinationType: this.camera.DestinationType.DATA_URL,
       encodingType: this.camera.EncodingType.JPEG,
       mediaType: this.camera.MediaType.PICTURE,
+      correctOrientation: true
     }
     this.camera.getPicture(options).then((imageData) => {
       var base64Str = 'data:image/jpeg;base64,' + imageData;

@@ -20,7 +20,7 @@
                     <span class="precio"> ${{pedidoEnFormatoJSON.precioTotal}}</span>
                 </p>
                 <p class="alineacion-derecha-platito"> Tiempo total:
-                    <span class="precio"> {{pedidoEnFormatoJSON.tiempoTotal}} minutos</span>
+                    <span class="precio"> {{pedidoEnFormatoJSON.tiempoTotal}} segundos</span>
                 </p>
             </div>
         </ion-item>
@@ -181,6 +181,6 @@
 </ion-content>
 <ion-footer>
     <ion-button (click)="desplegarPedido()" color="success" expand="block">CONFIRMAR PEDIDO</ion-button>
-    <ion-item color="danger" expand="block">TIEMPO TOTAL - Aprox: {{pedidoEnFormatoJSON.tiempoTotal}} min</ion-item>
+    <ion-item color="danger" expand="block">TIEMPO TOTAL - Aprox: {{pedidoEnFormatoJSON.tiempoTotal}} seg</ion-item>
     <ion-item color="success" expand="block">PRECIO TOTAL: ${{pedidoEnFormatoJSON.precioTotal}}</ion-item>
 </ion-footer>

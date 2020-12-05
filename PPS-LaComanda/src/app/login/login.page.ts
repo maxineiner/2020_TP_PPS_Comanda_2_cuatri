@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from "@angular/router";
-import { ComplementosService } from "../servicios/complementos.service"
-import { AuthService } from "../servicios/auth.service";
-import { DatabaseService } from '../servicios/database.service';
-import { firebaseErrors } from '../../assets/scripts/errores';
+import { ComplementosService } from 'src/app/servicios/complementos.service';
+import { AuthService } from 'src/app/servicios/auth.service';
+import { DatabaseService } from 'src/app/servicios/database.service';
+import { firebaseErrors } from 'src/assets/scripts/errores';
 
 @Component({
 	selector: 'app-login',
@@ -29,26 +29,42 @@ export class LoginPage implements OnInit {
 
 	ngOnInit() { }
 
+	public loginGoogle() {
+		this.splash = true;
+		this.auth.loginGoogle().then(promesa => {
+			if (promesa !== 'creado') {
+				this.resolveLogin(promesa);
+			} else {
+				this.complementos.presentToastConMensajeYColor('Se ha registrado en la base de datos. espere a que un dueño o supervisor le de de alta', 'success');
+			}
+		}).catch(err => this.complementos.presentToastConMensajeYColor(firebaseErrors(err), 'danger')).finally(() => {
+			this.splash = false;
+		});
+	}
+
 	public onSubmitLogin() {
 		this.splash = true;
 		this.auth.login(this.email, this.password).then(res => {
-			return this.bd.obtenerPorIdPromise('usuarios', res).then(user => {
-				if (user.data().estado === true) {
-					localStorage.setItem('uidUsuario', res);
-					localStorage.setItem('tieneCorreo', 'conCorreo');
-					this.onClearAll();
-					this.complementos.playAudio('success');
-					this.router.navigate(['/home']);
-				} 
-				else if(user.data().estado === false)
-				{
-					this.complementos.presentToastConMensajeYColor('Esta cuenta aun no esta habilitada.', 'danger');
-				} else if (user.data().estado === null){
-					this.complementos.presentToastConMensajeYColor('Esta cuenta fue rechazada. no podras acceder con ella', 'danger');
-				}
-			});
-		}).catch(err => this.complementos.presentToastConMensajeYColor(firebaseErrors(err),'danger')).finally(()=>{
+			this.resolveLogin(res);
+		}).catch(err => this.complementos.presentToastConMensajeYColor(firebaseErrors(err), 'danger')).finally(() => {
 			this.splash = false;
+		});
+	}
+
+	resolveLogin(res) {
+		return this.bd.obtenerPorIdPromise('usuarios', res).then(user => {
+			if (user.data().estado === true) {
+				localStorage.setItem('uidUsuario', res);
+				localStorage.setItem('tieneCorreo', 'conCorreo');
+				this.onClearAll();
+				this.complementos.playAudio('success');
+				this.router.navigate(['/home']);
+			}
+			else if (user.data().estado === false) {
+				this.complementos.presentToastConMensajeYColor('Esta cuenta aun no esta habilitada.', 'danger');
+			} else if (user.data().estado === null) {
+				this.complementos.presentToastConMensajeYColor('Esta cuenta fue rechazada. no podras acceder con ella', 'danger');
+			}
 		});
 	}
 

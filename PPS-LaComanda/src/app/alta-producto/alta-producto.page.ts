@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
-import { DatabaseService } from "../servicios/database.service";
+import { DatabaseService } from 'src/app/servicios/database.service';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import firebase from 'firebase/app';
 import { AngularFirestore } from "@angular/fire/firestore"
 import { ComplementosService } from 'src/app/servicios/complementos.service';
 import { BarcodeScanner, BarcodeScannerOptions } from '@ionic-native/barcode-scanner/ngx';
-import { firebaseErrors } from '../../assets/scripts/errores';
+import { firebaseErrors } from 'src/assets/scripts/errores';
 
 @Component({
   selector: 'app-alta-producto',
@@ -97,6 +97,7 @@ export class AltaProductoPage implements OnInit {
         destinationType: this.camera.DestinationType.DATA_URL,
         encodingType: this.camera.EncodingType.JPEG,
         mediaType: this.camera.MediaType.PICTURE,
+        correctOrientation: true
       }
       this.camera.getPicture(options).then((imageData) => {
         var base64Str = 'data:image/jpeg;base64,' + imageData;
@@ -116,19 +117,19 @@ export class AltaProductoPage implements OnInit {
       this.productoJson['tiempo'] = this.miFormulario.value.tiempo;
       this.productoJson['precio'] = this.miFormulario.value.precio;
       return this.fire.collection('productos').add({ nombre: null }).then(ref => ref.id).then(docId => {
-        let fotoUno = "productos/" + Date.now() + "." + docId + "_1.jpg";
+        /*let fotoUno = "productos/" + Date.now() + "." + docId + "_1.jpg";
         return this.bd.subirImagen(fotoUno, this.productoJson.fotos[0]).then(url1 => {
           this.productoJson.fotos[0] = url1;
           let fotoDos = "productos/" + Date.now() + "." + docId + "_2.jpg";
-          return this.bd.subirImagen(fotoDos, this.productoJson.fotos[0])
+          return this.bd.subirImagen(fotoDos, this.productoJson.fotos[1])
         }).then(url2 => {
-          this.productoJson.fotos[0] = url2;
+          this.productoJson.fotos[1] = url2;
           let fotoTres = "productos/" + Date.now() + "." + docId + "_3.jpg";
-          return this.bd.subirImagen(fotoTres, this.productoJson.fotos[0])
+          return this.bd.subirImagen(fotoTres, this.productoJson.fotos[2])
         }).then(url3 => {
-          this.productoJson.fotos[0] = url3;
+          this.productoJson.fotos[2] = url3;
           return docId;
-        });
+        });*/
         return docId;
       }).then(docId => {
         return this.bd.actualizar('productos', this.productoJson, docId);

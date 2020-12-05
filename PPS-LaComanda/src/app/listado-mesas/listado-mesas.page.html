@@ -37,11 +37,11 @@
         </div>
     </ng-container>
 </ion-content>
-<ion-footer *ngIf='item.comensales !== null || item.comensales'>
-    <ion-item color='fondo'>
-        <small *ngIf='item.comensales'> Comensales: {{item.comensales}}</small>
+<ion-footer *ngIf='item.comensales !== null || item.tipo !== null'>
+    <ion-item *ngIf='item.comensales !== null' color='fondo'>
+        <small> Comensales: {{item.comensales}}</small>
     </ion-item>
-    <ion-item color='fondo'>
-        <small *ngIf='item.tipo !== null || item.tipo'> Tipo de mesa: {{item.tipo}}</small>
+    <ion-item *ngIf='item.tipo !== null' color='fondo'>
+        <small> Tipo de mesa: {{item.tipo}}</small>
     </ion-item>
 </ion-footer>

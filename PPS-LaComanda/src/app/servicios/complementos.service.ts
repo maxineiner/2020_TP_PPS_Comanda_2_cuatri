@@ -90,7 +90,7 @@ export class ComplementosService {
 		const toast = await this.toastController.create({
 			message: msg,
 			position: 'bottom',
-			duration: 2000,
+			duration: 3000,
 			color: color,
 			buttons: [
 				{

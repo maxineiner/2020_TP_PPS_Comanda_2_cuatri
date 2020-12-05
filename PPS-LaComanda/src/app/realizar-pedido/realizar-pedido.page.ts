@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { DatabaseService } from "../servicios/database.service";
-import { ComplementosService } from "../servicios/complementos.service";
+import { DatabaseService } from 'src/app/servicios/database.service';
+import { ComplementosService } from 'src/app/servicios/complementos.service';
+import { FmcService } from 'src/app/servicios/fmc.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -36,7 +37,7 @@ export class RealizarPedidoPage implements OnInit {
   constructor(private firestore: AngularFirestore,
     private bd: DatabaseService,
     private complementos: ComplementosService,
-    private router: Router) { }
+    private router: Router, private fmc: FmcService) { }
 
   ngOnInit() {
     this.bd.obtenerTodosPromise('productos').then(snap => {
@@ -55,10 +56,11 @@ export class RealizarPedidoPage implements OnInit {
       this.contadorPostres = 0;
       this.contadorVecesQueConfirmaPedido = 0;
       this.variabledesplegarPedido = false;
-      let mesa = localStorage.getItem("mesa");
-      let user = localStorage.getItem("uidUsuario");
-      this.pedidoEnFormatoJSON.cliente = user;
-      this.pedidoEnFormatoJSON.mesa = mesa;
+    }).then(() => {
+      return this.bd.obtenerPorIdPromise('usuarios', localStorage.getItem("uidUsuario")).then(user => {
+        this.pedidoEnFormatoJSON.cliente = user.id;
+        this.pedidoEnFormatoJSON.mesa = user.data().estadoMesa;
+      });
     });
   }
 
@@ -132,7 +134,7 @@ export class RealizarPedidoPage implements OnInit {
   confirmarPedido() {
     if (this.contadorVecesQueConfirmaPedido == 0 && this.pedidoEnFormatoJSON.precioTotal > 0) {
       this.bd.crear('pedidos', this.pedidoEnFormatoJSON).then(() => {
-        this.complementos.presentToastConMensajeYColor("Pedido generado con éxito. Será redirigido al menú!", "success")
+        this.complementos.presentToastConMensajeYColor("¡Pedido generado con éxito!", "success")
         this.contadorVecesQueConfirmaPedido = 1;
         this.router.navigate(['/home']);
       })
@@ -141,6 +143,7 @@ export class RealizarPedidoPage implements OnInit {
       this.complementos.presentToastConMensajeYColor("¡Debe cargar productos!", "warning")
     }
     else {
+      this.fmc.enviarNotificacion('pedido','un cliente acaba de realizar un pedido','Grupo');
       this.complementos.presentToastConMensajeYColor("¡Su orden ya fue cargada!", "warning")
     }
   }

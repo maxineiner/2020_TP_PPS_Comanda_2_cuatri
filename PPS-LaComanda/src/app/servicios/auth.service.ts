@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from "@angular/fire/auth";
 import { DatabaseService } from "./database.service"
-import { HttpClient, HttpHeaders } from '@angular/common/http'
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import firebase from 'firebase/app'
 
 @Injectable({
 	providedIn: 'root'
@@ -11,6 +12,29 @@ export class AuthService {
 	public apiEmail = 'https://comanda-pgr-2020.herokuapp.com/email';
 	constructor(private auth: AngularFireAuth, private bd: DatabaseService, private http: HttpClient) { }
 
+
+	loginGoogle() {
+		return this.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()).then(creds => {
+			return this.bd.obtenerPorIdPromise('usuarios', creds.user.uid).then(user => {
+				if (user.exists) {
+					return creds.user.uid;
+				} else {
+					let dataJson = {
+						foto: creds.user.photoURL,
+						nombre: creds.user.displayName,
+						correo: creds.user.email,
+						estado: false,
+						estadoMesa: false,
+						perfil: 'Cliente'
+					}
+					return this.bd.crearConId('usuarios', dataJson, creds.user.uid).then(uid => {
+						this.logout();
+						return 'creado';
+					});
+				}
+			});
+		});
+	}
 	login(email: string, password: string) {
 		return this.auth.signInWithEmailAndPassword(email, password).then(user => user.user.uid);
 	}
@@ -66,12 +90,12 @@ export class AuthService {
 				'Content-Type': 'application/json'
 			})
 		}
-		let subA = this.http.post(this.apiEmail, body, headers).subscribe(sub =>{
+		let subA = this.http.post(this.apiEmail, body, headers).subscribe(sub => {
 			console.log(sub);
 		});
-		setTimeout(()=>{
+		setTimeout(() => {
 			subA.unsubscribe();
-		},5000)
+		}, 5000)
 	}
 
 

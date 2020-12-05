@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ComplementosService } from "src/app/servicios/complementos.service";
+import { ComplementosService } from 'src/app/servicios/complementos.service';
 import { DatabaseService } from 'src/app/servicios/database.service';
 import { Router } from '@angular/router';
-import { firebaseErrors } from '../../assets/scripts/errores';
+import { firebaseErrors } from 'src/assets/scripts/errores';
 
 @Component({
   selector: 'app-listado-mesas',
@@ -25,7 +25,7 @@ export class ListadoMesasPage implements OnInit {
         return { ...x };
       });
       this.splash = false;
-    },err =>{ this.complementos.presentToastConMensajeYColor(firebaseErrors(err),'danger'); });
+    }, err => { this.complementos.presentToastConMensajeYColor(firebaseErrors(err), 'danger'); });
   }
 
   asignarMesa(mesita) {
@@ -75,11 +75,10 @@ export class ListadoMesasPage implements OnInit {
       });
     }).then(() => {
       localStorage.removeItem('itemListaDeEspera');
-      return this.bd.eliminar('listaEspera',this.item.id);
+      return this.bd.eliminar('listaEspera', this.item.id);
+    }).then(() => {
       this.complementos.presentToastConMensajeYColor('¡Mesa asignada a cliente!', 'success');
-      setTimeout(() => {
-        this.router.navigate(['/home']);
-      }, 3000)
-    }).catch(err => this.complementos.presentToastConMensajeYColor(firebaseErrors(err),'danger'));
+      this.router.navigate(['/home']);
+    }).catch(err => this.complementos.presentToastConMensajeYColor(firebaseErrors(err), 'danger'));
   }
 }
