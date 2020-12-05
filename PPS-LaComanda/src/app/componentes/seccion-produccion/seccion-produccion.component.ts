@@ -31,7 +31,7 @@ export class SeccionProduccionComponent implements OnInit {
 		if (pedido.productos.every(p => p.estado === true)) {
 			pedido.estado = 'Preparado';
 			return this.bd.actualizar('pedidos', pedido, pedido.id).then(() => {
-				this.fmc.enviarNotificacion('pedido',`el pedido ${pedido.id} ya esta listo para ser servido.`,'Grupo')
+				this.fmc.enviarNotificacion('pedido',`el pedido #${pedido.id} ya esta listo para ser servido.`,'Grupo')
 				this.complemento.presentToastConMensajeYColor("Todos los Productos del pedido preparados", "success");
 			}).catch(err => {
 				this.complemento.presentToastConMensajeYColor(firebaseErrors(err), 'danger');

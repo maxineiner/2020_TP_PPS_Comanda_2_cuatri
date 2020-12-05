@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, NgZone } from '@angular/core';
 import { AngularFireAuth } from "@angular/fire/auth";
 import { DatabaseService } from "./database.service"
 import { HttpClient, HttpHeaders } from '@angular/common/http';
@@ -10,7 +10,7 @@ import firebase from 'firebase/app'
 export class AuthService {
 
 	public apiEmail = 'https://comanda-pgr-2020.herokuapp.com/email';
-	constructor(private auth: AngularFireAuth, private bd: DatabaseService, private http: HttpClient) { }
+	constructor(private auth: AngularFireAuth, private bd: DatabaseService, private http: HttpClient, private zone: NgZone) { }
 
 
 	loginGoogle() {
@@ -90,9 +90,9 @@ export class AuthService {
 				'Content-Type': 'application/json'
 			})
 		}
-		let subA = this.http.post(this.apiEmail, body, headers).subscribe(sub => {
+		let subA = this.zone.run(() => this.http.post(this.apiEmail, body, headers).subscribe(sub => {
 			console.log(sub);
-		});
+		}));
 		setTimeout(() => {
 			subA.unsubscribe();
 		}, 5000)

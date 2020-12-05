@@ -117,7 +117,7 @@ export class AltaProductoPage implements OnInit {
       this.productoJson['tiempo'] = this.miFormulario.value.tiempo;
       this.productoJson['precio'] = this.miFormulario.value.precio;
       return this.fire.collection('productos').add({ nombre: null }).then(ref => ref.id).then(docId => {
-        /*let fotoUno = "productos/" + Date.now() + "." + docId + "_1.jpg";
+        let fotoUno = "productos/" + Date.now() + "." + docId + "_1.jpg";
         return this.bd.subirImagen(fotoUno, this.productoJson.fotos[0]).then(url1 => {
           this.productoJson.fotos[0] = url1;
           let fotoDos = "productos/" + Date.now() + "." + docId + "_2.jpg";
@@ -129,7 +129,7 @@ export class AltaProductoPage implements OnInit {
         }).then(url3 => {
           this.productoJson.fotos[2] = url3;
           return docId;
-        });*/
+        });
         return docId;
       }).then(docId => {
         return this.bd.actualizar('productos', this.productoJson, docId);

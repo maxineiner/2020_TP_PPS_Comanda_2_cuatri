@@ -14,13 +14,14 @@ export class MenuOpcionesComponent implements OnInit {
 	@Output() flagFunc: EventEmitter<string> = new EventEmitter<string>();
 	@Input() usuario: any;
 	@Input() set flagMenu(value: string) { this.switchFlagMenu(value); };
-	public nivelFlagMenu: number;
+	public nivelFlagMenu: number =-1;
 
 	constructor(private auth: AuthService, private menu: MenuController, private router: Router) { }
 
 	ngOnInit() { }
 
 	switchFlagMenu(valor) {
+		console.log(valor);
 		switch (valor) {
 			case null:
 				this.nivelFlagMenu = 0;

@@ -12,7 +12,7 @@ export class SeccionMetreComponent implements OnInit {
 
 	constructor(private router: Router) { }
 
-	ngOnInit() { }
+	ngOnInit() {}
 
 	comprobarMesas(item) {
 		localStorage.setItem('itemListaDeEspera', JSON.stringify(item));

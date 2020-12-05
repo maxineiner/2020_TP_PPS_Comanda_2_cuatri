@@ -134,6 +134,7 @@ export class RealizarPedidoPage implements OnInit {
   confirmarPedido() {
     if (this.contadorVecesQueConfirmaPedido == 0 && this.pedidoEnFormatoJSON.precioTotal > 0) {
       this.bd.crear('pedidos', this.pedidoEnFormatoJSON).then(() => {
+        this.fmc.enviarNotificacion('pedido', 'un cliente acaba de realizar un pedido', 'Grupo');
         this.complementos.presentToastConMensajeYColor("¡Pedido generado con éxito!", "success")
         this.contadorVecesQueConfirmaPedido = 1;
         this.router.navigate(['/home']);
@@ -143,7 +144,6 @@ export class RealizarPedidoPage implements OnInit {
       this.complementos.presentToastConMensajeYColor("¡Debe cargar productos!", "warning")
     }
     else {
-      this.fmc.enviarNotificacion('pedido','un cliente acaba de realizar un pedido','Grupo');
       this.complementos.presentToastConMensajeYColor("¡Su orden ya fue cargada!", "warning")
     }
   }

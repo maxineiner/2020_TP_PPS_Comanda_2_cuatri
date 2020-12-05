@@ -87,7 +87,7 @@ export class SeccionMozoComponent implements OnInit {
 			}).catch(err => {
 				this.complemento.presentToastConMensajeYColor(firebaseErrors(err), 'danger');
 			}).finally(() => {
-				if (estado === 'enPreparacion') {
+				if (estado === 'EnPreparacion') {
 					this.fmc.enviarNotificacion('pedidoaPreparar', 'Hay un nuevo pedido para preparar', 'Grupo');
 				}
 				this.splash = false

@@ -21,9 +21,10 @@ export class HomePage implements OnInit {
 	public splash = false;
 	public uidUsuario: string;
 	public infoUsuario: any;
-	public flagMenu: string = '';
+	public flagMenu: string = null;
 	public flagFunc: string = '';
 	public arraySubs = new Subscription();
+	public numMesa: number = -1;
 
 	constructor(private router: Router, private bd: DatabaseService, public complemento: ComplementosService, private auth: AuthService, private fmc: FmcService) { }
 
@@ -35,14 +36,16 @@ export class HomePage implements OnInit {
 		this.listaConsultas = [];
 		this.listaReservas = [];
 		this.uidUsuario = localStorage.getItem('uidUsuario');
-		this.bd.obtenerPorId('usuarios', this.uidUsuario).onSnapshot(snap => {
+		this.bd.obtenerPorIdPromise('usuarios', this.uidUsuario).then(snap => {
 			const user: any = snap.data() as any;
 			user['id'] = snap.id;
 			this.infoUsuario = user;
 			this.fmc.usuario = this.infoUsuario;
 			this.fmc.fechasubscripcion = Date.now();
+			return user;
+		}).then(user => {
 			console.log(this.infoUsuario)
-			switch (this.infoUsuario) {
+			switch (this.infoUsuario.perfil) {
 				case "Dueño":
 				case "Supervisor":
 					this.arraySubs.add(this.bd.obtenerTodosTiempoReal('usuarios').onSnapshot(snap => {
@@ -110,11 +113,20 @@ export class HomePage implements OnInit {
 							return { ...x };
 						});
 					}));
-					if (this.infoUsuario.estadoMesa !== false) {
-						this.flagMenu = 'ClienteMesaAsignada';
-					} else {
-						this.flagMenu = null;
-					}
+					this.arraySubs.add(this.bd.obtenerPorId('usuarios', this.infoUsuario.id).onSnapshot(ref => {
+						this.infoUsuario = ref.data() as any;
+						this.infoUsuario.id = ref.id;
+						if (this.infoUsuario.estadoMesa !== false) {
+							this.flagMenu = 'ClienteMesaAsignada';
+							this.bd.obtenerPorIdPromise('mesas', this.infoUsuario.estadoMesa).then(data => {
+								if (data.exists) {
+									this.numMesa = data.data().numero;
+								}
+							});
+						} else {
+							this.flagMenu = null;
+						}
+					}));
 					this.arraySubs.add(this.fmc.subscribirseNotificaciones('avisoReserva'));
 					this.arraySubs.add(this.bd.obtenerTodosTiempoReal('reservas').onSnapshot(ref => {
 						let aux: Array<any> = ref.docs.map(x => {
@@ -122,21 +134,24 @@ export class HomePage implements OnInit {
 							y['id'] = x.id;
 							return { ...y };
 						}).filter(x => x.cliente === this.infoUsuario.id && x.estado === true && x.fecha <= (Date.now() + 24 * 60 * 60 * 1000));
-						this.fmc.gestionReserva(aux[0]).subscribe(subs => {
-							if (subs) {
-								this.complemento.presentToastConMensajeYColor('Ya se ha confirmado su precencia para su reserva. puede proceder', 'primary');
-							}
-						})
+						if (aux[0] !== undefined) {
+							let x =this.fmc.gestionReserva(aux[0]).subscribe(subs => {
+								if (subs) {
+									x.unsubscribe();
+									this.complemento.presentToastConMensajeYColor('Ya se ha confirmado su precencia para su reserva. puede proceder', 'primary');
+								}
+							});
+						}
 					}));
 					break;
 			}
-			setTimeout(() => {
-				this.cargarProductos();
-				this.splash = false;
-				console.log('fin de init');
-			}, 2000);
+		}).then(() => {
+			this.cargarProductos();
+			this.splash = false;
+			console.log('fin de init');
 		});
 	}
+
 
 	ejecutarFunc(funcion: string) {
 		if (funcion === 'cerrarSesion') {
@@ -151,10 +166,10 @@ export class HomePage implements OnInit {
 
 	cargarProductos() {
 		this.listaProductos = [];
-		this.arraySubs.add(this.bd.obtenerTodos('productos').subscribe(datos => {
-			this.listaProductos = datos.map(snap => {
-				const x: any = snap.payload.doc.data() as any;
-				x['id'] = snap.payload.doc.id;
+		this.arraySubs.add(this.bd.obtenerTodosTiempoReal('productos').onSnapshot(datos => {
+			this.listaProductos = datos.docs.map(snap => {
+				const x: any = snap.data() as any;
+				x['id'] = snap.id;
 				return { ...x };
 			})
 		}));

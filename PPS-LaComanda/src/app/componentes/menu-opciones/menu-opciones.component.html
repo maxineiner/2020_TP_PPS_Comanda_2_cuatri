@@ -29,7 +29,7 @@
             </ng-container>
             <ng-container *ngIf="usuario.perfil == 'Cliente' || usuario.perfil == 'Anonimo'">
                 <ion-button *ngIf="usuario.perfil == 'Cliente' && nivelFlagMenu == 0" (click)="menu.close('mainmenu')" routerLink="/alta-reserva" expand="block" color="cubiertos" shape="round">Hacer reserva</ion-button>
-                <ion-button *ngIf="nivelFlagMenu >= 0" (click)="menu.close('mainmenu'); solicitarFunc('qrMesa')" expand="block" color="cubiertos" shape="round">QR Mesa</ion-button>
+                <ion-button *ngIf="nivelFlagMenu >= 1" (click)="menu.close('mainmenu'); solicitarFunc('qrMesa')" expand="block" color="cubiertos" shape="round">QR Mesa</ion-button>
                 <ion-button *ngIf="nivelFlagMenu >= 2" (click)="menu.close('mainmenu'); solicitarFunc('botonMostrarConsulta')" expand="block" color="cubiertos" shape="round">Consulta</ion-button>
                 <ion-button *ngIf="nivelFlagMenu >= 2" (click)="menu.close('mainmenu'); solicitarFunc('mostrarProductos')" expand="block" color="cubiertos" shape="round">Lista de Productos</ion-button>
                 <ion-button *ngIf="nivelFlagMenu == 3" (click)="menu.close('mainmenu'); solicitarFunc('confirmarRecepcionPedido')" expand="block" color="cubiertos" shape="round">Confirmar Recepcion de pedido</ion-button>

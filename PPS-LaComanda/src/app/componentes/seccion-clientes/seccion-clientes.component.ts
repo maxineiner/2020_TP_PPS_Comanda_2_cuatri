@@ -16,6 +16,8 @@ export class SeccionClientesComponent implements OnInit {
 	@Input() listaProductos: Array<any>;
 	@Output() flagMenu: EventEmitter<string> = new EventEmitter<string>()
 	@Input() set flagFunc(value: string) { this.switchFlagFunc(value); };
+	@Input() set numMesa(value:number){ this._numMesa = value};
+	public _numMesa: number = -1;
 	public selectTipoMesa: Array<string> = ['Por defecto', 'VIP', 'Discapacitados'];
 	public lEsperaCantidad: string = null;
 	public lEsperaTipo: string = null;
@@ -29,7 +31,6 @@ export class SeccionClientesComponent implements OnInit {
 	public deplegarConsultaMozo: boolean = false;
 	public verProductos: boolean = false;
 	public splash = false;
-	public numMesa = -1;
 	public jsonCuenta = {
 		id: null,
 		pedidos: [],
@@ -42,13 +43,7 @@ export class SeccionClientesComponent implements OnInit {
 	constructor(private bd: DatabaseService, public complemento: ComplementosService, private qr: BarcodeScanner,
 		private fmc: FmcService) { }
 
-	ngOnInit() {
-		if (this.usuario.estadoMesa !== false) {
-			this.bd.obtenerPorIdPromise('mesas', this.usuario.estadoMesa).then(data => {
-				this.numMesa = data.data().numero;
-			});
-		}
-	}
+	ngOnInit() {}
 
 	switchFlagFunc(valor) {
 		switch (valor) {
@@ -108,7 +103,7 @@ export class SeccionClientesComponent implements OnInit {
 				}).catch(err => this.complemento.presentToastConMensajeYColor(firebaseErrors(err), 'danger')).finally(() => {
 					this.splash = false;
 				});
-			} else{
+			} else {
 				this.splash = false;
 				this.complemento.presentToastConMensajeYColor('qr Equivocado.', 'danger');
 			}
@@ -279,7 +274,7 @@ export class SeccionClientesComponent implements OnInit {
 			this.splash = false;
 			this.flagSecc = '';
 			this.verProductos = true;
-			this.fmc.enviarNotificacion('pedido', `el pedido ${this.jsonCuenta.id} acaba de ser pagado`, 'Grupo');
+			this.fmc.enviarNotificacion('pedido', `el pedido #${this.jsonCuenta.id} acaba de ser pagado`, 'Grupo');
 			this.complemento.presentToastConMensajeYColor("Su pago esta por ser confirmado, gracias por utilizarnos!", "success");
 		})
 	}
