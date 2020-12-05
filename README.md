@@ -38,3 +38,14 @@
   * [X] generar un componente de alta de productos
   * [X] generar menu principal para acceder a los componentes
 
+### Tareas a realizar: viernes 04/12
+- Perez ezequiel
+  * [X] generar componente para realizar reservas
+  * [X] generar validaciones en formularios
+  * [X] Gestion de reservas
+- Giordano Tomas
+  * [X] generar juegos para cliente
+  * [X] generar encuestas
+- Rilo Sebastian
+  * [X] gestion de correo electronico en backend
+  * [X] generar sistema de push-notifications
