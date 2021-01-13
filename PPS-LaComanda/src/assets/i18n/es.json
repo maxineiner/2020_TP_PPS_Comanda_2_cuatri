@@ -1,0 +1,276 @@
+
+{
+    "alta-cliente": 
+    {
+        "TITULO":"Alta Cliente",
+        "placeHolders":{
+            "SELECCIONE":"Seleccione",
+            "NOMBRE":"Nombre",
+            "APELLIDO":"Apellido",
+            "DNI":"DNI",
+            "CORREO":"Correo",
+            "CONTRASENIA":"Contraseña"
+        },
+        "textoBotones":
+        {
+            "QR_DNI":"QR DNI",
+            "TOMAR_FOTO":"Tomar foto",
+            "REGISTRARSE":"Registrarse"
+        },
+        "listaPerfiles":
+        {
+            "CLIENTE":"Cliente",
+            "ANONIMO":"Anonimo"
+        },
+        "validationMessages":
+        {
+            "nombre":
+            {
+                "REQUIRED_MESSAGE":"El nombre es requerido.",
+                "PATTERN_MESSAGE": "Introduzca un nombre de mínimo 3 a 20 caracteres y no números."
+            },
+            "nombreAnonimo":
+            {
+                "REQUIRED_MESSAGE":"El nombre es requerido.",
+                "PATTERN_MESSAGE": "Introduzca un nombre de mínimo 3 a 20 caracteres y no números."
+            },
+            "apellido":
+            {
+                "REQUIRED_MESSAGE":"El apellido es requerido.",
+                "PATTERN_MESSAGE": "Introduzca un apellido de mínimo 3 a 20 caracteres y no números."
+            },
+            "dni":
+            {
+                "REQUIRED_MESSAGE":"El DNI es requerido.",
+                "PATTERN_MESSAGE": "Introduzca un DNI válido(8 caracteres)."
+            },
+            "correo":
+            {
+                "REQUIRED_MESSAGE":"El correo electronico es requerido.",
+                "PATTERN_MESSAGE": "Introduzca un correo electrónico válido."
+            },
+            "contrasenia":
+            {
+                "REQUIRED_MESSAGE":"La contraseña es requerida.",
+                "PATTERN_MESSAGE": "La contraseña debe tener entre 6 y 18 caracteres."
+            }
+        },
+        "registrar":
+        {
+            "ESTADO_CLIENTE":"El estado del cliente esta pendiente al registro.",
+            "NUEVO_CLIENTE":"Se ha registrado un nuevo cliente",
+            "ANONIMO_EXITOSO":"Anónimo exitoso"
+        } 
+    },
+    "alta-empleado": 
+    {
+        "TITULO":"Alta Empleado",
+        "placeHolders":{
+            "SELECCIONE":"Seleccione",
+            "NOMBRE":"Nombre",
+            "APELLIDO":"Apellido",
+            "DNI":"DNI",
+            "CUIL":"CUIL",
+            "CORREO":"Correo",
+            "CONTRASENIA":"Contraseña"
+        },
+        "textoBotones":
+        {
+            "QR_DNI":"QR DNI",
+            "TOMAR_FOTO":"Tomar foto",
+            "REGISTRARSE":"Registrarse"
+        },
+        "listaPerfiles":
+        {
+            "MOZO":"Mozo",
+            "COCINERO":"Cocinero",
+            "BAR_TENDER":"Bar tender",
+            "METRE":"Metre"
+        },
+        "validationMessages":
+        {
+            "nombre":
+            {
+                "REQUIRED_MESSAGE":"El nombre es requerido.",
+                "PATTERN_MESSAGE": "Introduzca un nombre de mínimo 3 a 10 caracteres y no números."
+            },
+            "apellido":
+            {
+                "REQUIRED_MESSAGE":"El apellido es requerido.",
+                "PATTERN_MESSAGE": "Introduzca un apellido de mínimo 3 a 10 caracteres y no números."
+            },
+            "dni":
+            {
+                "REQUIRED_MESSAGE":"El DNI es requerido.",
+                "PATTERN_MESSAGE": "Introduzca un DNI válido(8 caracteres)."
+            },
+            "cuil":
+            {
+                "REQUIRED_MESSAGE":"El cuil es requerido.",
+                "PATTERN_MESSAGE": "Introduzca un cuil válido(11 caracteres)."
+            },
+            "correo":
+            {
+                "REQUIRED_MESSAGE":"El correo electronico es requerido.",
+                "PATTERN_MESSAGE": "Introduzca un correo electrónico válido."
+            },
+            "contrasenia":
+            {
+                "REQUIRED_MESSAGE":"La contraseña es requerida.",
+                "PATTERN_MESSAGE": "La contraseña debe tener entre 6 y 18 caracteres."
+            }
+        },
+        "registrar":
+        {
+            "EL":"¡El ",
+            "SE_CREO":" se creo con exito!"
+        }
+    },
+    "alta-mesa":
+    {
+        "TITULO":"Alta Mesa",
+        "TIPO":"Tipo:",
+        "placeHolders":{
+            "SELECCIONE":"Seleccione",
+            "NUMERO":"Numero...",
+            "COMENSALES":"Comensales..."
+        },
+        "textoBotones":
+        {
+            "TOMAR_FOTO":"Tomar foto",
+            "REGISTRAR_MESA":"Registrar Mesa"
+        },
+        "listaTipo":
+        {
+            "POR_DEFECTO":"Por defecto",
+            "VIP":"VIP",
+            "Discapacitados":"Discapacitados"
+        },
+        "validationMessages":
+        {
+            "numero":
+            {
+                "REQUIRED_MESSAGE":"El numero es requerido.",
+                "MIN_MESSAGE":"Introduzca un numero mayor a 0.",
+                "MAX_MESSAGE":"Introduzca un numero menor a 100"
+            },
+            "comensales":
+            {
+                "REQUIRED_MESSAGE":"Los comensales son requeridos.",
+                "MIN_MESSAGE":"Introduzca un numero mayor a 0.",
+                "MAX_MESSAGE":"Introduzca un numero menor a 100"
+            }
+        },
+        "registrar":
+        {
+            "MESA_CARGADA":"La mesa fue cargada con exito",
+            "NUMERO_EXISTE":"Este numero de mesa ya existe"
+        }
+    },
+    "alta-producto":
+    {
+        "TITULO":"Alta producto",
+        "placeHolders":{
+            "SELECCIONE":"Seleccione",
+            "NOMBRE":"Nombre",
+            "DESCRIPCION":"Descripción",
+            "TIEMPO":"Tiempo elaboración",
+            "PRECIO":"Precio"
+        },
+        "textoBotones":{
+            "ENVIAR_PRODUCTO":"Enviar producto"
+        },
+        "listaProductos":{
+            "PLATO":"Plato",
+            "BEBIDA":"Bebida",
+            "POSTRE":"Postre"
+        },
+        "validationMessages":{
+            "nombre":{
+                "REQUIRED_MESSAGE":"El nombre es requerido.",
+                "PATTERN_MESSAGE":"Introduzca un nombre de mínimo 3 a 10 caracteres y no números."
+            },
+            "descripcion":{
+                "REQUIRED_MESSAGE":"El descripcion es requerida.",
+                "PATTERN_MESSAGE":"Introduzca una descripcion de mínimo 3 a 20 caracteres y no números."
+            },
+            "tiempo":{
+                "REQUIRED_MESSAGE":"El tiempo es requerido.",
+                "MIN_MESSAGE":"Introduzca un numero mayor a 0.",
+                "MAX_MESSAGE":"Introduzca un numero menor a 10000."
+            },
+            "precio":{
+                "REQUIRED_MESSAGE":"El precio es requerido.",
+                "MIN_MESSAGE":"Introduzca un numero mayor a 0.",
+                "MAX_MESSAGE":"Introduzca un numero menor a 10000."
+            }
+        },
+        "tomarFotografia":{
+            "NO_MAS_FOTOS":"No se puede cargar mas fotos"
+        },
+        "registrar":{
+            "PRODUCTO_EXITO":"El producto fue cargado con exito",
+            "TRES_IMAGENES":"¡El producto debe tener 3 imagenes!"
+        }
+    },
+    "alta-supervisor":
+    {
+        "TITULO":"Alta dueño/supervisor",
+        "placeHolders":{
+            "SELECCIONE":"Seleccione",
+            "NOMBRE":"Nombre...",
+            "APELLIDO":"Apellido...",
+            "DNI":"DNI...",
+            "CUIL":"CUIL...",
+            "CORREO":"Correo...",
+            "CONTRASENIA":"Contraseña..."
+        },
+        "textoBotones":{
+            "QR_DNI":"QR DNI",
+            "TOMAR_FOTO":"Tomar foto",
+            "REGISTRARSE":"Registrarse"
+        },
+        "listaPerfiles":
+        {
+            "SUPERVISOR":"Supervisor",
+            "DUENIO":"Dueño"
+        },
+        "validationMessages":
+        {
+            "nombre":
+            {
+                "REQUIRED_MESSAGE":"El nombre es requerido.",
+                "PATTERN_MESSAGE": "Introduzca un nombre de mínimo 3 a 20 caracteres y no números."
+            },
+            "apellido":
+            {
+                "REQUIRED_MESSAGE":"El apellido es requerido.",
+                "PATTERN_MESSAGE": "Introduzca un apellido de mínimo 3 a 20 caracteres y no números."
+            },
+            "dni":
+            {
+                "REQUIRED_MESSAGE":"El DNI es requerido.",
+                "PATTERN_MESSAGE": "Introduzca un DNI válido(8 caracteres)."
+            },
+            "cuil":
+            {
+                "REQUIRED_MESSAGE":"El CUIL es requerido.",
+                "PATTERN_MESSAGE": "Introduzca un CUIL válido(11 caracteres)."
+            },
+            "correo":
+            {
+                "REQUIRED_MESSAGE":"El correo electronico es requerido.",
+                "EMAIL_MESSAGE": "Introduzca un correo electrónico válido."
+            },
+            "contrasenia":
+            {
+                "REQUIRED_MESSAGE":"La contraseña es requerida.",
+                "PATTERN_MESSAGE": "La contraseña debe tener entre 6 y 18 caracteres."
+            }
+        },
+        "registrar":{
+            "EL":"¡El ",
+            "SE_CREO":" se creo con exito!"
+        }
+    }
+}
