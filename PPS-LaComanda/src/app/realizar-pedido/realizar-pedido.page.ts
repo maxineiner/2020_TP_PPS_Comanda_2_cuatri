@@ -134,17 +134,17 @@ export class RealizarPedidoPage implements OnInit {
   confirmarPedido() {
     if (this.contadorVecesQueConfirmaPedido == 0 && this.pedidoEnFormatoJSON.precioTotal > 0) {
       this.bd.crear('pedidos', this.pedidoEnFormatoJSON).then(() => {
-        this.fmc.enviarNotificacion('pedido', 'un cliente acaba de realizar un pedido', 'Grupo');
-        this.complementos.presentToastConMensajeYColor("¡Pedido generado con éxito!", "success")
+        this.fmc.enviarNotificacion('pedido', 'realizar_pedido.notificaciones.CLIENTE_PEDIDO', 'Grupo');
+        this.complementos.presentToastConMensajeYColor("realizar_pedido.notificaciones.PEDIDO_GENERADO", "success")
         this.contadorVecesQueConfirmaPedido = 1;
         this.router.navigate(['/home']);
       })
     }
     else if (this.contadorVecesQueConfirmaPedido == 0 && this.pedidoEnFormatoJSON.precioTotal == 0) {
-      this.complementos.presentToastConMensajeYColor("¡Debe cargar productos!", "warning")
+      this.complementos.presentToastConMensajeYColor("realizar_pedido.notificaciones.CARGAR_PRODUCTOS", "warning")
     }
     else {
-      this.complementos.presentToastConMensajeYColor("¡Su orden ya fue cargada!", "warning")
+      this.complementos.presentToastConMensajeYColor("realizar_pedido.notificaciones.ORDEN_CARGADA", "warning")
     }
   }
 
@@ -155,10 +155,10 @@ export class RealizarPedidoPage implements OnInit {
       this.contadorPlatos = 0;
       this.contadorBebidas = 0;
       this.contadorPostres = 0;
-      this.complementos.presentToastConMensajeYColor("¡El pedido fue cancelado!", "success")
+      this.complementos.presentToastConMensajeYColor("realizar_pedido.notificaciones.PEDIDO_CANCELADO", "success")
     }
     else {
-      this.complementos.presentToastConMensajeYColor("¡No puede cancelar un pedido ya enviado!", "warning")
+      this.complementos.presentToastConMensajeYColor("realizar_pedido.notificaciones.NO_PUEDE_CANCELAR", "warning")
     }
   }
 

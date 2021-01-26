@@ -4,6 +4,7 @@ import { FormsModule, ReactiveFormsModule  } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { ReservasPageRoutingModule } from './reservas-routing.module';
 import { ReservasPage } from './reservas.page';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   imports: [
@@ -11,7 +12,8 @@ import { ReservasPage } from './reservas.page';
     FormsModule,
     ReactiveFormsModule,
     IonicModule,
-    ReservasPageRoutingModule
+    ReservasPageRoutingModule,
+    TranslateModule,
   ],
   declarations: [ReservasPage]
 })

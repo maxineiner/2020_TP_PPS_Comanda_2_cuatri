@@ -25,9 +25,9 @@ export class AltaMesaPage implements OnInit {
     cliente: null,
   };
   listaTipo = [
-    { tipo: "Por defecto" },
-    { tipo: "VIP" },
-    { tipo: "Discapacitados" },
+    { tipo: "alta-mesa.listaTipo.POR_DEFECTO", value: "Por defecto" },
+    { tipo: "alta-mesa.listaTipo.VIP", value: "VIP" },
+    { tipo: "alta-mesa.listaTipo.Discapacitados", value: "Discapacitados" },
   ]
 
   constructor(
@@ -43,14 +43,14 @@ export class AltaMesaPage implements OnInit {
   }
   validation_messages = {
     'numero': [
-      { type: 'required', message: 'El numero es requerido.' },
-      { type: 'min', message: 'Introduzca un numero mayor a 0.' },
-      { type: 'max', message: 'Introduzca un numero menor a 100.' }
+      { type: 'required', message: 'alta-mesa.validationMessages.numero.REQUIRED_MESSAGE' },
+      { type: 'min', message: 'alta-mesa.validationMessages.numero.MIN_MESSAGE' },
+      { type: 'max', message: 'alta-mesa.validationMessages.numero.MAX_MESSAGE' }
     ],
     'comensales': [
-      { type: 'required', message: 'Los comensales son requeridos.' },
-      { type: 'min', message: 'Introduzca un numero mayor a 0.' },
-      { type: 'max', message: 'Introduzca un numero menor a 100.' }
+      { type: 'required', message: 'alta-mesa.validationMessages.comensales.REQUIRED_MESSAGE' },
+      { type: 'min', message: 'alta-mesa.validationMessages.comensales.MIN_MESSAGE' },
+      { type: 'max', message: 'alta-mesa.validationMessages.comensales.MAX_MESSAGE' }
     ],
   };
 
@@ -95,10 +95,10 @@ export class AltaMesaPage implements OnInit {
         return this.bd.crear('mesas', this.mesaJson);
       }).then(() => {
         this.limpiarCampos();
-        this.complemetos.presentToastConMensajeYColor("la mesa fue cargada con exito", "primary");
+        this.complemetos.presentToastConMensajeYColor("alta-mesa.registrar.MESA_CARGADA", "primary");
       }).catch(err => {
         if (err.code == undefined) {
-          this.complemetos.presentToastConMensajeYColor('este numero de mesa ya existe', 'danger');
+          this.complemetos.presentToastConMensajeYColor('alta-mesa.registrar.NUMERO_EXISTE', 'danger');
         } else {
           this.complemetos.presentToastConMensajeYColor(firebaseErrors(err), "danger");
         }
@@ -114,10 +114,10 @@ export class AltaMesaPage implements OnInit {
         return this.bd.crear('mesas', this.mesaJson)
       }).then(() => {
         this.limpiarCampos();
-        this.complemetos.presentToastConMensajeYColor("la mesa fue cargada con exito", "primary");
+        this.complemetos.presentToastConMensajeYColor("alta-mesa.registrar.MESA_CARGADA", "primary");
       }).catch(err => {
         if (err.code == undefined) {
-          this.complemetos.presentToastConMensajeYColor('este numero de mesa ya existe', 'danger');
+          this.complemetos.presentToastConMensajeYColor('alta-mesa.registrar.NUMERO_EXISTE', 'danger');
         } else {
           this.complemetos.presentToastConMensajeYColor(firebaseErrors(err), "danger");
         }

@@ -32,7 +32,7 @@ export class SeccionProduccionComponent implements OnInit {
 			pedido.estado = 'Preparado';
 			return this.bd.actualizar('pedidos', pedido, pedido.id).then(() => {
 				this.fmc.enviarNotificacion('pedido',`el pedido #${pedido.id} ya esta listo para ser servido.`,'Grupo')
-				this.complemento.presentToastConMensajeYColor("Todos los Productos del pedido preparados", "success");
+				this.complemento.presentToastConMensajeYColor("seccion-produccion.PRODUCTOS_PREPARADOS", "success");
 			}).catch(err => {
 				this.complemento.presentToastConMensajeYColor(firebaseErrors(err), 'danger');
 			}).finally(() => {
@@ -40,7 +40,7 @@ export class SeccionProduccionComponent implements OnInit {
 			});
 		} else {
 			this.bd.actualizar('pedidos', pedido, pedido.id).then(() => {
-				this.complemento.presentToastConMensajeYColor("Productos de sector preparados", "success");
+				this.complemento.presentToastConMensajeYColor("seccion-produccion.PRODUCTOS_SECTOR", "success");
 			}).catch(err => {
 				this.complemento.presentToastConMensajeYColor(firebaseErrors(err), 'danger');
 			}).finally(() => {

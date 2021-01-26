@@ -1,7 +1,7 @@
 <ion-header>
     <ion-toolbar color="fondo">
         <ion-back-button defaultHref="/" slot="start" icon="arrow-back-circle"></ion-back-button>
-        <h3 class="titulo">Encuestas</h3>
+        <h3 class="titulo">{{'encuestas.TITULO' | translate}}</h3>
     </ion-toolbar>
 </ion-header>
 <ion-content color="light">
@@ -9,11 +9,12 @@
         <img src="../../../assets/icon/gifAnimado.gif" class="loading">
     </div>
     <ng-container *ngIf='!splash'>
-        <h2 style="padding: 10px;">Cantidad de encuestas: {{cantEncuestas}}</h2>
-        <div id='char_div'></div>
-        <div id='char_divTwo'></div>
-        <div id='char_divThree'></div>
-        <div id='char_divFour'></div>
-        <div id='char_divFive'></div>
+        <h2 style="padding: 10px;">{{'encuestas.CANTIDAD_DE_ENCUESTAS' | translate}}
+            < {{cantEncuestas}}</h2>
+                <div id='char_div'></div>
+                <div id='char_divTwo'></div>
+                <div id='char_divThree'></div>
+                <div id='char_divFour'></div>
+                <div id='char_divFive'></div>
     </ng-container>
 </ion-content>

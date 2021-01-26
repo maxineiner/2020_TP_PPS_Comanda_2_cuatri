@@ -95,7 +95,7 @@ export class EncuestasPage implements OnInit {
           ['Muy malo', this.clienteUno.muyMalo],
         ]);
         let optionsTwo = {
-          'title': '¿Qué le parecio nuesta app?',
+          'title': 'encuestas.titulos.APP',
           'width': 400,
           'height': 300,
           'font-size': '100px',
@@ -113,7 +113,7 @@ export class EncuestasPage implements OnInit {
           ['Muy malo', this.clienteDos.muyMalo],
         ]);
         let options = {
-          'title': '¿Que le parecio el servicio del restaurante?',
+          'title': 'encuestas.titulos.RESTAURANTE',
           'width': 400,
           'height': 300,
           'font-size': '100px',
@@ -128,7 +128,7 @@ export class EncuestasPage implements OnInit {
           ['No', this.clienteTres.false],
         ]);
         let optionsThree = {
-          'title': '¿Dejaste/vas a dejar propina por tu pedido?',
+          'title': 'encuestas.titulos.PROPINA',
           'width': 400,
           'height': 300,
           'font-size': '100px',
@@ -143,7 +143,7 @@ export class EncuestasPage implements OnInit {
           ['No', this.clienteCuatro.false],
         ]);
         let optionsFour = {
-          'title': '¿Participaste/vas a participar en los juegos para obtener beneficios?',
+          'title': 'encuestas.titulos.JUEGOS',
           'width': 400,
           'height': 300,
           'font-size': '100px',
@@ -158,7 +158,7 @@ export class EncuestasPage implements OnInit {
           ['No', this.clienteCinco.false],
         ]);
         let optionsFive = {
-          'title': '¿Tenés alguna recomendacion extra para dar?',
+          'title': 'encuestas.titulos.RECOMENDACION',
           'width': 400,
           'height': 300,
           'font-size': '100px',

@@ -1,8 +1,10 @@
+import { TranslateService } from '@ngx-translate/core';
 import { Injectable } from '@angular/core';
 import { Vibration } from '@ionic-native/vibration/ngx';
 import { ToastController, LoadingController } from '@ionic/angular';
 import { timer } from 'rxjs';
 import { stringify } from 'querystring';
+import { async } from '@angular/core/testing';
 
 @Injectable({
 	providedIn: 'root'
@@ -11,7 +13,7 @@ export class ComplementosService {
 	public flagSonidos: boolean = true;
 	public splash: boolean = false;
 
-	constructor(public toastController: ToastController, public loadingController: LoadingController, public vib: Vibration) { }
+	constructor(public toastController: ToastController, public loadingController: LoadingController, public vib: Vibration, private translate : TranslateService) { }
 
 	playAudio(tipoAudio) {
 		if (this.flagSonidos) {
@@ -36,19 +38,25 @@ export class ComplementosService {
 	// Muestro el toast, mensaje de error. 
 	async presentToast(msg) {
 		console.log(msg);
-		const toast = await this.toastController.create({
-			message: msg,
-			position: 'bottom',
-			duration: 2000,
-			color: 'danger',
-			buttons: [
-				{
-					text: 'Aceptar',
-					role: 'cancel',
-				}
-			]
-		});
-		toast.present();
+
+		let translate = this.translate.get(msg).subscribe(async (res) => {
+			console.log(res);
+			let	toast = await this.toastController.create({
+				message: res,
+				position: 'bottom',
+				duration: 2000,
+				color: 'danger',
+				buttons: [
+					{
+						text: 'X',
+						role: 'cancel',
+					}
+				]
+			});
+			toast.present();
+		})
+		
+		translate.unsubscribe();
 	}
 
 	// Valido absolutamente todos los posibles errores. 
@@ -56,21 +64,22 @@ export class ComplementosService {
 		console.log(err);
 		switch (err) {
 			case 'auth/argument-error':
-				err = 'ERROR: Debe completar todos los campos';
+				err = 'servicios.mensajesError.CAMPOS';
 				break;
 			case 'auth/invalid-email':
-				err = 'ERROR: Formato de email no correcto';
+				err = 'servicios.mensajesError.EMAIL';
 				break;
 			case 'auth/user-not-found':
-				err = 'ERROR: Usuario no valido';
+				err = 'servicios.mensajesError.USUARIO';
 				break;
 			case 'auth/wrong-password':
-				err = 'ERROR: Contraseña incorrecta';
+				err = 'servicios.mensajesError.CONTRASENIA';
 				break;
 			default:
-				err = 'ERROR';
+				err = 'servicios.mensajesError.DEFAULT';
 				break;
 		}
+		
 		this.presentToast(err);
 	}
 
@@ -78,7 +87,6 @@ export class ComplementosService {
 
 	// Muestro el toast, mensaje de error. 
 	async presentToastConMensajeYColor(msg: string, color: string) {
-		console.log(msg);
 		if (color === 'danger') {
 			this.playAudio('error');
 			this.vib.vibrate(1000);
@@ -87,18 +95,22 @@ export class ComplementosService {
 		} else {
 			this.playAudio('notification');
 		}
-		const toast = await this.toastController.create({
-			message: msg,
-			position: 'bottom',
-			duration: 3000,
-			color: color,
-			buttons: [
-				{
-					text: 'Aceptar',
-					role: 'cancel',
-				}
-			]
+		let translate = this.translate.get(msg).subscribe(async (res) => {
+			let toast = await this.toastController.create({
+				message: res,
+				position: 'bottom',
+				duration: 3000,
+				color: color,
+				buttons: [
+					{
+						text: 'X',
+						role: 'cancel',
+					}
+				]
+			});
+			toast.present();
 		});
-		toast.present();
+		
+		translate.unsubscribe();
 	}
 }

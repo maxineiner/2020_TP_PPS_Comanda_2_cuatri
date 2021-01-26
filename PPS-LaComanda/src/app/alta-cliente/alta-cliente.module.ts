@@ -4,6 +4,7 @@ import { FormsModule, ReactiveFormsModule  } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { AltaClientePageRoutingModule } from './alta-cliente-routing.module';
 import { AltaClientePage } from './alta-cliente.page';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   imports: [
@@ -11,7 +12,8 @@ import { AltaClientePage } from './alta-cliente.page';
     FormsModule,
     IonicModule,
     ReactiveFormsModule,
-    AltaClientePageRoutingModule
+    AltaClientePageRoutingModule,
+    TranslateModule.forChild()
   ],
   declarations: [AltaClientePage]
 })

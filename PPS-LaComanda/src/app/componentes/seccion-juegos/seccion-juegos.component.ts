@@ -38,10 +38,10 @@ export class SeccionJuegosComponent implements OnInit {
 		}, 50);
 		setTimeout(() => {
 			if (this.valor === 'cara') {
-				this.complemento.presentToastConMensajeYColor('ganaste tu beneficio!', 'success');
+				this.complemento.presentToastConMensajeYColor('seccion-juegos.notificaciones.GANASTE_BENEFICIO', 'success');
 				this.beneficio.emit(this.flagJuego);
 			} else {
-				this.complemento.presentToastConMensajeYColor('perdiste tu beneficio!', 'danger');
+				this.complemento.presentToastConMensajeYColor('seccion-juegos.notificaciones.PERDISTE_BENEFICIO', 'danger');
 				this.beneficio.emit(null);
 			}
 		}, 4000)

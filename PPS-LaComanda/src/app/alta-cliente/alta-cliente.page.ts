@@ -31,8 +31,8 @@ export class AltaClientePage implements OnInit {
     "orientation": "landscape"
   };
   listaPerfiles = [
-    { perfil: "Cliente" },
-    { perfil: "Anonimo" }
+    { perfil: "alta-cliente.listaPerfiles.CLIENTE", value: "Cliente" },
+    { perfil: "alta-cliente.listaPerfiles.ANONIMO" , value: "Anonimo"}
   ];
 
   constructor(
@@ -58,28 +58,28 @@ export class AltaClientePage implements OnInit {
 
   validation_messages = {
     'nombre': [
-      { type: 'required', message: 'El nombre es requerido.' },
-      { type: 'pattern', message: 'Introduzca un nombre de mínimo 3 a 20 caracteres y no números.' }
+      { type: 'required', message: 'alta-cliente.validationMessages.nombre.REQUIRED_MESSAGE' },
+      { type: 'pattern', message: 'alta-cliente.validationMessages.nombre.PATTERN_MESSAGE' }
     ],
     'nombreAnonimo': [
-      { type: 'required', message: 'El nombre es requerido.' },
-      { type: 'pattern', message: 'Introduzca un nombre de mínimo 3 a 20 caracteres y no números.' }
+      { type: 'required', message: 'alta-cliente.validationMessages.nombreAnonimo.REQUIRED_MESSAGE' },
+      { type: 'pattern', message: 'alta-cliente.validationMessages.nombreAnonimo.PATTERN_MESSAGE' }
     ],
     'apellido': [
-      { type: 'required', message: 'El apellido es requerido.' },
-      { type: 'pattern', message: 'Introduzca un apellido de mínimo 3 a 20 caracteres y no números.' }
+      { type: 'required', message: 'alta-cliente.validationMessages.apellido.REQUIRED_MESSAGE' },
+      { type: 'pattern', message: 'alta-cliente.validationMessages.apellido.PATTERN_MESSAGE' }
     ],
     'dni': [
-      { type: 'required', message: 'El DNI es requerido.' },
-      { type: 'pattern', message: 'Introduzca un DNI válido(8 caracteres).' }
+      { type: 'required', message: 'alta-cliente.validationMessages.dni.REQUIRED_MESSAGE' },
+      { type: 'pattern', message: 'alta-cliente.validationMessages.dni.PATTERN_MESSAGE' }
     ],
     'correo': [
-      { type: 'required', message: 'El correo electronico es requerido.' },
-      { type: 'pattern', message: 'Introduzca un correo electrónico válido.' }
+      { type: 'required', message: 'alta-cliente.validationMessages.correo.REQUIRED_MESSAGE' },
+      { type: 'pattern', message: 'alta-cliente.validationMessages.correo.PATTERN_MESSAGE' }
     ],
     'contrasenia': [
-      { type: 'required', message: 'La contraseña es requerida.' },
-      { type: 'pattern', message: 'La contraseña debe tener entre 6 y 18 caracteres.' }
+      { type: 'required', message: 'alta-cliente.validationMessages.contrasenia.REQUIRED_MESSAGE' },
+      { type: 'pattern', message: 'alta-cliente.validationMessages.contrasenia.PATTERN_MESSAGE' }
     ]
   };
 
@@ -133,14 +133,14 @@ export class AltaClientePage implements OnInit {
       this.usuarioJson['contrasenia'] = this.miFormulario.value.contrasenia;
       this.auth.registrarUsuario(this.usuarioJson).then(() => {
         this.limpiarCampos();
-        this.complemetos.presentToastConMensajeYColor("El estado del cliente esta pendiente al registro.", "primary");
+        this.complemetos.presentToastConMensajeYColor("alta-cliente.registrar.ESTADO_CLIENTE", "primary");
         setTimeout(() => {
           this.router.navigate(['/']);
         }, 3000);
       }).catch(err => {
         this.complemetos.presentToastConMensajeYColor(firebaseErrors(err), "danger");
       }).finally(() => {
-        this.fmc.enviarNotificacion('nuevoCliente','se ha registrado un nuevo cliente','Grupo');
+        this.fmc.enviarNotificacion('nuevoCliente','alta-cliente.registrar.NUEVO_CLIENTE','Grupo');
         this.splash = false;
       });
     } else {
@@ -150,7 +150,7 @@ export class AltaClientePage implements OnInit {
         localStorage.setItem('uidUsuario', id);
         localStorage.setItem('tieneCorreo', 'sinCorreo');
         this.limpiarCampos();
-        this.complemetos.presentToastConMensajeYColor("Anónimo exitoso", "primary");
+        this.complemetos.presentToastConMensajeYColor("alta-cliente.registrar.ANONIMO_EXITOSO", "primary");
         setTimeout(() => {
           this.router.navigate(['/home']);
         }, 3000);

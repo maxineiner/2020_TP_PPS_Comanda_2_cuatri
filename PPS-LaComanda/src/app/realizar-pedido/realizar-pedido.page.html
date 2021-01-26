@@ -1,47 +1,47 @@
 <ion-header>
     <ion-toolbar color="fondo">
         <ion-back-button defaultHref="/" slot="start" icon="arrow-back-circle"></ion-back-button>
-        <h3 class="titulo">Lista pedidos</h3>
+        <h3 class="titulo">{{'realizar_pedido.TITULO' | translate}}</h3>
     </ion-toolbar>
 </ion-header>
 <ion-content>
     <ion-card class="todoCompleto" *ngIf="variabledesplegarPedido == true">
         <ion-item class="labels" color="transparent" style="background-color: transparent !important;">
-            <ion-label size='large' position="stacked" style="color: snow;">INFORMACION DEL PEDIDO:</ion-label>
+            <ion-label size='large' position="stacked" style="color: snow;">{{'realizar_pedido.INFO_PEDIDO' | translate}}:</ion-label>
             <br>
             <div *ngIf="pedidoEnFormatoJSON != null">
-                <p style="color: snow;">Su pedido son los siguientes platos:</p>
+                <p style="color: snow;">{{'realizar_pedido.SIGUIENTES_PLATOS' | translate}}</p>
                 <div style="background-color: var(--ion-color-fondo); border-radius: 10px; padding: 5px;  margin: 5px;" *ngFor='let producto of pedidoEnFormatoJSON.productos'>
-                    <small>nombre: {{producto.nombre}}</small> <br>
-                    <small>cantidad: {{producto.cantidad}}</small> <br>
-                    <small>precio: ${{producto.precio}}</small>
+                    <small>{{'realizar_pedido.NOMBRE' | translate}} {{producto.nombre}}</small> <br>
+                    <small>{{'realizar_pedido.PRECIO' | translate}} {{producto.cantidad}}</small> <br>
+                    <small>{{'realizar_pedido.CANTIDAD' | translate}} ${{producto.precio}}</small>
                 </div>
-                <p class="alineacion-derecha-platito"> Precio total:
+                <p class="alineacion-derecha-platito"> {{'realizar_pedido.PRECIO_TOTAL1' | translate}}
                     <span class="precio"> ${{pedidoEnFormatoJSON.precioTotal}}</span>
                 </p>
-                <p class="alineacion-derecha-platito"> Tiempo total:
-                    <span class="precio"> {{pedidoEnFormatoJSON.tiempoTotal}} segundos</span>
+                <p class="alineacion-derecha-platito"> {{'realizar_pedido.TIEMPO_TOTAL1' | translate}}
+                    <span class="precio"> {{pedidoEnFormatoJSON.tiempoTotal}} {{'realizar_pedido.SEGUNDOS' | translate}}</span>
                 </p>
             </div>
         </ion-item>
         <ion-grid>
             <ion-row>
                 <ion-col col-6>
-                    <ion-button (click)="confirmarPedido()" color="success" expand="block">Confirmar</ion-button>
+                    <ion-button (click)="confirmarPedido()" color="success" expand="block">{{'realizar_pedido.textoBotones.CONFIRMAR' | translate}}</ion-button>
                 </ion-col>
                 <ion-col col-6>
-                    <ion-button (click)=" cancelarPedido()" color="warning" expand="block">Cancelar</ion-button>
+                    <ion-button (click)=" cancelarPedido()" color="warning" expand="block">{{'realizar_pedido.textoBotones.CANCELAR' | translate}}</ion-button>
                 </ion-col>
             </ion-row>
         </ion-grid>
         <ion-card-content>
-            <ion-button (click)="desplegarInversoPedido()" expand="block" color="danger">Cerrar</ion-button>
+            <ion-button (click)="desplegarInversoPedido()" expand="block" color="danger">{{'realizar_pedido.textoBotones.CERRAR' | translate}}</ion-button>
         </ion-card-content>
     </ion-card>
     <ion-card style="background: snow" (click)="divMostrarPlatoPrincipal()">
         <ion-card-content>
             <p class="alineacion-derecha">
-                <ion-icon name="pizza-outline"></ion-icon> PLATOS PRINCIPALES <span class="precio">Cantidad pedida: {{contadorPlatos}}</span>
+                <ion-icon name="pizza-outline"></ion-icon>{{'realizar_pedido.PLATOS_PRINCIPALES' | translate}} <span class="precio">{{'realizar_pedido.CANTIDAD_PEDIDA' | translate}}  {{contadorPlatos}}</span>
             </p>
         </ion-card-content>
     </ion-card>
@@ -49,7 +49,7 @@
         <ion-card style="background-color: rgba(0, 0, 0, 0.568);" *ngIf="mostrarPlatoPrincipal == true">
             <ion-card-content align="center" style="font-size: 20px;color: white; background-color: black;">
                 <p class="alineacion-derecha-platito">{{producto.nombre}}
-                    <span class="tiempo"> precio : {{producto.precio}}</span>
+                    <span class="tiempo"> {{'realizar_pedido.PRECIO' | translate}} {{producto.precio}}</span>
                 </p>
             </ion-card-content>
             <ion-item color="transparent" style="background-color: transparent !important; color: transparent;">
@@ -68,12 +68,12 @@
                     <ion-row>
                         <ion-col col-6>
                             <ion-button (click)="cargarJSONPedidosPlatos(producto)" expand="block" color="success">
-                                <ion-icon name="add-circle-outline"></ion-icon>Agregar
+                                <ion-icon name="add-circle-outline"></ion-icon>{{'realizar_pedido.textoBotones.AGREGAR' | translate}}
                             </ion-button>
                         </ion-col>
                         <ion-col col-6>
                             <ion-button (click)="removerJSONPedidosPlatos(producto)" expand="block" color="danger">
-                                <ion-icon name="remove-circle-outline"></ion-icon>Eliminar
+                                <ion-icon name="remove-circle-outline"></ion-icon>{{'realizar_pedido.textoBotones.ELIMINAR' | translate}}
                             </ion-button>
                         </ion-col>
                     </ion-row>
@@ -87,7 +87,7 @@
     <ion-card style="background: snow" (click)="divMostrarBebida()">
         <ion-card-content>
             <p class="alineacion-derecha">
-                <ion-icon name="wine-outline"></ion-icon>BEBIDAS <span class="precio">Cantidad pedida: {{contadorBebidas}}</span>
+                <ion-icon name="wine-outline"></ion-icon>{{'realizar_pedido.BEBIDAS' | translate}} <span class="precio">{{'realizar_pedido.CANTIDAD_PEDIDA' | translate}} {{contadorBebidas}}</span>
             </p>
         </ion-card-content>
     </ion-card>
@@ -116,12 +116,12 @@
                     <ion-row>
                         <ion-col col-6>
                             <ion-button (click)="cargarJSONPedidosPlatos(bebida)" expand="block" color="success">
-                                <ion-icon name="add-circle-outline"></ion-icon>Agregar
+                                <ion-icon name="add-circle-outline"></ion-icon>{{'realizar_pedido.textoBotones.AGREGAR' | translate}}
                             </ion-button>
                         </ion-col>
                         <ion-col col-6>
                             <ion-button (click)="removerJSONPedidosPlatos(bebida)" expand="block" color="danger">
-                                <ion-icon name="remove-circle-outline"></ion-icon>Eliminar
+                                <ion-icon name="remove-circle-outline"></ion-icon>{{'realizar_pedido.textoBotones.ELIMINAR' | translate}}
                             </ion-button>
                         </ion-col>
                     </ion-row>
@@ -135,7 +135,7 @@
     <ion-card style="background: snow" (click)="divMostrarPostre()">
         <ion-card-content>
             <p class="alineacion-derecha">
-                <ion-icon name="ice-cream-outline"></ion-icon>POSTRES <span class="precio">Cantidad pedida: {{contadorPostres}}</span>
+                <ion-icon name="ice-cream-outline"></ion-icon>{{'realizar_pedido.POSTRES' | translate}} <span class="precio">{{'realizar_pedido.CANTIDAD_PEDIDA' | translate}} {{contadorPostres}}</span>
             </p>
         </ion-card-content>
     </ion-card>
@@ -143,7 +143,7 @@
         <ion-card style="background-color: rgba(0, 0, 0, 0.568);" *ngIf="mostrarPostre == true">
             <ion-card-content align="center" style="font-size: 20px;color: white; background-color: black;">
                 <p class="alineacion-derecha-platito">{{postre.nombre}}
-                    <span class="tiempo">precio : {{postre.precio}}</span>
+                    <span class="tiempo">{{'realizar_pedido.PRECIO' | translate}}  {{postre.precio}}</span>
                 </p>
             </ion-card-content>
             <ion-item color="transparent" style="background-color: transparent !important; color: transparent;">
@@ -162,12 +162,12 @@
                     <ion-row>
                         <ion-col col-6>
                             <ion-button (click)="cargarJSONPedidosPlatos(postre)" expand="block" color="success">
-                                <ion-icon name="add-circle-outline"></ion-icon>Agregar
+                                <ion-icon name="add-circle-outline"></ion-icon>{{'realizar_pedido.textoBotones.AGREGAR' | translate}}
                             </ion-button>
                         </ion-col>
                         <ion-col col-6>
                             <ion-button (click)="removerJSONPedidosPlatos(postre)" expand="block" color="danger">
-                                <ion-icon name="remove-circle-outline"></ion-icon>Eliminar
+                                <ion-icon name="remove-circle-outline"></ion-icon>{{'realizar_pedido.textoBotones.ELIMINAR' | translate}}
                             </ion-button>
                         </ion-col>
                     </ion-row>
@@ -180,7 +180,7 @@
     </div>
 </ion-content>
 <ion-footer>
-    <ion-button (click)="desplegarPedido()" color="success" expand="block">CONFIRMAR PEDIDO</ion-button>
-    <ion-item color="danger" expand="block">TIEMPO TOTAL - Aprox: {{pedidoEnFormatoJSON.tiempoTotal}} seg</ion-item>
-    <ion-item color="success" expand="block">PRECIO TOTAL: ${{pedidoEnFormatoJSON.precioTotal}}</ion-item>
+    <ion-button (click)="desplegarPedido()" color="success" expand="block">{{'realizar_pedido.CONFIRMAR_PEDIDO' | translate}} </ion-button>
+    <ion-item color="danger" expand="block">{{'realizar_pedido.TIEMPO_TOTAL2' | translate}} {{pedidoEnFormatoJSON.tiempoTotal}} {{'realizar_pedido.SEG' | translate}}</ion-item>
+    <ion-item color="success" expand="block">{{'realizar_pedido.PRECIO_TOTAL2' | translate}} ${{pedidoEnFormatoJSON.precioTotal}}</ion-item>
 </ion-footer>

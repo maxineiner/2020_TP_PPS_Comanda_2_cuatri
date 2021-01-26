@@ -50,7 +50,7 @@ export class SeccionMozoComponent implements OnInit {
 		consulta.estado = true;
 		consulta['respuesta'] = this.respuestaConsulta;
 		this.bd.actualizar('consultas', consulta, consulta.id).then(() => {
-			this.complemento.presentToastConMensajeYColor('La consulta fue resuelta con exito!', 'success');
+			this.complemento.presentToastConMensajeYColor('seccion-mozo.CONSULTA_RESUELTA', 'success');
 		}).catch(err => {
 			this.complemento.presentToastConMensajeYColor(firebaseErrors(err), 'danger');
 		}).finally(() => this.splash = false);
@@ -68,7 +68,7 @@ export class SeccionMozoComponent implements OnInit {
 				const x: any = userRef.data() as any;
 				x.estadoMesa = false;
 				return this.bd.actualizar('usuarios', x, pedido.cliente).then(() => {
-					this.complemento.presentToastConMensajeYColor("La mesa a sido liberada", "success");
+					this.complemento.presentToastConMensajeYColor("seccion-mozo.MESA_LIBERADA", "success");
 				});
 			});
 		}).then(() => {
@@ -83,12 +83,12 @@ export class SeccionMozoComponent implements OnInit {
 			this.splash = true;
 			pedido.estado = estado;
 			this.bd.actualizar('pedidos', pedido, pedido.id).then(() => {
-				this.complemento.presentToastConMensajeYColor('Estado de pedido modificado.', 'success')
+				this.complemento.presentToastConMensajeYColor('seccion-mozo.ESTADO_MODIFICADO', 'success')
 			}).catch(err => {
 				this.complemento.presentToastConMensajeYColor(firebaseErrors(err), 'danger');
 			}).finally(() => {
 				if (estado === 'EnPreparacion') {
-					this.fmc.enviarNotificacion('pedidoaPreparar', 'Hay un nuevo pedido para preparar', 'Grupo');
+					this.fmc.enviarNotificacion('pedidoaPreparar', 'seccion-mozo.NUEVO_PEDIDO', 'Grupo');
 				}
 				this.splash = false
 				this.cancelarConsulta();

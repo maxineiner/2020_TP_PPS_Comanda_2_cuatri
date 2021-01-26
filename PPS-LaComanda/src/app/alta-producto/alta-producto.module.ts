@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { AltaProductoPageRoutingModule } from './alta-producto-routing.module';
 
 import { AltaProductoPage } from './alta-producto.page';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   imports: [
@@ -14,7 +15,8 @@ import { AltaProductoPage } from './alta-producto.page';
     FormsModule,
     IonicModule,
     ReactiveFormsModule,
-    AltaProductoPageRoutingModule
+    AltaProductoPageRoutingModule,
+    TranslateModule.forChild()
   ],
   declarations: [AltaProductoPage]
 })

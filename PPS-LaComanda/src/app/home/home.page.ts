@@ -138,7 +138,7 @@ export class HomePage implements OnInit {
 							let x =this.fmc.gestionReserva(aux[0]).subscribe(subs => {
 								if (subs) {
 									x.unsubscribe();
-									this.complemento.presentToastConMensajeYColor('Ya se ha confirmado su precencia para su reserva. puede proceder', 'primary');
+									this.complemento.presentToastConMensajeYColor('home.notificaciones.PRESENCIA_RESERVA', 'primary');
 								}
 							});
 						}

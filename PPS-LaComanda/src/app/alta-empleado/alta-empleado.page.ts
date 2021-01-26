@@ -15,7 +15,7 @@ import { firebaseErrors } from 'src/assets/scripts/errores';
   styleUrls: ['./alta-empleado.page.scss'],
 })
 export class AltaEmpleadoPage implements OnInit {
-  pickedName: string = 'Mozo';
+  pickedName: string = '';
   miFormulario: FormGroup;
   splash: boolean = false;
   usuarioJson = {
@@ -30,10 +30,10 @@ export class AltaEmpleadoPage implements OnInit {
   };
 
   listaPerfiles = [
-    { perfil: "Mozo" },
-    { perfil: "Cocinero" },
-    { perfil: "Bar tender" },
-    { perfil: "Metre" }
+    { perfil: "alta-empleado.listaPerfiles.MOZO", value: "Mozo" },
+    { perfil: "alta-empleado.listaPerfiles.COCINERO", value: "Cocinero" },
+    { perfil: "alta-empleado.listaPerfiles.BAR_TENDER", value: "Bar tender" },
+    { perfil: "alta-empleado.listaPerfiles.METRE", value: "Metre" }
   ]
 
   constructor(
@@ -57,28 +57,28 @@ export class AltaEmpleadoPage implements OnInit {
 
   validation_messages = {
     'nombre': [
-      { type: 'required', message: 'El nombre es requerido.' },
-      { type: 'pattern', message: 'Introduzca un nombre de mínimo 3 a 10 caracteres y no números.' }
+      { type: 'required', message: 'alta-empleado.validationMessages.nombre.REQUIRED_MESSAGE' },
+      { type: 'pattern', message: 'alta-empleado.validationMessages.nombre.PATTERN_MESSAGE' }
     ],
     'apellido': [
-      { type: 'required', message: 'El apellido es requerido.' },
-      { type: 'pattern', message: 'Introduzca un apellido de mínimo 3 a 10 caracteres y no números.' }
+      { type: 'required', message: 'alta-empleado.validationMessages.apellido.REQUIRED_MESSAGE' },
+      { type: 'pattern', message: 'alta-empleado.validationMessages.apellido.PATTERN_MESSAGE' }
     ],
     'dni': [
-      { type: 'required', message: 'El DNI es requerido.' },
-      { type: 'pattern', message: 'Introduzca un DNI válido(8 caracteres).' }
+      { type: 'required', message: 'alta-empleado.validationMessages.dni.REQUIRED_MESSAGE' },
+      { type: 'pattern', message: 'alta-empleado.validationMessages.dni.REQUIRED_MESSAGE' }
     ],
     'cuil': [
-      { type: 'required', message: 'El cuil es requerido.' },
-      { type: 'pattern', message: 'Introduzca un cuil válido(11 caracteres).' }
+      { type: 'required', message: 'alta-empleado.validationMessages.cuil.REQUIRED_MESSAGE' },
+      { type: 'pattern', message: 'alta-empleado.validationMessages.cuil.REQUIRED_MESSAGE' }
     ],
     'correo': [
-      { type: 'required', message: 'El correo electronico es requerido.' },
-      { type: 'pattern', message: 'Introduzca un correo electrónico válido.' }
+      { type: 'required', message: 'alta-empleado.validationMessages.correo.REQUIRED_MESSAGE' },
+      { type: 'pattern', message: 'alta-empleado.validationMessages.correo.REQUIRED_MESSAGE' }
     ],
     'contrasenia': [
-      { type: 'required', message: 'La contraseña es requerida.' },
-      { type: 'pattern', message: 'La contraseña debe tener entre 6 y 18 caracteres.' }
+      { type: 'required', message: 'alta-empleado.validationMessages.contrasenia.REQUIRED_MESSAGE' },
+      { type: 'pattern', message: 'alta-empleado.validationMessages.contrasenia.REQUIRED_MESSAGE' }
     ]
   };
 
@@ -135,7 +135,7 @@ export class AltaEmpleadoPage implements OnInit {
     this.usuarioJson['correo'] = this.miFormulario.value.correo;
     this.auth.registrarUsuario(this.usuarioJson).then(() => {
       this.limpiarCampos();
-      this.complemetos.presentToastConMensajeYColor("¡El " + perfil + " se creo con exito!", "primary");
+      this.complemetos.presentToastConMensajeYColor("alta-empleado.registrar.SE_CREO", "primary");
     }).catch(err => {
         this.complemetos.presentToastConMensajeYColor(firebaseErrors(err), "danger");
       }).finally(()=>{
@@ -144,7 +144,7 @@ export class AltaEmpleadoPage implements OnInit {
   }
 
   limpiarCampos() {
-    this.pickedName = "Mozo";
+    this.pickedName = "";
     this.usuarioJson.foto = "../../assets/icon/iconLogoMovimiento.png",
     this.usuarioJson.perfil = "Mozo";
   }

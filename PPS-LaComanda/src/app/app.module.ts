@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
@@ -19,11 +19,18 @@ import firebase from "firebase/app";
 import "firebase/auth";
 import "firebase/firestore";
 import "firebase/storage";
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core'; 
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+
 firebase.initializeApp(environment.firebaseConfig);
 
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
 import { Vibration } from '@ionic-native/vibration/ngx';
+import { IonicStorageModule } from '@ionic/storage';
+
+export function HttpLoaderFactory(http: HttpClient){   return new TranslateHttpLoader(http,'/assets/i18n/','.json'); }
+
 
 @NgModule({
 	declarations: [AppComponent,],
@@ -37,7 +44,15 @@ import { Vibration } from '@ionic-native/vibration/ngx';
 		AngularFireAuthModule,
 		AngularFirestoreModule,
 		AngularFireStorageModule,
-		HttpClientModule
+		HttpClientModule,
+		TranslateModule.forRoot({
+			loader: {
+			  provide: TranslateLoader,
+			  useFactory: HttpLoaderFactory,
+			  deps: [HttpClient]
+			}
+		  }),
+		IonicStorageModule.forRoot()
 	],
 	providers: [
 		StatusBar,

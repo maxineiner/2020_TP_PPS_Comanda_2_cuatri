@@ -7,27 +7,28 @@
             <div align="center">
                 <img src="../../assets/icon/iconLogoMovimiento.png" alt="" width="100px" height="100px" class="icon">
             </div>
-            <ion-card-title align="center">Iniciar sesión</ion-card-title>
+            <ion-card-title align="center">{{'login.INICIAR_SESION' | translate}}</ion-card-title>
         </ion-card-header>
         <ion-item color='cubiertos'>
-            <ion-label>Usuarios</ion-label>
-            <ion-select [(ngModel)]="pickedName" interface="popover" placeholder="Seleccione Usuario" (ionChange)="pickerUser(pickedName)">
+            <ion-label>{{'login.USUARIOS' | translate}}</ion-label>
+            <ion-select [(ngModel)]="pickedName" interface="popover" placeholder="{{'login.placeHolders.SELECCIONE_USUARIO' | translate}}" (ionChange)="pickerUser(pickedName)">
                 <ion-select-option *ngFor="let usuario of listaUsuarios" value="{{usuario.correo}}">{{usuario.correo}}</ion-select-option>
             </ion-select>
         </ion-item>
         <ion-item color='cubiertos'>
-            <ion-label position="stacked">Correo electrónico</ion-label>
-            <ion-input type="text" [(ngModel)]="email" placeholder="Ingrese usuario..."></ion-input>
+            <ion-label position="stacked">{{'login.CORREO_ELECTRONICO' | translate}}</ion-label>
+            <ion-input type="text" [(ngModel)]="email" placeholder="{{'login.placeHolders.INGRESE_USUARIO' | translate}}"></ion-input>
         </ion-item>
         <ion-item color='cubiertos'>
-            <ion-label position="stacked">Contraseña</ion-label>
-            <ion-input type="password" [(ngModel)]="password" placeholder="Ingrese contraseña..."></ion-input>
+            <ion-label position="stacked">{{'login.CONTRASENIA' | translate}}</ion-label>
+            <ion-input type="password" [(ngModel)]="password" placeholder="{{'login.placeHolders.INGRESE_CONTRASENIA' | translate}}"></ion-input>
         </ion-item>
         <br>
-        <ion-button (click)="onSubmitLogin()" class="btnRegistro" expand="block">Ingresar</ion-button>
-        <ion-button (click)='loginGoogle()' class='btnRegistro' color='light' expand='block'>Ingresar con google<ion-icon style='margin-left: 10px;' name="logo-google"></ion-icon>
+        <ion-button (click)="onSubmitLogin()" class="btnRegistro" expand="block">{{'login.INGRESAR' | translate}}</ion-button>
+        <ion-button (click)='loginGoogle()' class='btnRegistro' color='light' expand='block'>{{'login.INGRESAR_GOOGLE' | translate}}
+            <ion-icon style='margin-left: 10px;' name="logo-google"></ion-icon>
         </ion-button>
-        <ion-button (click)="registrarUsuario()" class="btnRegistro" color='success' expand="block">Registrarse</ion-button>
+        <ion-button (click)="registrarUsuario()" class="btnRegistro" color='success' expand="block">{{'login.REGISTRARSE' | translate}}</ion-button>
         <br>
     </ion-card>
 </ion-content>

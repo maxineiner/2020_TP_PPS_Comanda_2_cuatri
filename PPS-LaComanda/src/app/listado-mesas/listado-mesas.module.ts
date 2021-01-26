@@ -7,13 +7,15 @@ import { IonicModule } from '@ionic/angular';
 import { ListadoMesasPageRoutingModule } from './listado-mesas-routing.module';
 
 import { ListadoMesasPage } from './listado-mesas.page';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    ListadoMesasPageRoutingModule
+    ListadoMesasPageRoutingModule,
+    TranslateModule
   ],
   declarations: [ListadoMesasPage]
 })

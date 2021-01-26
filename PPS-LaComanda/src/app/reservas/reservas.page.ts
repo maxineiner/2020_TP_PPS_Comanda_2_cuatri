@@ -30,15 +30,15 @@ export class ReservasPage implements OnInit {
 
 	validation_messages = {
 		'fecha': [
-			{ type: 'required', message: 'La fecha es requerida.' },
+			{ type: 'required', message: 'reservas.mensajes.FECHA_REQUERIDA' },
 		],
 		'tipoMesa': [
-			{ type: 'required', message: 'El tipo de mesa es requerido.' },
+			{ type: 'required', message: 'reservas.mensajes.TIPO_REQUERIDO' },
 		],
 		'comensales': [
-			{ type: 'required', message: 'La cantidad de comensales es requerida.' },
-			{ type: 'min', message: 'El numero de comensales debe ser mayor a 0.' },
-			{ type: 'max', message: 'El numero de comensales debe ser menor a 100.' },
+			{ type: 'required', message: 'reservas.mensajes.CANTIDAD_COMENSALES_REQUERIDO' },
+			{ type: 'min', message: 'reservas.mensajes.CANTIDAD_COMENSALES_MAYOR' },
+			{ type: 'max', message: 'reservas.mensajes.CANTIDAD_COMENSALES_MENOR' },
 		]
 	};
 
@@ -80,11 +80,11 @@ export class ReservasPage implements OnInit {
 							this.flagNumMesa = auxMesas[0].numero;
 							return this.crearReserva(this.flagNumMesa, this.miFormulario.value.fecha);
 						} else {
-							this.complemetos.presentToastConMensajeYColor('No se han encontrado mesas que cumplan con los requisitos solicitados.', 'danger');
+							this.complemetos.presentToastConMensajeYColor('reservas.mensajes.NO_ENCONTRO_MESA', 'danger');
 						}
 					}).then(ref => {
-						this.fmc.enviarNotificacion('nuevaReserva', 'Hay una nueva reserva para confirmar', 'Grupo');
-						this.complemetos.presentToastConMensajeYColor('Reserva cargada con exito. el dueño o supervisor revisara su peticion.', 'success')
+						this.fmc.enviarNotificacion('nuevaReserva', 'reservas.mensajes.RESERVA_PARA_CONFIRMAR', 'Grupo');
+						this.complemetos.presentToastConMensajeYColor('reservas.mensajes.RESERVA_CARGADA', 'success')
 					}).finally(() => this.splash = false);
 				} else {
 					if (this.listaReservas.findIndex(x => x.cliente === localStorage.getItem('uidUsuario') && (x.fecha >= fechaAntes && x.fecha <= fechaDespues)) === -1) {
@@ -101,23 +101,23 @@ export class ReservasPage implements OnInit {
 								if (this.flagNumMesa !== null) {
 									return this.crearReserva(this.flagNumMesa, this.miFormulario.value.fecha);
 								} else {
-									this.complemetos.presentToastConMensajeYColor('Todas las mesas que cumplen con los requisitos ya estan reservadas para este horario (' + new Date(fechaAntes).toLocaleString() + ' - ' + new Date(fechaDespues).toLocaleString() + ').', 'danger');
+									this.complemetos.presentToastConMensajeYColor('reservas.mensajes.MESAS_CUMPLEN_CON_REQUISITOS ', 'danger');
 								}
 							} else {
-								this.complemetos.presentToastConMensajeYColor('No se han encontrado mesas que cumplan con los requisitos solicitados.', 'danger');
+								this.complemetos.presentToastConMensajeYColor('reservas.mensajes.NO_ENCONTRO_MESA', 'danger');
 							}
 						}).then(ref => {
-							this.fmc.enviarNotificacion('nuevaReserva', 'Hay una nueva reserva para confirmar', 'Grupo');
-							this.complemetos.presentToastConMensajeYColor('Reserva cargada con exito. el dueño o supervisor revisara su peticion.', 'success')
+							this.fmc.enviarNotificacion('nuevaReserva', 'reservas.mensajes.RESERVA_PARA_CONFIRMAR', 'Grupo');
+							this.complemetos.presentToastConMensajeYColor('reservas.mensajes.RESERVA_CARGADA', 'success')
 						}).finally(() => this.splash = false);
 					} else {
 						this.splash = false;
-						this.complemetos.presentToastConMensajeYColor('Ya tienes una reservacion echa para este horario (' + new Date(fechaAntes).toLocaleString() + ' - ' + new Date(fechaDespues).toLocaleString() + ').', 'danger');
+						this.complemetos.presentToastConMensajeYColor('reservas.mensajes.YA_TIENES', 'danger');
 					}
 				}
 			} else {
 				this.splash = false;
-				this.complemetos.presentToastConMensajeYColor('se ha asignado una fecha invalida. la reserva se debe cargar 40 minutos antes de ser efectiva.', 'danger');
+				this.complemetos.presentToastConMensajeYColor('reservas.mensajes.FECHA_INVALIDA', 'danger');
 			}
 		}
 	}

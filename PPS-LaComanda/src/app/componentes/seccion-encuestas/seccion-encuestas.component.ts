@@ -21,11 +21,11 @@ export class SeccionEncuestasComponent implements OnInit {
 	public contadorInterno;
 	public gradoSatisfaccion = 0;
 	public califRestaurante: Array<any> = [
-		{ puntaje: 1, texto: 'Muy mala 😠'} ,
-		{ puntaje: 2, texto: 'Mala 😡'} ,
-		{ puntaje: 3, texto: 'Regular 😐'} ,
-		{ puntaje: 4, texto: 'Buena 🙂'} ,
-		{ puntaje: 5, texto: 'Muy buena 😊'} ,
+		{ puntaje: 1, texto: 'seccion-encuestas.calificacionRestaurante.MUY_MALA'} ,
+		{ puntaje: 2, texto: 'seccion-encuestas.calificacionRestaurante.MALA'} ,
+		{ puntaje: 3, texto: 'seccion-encuestas.calificacionRestaurante.REGULAR'} ,
+		{ puntaje: 4, texto: 'seccion-encuestas.calificacionRestaurante.BUENA'} ,
+		{ puntaje: 5, texto: 'seccion-encuestas.calificacionRestaurante.MUY_BUENA'} ,
 	];
 	public jsonEncuesta = {
 		calificacion_app: null,

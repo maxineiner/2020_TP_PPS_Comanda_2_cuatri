@@ -33,8 +33,8 @@ export class AltaSupervisorPage implements OnInit {
   };
 
   listaPerfiles = [
-    { perfil: "Supervisor" },
-    { perfil: "Dueño" }
+    { perfil: "alta-supervisor.listaPerfiles.SUPERVISOR", value: "Supervisor" },
+    { perfil: "alta-supervisor.listaPerfiles.DUENIO", value: "Dueño" }
   ]
 
   constructor(
@@ -57,28 +57,28 @@ export class AltaSupervisorPage implements OnInit {
 
   validation_messages = {
     'nombre': [
-      { type: 'required', message: 'El nombre es requerido.' },
-      { type: 'pattern', message: 'Introduzca un nombre de mínimo 3 a 10 caracteres y no números.' }
+      { type: 'required', message: 'alta-supervisor.validationMessages.nombre.REQUIRED_MESSAGE' },
+      { type: 'pattern', message: 'alta-supervisor.validationMessages.nombre.PATTERN_MESSAGE' }
     ],
     'apellido': [
-      { type: 'required', message: 'El apellido es requerido.' },
-      { type: 'pattern', message: 'Introduzca un apellido de mínimo 3 a 10 caracteres y no números.' }
+      { type: 'required', message: 'alta-supervisor.validationMessages.apellido.REQUIRED_MESSAGE' },
+      { type: 'pattern', message: 'alta-supervisor.validationMessages.apellido.PATTERN_MESSAGE' }
     ],
     'dni': [
-      { type: 'required', message: 'El DNI es requerido.' },
-      { type: 'pattern', message: 'Introduzca un DNI válido(8 caracteres).' }
+      { type: 'required', message: 'alta-supervisor.validationMessages.dni.REQUIRED_MESSAGE' },
+      { type: 'pattern', message: 'alta-supervisor.validationMessages.dni.PATTERN_MESSAGE' }
     ],
     'cuil': [
-      { type: 'required', message: 'El cuil es requerido.' },
-      { type: 'pattern', message: 'Introduzca un cuil válido(11 caracteres).' }
+      { type: 'required', message: 'alta-supervisor.validationMessages.cuil.REQUIRED_MESSAGE' },
+      { type: 'pattern', message: 'alta-supervisor.validationMessages.cuil.PATTERN_MESSAGE' }
     ],
     'correo': [
-      { type: 'required', message: 'El correo electronico es requerido.' },
-      { type: 'email', message: 'Introduzca un correo electrónico válido.' }
+      { type: 'required', message: 'alta-supervisor.validationMessages.correo.REQUIRED_MESSAGE' },
+      { type: 'email', message: 'alta-supervisor.validationMessages.correo.EMAIL_MESSAGE' }
     ],
     'contrasenia': [
-      { type: 'required', message: 'La contraseña es requerida.' },
-      { type: 'pattern', message: 'La contraseña debe tener entre 6 y 18 caracteres.' }
+      { type: 'required', message: 'alta-supervisor.validationMessages.contrasenia.REQUIRED_MESSAGE' },
+      { type: 'pattern', message: 'alta-supervisor.validationMessages.contrasenia.PATTERN_MESSAGE' }
     ]
   };
 
@@ -135,7 +135,7 @@ export class AltaSupervisorPage implements OnInit {
     this.usuarioJson['correo'] = this.miFormulario.value.correo;
     this.auth.registrarUsuario(this.usuarioJson).then(() => {
       this.limpiarCampos();
-      this.complemetos.presentToastConMensajeYColor("¡El " + perfil + " se creo con exito!", "primary");
+      this.complemetos.presentToastConMensajeYColor("alta-supervisor.registrar.SE_CREO", "primary");
     }).catch(err =>{
         this.complemetos.presentToastConMensajeYColor(firebaseErrors(err), "danger");
     }).finally(()=>{

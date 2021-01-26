@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { DatabaseService } from 'src/app/servicios/database.service';
 import { ComplementosService } from 'src/app/servicios/complementos.service';
 import { Observable } from 'rxjs';
+import { TranslateService } from '@ngx-translate/core';
 import firebase from 'firebase/app';
 
 @Injectable({
@@ -12,17 +13,22 @@ export class FmcService {
 	public usuario: any = null;
 	public fechasubscripcion: number = -1;
 	public firestore = firebase.firestore();
-	constructor(private complemento: ComplementosService, private bd: DatabaseService) { }
+	constructor(private complemento: ComplementosService, private bd: DatabaseService, private translate : TranslateService) { }
 
 	enviarNotificacion(topico: string, mensaje: string, destinatario: string) {
-		let notificacion = {
-			topico: topico,
-			mensaje: mensaje,
-			destinatario: destinatario,
-			fecha: Date.now(),
-			leido: [],
-		};
-		return this.bd.crear('notificaciones', notificacion);
+		let tlt = this.translate.get(mensaje).subscribe(res => {
+			let notificacion = {
+				topico: topico,
+				mensaje: mensaje,
+				destinatario: destinatario,
+				fecha: Date.now(),
+				leido: [],
+			};
+			
+			return this.bd.crear('notificaciones', notificacion);
+		});
+
+		tlt.unsubscribe();
 	}
 
 	subscribirseNotificaciones(topico: string) {

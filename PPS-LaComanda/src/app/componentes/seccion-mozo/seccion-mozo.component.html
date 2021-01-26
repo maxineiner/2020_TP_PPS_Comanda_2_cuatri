@@ -2,10 +2,10 @@
     <div *ngIf="flagSecc === 'Consultas'">
         <ng-container *ngFor="let consulta of listaConsultas">
             <ion-card style="background-color: #332920ea;">
-                <ion-card-content style="color: #ffffff;">{{consulta.fecha | date:"short"}}: El cliente {{consulta.cliente}} de la mesa {{consulta.mesa}} realizo la siguiente consulta:</ion-card-content>
+                <ion-card-content style="color: #ffffff;">{{consulta.fecha | date:"short"}}: {{'seccion-mozo.EL_CLIENTE' | translate}} {{consulta.cliente}} {{'seccion-mozo.EL_CLIENTE' | translate}} {{consulta.mesa}} {{'seccion-mozo.REALIZO_CONSULTA' | translate}}</ion-card-content>
                 <ion-card-content style="color: #ffffff;">{{consulta.descripcion}}</ion-card-content>
                 <ion-input type="text" style="color: #ffffff;" [(ngModel)]="respuestaConsulta" placeholder="Respuesta"></ion-input>
-                <ion-button expand="block" (click)="consultaConExito(consulta)">Responder Consulta</ion-button>
+                <ion-button expand="block" (click)="consultaConExito(consulta)">{{'seccion-mozo.RESPONDER_CONSULTA' | translate}}</ion-button>
             </ion-card>
         </ng-container>
     </div>

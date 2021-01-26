@@ -7,7 +7,7 @@
             <ion-buttons slot="end" style='margin-right: 10px;'>
                 <ion-icon [name]="complemento.flagSonidos ? 'volume-high-outline':'volume-mute-outline'" (click)='complemento.toggleSonidos()'></ion-icon>
             </ion-buttons>
-            <h3 class="titulo">!BIENVENIDOS!</h3>
+            <h3 class="titulo">{{'home.TITULO' | translate}}</h3>
         </ion-toolbar>
     </ion-header>
     <ion-content *ngIf='infoUsuario !== undefined; else splashA' class="contenidoTotal">

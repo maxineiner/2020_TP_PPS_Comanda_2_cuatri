@@ -13,6 +13,7 @@ import { SeccionClientesComponent } from 'src/app/componentes/seccion-clientes/s
 import { SeccionEncuestasComponent } from 'src/app/componentes/seccion-encuestas/seccion-encuestas.component';
 import { SeccionJuegosComponent } from 'src/app/componentes/seccion-juegos/seccion-juegos.component';
 import { MenuOpcionesComponent } from 'src/app/componentes/menu-opciones/menu-opciones.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { MenuOpcionesComponent } from 'src/app/componentes/menu-opciones/menu-op
 		FormsModule,
 		ReactiveFormsModule,
 		IonicModule,
-		HomePageRoutingModule
+		HomePageRoutingModule,
+		TranslateModule
 	],
 	declarations: [
 		HomePage,

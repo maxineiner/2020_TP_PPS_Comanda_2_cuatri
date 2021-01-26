@@ -35,7 +35,7 @@ export class LoginPage implements OnInit {
 			if (promesa !== 'creado') {
 				this.resolveLogin(promesa);
 			} else {
-				this.complementos.presentToastConMensajeYColor('Se ha registrado en la base de datos. espere a que un dueño o supervisor le de de alta', 'success');
+				this.complementos.presentToastConMensajeYColor('login.notificaciones.REGISTRADO_EN_BD', 'success');
 			}
 		}).catch(err => this.complementos.presentToastConMensajeYColor(firebaseErrors(err), 'danger')).finally(() => {
 			this.splash = false;
@@ -61,9 +61,9 @@ export class LoginPage implements OnInit {
 				this.router.navigate(['/home']);
 			}
 			else if (user.data().estado === false) {
-				this.complementos.presentToastConMensajeYColor('Esta cuenta aun no esta habilitada.', 'danger');
+				this.complementos.presentToastConMensajeYColor('login.notificaciones.CUENTA_NO_HABILITADA.', 'danger');
 			} else if (user.data().estado === null) {
-				this.complementos.presentToastConMensajeYColor('Esta cuenta fue rechazada. no podras acceder con ella', 'danger');
+				this.complementos.presentToastConMensajeYColor('login.notificaciones.CUENTA_RECHAZADA', 'danger');
 			}
 		});
 	}

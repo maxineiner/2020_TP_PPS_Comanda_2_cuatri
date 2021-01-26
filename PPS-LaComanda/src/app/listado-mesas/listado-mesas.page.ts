@@ -35,20 +35,20 @@ export class ListadoMesasPage implements OnInit {
           if (this.item.tipo === mesita.tipo) {
             this.procesoAsignacion(mesita)
           } else {
-            this.complementos.presentToastConMensajeYColor('La mesa seleccionada no cumple con los parametros del cliente.', 'danger');
+            this.complementos.presentToastConMensajeYColor('listado-mesas.notificaciones.NO_CUMPLE_PARAMETROS', 'danger');
           }
         } else {
           this.procesoAsignacion(mesita)
         }
       } else {
-        this.complementos.presentToastConMensajeYColor('La mesa seleccionada no cumple con los parametros del cliente.', 'danger');
+        this.complementos.presentToastConMensajeYColor('listado-mesas.notificaciones.NO_CUMPLE_PARAMETROS', 'danger');
       }
     } else {
       if (this.item.tipo !== null || this.item.tipo) {
         if (this.item.tipo === mesita.tipo) {
           this.procesoAsignacion(mesita)
         } else {
-          this.complementos.presentToastConMensajeYColor('La mesa seleccionada no cumple con los parametros del cliente.', 'danger');
+          this.complementos.presentToastConMensajeYColor('listado-mesas.notificaciones.NO_CUMPLE_PARAMETROS', 'danger');
         }
       } else {
         this.procesoAsignacion(mesita)
@@ -77,7 +77,7 @@ export class ListadoMesasPage implements OnInit {
       localStorage.removeItem('itemListaDeEspera');
       return this.bd.eliminar('listaEspera', this.item.id);
     }).then(() => {
-      this.complementos.presentToastConMensajeYColor('¡Mesa asignada a cliente!', 'success');
+      this.complementos.presentToastConMensajeYColor('listado-mesas.notificaciones.MESA_ASIGNADA', 'success');
       this.router.navigate(['/home']);
     }).catch(err => this.complementos.presentToastConMensajeYColor(firebaseErrors(err), 'danger'));
   }

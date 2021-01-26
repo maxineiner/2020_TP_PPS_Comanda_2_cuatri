@@ -22,9 +22,9 @@ export class AltaProductoPage implements OnInit {
     fotos: ['../../assets/icon/iconLogoMovimiento.png', '../../assets/icon/iconLogoMovimiento.png', '../../assets/icon/iconLogoMovimiento.png'],
   };
   listaProductos = [
-    { tipo: "Plato" },
-    { tipo: "Bebida" },
-    { tipo: "Postre" }
+    { tipo: "alta-producto.listaProductos.PLATO", value: "Plato" },
+    { tipo: "alta-producto.listaProductos.BEBIDA", value: "Bebida" },
+    { tipo: "alta-producto.listaProductos.POSTRE", value: "Postre" }
   ]
 
   constructor(
@@ -44,22 +44,22 @@ export class AltaProductoPage implements OnInit {
 
   validation_messages = {
     'nombre': [
-      { type: 'required', message: 'El nombre es requerido.' },
-      { type: 'pattern', message: 'Introduzca un nombre de mínimo 3 a 10 caracteres y no números.' }
+      { type: 'required', message: 'alta-producto.validationMessages.nombre.REQUIRED_MESSAGE' },
+      { type: 'pattern', message: 'alta-producto.validationMessages.nombre.PATTERN_MESSAGE' }
     ],
     'descripcion': [
-      { type: 'required', message: 'El descripcion es requerida.' },
-      { type: 'pattern', message: 'Introduzca una descripcion de mínimo 3 a 20 caracteres y no números.' }
+      { type: 'required', message: 'alta-producto.validationMessages.descripcion.REQUIRED_MESSAGE' },
+      { type: 'pattern', message: 'alta-producto.validationMessages.descripcion.PATTERN_MESSAGE' }
     ],
     'tiempo': [
-      { type: 'required', message: 'El tiempo es requerido.' },
-      { type: 'min', message: 'Introduzca un numero mayor a 0.' },
-      { type: 'max', message: 'Introduzca un numero menor a 10000.' }
+      { type: 'required', message: 'alta-producto.validationMessages.tiempo.REQUIRED_MESSAGE' },
+      { type: 'min', message: 'alta-producto.validationMessages.tiempo.MIN_MESSAGE' },
+      { type: 'max', message: 'alta-producto.validationMessages.tiempo.MAX_MESSAGE' }
     ],
     'precio': [
-      { type: 'required', message: 'El precio es requerido.' },
-      { type: 'min', message: 'Introduzca un numero mayor a 0.' },
-      { type: 'max', message: 'Introduzca un numero menor a 10000.' }
+      { type: 'required', message: 'alta-producto.validationMessages.precio.REQUIRED_MESSAGE' },
+      { type: 'min', message: 'alta-producto.validationMessages.precio.MIN_MESSAGE' },
+      { type: 'max', message: 'alta-producto.validationMessages.precio.MAX_MESSAGE' }
     ],
   };
 
@@ -68,12 +68,12 @@ export class AltaProductoPage implements OnInit {
     this.bd.obtenerPorIdPromise('usuarios', uid).then(user => {
       if (user.data().perfil === 'Cocinero') {
         this.listaProductos = [
-          { tipo: "Plato" },
-          { tipo: "Postre" }
+          { tipo: "alta-producto.listaProductos.PLATO", value: "Plato" },
+          { tipo: "alta-producto.listaProductos.POSTRE", value: "Postre" }
         ]
       } else if (user.data().perfil === 'BarTender') {
         this.listaProductos = [
-          { tipo: "Bebida" },
+          { tipo: "alta-producto.listaProductos.BEBIDA", value: "Bebida" },
 
         ]
       }
@@ -105,7 +105,7 @@ export class AltaProductoPage implements OnInit {
       });
     }
     else {
-      this.complemetos.presentToastConMensajeYColor("No se puede cargar mas fotos", "primary");
+      this.complemetos.presentToastConMensajeYColor("alta-producto.tomarFotografia.NO_MAS_FOTOS", "primary");
     }
   }
 
@@ -135,14 +135,14 @@ export class AltaProductoPage implements OnInit {
         return this.bd.actualizar('productos', this.productoJson, docId);
       }).then(() => {
         this.limpiarCampos();
-        this.complemetos.presentToastConMensajeYColor("El producto fue cargado con exito", "primary");
+        this.complemetos.presentToastConMensajeYColor("alta-producto.registrar.PRODUCTO_EXITO", "primary");
       }).catch(err => {
         this.complemetos.presentToastConMensajeYColor(firebaseErrors(err), "danger");
       }).finally(() => {
         this.splash = false;
       });
     } else {
-      this.complemetos.presentToastConMensajeYColor("¡El producto debe tener 3 imagenes!", "danger");
+      this.complemetos.presentToastConMensajeYColor("alta-producto.registrar.TRES_IMAGENES", "danger");
     }
   }
 

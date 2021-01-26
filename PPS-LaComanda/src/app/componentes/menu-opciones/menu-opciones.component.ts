@@ -3,6 +3,7 @@ import { MenuController } from '@ionic/angular';
 import { AuthService } from 'src/app/servicios/auth.service';
 import { Router } from "@angular/router";
 import { ComplementosService } from 'src/app/servicios/complementos.service';
+import { TranslateModule } from '@ngx-translate/core';
 
 
 @Component({

@@ -1,0 +1,556 @@
+{
+    "alta-cliente": {
+        "TITULO": "Inscription du client",
+        "TIPO": "Type:",
+        "placeHolders": {
+            "SELECCIONE": "Veuillez sélectionner",
+            "NOMBRE": "Nom",
+            "APELLIDO": "Le nom",
+            "DNI": "DNI",
+            "CORREO": "Correo",
+            "CONTRASENIA": "Mot de passe"
+        },
+        "textoBotones": {
+            "QR_DNI": "QR DNI",
+            "TOMAR_FOTO": "Prendre photo",
+            "REGISTRARSE": "Enregistrement"
+        },
+        "listaPerfiles": {
+            "CLIENTE": "Client",
+            "ANONIMO": "Anonyme"
+        },
+        "validationMessages": {
+            "nombre": {
+                "REQUIRED_MESSAGE": "Le nom est obligatoire.",
+                "PATTERN_MESSAGE": "Saisissez un nom d'au moins 3 à 20 caractères et non des chiffres."
+            },
+            "nombreAnonimo": {
+                "REQUIRED_MESSAGE": "Le nom est obligatoire.",
+                "PATTERN_MESSAGE": "Saisissez un nom d'au moins 3 à 20 caractères et non des chiffres."
+            },
+            "apellido": {
+                "REQUIRED_MESSAGE": "Le nom de famille est obligatoire.",
+                "PATTERN_MESSAGE": "Entrez un nom de famille d'au moins 3 à 20 caractères et aucun chiffre."
+            },
+            "dni": {
+                "REQUIRED_MESSAGE": "Le DNI est requis.",
+                "PATTERN_MESSAGE": "Veuillez saisir un identifiant valide (8 caractères)."
+            },
+            "correo": {
+                "REQUIRED_MESSAGE": "Un e-mail est requis.",
+                "PATTERN_MESSAGE": "Veuillez saisir un e-mail valide."
+            },
+            "contrasenia": {
+                "REQUIRED_MESSAGE": "Le mot de passe est requis.",
+                "PATTERN_MESSAGE": "Le mot de passe doit comprendre entre 6 et 18 caractères."
+            }
+        },
+        "registrar": {
+            "ESTADO_CLIENTE": "Le statut du client est en attente d'enregistrement.",
+            "NUEVO_CLIENTE": "Un nouveau client s'est inscrit",
+            "ANONIMO_EXITOSO": "Anonyme réussi"
+        }
+    },
+    "alta-empleado": {
+        "TITULO": "Employé élevé",
+        "TIPO": "Type:",
+        "placeHolders": {
+            "SELECCIONE": "Veuillez sélectionner",
+            "NOMBRE": "Nom",
+            "APELLIDO": "Le nom",
+            "DNI": "DNI",
+            "CUIL": "CUIL",
+            "CORREO": "Courrier",
+            "CONTRASENIA": "Mot de passe"
+        },
+        "textoBotones": {
+            "QR_DNI": "QR DNI",
+            "TOMAR_FOTO": "Prendre photo",
+            "REGISTRARSE": "Enregistrement"
+        },
+        "listaPerfiles": {
+            "MOZO": "Serveur",
+            "COCINERO": "Chef",
+            "BAR_TENDER": "Bar annexe",
+            "METRE": "Mètre"
+        },
+        "validationMessages": {
+            "nombre": {
+                "REQUIRED_MESSAGE": "Le nom est obligatoire.",
+                "PATTERN_MESSAGE": "Saisissez un nom d'au moins 3 à 10 caractères et non des chiffres."
+            },
+            "apellido": {
+                "REQUIRED_MESSAGE": "Le nom de famille est obligatoire.",
+                "PATTERN_MESSAGE": "Entrez un nom de famille d'au moins 3 à 10 caractères et aucun chiffre."
+            },
+            "dni": {
+                "REQUIRED_MESSAGE": "Le DNI est requis.",
+                "PATTERN_MESSAGE": "Veuillez saisir un identifiant valide (8 caractères)."
+            },
+            "cuil": {
+                "REQUIRED_MESSAGE": "Le cuil est obligatoire.",
+                "PATTERN_MESSAGE": "Veuillez saisir une valeur valide (11 caractères)."
+            },
+            "correo": {
+                "REQUIRED_MESSAGE": "Un e-mail est requis.",
+                "PATTERN_MESSAGE": "Veuillez saisir un e-mail valide."
+            },
+            "contrasenia": {
+                "REQUIRED_MESSAGE": "Le mot de passe est requis.",
+                "PATTERN_MESSAGE": "Le mot de passe doit comprendre entre 6 et 18 caractères."
+            }
+        },
+        "registrar": {
+            "SE_CREO": " Il a été créé avec succès!"
+        }
+    },
+    "alta-mesa": {
+        "TITULO": "Table haute",
+        "TIPO": "Type:",
+        "placeHolders": {
+            "SELECCIONE": "Veuillez sélectionner",
+            "NUMERO": "Le numéro...",
+            "COMENSALES": "Diners ..."
+        },
+        "textoBotones": {
+            "TOMAR_FOTO": "Prendre photo",
+            "REGISTRAR_MESA": "Tableau d'enregistrement"
+        },
+        "listaTipo": {
+            "POR_DEFECTO": "Par défaut",
+            "VIP": "VIP",
+            "Discapacitados": "Désactivé"
+        },
+        "validationMessages": {
+            "numero": {
+                "REQUIRED_MESSAGE": "Le numéro est obligatoire.",
+                "MIN_MESSAGE": "Entrez un nombre supérieur à 0.",
+                "MAX_MESSAGE": "Entrez un nombre inférieur à 100"
+            },
+            "comensales": {
+                "REQUIRED_MESSAGE": "Diners sont obligatoires.",
+                "MIN_MESSAGE": "Entrez un nombre supérieur à 0.",
+                "MAX_MESSAGE": "Entrez un nombre inférieur à 100"
+            }
+        },
+        "registrar": {
+            "MESA_CARGADA": "La table a été chargée avec succès",
+            "NUMERO_EXISTE": "Ce numéro de table existe déjà"
+        }
+    },
+    "alta-producto": {
+        "TITULO": "Enregistrement du produit",
+        "placeHolders": {
+            "SELECCIONE": "Veuillez sélectionner",
+            "NOMBRE": "Nom",
+            "DESCRIPCION": "La description",
+            "TIEMPO": "Temps de traitement",
+            "PRECIO": "Prix"
+        },
+        "textoBotones": {
+            "ENVIAR_PRODUCTO": "Envoyer le produit"
+        },
+        "listaProductos": {
+            "PLATO": "Plat",
+            "BEBIDA": "Boisson",
+            "POSTRE": "Dessert"
+        },
+        "validationMessages": {
+            "nombre": {
+                "REQUIRED_MESSAGE": "Le nom est obligatoire.",
+                "PATTERN_MESSAGE": "Saisissez un nom d'au moins 3 à 10 caractères et non des chiffres."
+            },
+            "descripcion": {
+                "REQUIRED_MESSAGE": "La description est obligatoire.",
+                "PATTERN_MESSAGE": "Saisissez une description d'au moins 3 à 20 caractères et non des chiffres."
+            },
+            "tiempo": {
+                "REQUIRED_MESSAGE": "Il faut du temps.",
+                "MIN_MESSAGE": "Entrez un nombre supérieur à 0.",
+                "MAX_MESSAGE": "Entrez un nombre inférieur à 10 000."
+            },
+            "precio": {
+                "REQUIRED_MESSAGE": "Le prix est obligatoire.",
+                "MIN_MESSAGE": "Entrez un nombre supérieur à 0.",
+                "MAX_MESSAGE": "Entrez un nombre inférieur à 10 000."
+            }
+        },
+        "tomarFotografia": {
+            "NO_MAS_FOTOS": "Impossible de charger plus de photos"
+        },
+        "registrar": {
+            "PRODUCTO_EXITO": "Le produit a été chargé avec succès",
+            "TRES_IMAGENES": "Le produit doit avoir 3 images!"
+        }
+    },
+    "alta-supervisor": {
+        "TITULO": "Enregistrer le propriétaire / superviseur",
+        "placeHolders": {
+            "SELECCIONE": "Veuillez sélectionner",
+            "NOMBRE": "Nom...",
+            "APELLIDO": "Le nom...",
+            "DNI": "DNI...",
+            "CUIL": "CUIL...",
+            "CORREO": "Courrier...",
+            "CONTRASENIA": "Mot de passe..."
+        },
+        "textoBotones": {
+            "QR_DNI": "QR DNI",
+            "TOMAR_FOTO": "Prendre photo",
+            "REGISTRARSE": "Enregistrement"
+        },
+        "listaPerfiles": {
+            "SUPERVISOR": "Superviseur",
+            "DUENIO": "Propriétaire"
+        },
+        "validationMessages": {
+            "nombre": {
+                "REQUIRED_MESSAGE": "Le nom est obligatoire.",
+                "PATTERN_MESSAGE": "Saisissez un nom d'au moins 3 à 20 caractères et non des chiffres."
+            },
+            "apellido": {
+                "REQUIRED_MESSAGE": "Le nom de famille est obligatoire.",
+                "PATTERN_MESSAGE": "Entrez un nom de famille d'au moins 3 à 20 caractères et aucun chiffre."
+            },
+            "dni": {
+                "REQUIRED_MESSAGE": "Le DNI est requis.",
+                "PATTERN_MESSAGE": "Veuillez saisir un identifiant valide (8 caractères)."
+            },
+            "cuil": {
+                "REQUIRED_MESSAGE": "Le CUIL est requis.",
+                "PATTERN_MESSAGE": "Veuillez saisir un CUIL valide (11 caractères)."
+            },
+            "correo": {
+                "REQUIRED_MESSAGE": "Un e-mail est requis.",
+                "EMAIL_MESSAGE": "Veuillez saisir un e-mail valide."
+            },
+            "contrasenia": {
+                "REQUIRED_MESSAGE": "Le mot de passe est requis.",
+                "PATTERN_MESSAGE": "Le mot de passe doit comprendre entre 6 et 18 caractères."
+            }
+        },
+        "registrar": {
+            "SE_CREO": " Il a été créé avec succès!"
+        }
+    },
+    "menu-opciones": {
+        "NOMBRE": "Nom:",
+        "CORREO": "Courrier",
+        "PERFIL": "Profil:",
+        "textoBotones": {
+            "SETTINGS": "Réglages",
+            "REGISTRAR_DUENIO_SUPERVISOR": "Enregistrer le propriétaire / superviseur",
+            "REGISTRAR_EMPLEADO": "Registrar Empleado",
+            "REGISTRAR_MESA": "Tableau d'enregistrement",
+            "VER_CLIENTES_NUEVOS": "Voir les nouveaux clients",
+            "VER_RESERVAS_NUEVAS": "Voir les nouvelles réservations",
+            "REGISTRAR_CLIENTE": "Enregistrer le client",
+            "HACER_RESERVA": "Faire une réservation",
+            "QR_MESA": "Tableau QR",
+            "CONSULTA": "Requete",
+            "LISTA_PRODUCTOS": "Liste des produits",
+            "CONFIRMAR_RECEPCION": "Confirmer la réception de la commande",
+            "REALIZAR_ENCUESTA": "Participer à l'enquête",
+            "JUEGOS": "Jeux",
+            "PEDIR_CUENTA": "Demander un compte",
+            "CONSULTAS": "Requêtes",
+            "PEDIDOS_PENDIENTES": "Les ordres en attente",
+            "PEDIDOS_PREPARADOS": "Commandes préparées",
+            "PEDIDOS_PAGADOS": "Commandes payées",
+            "AGREGAR_PRODUCTO": "Ajouter un produit",
+            "CERRAR_SESION": "Fermer la session"
+        }
+    },
+    "seccion-clientes": {
+        "PARA_ACCEDER_LISTA": "Pour accéder à la liste d'attente, choisissez certaines spécifications pour votre table (facultatif) et scannez le code Qr",
+        "textoBotones": {
+            "ENTRAR_LISTA": "Entrez dans la liste d'attente",
+            "PAGAR": "Payer",
+            "DAR_PROPINA": "Pourboire",
+            "CONSULTAR_MOZO": "Consulter le serveur",
+            "HACER_PEDIDO": "faire une commande",
+            "CONSULTA": "Requete:",
+            "ENVIAR": "Envoyer",
+            "CANCELAR": "Annuler"
+        },
+        "placeholder": {
+            "lEsperaTipo": "Choisissez le type de table que vous souhaitez",
+            "consulta": "Requete.."
+        },
+        "SE_ASIGNO_LA_MESA": "Le tableau a été attribué:",
+        "PARA_ACCEDER_LISTA_QR": "Pour accéder à la liste des produits, scannez le QR du tableau en appuyant sur le bouton menu.",
+        "CONSULTAS": "Requêtes",
+        "SU_CONSULTA": "Votre demande :",
+        "RESPUESTA_MOZO": "Réponse du serveur:",
+        "CUENTA": "COMPTE",
+        "PROPINA": "POINTE",
+        "BENEFICIO": "AVANTAGE",
+        "TOTAL": "TOTAL",
+        "PRECIO": "Prix:",
+        "TIEMPO": "La météo:",
+        "SEGUNDOS": "secondes",
+        "notificaciones": {
+            "YA_PERDISTE": "vous avez déjà perdu votre chance de faire un profit",
+            "NUEVO_CLIENTE": "un nouveau client est entré sur la liste d'attente",
+            "CLIENTE_LISTA_ESPERA": "Vous êtes déjà sur la liste d'attente. Veuillez attendre que le compteur vous attribue une table.",
+            "QR_EQUIVOCADO": "qr Faux.",
+            "LA_MESA": "La table ",
+            "EN_ESTADO": " en état ",
+            "NO_LE_CORRESPONDE": " ça ne te correspond pas, re-scannez le qr",
+            "PEDIDO_ESPERANDO_CONFIRMACION": "Votre commande attend la confirmation d'un serveur.",
+            "PEDIDO_EN_PREPARACION": "Votre commande est en préparation ",
+            "PEDIDO_LISTO": "Votre commande est prête. Vous serez immédiatement amené à table.",
+            "MOZO_LLEVA_PEDIDO": "Le serveur a apporté votre commande à la table. Confirmer la réception.",
+            "PEDIDO_SERVIDO": "Votre commande est servie. Vous pouvez maintenant accéder à l'enquête et au compte",
+            "TODO_PAGO": "Tout est déjà payé. dans quelques instants le serveur vous inscrira",
+            "NO_ES_LA_MISMA": " Ce n'est pas la même chose que la commande.",
+            "AUN_NO_TIENES_PEDIDO": "Vous n'avez pas encore attribué de commande.",
+            "RECEPCION_REGISTRADA": "Votre réception de la commande a été enregistrée",
+            "PAGO_POR_SER_CONFIRMADO": "Votre paiement n'est pas encore confirmé, merci de nous utiliser!",
+            "CLIENTE_NUEVA_CONSULTA": "Un client vient de faire une demande",
+            "CONSULTA_EXITO": "Votre requête a réussi, attendez qu'un serveur s'approche."
+        }
+    },
+    "seccion-duenios": {
+        "CLIENTES_PENDIENTES": "Clients en attente",
+        "textoBotones": {
+            "ACEPTAR": "Accepter",
+            "RECHAZAR": "Refuser"
+        },
+        "label": {
+            "CLIENTE": "Client:",
+            "FECHA": "Date:",
+            "MESA": "Table:"
+        },
+        "RESERVAS_PENDIENTES": "Réservations en attente",
+        "ASUNTO_CORREO": "Qualification de compte pour la commande",
+        "MENSAJE_CORREO_ACEPTADO": "<i>Votre inscription a été acceptée. vous pouvez maintenant vous connecter avec ce compte</i>",
+        "MENSAJE_CORREO_RECHAZADO": "<i>Votre inscription a été rejetée. vous ne pouvez pas vous connecter avec ce compte</i>",
+        "RESERVA_RECHAZADA": "votre réservation a été rejetée",
+        "RESERVA_APROBADA": "votre réservation a été approuvée"
+    },
+    "seccion-encuestas": {
+        "QUE_LE_PARECIO": "Que pensez-vous de notre application?",
+        "puntuaciones": {
+            "MUY_MALA": "Très méchante",
+            "MALA": "Mal",
+            "REGULAR": "Régulier",
+            "BUENA": "bonne",
+            "MUY_BUENA": "Très bonne"
+        },
+        "placeHolders": {
+            "ELIJE_CALIFICACION": "choisissez une note pour le restaurant"
+        },
+        "CAMPO_REQUERIDO": "Champs requis. compléter",
+        "SERVICIO_RESTAURANTE": "Qu'as-tu pensé du service de restauration?",
+        "DEJAS_PROPINA": "Avez-vous / allez-vous laisser un pourboire pour votre commande?",
+        "PARTICIPAS_JUEGOS": "Avez-vous / allez-vous participer aux jeux dans un but lucratif?",
+        "SI": "Oui",
+        "NO": "Non",
+        "RECOMENDACION": "Avez-vous des recommandations supplémentaires à donner?",
+        "REALIZO": "L'enquête a déjà été faite",
+        "ENVIAR": "Envoyer",
+        "ESTADISTICAS": "Statistiques",
+        "calificacionRestaurante": {
+            "MUY_MALA": "Très méchante 😠",
+            "MALA": "Mal 😡",
+            "REGULAR": "Régulier 😐",
+            "BUENA": "bonne 🙂",
+            "MUY_BUENA": "Très bonne 😊"
+        },
+        "notificaciones": {
+            "ENCUESTA_FINALIZADA": "Votre enquête a été complétée avec succès!",
+            "CAMPOS_OBLIGATORIOS": "Il y a des champs obligatoires sans remplir!"
+        }
+    },
+    "seccion-juegos": {
+        "placeHolders": {
+            "TIPO_BENEFICIO": "choisissez le type de prestation"
+        },
+        "DESCUENTO": "Remise 10%",
+        "BEBIDA_GRATIS": "Boisson gratuite",
+        "POSTRE_GRATIS": "Dessert gratuit",
+        "HACE_CLICK": "Cliquez sur la pièce pour jouer",
+        "notificaciones": {
+            "GANASTE_BENEFICIO": "vous avez gagné votre profit!",
+            "PERDISTE_BENEFICIO": "vous avez perdu votre avantage!"
+        }
+    },
+    "seccion-metre": {
+        "LISTA_ESPERA": "Liste d'attente",
+        "TIPO_MESA": "Type de table:",
+        "CANTIDAD_COMENSALES": "Nombre de convives:",
+        "ASIGNAR_MESA": "Attribuer une table"
+    },
+    "seccion-mozo": {
+        "EL_CLIENTE": "Le client ",
+        "DE_LA_MESA": " de la table ",
+        "REALIZO_CONSULTA": " J'effectue la requête suivante:",
+        "RESPONDER_CONSULTA": "Requête de réponse",
+        "EL_PEDIDO": "La commande ",
+        "ESTA_PENDIENTE": " en attendant",
+        "ESTA_PREPARADO": " Il est préparé",
+        "FUE_PAGADO": " a été payé.",
+        "NOMBRE": "nom:",
+        "CANTIDAD": "quantité: ",
+        "PRECIO": "prix: ",
+        "TIEMPO_TOTAL": "Temps total: ",
+        "PRECIO_TOTAL": "Prix total: ",
+        "textoBotones": {
+            "CONFIRMAR": "Confirmer",
+            "CANCELAR": "Annuler",
+            "LLEVAR_MESA": "Apportez à la table",
+            "CONFIRMAR_Y_LIBERAR": "Confirmer et libérer le tableau"
+        },
+        "CONSULTA_RESUELTA": "La requête a été résolue avec succès!",
+        "MESA_LIBERADA": "Le tableau a été publié",
+        "ESTADO_MODIFICADO": "Statut de la commande modifié.",
+        "NUEVO_PEDIDO": "Il y a une nouvelle commande à préparer"
+    },
+    "seccion-produccion": {
+        "PEDIDOS_A_ELABORAR": "Commandes à produire",
+        "ID_PEDIDO": "Numéro de commande: #",
+        "PEDIDOS": "Ordres:",
+        "NOMBRE": "nom: ",
+        "CANTIDAD": "quantité: ",
+        "PRECIO": "prix: ",
+        "ELABORAR": "Élaborer",
+        "notificaciones": {
+            "PEDIDO": "la commande #${pedido.id} Il est prêt à être servi.",
+            "PRODUCTOS_PREPARADOS": "Tous les produits de la commande préparés",
+            "PRODUCTOS_SECTOR": "Produits du secteur préparés"
+        }
+    },
+    "encuestas": {
+        "TITULO": "Les sondages",
+        "CANTIDAD_DE_ENCUESTAS": "Nombre d'enquêtes: ",
+        "titulos": {
+            "APP": "Que pensez-vous de notre application?",
+            "RESTAURANTE": "Qu'as-tu pensé du service de restauration?",
+            "PROPINA": "Avez-vous / allez-vous laisser un pourboire pour votre commande?",
+            "JUEGOS": "Avez-vous / allez-vous participer aux jeux dans un but lucratif?",
+            "RECOMENDACION": "Avez-vous des recommandations supplémentaires à donner?"
+        }
+    },
+    "home": {
+        "TITULO": "!BIENVENUE!",
+        "notificaciones": {
+            "PRESENCIA_RESERVA": "Votre présence a déjà été confirmée pour votre réservation. Vous pouvez continuer"
+        }
+    },
+    "listado-mesas": {
+        "TITULO": "Tables disponibles",
+        "NUMERO_MESA": "Numéro de table: ",
+        "TIPO_MESA": "Type de table: ",
+        "CAPACIDAD": "Capacité: ",
+        "ESTADO_MESA": "État de la table: ",
+        "ASIGNAR_MESA": "Attribuer ce tableau",
+        "COMENSALES": "Diners: ",
+        "notificaciones": {
+            "NO_CUMPLE_PARAMETROS": "La table sélectionnée ne correspond pas aux paramètres du client.",
+            "MESA_ASIGNADA": "Table attribuée au client!"
+        }
+    },
+    "login": {
+        "INICIAR_SESION": "Commencer la session",
+        "USUARIOS": "Utilisateurs",
+        "placeHolders": {
+            "SELECCIONE_USUARIO": "Sélectionnez un utilisateur",
+            "INGRESE_USUARIO": "Entrez l'utilisateur ...",
+            "INGRESE_CONTRASENIA": "Entrer le mot de passe ..."
+        },
+        "CORREO_ELECTRONICO": "Courrier électronique",
+        "CONTRASENIA": "Mot de passe",
+        "INGRESAR": "Entrez",
+        "INGRESAR_GOOGLE": "Entrez avec google",
+        "REGISTRARSE": "Enregistrement",
+        "notificaciones": {
+            "REGISTRADO_EN_BD": "Il a été enregistré dans la base de données. attendre qu'un propriétaire ou un superviseur vous libère",
+            "CUENTA_NO_HABILITADA": "Ce compte n'est pas encore activé.",
+            "CUENTA_RECHAZADA": "Ce compte a été rejeté. vous ne pourrez pas y accéder"
+        }
+    },
+    "realizar_pedido": {
+        "TITULO": "Liste des commandes",
+        "INFO_PEDIDO": "INFORMATIONS SUR LA COMMANDE:",
+        "SIGUIENTES_PLATOS": "Votre commande comprend les plats suivants:",
+        "NOMBRE": "nom: ",
+        "PRECIO": "prix: ",
+        "CANTIDAD": "quantité: ",
+        "PRECIO_TOTAL1": "Prix total: ",
+        "TIEMPO_TOTAL1": "Temps total: ",
+        "SEGUNDOS": " secondes",
+        "textoBotones": {
+            "CONFIRMAR": "Confirmer",
+            "CANCELAR": "Annuler",
+            "CERRAR": "Fermer",
+            "AGREGAR": "Ajouter",
+            "ELIMINAR": "Retirer"
+        },
+        "PLATOS_PRINCIPALES": " PLATS PRINCIPAUX ",
+        "CANTIDAD_PEDIDA": "Quantité commandée: ",
+        "BEBIDAS": "BOISSONS ",
+        "POSTRES": "DESSERTS ",
+        "CONFIRMAR_PEDIDO": "POUR CONFIRMER LA COMMANDE",
+        "TIEMPO_TOTAL2": "TEMPS TOTAL - Environ: ",
+        "SEG": " seconde",
+        "PRECIO_TOTAL2": "PRIX TOTAL: $",
+        "notificaciones": {
+            "CLIENTE_PEDIDO": "un client vient de passer une commande",
+            "PEDIDO_GENERADO": "Commande générée avec succès!",
+            "CARGAR_PRODUCTOS": "Vous devez charger des produits!",
+            "ORDEN_CARGADA": "Votre commande a déjà été téléchargée!",
+            "PEDIDO_CANCELADO": "La commande a été annulée!",
+            "NO_PUEDE_CANCELAR": "Vous ne pouvez pas annuler une commande qui a déjà été expédiée!"
+        }
+    },
+    "reservas": {
+        "TITULO": "Réserve élevée",
+        "ELEGIR_FECHA": "Choisissez la date de réservation",
+        "CANTIDAD_COMENSALES": "Nombre de convives:",
+        "TIPO_MESA": "Type de table:",
+        "POR_DEFECTO": "Par défaut",
+        "DISCAPACITADOS": "désactivé",
+        "VIP": "VIP",
+        "CARGAR_RESERVAS": "Charger la réservation",
+        "placeHolder": {
+            "COMENSALES": "Quantité de charge",
+            "TIPO_MESA": "Sélectionnez un type"
+        },
+        "mensajes": {
+            "FECHA_REQUERIDA": "La date est obligatoire.",
+            "TIPO_REQUERIDO": "Le type de table est obligatoire.",
+            "CANTIDAD_COMENSALES_REQUERIDO": "Le nombre de convives est obligatoire.",
+            "CANTIDAD_COMENSALES_MAYOR": "Le nombre de convives doit être supérieur à 0.",
+            "CANTIDAD_COMENSALES_MENOR": "Le nombre de convives doit être inférieur à 100.",
+            "NO_ENCONTRO_MESA": "Aucun tableau répondant aux exigences demandées n'a été trouvé.",
+            "RESERVA_PARA_CONFIRMAR": "Il y a une nouvelle réservation à confirmer",
+            "RESERVA_CARGADA": "Réserve chargée avec succès. le propriétaire ou le superviseur examinera votre demande.",
+            "MESAS_CUMPLEN_CON_REQUISITOS": "Toutes les tables qui répondent aux exigences sont déjà réservées pour cet horaire ",
+            "YA_TIENES": "Vous avez déjà une réservation effectuée pour cette fois",
+            "FECHA_INVALIDA": "une date invalide a été attribuée. la réservation doit être facturée 40 minutes avant d'être effective."
+        }
+    },
+    "servicios": {
+        "mensajesError": {
+            "CAMPOS": "ERREUR: vous devez remplir tous les champs",
+            "EMAIL": "ERREUR: format d'e-mail incorrect",
+            "USUARIO": "ERREUR: utilisateur non valide",
+            "CONTRASENIA": "ERREUR: mot de passe incorrect",
+            "DEFAULT": "ERREUR"
+        }
+    },
+    "lenguajes": {
+        "TITLE": "Options de langue",
+        "SELECT": "Langue",
+        "PLACEHOLDER": "Langue",
+        "opciones": {
+            "ESPAÑOL": "Espagnole ",
+            "INGLES": "Anglais ",
+            "RUSO": "Russe",
+            "ALEMAN": "Allemand",
+            "PORTUGUES": "Portugais",
+            "FRANCES": "Français"
+        }
+    }
+}

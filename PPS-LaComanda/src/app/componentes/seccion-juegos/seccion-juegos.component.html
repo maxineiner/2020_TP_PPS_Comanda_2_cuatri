@@ -1,13 +1,13 @@
 <ion-card align='center'>
-    <ion-select placeholder='elige el tipo de beneficio' [value]='flagJuego' (ionChange)='flagJuego = $event.detail.value'>
-        <ion-select-option [value]='"Descuento 10%"'> Descuento 10% </ion-select-option>
-        <ion-select-option [value]='"Bebida Gratis"'> Bebida Gratis </ion-select-option>
-        <ion-select-option [value]='"Postre Gratis"'> Postre Gratis </ion-select-option>
+    <ion-select placeholder="{{'seccion-juegos.placeHolders.TIPO_BENEFICIO' | translate}}" [value]='flagJuego' (ionChange)='flagJuego = $event.detail.value'>
+        <ion-select-option [value]='"Descuento 10%"'>{{'seccion-juegos.DESCUENTO' | translate}}</ion-select-option>
+        <ion-select-option [value]='"Bebida Gratis"'>{{'seccion-juegos.BEBIDA_GRATIS' | translate}}</ion-select-option>
+        <ion-select-option [value]='"Postre Gratis"'>{{'seccion-juegos.POSTRE_GRATIS' | translate}}</ion-select-option>
     </ion-select>
     <br>
     <div #coin id='coin' (click)='jugarLanzarMoneda()'>
         <div class="side-a"></div>
         <div class="side-b"></div>
     </div>
-    <h1 align="center">Hacé click en la moneda para jugar</h1>
+    <h1 align="center">{{'seccion-juegos.HACE_CLICK' | translate}}</h1>
 </ion-card>

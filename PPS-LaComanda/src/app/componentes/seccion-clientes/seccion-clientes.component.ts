@@ -75,7 +75,7 @@ export class SeccionClientesComponent implements OnInit {
 					this.flagSecc = 'Juegos';
 					this.verProductos = false;
 				} else {
-					this.complemento.presentToastConMensajeYColor('ya perdiste tu oportunidad de obtener un beneficio', 'danger');
+					this.complemento.presentToastConMensajeYColor('seccion-clientes.notificaciones.YA_PERDISTE', 'danger');
 				}
 				break;
 		}
@@ -98,14 +98,14 @@ export class SeccionClientesComponent implements OnInit {
 						return this.bd.crearConId('listaEspera', y, this.usuario.id);
 					}
 				}).then(data => {
-					this.fmc.enviarNotificacion('nuevoListaEspera', 'ha entrado un nuevo cliente a la lista de espera', 'Grupo');
-					this.complemento.presentToastConMensajeYColor('Ya se encuentra en la lista de espera. por favor, aguarde a que el metre le asigne una mesa.', 'primary');
+					this.fmc.enviarNotificacion('nuevoListaEspera', 'seccion-clientes.notificaciones.NUEVO_CLIENTE', 'Grupo');
+					this.complemento.presentToastConMensajeYColor('seccion-clientes.notificaciones.CLIENTE_LISTA_ESPERA', 'primary');
 				}).catch(err => this.complemento.presentToastConMensajeYColor(firebaseErrors(err), 'danger')).finally(() => {
 					this.splash = false;
 				});
 			} else {
 				this.splash = false;
-				this.complemento.presentToastConMensajeYColor('qr Equivocado.', 'danger');
+				this.complemento.presentToastConMensajeYColor('seccion-clientes.notificaciones.QR_EQUIVOCADO.', 'danger');
 			}
 		});
 	}
@@ -144,7 +144,7 @@ export class SeccionClientesComponent implements OnInit {
 						return x;
 					});
 				} else {
-					this.complemento.presentToastConMensajeYColor('La mesa ' + x.numero + ' en estado ' + x.estado + ' no le corresponde, vuelva a escanear el qr ', "danger");
+					this.complemento.presentToastConMensajeYColor('seccion-clientes.notificaciones.NO_LE_CORRESPONDE', "danger");
 				}
 			}).then(x => {
 				console.log(x);
@@ -154,32 +154,32 @@ export class SeccionClientesComponent implements OnInit {
 					if (x.id === y.mesa) {
 						switch (y.estado) {
 							case "Pendiente":
-								this.complemento.presentToastConMensajeYColor("Su pedido esta esperando confirmacion de un mozo.", "primary");
+								this.complemento.presentToastConMensajeYColor("seccion-clientes.notificaciones.PEDIDO_ESPERANDO_CONFIRMACION", "primary");
 								break;
 							case "EnPreparacion":
-								this.complemento.presentToastConMensajeYColor('Su pedido esta en preparacion, tiempo aprox ' + y.tiempoTotal + ' segundos', "primary");
+								this.complemento.presentToastConMensajeYColor('seccion-clientes.notificaciones.PEDIDO_EN_PREPARACION', "primary");
 								break;
 							case "Preparado":
-								this.complemento.presentToastConMensajeYColor("Su pedido ya esta listo. Enseguida se le llevara a la mesa.", "primary");
+								this.complemento.presentToastConMensajeYColor("seccion-clientes.notificaciones.PEDIDO_LISTO", "primary");
 								break;
 							case "Servido-A":
 								this.flagMenu.emit('ClientePedidoServidoA');
-								this.complemento.presentToastConMensajeYColor("El mozo a llevado su pedido a la mesa. Confirma la recepcion.", "primary");
+								this.complemento.presentToastConMensajeYColor("seccion-clientes.notificaciones.MOZO_LLEVA_PEDIDO", "primary");
 								break;
 							case "Servido":
 								this.flagMenu.emit('ClientePedidoServido');
-								this.complemento.presentToastConMensajeYColor("Su pedido esta servido. ya Puede acceder a la encuesta y a la cuenta", "success");
+								this.complemento.presentToastConMensajeYColor("seccion-clientes.notificaciones.PEDIDO_SERVIDO", "success");
 								break;
 							case "Pagado":
 								this.flagMenu.emit('ClientePedidoPagado');
-								this.complemento.presentToastConMensajeYColor("Ya esta todo pagado. en unos momento el Mozo le dara de alta", "primary");
+								this.complemento.presentToastConMensajeYColor("seccion-clientes.notificaciones.TODO_PAGO", "primary");
 								break;
 						}
 					} else {
-						this.complemento.presentToastConMensajeYColor('La mesa ' + x.numero + ' no es la misma del pedido.', "danger");
+						this.complemento.presentToastConMensajeYColor('seccion-clientes.notificaciones.NO_ES_LA_MISMA', "danger");
 					}
 				} else {
-					this.complemento.presentToastConMensajeYColor('aun no tienes asignado un pedido.', "danger");
+					this.complemento.presentToastConMensajeYColor('seccion-clientes.notificaciones.AUN_NO_TIENES_PEDIDO', "danger");
 				}
 			});
 		}).catch(err => { console.log(err); this.complemento.presentToastConMensajeYColor(firebaseErrors(err), 'danger') }).finally(() => {
@@ -257,7 +257,7 @@ export class SeccionClientesComponent implements OnInit {
 			return this.bd.actualizar('pedidos', x, snap.docs[0].id);
 		}).then(() => {
 			this.flagMenu.emit('ClientePedidoServido');
-			this.complemento.presentToastConMensajeYColor("Su recepcion del pedido fue registrada", "success");
+			this.complemento.presentToastConMensajeYColor("seccion-clientes.notificaciones.RECEPCION_REGISTRADA", "success");
 		}).catch(err => {
 			this.complemento.presentToastConMensajeYColor(firebaseErrors(err), 'danger');
 		}).finally(() => this.splash = false);
@@ -275,7 +275,7 @@ export class SeccionClientesComponent implements OnInit {
 			this.flagSecc = '';
 			this.verProductos = true;
 			this.fmc.enviarNotificacion('pedido', `el pedido #${this.jsonCuenta.id} acaba de ser pagado`, 'Grupo');
-			this.complemento.presentToastConMensajeYColor("Su pago esta por ser confirmado, gracias por utilizarnos!", "success");
+			this.complemento.presentToastConMensajeYColor("seccion-clientes.notificaciones.PAGO_POR_SER_CONFIRMADO", "success");
 		})
 	}
 
@@ -294,8 +294,8 @@ export class SeccionClientesComponent implements OnInit {
 			return this.bd.crear('consultas', consulta)
 		}).then(() => {
 			this.cancelarConsulta();
-			this.fmc.enviarNotificacion('nuevaConsulta', `Un cliente acaba de hacer una consulta`, 'Grupo');
-			this.complemento.presentToastConMensajeYColor("Su consulta se realizo con exito,espere a que un mozo se acerce.", "success");
+			this.fmc.enviarNotificacion('nuevaConsulta', `seccion-clientes.notificaciones.CLIENTE_NUEVA_CONSULTA`, 'Grupo');
+			this.complemento.presentToastConMensajeYColor("seccion-clientes.notificaciones.CONSULTA_EXITO.", "success");
 		}).catch(err => this.complemento.presentToastConMensajeYColor(firebaseErrors(err), 'danger')).finally(() => this.splash = false);
 	}
 

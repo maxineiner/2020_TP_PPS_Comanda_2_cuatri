@@ -4,6 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { AltaSupervisorPageRoutingModule } from './alta-supervisor-routing.module';
 import { AltaSupervisorPage } from './alta-supervisor.page';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   imports: [
@@ -11,7 +12,8 @@ import { AltaSupervisorPage } from './alta-supervisor.page';
     FormsModule,
     IonicModule,
     AltaSupervisorPageRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    TranslateModule
   ],
   declarations: [AltaSupervisorPage]
 })
