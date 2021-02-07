@@ -542,9 +542,9 @@
         }
     },
     "lenguajes": {
-        "TITLE": "Sprachoptionen",
-        "SELECT": "Sprache",
-        "PLACEHOLDER": "Sprache",
+        "TITLE": "Rahmen",
+        "SELECT": "Ort",
+        "PLACEHOLDER": "Land auswählen",
         "opciones": {
             "ESPAÑOL": "Spanisch ",
             "INGLES": "Englisch ",
@@ -552,6 +552,29 @@
             "ALEMAN": "Deutsche",
             "PORTUGUES": "Portugiesisch",
             "FRANCES": "Französisch"
+        },
+        "paises": {
+            "BR": "Brasilien",
+            "AR": "Argentinien",
+            "CH": "Chile",
+            "PE": "Peru",
+            "PA": "Paraguay",
+            "ME": "Mexiko",
+            "CR": "Costa Rica",
+            "UR": "Uruguay",
+            "EU": "UNS",
+            "CA": "Kanada",
+            "ES": "Spanien",
+            "AL": "Deutschland",
+            "FR": "Frankreich",
+            "PO": "Portugal",
+            "UC": "Ukraine",
+            "AU": "Australien",
+            "NZ": "Neuseeland",
+            "BE": "Benin",
+            "BF": "Burkina Faso",
+            "RU": "Russland",
+            "FI": "Philippinen"
         }
     }
 }

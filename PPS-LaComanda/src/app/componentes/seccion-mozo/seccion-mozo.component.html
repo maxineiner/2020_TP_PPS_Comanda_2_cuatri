@@ -13,30 +13,30 @@
         <ng-container *ngFor="let pedido of listaPedidos">
             <ion-card *ngIf="pedido.estado === estadoPedido" style="background-color: #332920ea;">
                 <ion-card-content style="color: #ffffff;">
-                    <p *ngIf="pedido.estado === 'Pendiente'">El pedido #{{pedido.id}} esta pendiente</p>
-                    <p *ngIf="pedido.estado === 'Preparado'">El pedido #{{pedido.id}} esta preparado</p>
-                    <p *ngIf="pedido.estado === 'Pagado'">El pedido #{{pedido.id}} fue pagado.</p>
+                    <p *ngIf="pedido.estado === 'Pendiente'">{{'seccion-mozo.EL_PEDIDO' | translate}} #{{pedido.id}} {{'seccion-mozo.ESTA_PENDIENTE' | translate}}</p>
+                    <p *ngIf="pedido.estado === 'Preparado'">{{'seccion-mozo.EL_PEDIDO' | translate}} #{{pedido.id}} {{'seccion-mozo.ESTA_PREPARADO' | translate}}</p>
+                    <p *ngIf="pedido.estado === 'Pagado'">{{'seccion-mozo.EL_PEDIDO' | translate}} #{{pedido.id}} {{'seccion-mozo.FUE_PAGADO' | translate}}.</p>
                     <br>
                     <div style='padding: 5px; margin: 5px; border: solid white 1px; border-radius: 10px; ' *ngFor="let producto of pedido.productos">
-                        <small>nombre: {{producto.nombre}}</small> <br>
-                        <small>cantidad: {{producto.cantidad}}</small> <br>
-                        <small>precio: {{producto.precio}}</small> <br>
+                        <small>{{'seccion-mozo.NOMBRE' | translate}} {{producto.nombre}}</small> <br>
+                        <small>{{'seccion-mozo.CANTIDAD' | translate}} {{producto.cantidad}}</small> <br>
+                        <small>{{'seccion-mozo.PRECIO' | translate}} {{producto.precio}}</small> <br>
                     </div>
-                    <h4>Tiempo total: {{pedido.tiempoTotal}}</h4>
-                    <h4>Precio total: {{pedido.precioTotal}}</h4>
+                    <h4>{{'seccion-mozo.TIEMPO_TOTAL' | translate}} {{pedido.tiempoTotal}}</h4>
+                    <h4>{{'seccion-mozo.PRECIO_TOTAL' | translate}} {{pedido.precioTotal}}</h4>
                 </ion-card-content>
                 <ion-grid *ngIf="pedido.estado === 'Pendiente'">
                     <ion-row>
                         <ion-col col-6>
-                            <ion-button (click)="modificarEstadoPedido(pedido,'EnPreparacion')" expand="block" color="success">Confirmar</ion-button>
+                            <ion-button (click)="modificarEstadoPedido(pedido,'EnPreparacion')" expand="block" color="success">{{'seccion-mozo.textoBotones.CONFIRMAR' | translate}}</ion-button>
                         </ion-col>
                         <ion-col col-6>
-                            <ion-button (click)="modificarEstadoPedido(pedido,'Cancelado')" expand="block" color="danger">Cancelar</ion-button>
+                            <ion-button (click)="modificarEstadoPedido(pedido,'Cancelado')" expand="block" color="danger">{{'seccion-mozo.textoBotones.CANCELAR' | translate}}</ion-button>
                         </ion-col>
                     </ion-row>
                 </ion-grid>
-                <ion-button *ngIf="pedido.estado === 'Preparado'" expand="block" color="success" (click)="modificarEstadoPedido(pedido,'Servido-A')">Llevar a la mesa</ion-button>
-                <ion-button *ngIf="pedido.estado === 'Pagado'" expand="block" color="success" (click)="liberarMesa(pedido)">Confirmar y Liberar mesa</ion-button>
+                <ion-button *ngIf="pedido.estado === 'Preparado'" expand="block" color="success" (click)="modificarEstadoPedido(pedido,'Servido-A')">{{'seccion-mozo.textoBotones.LLEVAR_MESA' | translate}}</ion-button>
+                <ion-button *ngIf="pedido.estado === 'Pagado'" expand="block" color="success" (click)="liberarMesa(pedido)">{{'seccion-mozo.textoBotones.CONFIRMAR_Y_LIBERAR' | translate}}</ion-button>
             </ion-card>
         </ng-container>
     </div>
