@@ -1,0 +1,87 @@
+<ion-header>
+  <ion-toolbar color="success">
+    <ion-buttons slot="start">
+      <ion-button (click)="dismiss()">
+        <ion-icon name="close-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title class="ion-text-center"> Agilidad Aritmética </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card class="cardEdit">
+    <ion-card-content>
+      <div *ngIf="empezar" style="text-align: center">
+        <h2 style="color: rgb(116, 116, 116)">
+          <b>Resuelva la operación matemática antes de que se termine el tiempo.</b>
+        </h2>
+        <br>
+        <div class="content">
+          <div>
+            <ion-item color="secondary" style="text-align: center">
+              <ion-label> Primer Número </ion-label>
+            </ion-item>
+
+            <ion-text color="secondary">
+              <h1>{{ nuevoJuego.primerNumero }}</h1>
+            </ion-text>
+          </div>
+          <div>
+            <ion-item color="warning" style="text-align: center">
+              <ion-label> Operador </ion-label>
+            </ion-item>
+
+            <ion-text color="warning">
+              <h1>{{ nuevoJuego.operador }}</h1>
+            </ion-text>
+          </div>
+          <div>
+            <ion-item color="secondary" style="text-align: center">
+              <ion-label> Segundo Número </ion-label>
+            </ion-item>
+
+            <ion-text color="secondary">
+              <h1>{{ nuevoJuego.segundoNumero }}</h1>
+            </ion-text>
+          </div>
+        </div>
+        <div class="content2" style="margin-top: 20px">
+          <ion-text color="success">
+            <h1>Respuesta:</h1>
+          </ion-text>
+          <input
+            [(ngModel)]="nuevoJuego.numeroIngresado"
+            placeholder="Ingrese número"
+            name="resultadoOperacion"
+            type="text"
+            class="form-control"
+            style="width: 50%"
+          />
+        </div>
+        <div>
+          <h2 [hidden]="ocultarVerificar" style="margin-top: 20px">
+            <button (click)="verificar()" class="btn btn-success btn-lg">
+              Verificar {{ Tiempo }}
+            </button>
+          </h2>
+          <br><br>
+          <h2 [hidden]="!nuevoJuego.gano">
+            <strong style="color: green;">¡GANÓ!</strong>
+          </h2>
+          <h2 [hidden]="nuevoJuego.gano || Tiempo != 0">
+            <strong style="color: red">PERDIÓ</strong>
+          </h2>
+          <h2 [hidden]="Tiempo == -1 || Tiempo == 0">
+            <i class="fa fa-spinner fa-spin"></i>Esperando numero...
+          </h2>
+        </div>
+      </div>
+      <div *ngIf="!empezar">
+        <ion-button expand="block" (click)="empezar = !empezar"
+          >Empezar</ion-button
+        >
+      </div>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

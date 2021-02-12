@@ -1,0 +1,102 @@
+<ion-header>
+  <ion-toolbar color="success">
+    <ion-buttons slot="start">
+      <ion-button (click)="dismiss()">
+        <ion-icon name="close-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title class="ion-text-center">
+      Detalle pedido #{{pedido?.id.substr(-5)}}
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="background">
+
+  <!-- PRODUCTOS -->
+  <ion-list color=“transparent”>
+    <ion-list-header color="light">
+      <b>
+        PRODUCTOS
+      </b>
+    </ion-list-header>
+
+    <ion-item color="warning" *ngIf="pedido?.productos && pedido?.productos.length === 0">
+      <ion-label class="ion-text-wrap">
+        No hay productos en este pedido
+      </ion-label>
+    </ion-item>
+
+    <ion-item *ngFor="let p of pedidoClone?.productos" color="success">
+      <ion-avatar slot="start">
+        <img src="{{productoService.obtenerFoto(p.producto)}}">
+      </ion-avatar>
+      <ion-label color="light">
+        <h2 class="ion-text-capitalize bold, lbl-primary"><b>{{p.producto.nombre}}</b></h2>
+        <h3 class="lbl-primary" style="color: rgb(218, 218, 218);">{{p.producto.descripcion}}</h3>
+        <p class="lbl-primary">Cantidad: {{p.cantidad}}</p>
+        <p class="lbl-primary">Precio: {{p.producto.precio|currency}}</p>
+        <p class="lbl-primary">
+          <ion-badge color="light" class="badge">
+            <ion-icon name="logo-usd"></ion-icon>
+            {{(p.cantidad*p.producto.precio)|number:'1.2-2'}}
+          </ion-badge>
+          <ion-badge class="badge" color="{(p.terminado) ? 'success'  : 'dark'}}">
+            <ion-icon name="time-outline"></ion-icon>
+            {{(p.terminado) ? 'Listo'  : 'En Preparación'}}
+          </ion-badge>
+        </p>
+      </ion-label>
+    </ion-item>
+
+   <!-- JUEGOS -->
+  <ion-item *ngIf="pedido?.juegos" color="success">   
+    <ion-avatar slot="start">
+      <img src="{{productoService.obtenerFotoDefault()}}">
+    </ion-avatar>
+     <ion-label color="light">
+      <h2 class="ion-text-capitalize bold">JUEGOS</h2>
+      <h3>Juego: Ahorcado</h3>
+      <p class="lbl-primary">Porcentaje: {{pedido.juegos.ahorcado.descuento}}%</p>
+      <h3>Juego: Agilidad Aritmética</h3>
+      <p class="lbl-primary">Porcentaje: {{pedido.juegos.agilidadAritmetica.descuento}}%</p>
+      <p class="lbl-primary">
+        <ion-badge color="light" class="badge">
+          <ion-icon name="logo-usd"></ion-icon>
+          {{calcularDescuentoJuego() + calcularDescuentoJuego2() |number:'1.2-2'}}
+        </ion-badge>
+      </p>
+     </ion-label>
+  </ion-item>
+
+
+    <!-- PROPINA -->
+    <ion-item *ngIf="pedido?.propina" color="success">
+      <ion-label color="light">
+        <h2 class="ion-text-capitalize bold">PROPINA</h2>
+        <h3 class="lbl-primary">Satisfacción: {{pedido.propina.satisfaccion}}</h3>
+        <p class="lbl-primary">Porcentaje: {{pedido.propina.porcentaje}}</p>
+        <p class="lbl-primary">
+          <ion-badge color="light" class="badge">
+            <ion-icon name="logo-usd"></ion-icon>
+            {{calcularPropina()|number:'1.2-2'}}
+          </ion-badge>
+        </p>
+      </ion-label>
+    </ion-item>
+
+  </ion-list>
+</ion-content>
+<ion-footer color="light">
+  <ion-button *ngIf="pedido?.estado === 'ENTREGADO'" (click)="pagarPedido()" color="warning" expand="block">PAGAR
+  </ion-button>
+  <ion-toolbar>
+    <ion-title class="ion-text-center">
+      <b class="lbl-total">
+        TOTAL:
+        <!-- <ion-text color="warning">$ {{calcularTotalFinal() + '.00'}}</ion-text> -->
+        <ion-text color="danger">$ {{calcularTotalFinal()|number:'1.2-2'}}</ion-text>
+      </b>
+    </ion-title>
+  </ion-toolbar>
+</ion-footer>
