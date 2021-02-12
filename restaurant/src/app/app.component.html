@@ -1,0 +1,22 @@
+<ion-app>
+  <div class="fondo" [style.display]="splash ? 'flex' : 'none'">
+    <div class="logoSplash">
+      <img src="../assets/spinner.png">
+    </div>
+    <label class="divTitulo">CodeFactory</label>
+    <label class="divNombres">
+      <p>
+        <ion-badge class="badge">TOMADIN FEDERICO</ion-badge>
+      </p>
+      <p>
+        <ion-badge class="badge">CARBONE LUCAS</ion-badge>
+      </p>
+      <p>
+        <ion-badge class="badge">SANCHEZ LUCAS</ion-badge>
+      </p>
+    </label>
+  </div>
+  <div [style.display]="splash ? 'none' : 'flex'">
+    <ion-router-outlet ></ion-router-outlet>
+  </div>
+</ion-app>

@@ -1,0 +1,47 @@
+<body class="fondo">
+  <ion-content style="--background:none;">
+    <div class="header">
+      <br>
+      <table style="width: 100%;" align="center">
+        <tr >
+          <td colspan="3" align="center">
+            <h1 style="font-size: 45px;">Caserito</h1>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="3" align="center">
+            <div style="width: 60px;">
+              <img src="../../../assets/spinner.png">
+            </div>
+            <br>
+          </td>
+        </tr>
+
+        <tr style="font-size: 14px;">
+          <td align="center">
+            <ion-label>TOMADIN FEDERICO</ion-label>
+          </td>
+          <td align="center">
+            <ion-label>CARBONE LUCAS</ion-label>
+          </td>
+          <td align="center">
+            <ion-label>SANCHEZ LUCAS</ion-label>
+          </td>
+        </tr>
+      </table>
+      <br>
+      <br>
+    </div>
+
+    <br>
+    <div class="content">
+      <button type="button" class="btn" (click)="manejadoraInicio('CLIENTE_REGISTRADO')">Registrarme</button>
+      <br>
+      <br>
+      <button type="button" class="btn" (click)="manejadoraInicio('CLIENTE_ANONIMO')">Ingreso<br>sin registro</button>
+      <br>
+      <br>
+      <button type="button" class="btn-secondary" (click)="manejadoraInicio('LOGIN')"><b>Ya estoy registrado</b></button>
+    </div>
+  </ion-content>
+</body>

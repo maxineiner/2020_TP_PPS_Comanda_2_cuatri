@@ -1,0 +1,82 @@
+
+
+<ion-content>
+  <body class="fondo">
+    <div class="divScroll">
+
+      <ion-card style="border-radius:10px;margin-top: 5%;">
+        <ion-card-header style="background-color: #e2e2e2;">
+          <table style="width: 100%;">
+            <tr>
+              <td>
+                <button class="btn" (click)="dismiss()" style="height: 40px;width: 40px;color: white;border-radius: 5px;">
+                  <ion-icon name="chevron-back-outline"></ion-icon>
+                </button>
+              </td>
+              <td align="margin-left">
+                <h1 style="padding-left: 10%;"> Editar Mesa:{{ mesa?.numero }}</h1>
+              </td>
+            </tr>
+          </table>
+        </ion-card-header>
+        <ion-card-content style="padding: 10%;">
+          <button class="btn" (click)="tomarFotoAltaMesas()" expand="block">
+            <ion-icon name="camera-outline"></ion-icon> TOMAR FOTO
+          </button>
+          <br>
+          <br>
+          <div style="width: 100%;background-color: #e2e2e2;border-radius: 20px;padding: 5%;">
+            <table style="width: 100%;">
+              <tr>
+                <td>
+                  <img src="{{mesaService.mostrarFoto(formMesa.controls.foto.value)}}"
+                    style="width: 80px;border-radius: 10px;" alt="">
+                </td>
+                <td align="center">
+                  <h2 style="color: #103f23;font-size: 20px;"><b>Foto de la Mesa</b></h2>
+                </td>
+              </tr>
+            </table>
+          </div>
+    
+          <form [formGroup]="formMesa" (ngSubmit)="onSubmitMesa()">
+            
+            <br>
+            <ion-item>
+              <ion-label position="floating">Número de mesa</ion-label>
+              <ion-input type="number" [formControl]="formMesa.controls.numeroMesa"></ion-input>
+            </ion-item>
+            <ion-label
+              *ngIf="formMesa.controls.numeroMesa.invalid && (formMesa.controls.numeroMesa.touched || formMesa.controls.numeroMesa.dirty)">
+              <b>{{ mostrarError('numeroMesa') }}</b>
+            </ion-label>
+  
+            <br>
+            <ion-item>
+              <ion-label position="floating">Cantidad de comensales</ion-label>
+              <ion-input type="number" [formControl]="formMesa.controls.cantidadComensales"></ion-input>
+            </ion-item>
+            <ion-label
+              *ngIf="formMesa.controls.cantidadComensales.invalid && (formMesa.controls.cantidadComensales.touched || formMesa.controls.cantidadComensales.dirty)">
+              <b>{{ mostrarError('cantidadComensales') }}</b>
+            </ion-label>
+  
+            <br>
+            <ion-item>
+              <ion-label>Tipo de mesa</ion-label>
+              <ion-select [formControl]="formMesa.controls.tipoMesa" interface="action-sheet">
+                <ion-select-option *ngFor="let tipo of tipoMesa">{{ tipo }}</ion-select-option>
+              </ion-select>
+            </ion-item>
+            <ion-label class="lblError"
+              *ngIf="formMesa.controls.tipoMesa.invalid && (formMesa.controls.tipoMesa.touched || formMesa.controls.tipoMesa.dirty)">
+              <b>{{ mostrarError('tipoMesa') }}</b>
+            </ion-label>
+            <br>
+            <button class="btn" type="submit" expand="block">Editar</button>
+          </form>
+        </ion-card-content>
+      </ion-card>
+    </div>
+  </body>
+</ion-content>

@@ -1,0 +1,104 @@
+ion-slides {
+  height: 200px; /* slider height you want */
+  .swiper-pagination-bullet-active {
+    background: yellow;
+  }
+}
+
+///////////////////////////////
+
+.titulo  {
+  color: black;
+  border-radius: 5px;
+  background-color: #2ac568;
+} 
+
+.subtitulo  {
+  color: black;
+  border-radius: 5px;
+  background-color: #2ac568;
+} 
+
+.lbl {
+  font-size: 25px;
+  font-family: cursive;
+}
+
+.btnAtras {
+  height: 40px;
+  width: 40px;
+  color: black;
+  border-radius: 5px;
+  background-color: #2ac568;
+}
+// .titulo {
+//   display: revert;
+//   text-align: center;
+//   vertical-align: middle;
+//   color: black;
+// }
+
+.btn {
+  border-radius: 100px;
+  background-color: #2ac568;
+  font-family: cursive;
+  font-size: 20px;
+  height: 70px;
+  width: 100%;
+}
+
+.btn:hover {
+  background-color: #37ff87;
+  height: 100px;
+}
+
+.btn:focus {
+  outline: 0 !important;
+}
+
+.fondo {
+  background: url("../../../assets/splash.jpg");
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.divScroll {
+  overflow-y: auto;
+  height: 100%;
+}
+
+.btn-secondary {
+  border-radius: 100px;
+  background-color: #ffd000;
+  font-family: cursive;
+  height: 50px;
+}
+
+.btn-secondary:hover {
+  background-color: #ddb400;
+}
+
+.btn-secondary:focus {
+  outline: 0 !important;
+}
+
+.btn-tertiary {
+  border-radius: 100px;
+  background-color: black;
+  font-family: cursive;
+  height: 50px;
+}
+
+.btn-tertiary:hover {
+  background-color: #b9b9b9;
+}
+
+.btn-tertiary:focus {
+  outline: 0 !important;
+}
+
+.btn-iconBack {
+  background: none;
+  color: black;
+  font-size: 35px;
+}

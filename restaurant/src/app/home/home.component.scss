@@ -1,0 +1,118 @@
+.opciones ion-button {
+  border-radius: 10px;
+  height: 10vh;
+  margin-top: 30px;
+}
+
+.lbl{
+  font-size: 25px;
+  font-family: cursive;
+}
+
+.btn{
+  border-radius: 100px;
+  background-color: #2ac568;
+  font-family: cursive;
+  height: 90px;
+  width: 100%;
+  border: solid;
+}
+
+.btn:hover{
+  background-color: #37ff87;
+  height: 100px;
+}
+
+.btn:focus {
+  outline: 0 !important;
+}
+
+.fondo{
+  background: url("../../assets/splash.jpg");
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.divScroll{
+  overflow-y: auto;
+  height: 100%;
+}
+
+.btn-secondary{
+  border-radius: 100px;
+  background-color: #ffd000;
+  font-family: cursive;
+  height: 50px;
+}
+
+.btn-secondary:hover{
+  background-color: #ddb400;
+}
+
+.btn-secondary:focus {
+  outline: 0 !important;
+}
+
+.btn-tertiary{
+  border-radius: 100px;
+  background-color: #cecece;
+  font-family: cursive;
+  height: 50px;
+}
+
+
+.btn-tertiary:hover{
+  background-color: #b9b9b9;
+}
+
+.btn-tertiary:focus {
+  outline: 0 !important;
+}
+
+.btn-icon{
+  background: none;
+  color: white;
+  font-size: 35px;
+  border-radius: 10px;
+  outline: none;
+}
+
+.btn-icon:hover{
+  background-color: gray;
+  color: rgb(255, 255, 255);
+}
+
+.btn-foto-perfil{
+  width:60px;
+  height: 60px;
+  border-radius: 10px;
+}
+
+/*.btn-foto-perfil:hover{
+  width:60%;
+  height: 55px;
+  border-radius: 10px;
+  margin-left:31%;
+  margin-top:3%;
+  filter: brightness(0.6);
+}*/
+
+.btn-notification{
+  font-size: 30px;
+  --background:none;
+  background:none;
+  color: white;
+  outline: none;
+}
+
+// .btn-notification:hover{
+//   backdrop-filter: blur(10px) brightness(1.7);
+// }
+
+.notification {
+  position: absolute !important;
+    margin-right: 50px !important;
+    border-radius: 100px !important;
+    right: 13px !important;
+    background-color: red !important;
+}

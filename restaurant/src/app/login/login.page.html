@@ -1,0 +1,63 @@
+<ion-content class="background">
+  <div class="fondo">
+    <br>
+    <br>
+    <br>
+    <ion-card>
+      <ion-card-header>
+        <table class="tabla">
+          <tr>
+            <td>
+              <button class="btn">
+                <ion-icon name="chevron-back-outline" routerLink="/inicio"></ion-icon>
+              </button>
+            </td>
+            <td align="margin-left">
+              <h1 class="h1"><b>Inicio de Sesión</b></h1>
+            </td>
+          </tr>
+
+        </table>
+      </ion-card-header>
+      <ion-card-content>
+        <form [formGroup]="formLogin" (ngSubmit)="onSubmitLogin()">
+          <ion-item>
+            <ion-label position="floating" class="lbl">Correo Electrónico</ion-label>
+            <ion-input type="text" formControlName="correoLogin"></ion-input>
+          </ion-item>
+          <ion-label style="color: red;" [hidden]="!errorEnControlLogin('correoLogin')">
+            ¡Correo inválido!
+          </ion-label>
+          <ion-item>
+            <ion-label position="floating" class="lbl">Clave</ion-label>
+            <ion-input type="password" formControlName="claveLogin"></ion-input>
+          </ion-item>
+          <ion-label style="color: red;" [hidden]="!errorEnControlLogin('claveLogin')">
+            ¡Clave inválida!
+          </ion-label>
+          <br>
+          <table style="width: 100%;">
+            <tr>
+              <td class="tdEnviar">
+                <button class="btn"  type="submit" [disabled]="!formLogin.valid">
+                  <label class="lbl" style="color: black;">Enviar</label>
+                </button>
+              </td>
+              <td class="tdLimpiar">
+                <button class="btn-secondary" style="width: 90%;height: 50px;" (click)="limpiarLogin()">
+                  <label class="lbl" style="color: black;">Limpiar</label>
+                </button>
+              </td>
+            </tr>
+          </table>
+          <br>
+        </form>
+        <div align="center">
+          <button class="btn-tertiary" (click)="mockLogin()">
+            <label class="lbl">Inicio Rapido</label>
+          </button>
+        </div>
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>
