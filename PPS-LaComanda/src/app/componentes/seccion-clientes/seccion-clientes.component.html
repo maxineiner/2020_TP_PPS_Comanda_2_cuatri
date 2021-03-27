@@ -1,0 +1,149 @@
+<ng-container *ngIf='!splash'>
+    <div *ngIf="usuario.estadoMesa === false">
+        <ion-card style="background-color:  #332920cb; border-radius: 20px;">
+            <ion-card-content>
+                <h4 style="color:rgb(240, 240, 240); float: left;">{{'seccion-clientes.PARA_ACCEDER_LISTA' | translate}}</h4>
+            </ion-card-content>
+        </ion-card>
+        <ion-card>
+            <ion-item>
+                <ion-input type="number" [(ngModel)]="lEsperaCantidad" placeholder="{{'seccion-metre.CANTIDAD_COMENSALES' | translate}}" min='1' max='99' style="background-color: #ffffff;"></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-select interface="popover" [(ngModel)]="lEsperaTipo" placeholder="{{'seccion-clientes.placeholder.lEsperaTipo' | translate}}" (ionChange)='lEsperaTipo = $event.target.value'>
+                    <ion-select-option *ngFor='let tipo of selectTipoMesa' [value]='tipo'>{{tipo}}</ion-select-option>
+                </ion-select>
+            </ion-item>
+            <ion-button color="cubiertos" (click)="listaEsperaQRCliente(lEsperaCantidad,lEsperaTipo)" expand="block">{{'seccion-clientes.textoBotones.ENTRAR_LISTA' | translate}}</ion-button>
+        </ion-card>
+    </div>
+    <div *ngIf="usuario.estadoMesa !== false">
+        <ion-card class="numeroMesa">
+            <ion-card-content>
+                <h4 style="color:rgb(240, 240, 240); float: left;">{{'seccion-clientes.SE_ASIGNO_LA_MESA' | translate}} </h4>
+                <h4 style="color: coral; float: center;"> #{{_numMesa}}</h4>
+            </ion-card-content>
+        </ion-card>
+        <div *ngIf="mensajeEscanearMesa == false">
+            <ion-card style="background-color:  #332920cb; border-radius: 20px;">
+                <ion-card-content>
+                    <h4 style="color:rgb(240, 240, 240); float: left;">{{'seccion-clientes.PARA_ACCEDER_LISTA_QR' | translate}}</h4>
+                </ion-card-content>
+            </ion-card>
+        </div>
+        <div *ngIf="flagSecc === 'Consultas'">
+            <ion-card style="background-color:  #332920cb; ">
+                <ion-card-content>
+                    <h2 align="center" style="color: aliceblue;font-size: 20px;">{{'seccion-clientes.CONSULTAS' | translate}}</h2>
+                </ion-card-content>
+            </ion-card>
+            <ion-card *ngFor="let item of listaConsultas" style="background-color:  #332920cb; ">
+                <ion-card-content style="color:rgb(240, 240, 240);">
+                    {{'seccion-clientes.SU_CONSULTA' | translate}} {{item.descripcion}}
+                </ion-card-content>
+                <ion-card-content style="color:rgb(240, 240, 240);">
+                    {{'seccion-clientes.RESPUESTA_MOZO' | translate}} {{item.respuesta}}
+                </ion-card-content>
+            </ion-card>
+        </div>
+        <div *ngIf="flagSecc === 'Cuenta'">
+            <div class="ticket">
+                <div class="ticket__content">
+                    <ion-card-content align="center" style="color: black; font-size: large; font-style: italic;">
+                        {{'seccion-clientes.CUENTA' | translate}}
+                    </ion-card-content>
+                    <ion-card-content *ngFor="let pedido of jsonCuenta.pedidos" style="color: black;">
+                        {{pedido.nombre}} -- ${{pedido.precio}}
+                    </ion-card-content>
+                    <ion-card-content *ngIf='propina !== null' style="color: black;">
+                        {{'seccion-clientes.PROPINA' | translate}} = {{propina}}
+                    </ion-card-content>
+                    <ion-card-content *ngIf='beneficio !== null' style="color: black;">
+                        {{'seccion-clientes.BENEFICIO' | translate}} = {{beneficio}}
+                    </ion-card-content>
+                    <ion-card-content align="center" style="color: green; font-size: large; font-size: 25px;">
+                        {{'seccion-clientes.TOTAL' | translate}} = ${{jsonCuenta.precioTotal}}
+                    </ion-card-content>
+                </div>
+            </div>
+            <ion-footer class="ion-no-border">
+                <br>
+                <ion-item color="transparent">
+                    <ion-grid>
+                        <ion-row>
+                            <ion-col col-6>
+                                <ion-button color="success" (click)="pagarCuenta()" expand="block">{{'seccion-metre.textoBotones.PAGAR' | translate}}</ion-button>
+                            </ion-col>
+                            <ion-col col-6>
+                                <ion-button color="warning" (click)="darPropina()" expand="block">{{'seccion-metre.textoBotones.DAR_PROPINA' | translate}}</ion-button>
+                            </ion-col>
+                        </ion-row>
+                    </ion-grid>
+                </ion-item>
+            </ion-footer>
+        </div>
+        <div *ngIf="verProductos === true">
+            <ion-grid>
+                <ion-row>
+                    <ion-col col-6>
+                        <ion-button color="success" (click)="desplegarConsulta()" expand="block">{{'seccion-metre.textoBotones.CONSULTAR_MOZO' | translate}}</ion-button>
+                    </ion-col>
+                    <ion-col col-6>
+                        <ion-button color="warning" routerLink="/realizar-pedido" expand="block">{{'seccion-metre.textoBotones.HACER_PEDIDO' | translate}}</ion-button>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+            <ion-card class="todoCompleto" *ngIf="deplegarConsultaMozo == true">
+                <ion-item style="background-color: #ffffff;" color="sucess">
+                    <ion-label position="stacked" color="success" style="background-color: #ffffff;">{{'seccion-metre.textoBotones.CONSULTA' | translate}}</ion-label>
+                    <br>
+                    <ion-input type="text" [(ngModel)]="consulta" placeholder="{{'seccion-clientes.placeholder.consulta' | translate}}" style="background-color: #ffffff;"></ion-input>
+                </ion-item>
+                <ion-grid>
+                    <ion-row>
+                        <ion-col col-6>
+                            <ion-button (click)="consultarMozo()" expand="block" color="success">{{'seccion-metre.textoBotones.ENVIAR' | translate}}</ion-button>
+                        </ion-col>
+                        <ion-col col-6>
+                            <ion-button (click)="cancelarConsulta()" expand="block" color="danger">{{'seccion-metre.textoBotones.CANCELAR' | translate}}</ion-button>
+                        </ion-col>
+                    </ion-row>
+                </ion-grid>
+            </ion-card>
+            <div *ngFor="let producto of listaProductos">
+                <ion-card style="background-color: #332920ea;">
+                    <ion-slides pager="true">
+                        <ion-slide>
+                            <img [src]="producto.fotos[0]" alt="" width="100" height="100">
+                        </ion-slide>
+                        <ion-slide>
+                            <img [src]="producto.fotos[1]" alt="" width="100" height="100">
+                        </ion-slide>
+                        <ion-slide>
+                            <img [src]="producto.fotos[2]" alt="" width="100" height="100">
+                        </ion-slide>
+                    </ion-slides>
+                    <ion-card-header>
+                        <ion-card-title style="color: #ffffff;">{{producto.nombre}}</ion-card-title>
+                        <ion-card-subtitle style="color: #c9c9c9">{{producto.descripcion}}</ion-card-subtitle>
+                    </ion-card-header>
+                    <ion-item>
+                        <ion-label>{{'seccion-clientes.PRECIO' | translate}} <span class="precio">${{producto.precio}}</span> </ion-label>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label>{{'seccion-clientes.TIEMPO' | translate}} <span class="tiempo">{{producto.tiempo}} {{'seccion-clientes.SEGUNDOS' | translate}}</span> </ion-label>
+                    </ion-item>
+                </ion-card>
+            </div>
+        </div>
+        <div *ngIf="flagSecc === 'Encuesta'">
+            <seccion-encuestas [usuario]='usuario' (encuesta)='guardarEncuesta()' [flagEncuesta]='flagEncuesta'></seccion-encuestas>
+        </div>
+        <div *ngIf="flagSecc === 'Juegos'">
+            <seccion-juegos *ngIf='flagJuego' [usuario]='usuario' (beneficio)='guardarBeneficio($event)'></seccion-juegos>
+        </div>
+    </div>
+</ng-container>
+<div id="custom-overlay" [style.display]="splash ? 'flex': 'none'">
+    <img src="../../assets/icon/gifAnimado.gif" class="loading">
+</div>

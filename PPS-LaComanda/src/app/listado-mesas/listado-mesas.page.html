@@ -1,0 +1,47 @@
+<ion-header>
+    <ion-toolbar color='fondo'>
+        <ion-back-button defaultHref="/" slot="start" icon="arrow-back-circle"></ion-back-button>
+        <ion-title>{{'listado-mesas.TITULO' | translate}}</ion-title>
+    </ion-toolbar>
+</ion-header>
+<ion-content>
+    <div id="custom-overlay" [style.display]="splash ? 'flex': 'none'">
+        <img src="../../assets/icon/gifAnimado.gif" class="loading">
+    </div>
+    <ng-container *ngIf='!splash'>
+        <div *ngFor="let mesita of listadoMesas">
+            <ion-card style="background-color: #332920ea;">
+                <ion-card-content>
+                    <ion-item color="transparent" style="background: transparent;">
+                        <ion-avatar slot="end">
+                            <img src="../../assets/icon/mesa.png">
+                        </ion-avatar>
+                        <ion-label>
+                            <p style="color:rgb(240, 240, 240); font-size: 15px">{{'listado-mesas.NUMERO_MESA' | translate}}
+                                <span style="font-size: 15px; color: #f0f666;"> {{mesita.numero}}</span>
+                            </p> <br>
+                            <p style="color:rgb(240, 240, 240); font-size: 15px;">{{'listado-mesas.TIPO_MESA' | translate}}
+                                <span style="font-size: 15px; color: #f0f666;"> {{mesita.tipo}}</span>
+                            </p> <br>
+                            <p style="color:rgb(240, 240, 240); font-size: 15px;">{{'listado-mesas.CAPACIDAD' | translate}}
+                                <span style="font-size: 15px; color: #f0f666;"> {{mesita.comensales}}</span>
+                            </p> <br>
+                            <p style="color:rgb(240, 240, 240); font-size: 15px;">{{'listado-mesas.ESTADO_MESA' | translate}}
+                                <span style="font-size: 15px; color: #f0f666;"> {{mesita.estado}}</span>
+                            </p>
+                        </ion-label>
+                    </ion-item>
+                </ion-card-content>
+                <ion-button [disabled]='mesita.estado !== "Libre"' (click)="asignarMesa(mesita)" expand="block" color="primary">{{'listado-mesas.ASIGNAR_MESA' | translate}}</ion-button>
+            </ion-card>
+        </div>
+    </ng-container>
+</ion-content>
+<ion-footer *ngIf='item.comensales !== null || item.tipo !== null'>
+    <ion-item *ngIf='item.comensales !== null' color='fondo'>
+        <small> {{'listado-mesas.COMENSALES' | translate}} {{item.comensales}}</small>
+    </ion-item>
+    <ion-item *ngIf='item.tipo !== null' color='fondo'>
+        <small> {{'listado-mesas.TIPO_MESA' | translate}} {{item.tipo}}</small>
+    </ion-item>
+</ion-footer>

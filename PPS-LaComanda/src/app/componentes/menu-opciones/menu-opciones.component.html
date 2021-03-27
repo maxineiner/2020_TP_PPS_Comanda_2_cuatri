@@ -1,0 +1,67 @@
+<ion-menu backdrop='0.7' side="start" menuId="mainmenu" contentId="main" class='menu'>
+    <ion-content id='main' class='menu-content'>
+        <ion-list class='menu-content-list' align="center">
+            <ion-item class='menu-content-item'>
+                <img [src]="usuario.foto " style=" height: 50%; width: 30%; ">
+                <ion-label>
+                    <ng-container *ngIf='usuario.perfil === "Anonimo"'>
+                        <h2>{{'menu-opciones.NOMBRE' | translate}}</h2>
+                        <p>{{usuario.nombre}}</p>
+                    </ng-container>
+                    <ng-container *ngIf='usuario.perfil !== "Anonimo"'>
+                        <h2>{{'menu-opciones.CORREO' | translate}}</h2>
+                        <p>{{usuario.correo}}</p>
+                    </ng-container>
+                    <h2>{{'menu-opciones.PERFIL' | translate}}</h2>
+                    <p> {{usuario.perfil}}</p>
+                </ion-label>
+            </ion-item>
+            <br>
+            <ng-container *ngIf="usuario.perfil == 'Dueño' || usuario.perfil == 'Supervisor'">
+                <ion-button (click)="menu.close('mainmenu')" routerLink="/home/settings" align="center" expand="block" color="cubiertos" shape="round">{{'menu-opciones.textoBotones.SETTINGS' | translate}}</ion-button>
+                <ion-button (click)="menu.close('mainmenu')" routerLink="/alta-supervisor" align="center" expand="block" color="cubiertos" shape="round">{{'menu-opciones.textoBotones.REGISTRAR_DUENIO_SUPERVISOR' | translate}}</ion-button>
+                <ion-button (click)="menu.close('mainmenu')" routerLink="/alta-empleado" align="center" expand="block" color="cubiertos" shape="round">{{'menu-opciones.textoBotones.REGISTRAR_EMPLEADO' | translate}}</ion-button>
+                <ion-button (click)="menu.close('mainmenu')" routerLink="/alta-mesa" align="center" expand="block" color="cubiertos" shape="round">{{'menu-opciones.textoBotones.REGISTRAR_MESA' | translate}}</ion-button>
+                <ion-button (click)="menu.close('mainmenu'); solicitarFunc('mostrarClientesNuevos')" align="center" expand="block" color="cubiertos" shape="round">{{'menu-opciones.textoBotones.VER_CLIENTES_NUEVOS' | translate}}</ion-button>
+                <ion-button (click)="menu.close('mainmenu'); solicitarFunc('mostrarReservasNuevas')" align="center" expand="block" color="cubiertos" shape="round">{{'menu-opciones.textoBotones.VER_RESERVAS_NUEVAS' | translate}}</ion-button>
+            </ng-container>
+            <ng-container *ngIf="usuario.perfil == 'Metre'">
+                <ion-button (click)="menu.close('mainmenu')" routerLink="/home/settings" align="center" expand="block" color="cubiertos" shape="round">{{'menu-opciones.textoBotones.SETTINGS' | translate}}</ion-button>
+                <ion-button (click)="menu.close('mainmenu')" routerLink="/alta-cliente" align="center" expand="block" color="cubiertos" shape="round">{{'menu-opciones.textoBotones.REGISTRAR_CLIENTE' | translate}}</ion-button>
+            </ng-container>
+            <ng-container *ngIf="usuario.perfil == 'Cliente' || usuario.perfil == 'Anonimo'">
+                <ion-button (click)="menu.close('mainmenu')" routerLink="/home/settings" align="center" expand="block" color="cubiertos" shape="round">{{'menu-opciones.textoBotones.SETTINGS' | translate}}</ion-button>
+                <ion-button *ngIf="usuario.perfil == 'Cliente' && nivelFlagMenu == 0" (click)="menu.close('mainmenu')" routerLink="/alta-reserva" expand="block" color="cubiertos" shape="round">{{'menu-opciones.textoBotones.HACER_RESERVA' | translate}}</ion-button>
+                <ion-button *ngIf="nivelFlagMenu >= 1" (click)="menu.close('mainmenu'); solicitarFunc('qrMesa')" expand="block" color="cubiertos" shape="round">{{'menu-opciones.textoBotones.QR_MESA' | translate}}</ion-button>
+                <ion-button *ngIf="nivelFlagMenu >= 2" (click)="menu.close('mainmenu'); solicitarFunc('botonMostrarConsulta')" expand="block" color="cubiertos" shape="round">{{'menu-opciones.textoBotones.CONSULTA' | translate}}</ion-button>
+                <ion-button *ngIf="nivelFlagMenu >= 2" (click)="menu.close('mainmenu'); solicitarFunc('mostrarProductos')" expand="block" color="cubiertos" shape="round">{{'menu-opciones.textoBotones.LISTA_PRODUCTOS' | translate}}</ion-button>
+                <ion-button *ngIf="nivelFlagMenu == 3" (click)="menu.close('mainmenu'); solicitarFunc('confirmarRecepcionPedido')" expand="block" color="cubiertos" shape="round">{{'menu-opciones.textoBotones.CONFIRMAR_RECEPCION' | translate}}</ion-button>
+                <ion-button *ngIf="nivelFlagMenu >= 4" (click)="menu.close('mainmenu'); solicitarFunc('mostrarEncuestaLista')" expand="block" color="cubiertos" shape="round">{{'menu-opciones.textoBotones.REALIZAR_ENCUESTA' | translate}}</ion-button>
+                <ion-button *ngIf="nivelFlagMenu == 4" (click)="menu.close('mainmenu'); solicitarFunc('mostrarJuegos')" expand="block" color="cubiertos" shape="round">{{'menu-opciones.textoBotones.JUEGOS' | translate}}</ion-button>
+                <ion-button *ngIf="nivelFlagMenu == 4" (click)="menu.close('mainmenu'); solicitarFunc('mostrarCuentaLista')" expand="block" color="cubiertos" shape="round">{{'menu-opciones.textoBotones.PEDIR_CUENTA' | translate}}</ion-button>
+            </ng-container>
+            <ng-container *ngIf="usuario.perfil == 'Mozo'">
+                <ion-button (click)="menu.close('mainmenu')" routerLink="/home/settings" align="center" expand="block" color="cubiertos" shape="round">{{'menu-opciones.textoBotones.SETTINGS' | translate}}</ion-button>
+                <ion-button (click)="menu.close('mainmenu'); solicitarFunc('mostrarConsultas')" align="center" expand="block" color="cubiertos" shape="round">{{'menu-opciones.textoBotones.CONSULTAS' | translate}}
+                </ion-button>
+                <ion-button (click)="menu.close('mainmenu'); solicitarFunc('mostrarPedidosPendientes')" align="center" expand="block" color="cubiertos" shape="round">{{'menu-opciones.textoBotones.PEDIDOS_PENDIENTES' | translate}}
+                </ion-button>
+                <ion-button (click)="menu.close('mainmenu'); solicitarFunc('mostrarPedidosPreparados')" align="center" expand="block" color="cubiertos" shape="round">{{'menu-opciones.textoBotones.PEDIDOS_PREPARADOS' | translate}}
+                </ion-button>
+                <ion-button (click)="menu.close('mainmenu'); solicitarFunc('mostrarPedidosPagados')" align="center" expand="block" color="cubiertos" shape="round">{{'menu-opciones.textoBotones.PEDIDOS_PAGADOS' | translate}}
+                </ion-button>
+            </ng-container>
+            <ng-container *ngIf="usuario.perfil == 'Cocinero' || usuario.perfil == 'BarTender'">
+                <ion-button (click)="menu.close('mainmenu')" routerLink="/home/settings" align="center" expand="block" color="cubiertos" shape="round">{{'menu-opciones.textoBotones.SETTINGS' | translate}}</ion-button>
+                <ion-button (click)="menu.close('mainmenu')" routerLink="/alta-producto" align="center" expand="block" color="cubiertos" shape="round">{{'menu-opciones.textoBotones.AGREGAR_PRODUCTO' | translate}}</ion-button>
+            </ng-container>
+        </ion-list>
+    </ion-content>
+    <ion-item color='cubiertos' (click)="menu.close('mainmenu'); solicitarFunc('cerrarSesion')">
+        <ion-buttons slot="start">
+            <ion-menu-button menu="mainmenu"></ion-menu-button>
+            {{'menu-opciones.textoBotones.CERRAR_SESION' | translate}}
+        </ion-buttons>
+        <ion-label></ion-label>
+    </ion-item>
+</ion-menu>

@@ -1,0 +1,103 @@
+<ion-header color="fondo">
+    <ion-toolbar color="fondo">
+        <ion-back-button defaultHref="/" slot="start" icon="arrow-back-circle"></ion-back-button>
+        <ion-title>{{'alta-empleado.TITULO' | translate}}</ion-title>
+    </ion-toolbar>
+</ion-header>
+<ion-content>
+    <div id="custom-overlay" [style.display]="splash ? 'flex': 'none'">
+        <img src="../../assets/icon/gifAnimado.gif" class="loading">
+    </div>
+    <ion-card *ngIf='!splash'>
+        <ion-card-header>
+            <div align="center">
+                <img [src]="usuarioJson.foto" alt="" width="100px" height="100px" class="icon">
+            </div>
+        </ion-card-header>
+        <ion-item>
+            <ion-label>{{'alta-empleado.TIPO' | translate}}</ion-label>
+            <ion-select [(ngModel)]="pickedName" interface="popover" placeholder="{{'alta-empleado.placeHolders.SELECCIONE' | translate}}" (ionChange)="pickerUser(pickedName)">
+                <ion-select-option *ngFor="let usuario of listaPerfiles" value="{{usuario.value}}">{{usuario.perfil | translate}}</ion-select-option>
+            </ion-select>
+        </ion-item>
+        <form [formGroup]="miFormulario">
+            <ion-item fill="outline">
+                <br>
+                <ion-input type="text" [(ngModel)]="usuarioJson.nombre" formControlName="nombre" placeholder="{{'alta-empleado.placeHolders.NOMBRE' | translate}}"></ion-input>
+            </ion-item>
+            <div class="validation-errors">
+                <ng-container *ngFor="let validation of validation_messages.nombre">
+                    <div class="error-message" *ngIf="miFormulario.get('nombre').hasError(validation.type) && (miFormulario.get('nombre').dirty || miFormulario.get('nombre').touched)">
+                        {{ validation.message | translate}}
+                    </div>
+                </ng-container>
+            </div>
+            <ion-item>
+                <br>
+                <ion-input type="text" [(ngModel)]="usuarioJson.apellido" formControlName="apellido" placeholder="{{'alta-empleado.placeHolders.APELLIDO' | translate}}"></ion-input>
+            </ion-item>
+            <div class="validation-errors">
+                <ng-container *ngFor="let validation of validation_messages.apellido">
+                    <div class="error-message" *ngIf="miFormulario.get('apellido').hasError(validation.type) && (miFormulario.get('apellido').dirty || miFormulario.get('apellido').touched)">
+                        {{ validation.message | translate}}
+                    </div>
+                </ng-container>
+            </div>
+            <ion-item>
+                <br>
+                <ion-input type="text" [(ngModel)]="usuarioJson.dni" formControlName="dni" placeholder="{{'alta-empleado.placeHolders.DNI' | translate}}"></ion-input>
+            </ion-item>
+            <div class="validation-errors">
+                <ng-container *ngFor="let validation of validation_messages.dni">
+                    <div class="error-message" *ngIf="miFormulario.get('dni').hasError(validation.type) && (miFormulario.get('dni').dirty || miFormulario.get('dni').touched)">
+                        {{ validation.message | translate}}
+                    </div>
+                </ng-container>
+            </div>
+            <ion-item>
+                <br>
+                <ion-input type="text" [(ngModel)]="usuarioJson.cuil" formControlName="cuil" placeholder="{{'alta-empleado.placeHolders.CUIL' | translate}}"></ion-input>
+            </ion-item>
+            <div class="validation-errors">
+                <ng-container *ngFor="let validation of validation_messages.cuil">
+                    <div class="error-message" *ngIf="miFormulario.get('cuil').hasError(validation.type) && (miFormulario.get('cuil').dirty || miFormulario.get('cuil').touched)">
+                        {{ validation.message | translate}}
+                    </div>
+                </ng-container>
+            </div>
+            <ion-item>
+                <br>
+                <ion-input type="text" [(ngModel)]="usuarioJson.correo" formControlName="correo" placeholder="{{'alta-empleado.placeHolders.CORREO' | translate}}"></ion-input>
+            </ion-item>
+            <div class="validation-errors">
+                <ng-container *ngFor="let validation of validation_messages.correo">
+                    <div class="error-message" *ngIf="miFormulario.get('correo').hasError(validation.type) && (miFormulario.get('correo').dirty || miFormulario.get('correo').touched)">
+                        {{ validation.message | translate}}
+                    </div>
+                </ng-container>
+            </div>
+            <ion-item>
+                <br>
+                <ion-input type="password" [(ngModel)]="usuarioJson.contrasenia" formControlName="contrasenia" placeholder="{{'alta-empleado.placeHolders.CONTRASENIA' | translate}}"></ion-input>
+            </ion-item>
+            <div class="validation-errors">
+                <ng-container *ngFor="let validation of validation_messages.contrasenia">
+                    <div class="error-message" *ngIf="miFormulario.get('contrasenia').hasError(validation.type) && (miFormulario.get('contrasenia').dirty || miFormulario.get('contrasenia').touched)">
+                        {{ validation.message | translate}}
+                    </div>
+                </ng-container>
+            </div>
+        </form>
+        <ion-grid>
+            <ion-row>
+                <ion-col col-6>
+                    <ion-button (click)="escanearDni()" color='cubiertos' class="btnRegistro" expand="block">{{'alta-empleado.textoBotones.QR_DNI' | translate}}</ion-button>
+                </ion-col>
+                <ion-col col-6>
+                    <ion-button (click)="tomarFotografia()" color='cubiertos' class="btnRegistro" expand="block">{{'alta-empleado.textoBotones.TOMAR_FOTO' | translate}}</ion-button>
+                </ion-col>
+            </ion-row>
+            <ion-button (click)="registrar(usuarioJson.perfil)" color='cubiertos' class="btnRegistro" [disabled]="!miFormulario.valid" expand="block">{{'alta-empleado.textoBotones.REGISTRARSE' | translate}}</ion-button>
+        </ion-grid>
+    </ion-card>
+</ion-content>

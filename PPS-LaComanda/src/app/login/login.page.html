@@ -1,0 +1,34 @@
+<ion-content>
+    <div id="custom-overlay" [style.display]="splash ? 'flex': 'none'">
+        <img src="../../assets/icon/gifAnimado.gif" class="loading">
+    </div>
+    <ion-card *ngIf='!splash' color='fondo'>
+        <ion-card-header>
+            <div align="center">
+                <img src="../../assets/icon/iconLogoMovimiento.png" alt="" width="100px" height="100px" class="icon">
+            </div>
+            <ion-card-title align="center">{{'login.INICIAR_SESION' | translate}}</ion-card-title>
+        </ion-card-header>
+        <ion-item color='cubiertos'>
+            <ion-label>{{'login.USUARIOS' | translate}}</ion-label>
+            <ion-select [(ngModel)]="pickedName" interface="popover" placeholder="{{'login.placeHolders.SELECCIONE_USUARIO' | translate}}" (ionChange)="pickerUser(pickedName)">
+                <ion-select-option *ngFor="let usuario of listaUsuarios" value="{{usuario.correo}}">{{usuario.correo}}</ion-select-option>
+            </ion-select>
+        </ion-item>
+        <ion-item color='cubiertos'>
+            <ion-label position="stacked">{{'login.CORREO_ELECTRONICO' | translate}}</ion-label>
+            <ion-input type="text" [(ngModel)]="email" placeholder="{{'login.placeHolders.INGRESE_USUARIO' | translate}}"></ion-input>
+        </ion-item>
+        <ion-item color='cubiertos'>
+            <ion-label position="stacked">{{'login.CONTRASENIA' | translate}}</ion-label>
+            <ion-input type="password" [(ngModel)]="password" placeholder="{{'login.placeHolders.INGRESE_CONTRASENIA' | translate}}"></ion-input>
+        </ion-item>
+        <br>
+        <ion-button (click)="onSubmitLogin()" class="btnRegistro" expand="block">{{'login.INGRESAR' | translate}}</ion-button>
+        <ion-button (click)='loginGoogle()' class='btnRegistro' color='light' expand='block'>{{'login.INGRESAR_GOOGLE' | translate}}
+            <ion-icon style='margin-left: 10px;' name="logo-google"></ion-icon>
+        </ion-button>
+        <ion-button (click)="registrarUsuario()" class="btnRegistro" color='success' expand="block">{{'login.REGISTRARSE' | translate}}</ion-button>
+        <br>
+    </ion-card>
+</ion-content>

@@ -1,0 +1,579 @@
+{
+    "alta-cliente": {
+        "TITULO": "Alta Cliente",
+        "TIPO": "Tipo:",
+        "placeHolders": {
+            "SELECCIONE": "Seleccione",
+            "NOMBRE": "Nombre",
+            "APELLIDO": "Apellido",
+            "DNI": "DNI",
+            "CORREO": "Correo",
+            "CONTRASENIA": "Contraseña"
+        },
+        "textoBotones": {
+            "QR_DNI": "QR DNI",
+            "TOMAR_FOTO": "Tomar foto",
+            "REGISTRARSE": "Registrarse"
+        },
+        "listaPerfiles": {
+            "CLIENTE": "Cliente",
+            "ANONIMO": "Anonimo"
+        },
+        "validationMessages": {
+            "nombre": {
+                "REQUIRED_MESSAGE": "El nombre es requerido.",
+                "PATTERN_MESSAGE": "Introduzca un nombre de mínimo 3 a 20 caracteres y no números."
+            },
+            "nombreAnonimo": {
+                "REQUIRED_MESSAGE": "El nombre es requerido.",
+                "PATTERN_MESSAGE": "Introduzca un nombre de mínimo 3 a 20 caracteres y no números."
+            },
+            "apellido": {
+                "REQUIRED_MESSAGE": "El apellido es requerido.",
+                "PATTERN_MESSAGE": "Introduzca un apellido de mínimo 3 a 20 caracteres y no números."
+            },
+            "dni": {
+                "REQUIRED_MESSAGE": "El DNI es requerido.",
+                "PATTERN_MESSAGE": "Introduzca un DNI válido(8 caracteres)."
+            },
+            "correo": {
+                "REQUIRED_MESSAGE": "El correo electronico es requerido.",
+                "PATTERN_MESSAGE": "Introduzca un correo electrónico válido."
+            },
+            "contrasenia": {
+                "REQUIRED_MESSAGE": "La contraseña es requerida.",
+                "PATTERN_MESSAGE": "La contraseña debe tener entre 6 y 18 caracteres."
+            }
+        },
+        "registrar": {
+            "ESTADO_CLIENTE": "El estado del cliente esta pendiente al registro.",
+            "NUEVO_CLIENTE": "Se ha registrado un nuevo cliente",
+            "ANONIMO_EXITOSO": "Anónimo exitoso"
+        }
+    },
+    "alta-empleado": {
+        "TITULO": "Alta Empleado",
+        "TIPO": "Tipo:",
+        "placeHolders": {
+            "SELECCIONE": "Seleccione",
+            "NOMBRE": "Nombre",
+            "APELLIDO": "Apellido",
+            "DNI": "DNI",
+            "CUIL": "CUIL",
+            "CORREO": "Correo",
+            "CONTRASENIA": "Contraseña"
+        },
+        "textoBotones": {
+            "QR_DNI": "QR DNI",
+            "TOMAR_FOTO": "Tomar foto",
+            "REGISTRARSE": "Registrarse"
+        },
+        "listaPerfiles": {
+            "MOZO": "Mozo",
+            "COCINERO": "Cocinero",
+            "BAR_TENDER": "Bar tender",
+            "METRE": "Metre"
+        },
+        "validationMessages": {
+            "nombre": {
+                "REQUIRED_MESSAGE": "El nombre es requerido.",
+                "PATTERN_MESSAGE": "Introduzca un nombre de mínimo 3 a 10 caracteres y no números."
+            },
+            "apellido": {
+                "REQUIRED_MESSAGE": "El apellido es requerido.",
+                "PATTERN_MESSAGE": "Introduzca un apellido de mínimo 3 a 10 caracteres y no números."
+            },
+            "dni": {
+                "REQUIRED_MESSAGE": "El DNI es requerido.",
+                "PATTERN_MESSAGE": "Introduzca un DNI válido(8 caracteres)."
+            },
+            "cuil": {
+                "REQUIRED_MESSAGE": "El cuil es requerido.",
+                "PATTERN_MESSAGE": "Introduzca un cuil válido(11 caracteres)."
+            },
+            "correo": {
+                "REQUIRED_MESSAGE": "El correo electronico es requerido.",
+                "PATTERN_MESSAGE": "Introduzca un correo electrónico válido."
+            },
+            "contrasenia": {
+                "REQUIRED_MESSAGE": "La contraseña es requerida.",
+                "PATTERN_MESSAGE": "La contraseña debe tener entre 6 y 18 caracteres."
+            }
+        },
+        "registrar": {
+            "SE_CREO": "¡Fue creado con éxito!"
+        }
+    },
+    "alta-mesa": {
+        "TITULO": "Alta Mesa",
+        "TIPO": "Tipo:",
+        "placeHolders": {
+            "SELECCIONE": "Seleccione",
+            "NUMERO": "Numero...",
+            "COMENSALES": "Comensales..."
+        },
+        "textoBotones": {
+            "TOMAR_FOTO": "Tomar foto",
+            "REGISTRAR_MESA": "Registrar Mesa"
+        },
+        "listaTipo": {
+            "POR_DEFECTO": "Por defecto",
+            "VIP": "VIP",
+            "Discapacitados": "Discapacitados"
+        },
+        "validationMessages": {
+            "numero": {
+                "REQUIRED_MESSAGE": "El numero es requerido.",
+                "MIN_MESSAGE": "Introduzca un numero mayor a 0.",
+                "MAX_MESSAGE": "Introduzca un numero menor a 100"
+            },
+            "comensales": {
+                "REQUIRED_MESSAGE": "Los comensales son requeridos.",
+                "MIN_MESSAGE": "Introduzca un numero mayor a 0.",
+                "MAX_MESSAGE": "Introduzca un numero menor a 100"
+            }
+        },
+        "registrar": {
+            "MESA_CARGADA": "La mesa fue cargada con exito",
+            "NUMERO_EXISTE": "Este numero de mesa ya existe"
+        }
+    },
+    "alta-producto": {
+        "TITULO": "Alta producto",
+        "placeHolders": {
+            "SELECCIONE": "Seleccione",
+            "NOMBRE": "Nombre",
+            "DESCRIPCION": "Descripción",
+            "TIEMPO": "Tiempo elaboración",
+            "PRECIO": "Precio"
+        },
+        "textoBotones": {
+            "ENVIAR_PRODUCTO": "Enviar producto"
+        },
+        "listaProductos": {
+            "PLATO": "Plato",
+            "BEBIDA": "Bebida",
+            "POSTRE": "Postre"
+        },
+        "validationMessages": {
+            "nombre": {
+                "REQUIRED_MESSAGE": "El nombre es requerido.",
+                "PATTERN_MESSAGE": "Introduzca un nombre de mínimo 3 a 10 caracteres y no números."
+            },
+            "descripcion": {
+                "REQUIRED_MESSAGE": "El descripcion es requerida.",
+                "PATTERN_MESSAGE": "Introduzca una descripcion de mínimo 3 a 20 caracteres y no números."
+            },
+            "tiempo": {
+                "REQUIRED_MESSAGE": "El tiempo es requerido.",
+                "MIN_MESSAGE": "Introduzca un numero mayor a 0.",
+                "MAX_MESSAGE": "Introduzca un numero menor a 10000."
+            },
+            "precio": {
+                "REQUIRED_MESSAGE": "El precio es requerido.",
+                "MIN_MESSAGE": "Introduzca un numero mayor a 0.",
+                "MAX_MESSAGE": "Introduzca un numero menor a 10000."
+            }
+        },
+        "tomarFotografia": {
+            "NO_MAS_FOTOS": "No se puede cargar mas fotos"
+        },
+        "registrar": {
+            "PRODUCTO_EXITO": "El producto fue cargado con exito",
+            "TRES_IMAGENES": "¡El producto debe tener 3 imagenes!"
+        }
+    },
+    "alta-supervisor": {
+        "TITULO": "Alta dueño/supervisor",
+        "placeHolders": {
+            "SELECCIONE": "Seleccione",
+            "NOMBRE": "Nombre...",
+            "APELLIDO": "Apellido...",
+            "DNI": "DNI...",
+            "CUIL": "CUIL...",
+            "CORREO": "Correo...",
+            "CONTRASENIA": "Contraseña..."
+        },
+        "textoBotones": {
+            "QR_DNI": "QR DNI",
+            "TOMAR_FOTO": "Tomar foto",
+            "REGISTRARSE": "Registrarse"
+        },
+        "listaPerfiles": {
+            "SUPERVISOR": "Supervisor",
+            "DUENIO": "Dueño"
+        },
+        "validationMessages": {
+            "nombre": {
+                "REQUIRED_MESSAGE": "El nombre es requerido.",
+                "PATTERN_MESSAGE": "Introduzca un nombre de mínimo 3 a 20 caracteres y no números."
+            },
+            "apellido": {
+                "REQUIRED_MESSAGE": "El apellido es requerido.",
+                "PATTERN_MESSAGE": "Introduzca un apellido de mínimo 3 a 20 caracteres y no números."
+            },
+            "dni": {
+                "REQUIRED_MESSAGE": "El DNI es requerido.",
+                "PATTERN_MESSAGE": "Introduzca un DNI válido(8 caracteres)."
+            },
+            "cuil": {
+                "REQUIRED_MESSAGE": "El CUIL es requerido.",
+                "PATTERN_MESSAGE": "Introduzca un CUIL válido(11 caracteres)."
+            },
+            "correo": {
+                "REQUIRED_MESSAGE": "El correo electronico es requerido.",
+                "EMAIL_MESSAGE": "Introduzca un correo electrónico válido."
+            },
+            "contrasenia": {
+                "REQUIRED_MESSAGE": "La contraseña es requerida.",
+                "PATTERN_MESSAGE": "La contraseña debe tener entre 6 y 18 caracteres."
+            }
+        },
+        "registrar": {
+            "SE_CREO": "¡Fue creado con éxito!"
+        }
+    },
+    "menu-opciones": {
+        "NOMBRE": "Nombre:",
+        "CORREO": "Correo",
+        "PERFIL": "Perfil:",
+        "textoBotones": {
+            "SETTINGS": "Configuracion",
+            "REGISTRAR_DUENIO_SUPERVISOR": "Registrar Dueño/Supervisor",
+            "REGISTRAR_EMPLEADO": "Registrar Empleado",
+            "REGISTRAR_MESA": "Registrar Mesa",
+            "VER_CLIENTES_NUEVOS": "Ver Clientes Nuevos",
+            "VER_RESERVAS_NUEVAS": "Ver reservas nuevas",
+            "REGISTRAR_CLIENTE": "Registrar Cliente",
+            "HACER_RESERVA": "Hacer reserva",
+            "QR_MESA": "QR Mesa",
+            "CONSULTA": "Consulta",
+            "LISTA_PRODUCTOS": "Lista de Productos",
+            "CONFIRMAR_RECEPCION": "Confirmar Recepcion de pedido",
+            "REALIZAR_ENCUESTA": "Realizar Encuesta",
+            "JUEGOS": "Juegos",
+            "PEDIR_CUENTA": "Pedir Cuenta",
+            "CONSULTAS": "Consultas",
+            "PEDIDOS_PENDIENTES": "Pedidos pendientes",
+            "PEDIDOS_PREPARADOS": "Pedidos Preparados",
+            "PEDIDOS_PAGADOS": "Pedidos pagados",
+            "AGREGAR_PRODUCTO": "Agregar producto",
+            "CERRAR_SESION": "Cerrar Sesión"
+        }
+    },
+    "seccion-clientes": {
+        "PARA_ACCEDER_LISTA": "Para acceder a la lista de espera elija algunas especificaciones para su mesa (opcional) y escanée el codigo Qr",
+        "textoBotones": {
+            "ENTRAR_LISTA": "Entrar en la lista de Espera",
+            "PAGAR": "Pagar",
+            "DAR_PROPINA": "Dar propina",
+            "CONSULTAR_MOZO": "Consultar mozo",
+            "HACER_PEDIDO": "Hacer pedido",
+            "CONSULTA": "Consulta:",
+            "ENVIAR": "Enviar",
+            "CANCELAR": "Cancelar"
+        },
+        "placeholder": {
+            "lEsperaTipo": "Elige el tipo de mesa que quieres",
+            "consulta": "Consulta.."
+        },
+        "SE_ASIGNO_LA_MESA": "Se le asigno la mesa:",
+        "PARA_ACCEDER_LISTA_QR": "Para acceder a la lista de productos escanee el QR de la mesa presionando el boton del menu.",
+        "CONSULTAS": "Consultas",
+        "SU_CONSULTA": "Su consulta :",
+        "RESPUESTA_MOZO": "Respuesta mozo :",
+        "CUENTA": "CUENTA",
+        "PROPINA": "PROPINA",
+        "BENEFICIO": "BENEFICIO",
+        "TOTAL": "TOTAL",
+        "PRECIO": "Precio:",
+        "TIEMPO": "Tiempo:",
+        "SEGUNDOS": "segundos",
+        "notificaciones": {
+            "YA_PERDISTE": "ya perdiste tu oportunidad de obtener un beneficio",
+            "NUEVO_CLIENTE": "ha entrado un nuevo cliente a la lista de espera",
+            "CLIENTE_LISTA_ESPERA": "Ya se encuentra en la lista de espera. por favor, aguarde a que el metre le asigne una mesa.",
+            "QR_EQUIVOCADO": "qr Equivocado.",
+            "LA_MESA": "La mesa ",
+            "EN_ESTADO": " en estado ",
+            "NO_LE_CORRESPONDE": " no le corresponde, vuelva a escanear el qr",
+            "PEDIDO_ESPERANDO_CONFIRMACION": "Su pedido esta esperando confirmacion de un mozo.",
+            "PEDIDO_EN_PREPARACION": "Su pedido esta en preparacion",
+            "PEDIDO_LISTO": "Su pedido ya esta listo. Enseguida se le llevara a la mesa.",
+            "MOZO_LLEVA_PEDIDO": "El mozo a llevado su pedido a la mesa. Confirma la recepcion.",
+            "PEDIDO_SERVIDO": "Su pedido esta servido. ya Puede acceder a la encuesta y a la cuenta",
+            "TODO_PAGO": "Ya esta todo pagado. en unos momento el Mozo le dara de alta",
+            "NO_ES_LA_MISMA": " no es la misma del pedido.",
+            "AUN_NO_TIENES_PEDIDO": "aun no tienes asignado un pedido.",
+            "RECEPCION_REGISTRADA": "Su recepcion del pedido fue registrada",
+            "PAGO_POR_SER_CONFIRMADO": "Su pago esta por ser confirmado, gracias por utilizarnos!",
+            "CLIENTE_NUEVA_CONSULTA": "Un cliente acaba de hacer una consulta",
+            "CONSULTA_EXITO": "Su consulta se realizo con exito,espere a que un mozo se acerce."
+        }
+    },
+    "seccion-duenios": {
+        "CLIENTES_PENDIENTES": "Clientes pendientes",
+        "textoBotones": {
+            "ACEPTAR": "Aceptar",
+            "RECHAZAR": "Rechazar"
+        },
+        "label": {
+            "CLIENTE": "Cliente:",
+            "FECHA": "Fecha:",
+            "MESA": "Mesa:"
+        },
+        "RESERVAS_PENDIENTES": "Reservas pendientes",
+        "ASUNTO_CORREO": "Habilitacion de cuenta para la comanda",
+        "MENSAJE_CORREO_ACEPTADO": "<i>Tu registro ha sido aceptado. ya puedes loguearte con esta cuenta</i>",
+        "MENSAJE_CORREO_RECHAZADO": "<i>Tu registro ha sido rechazado. no podrias loguearte con esta cuenta</i>",
+        "RESERVA_RECHAZADA": "su reserva se ha rechazado",
+        "RESERVA_APROBADA": "su reserva se ha aprobado"
+    },
+    "seccion-encuestas": {
+        "QUE_LE_PARECIO": "¿Qué le parecio nuesta app?",
+        "puntuaciones": {
+            "MUY_MALA": "Muy mala",
+            "MALA": "Mala",
+            "REGULAR": "Regular",
+            "BUENA": "Buena",
+            "MUY_BUENA": "Muy buena"
+        },
+        "placeHolders": {
+            "ELIJE_CALIFICACION": "elige una calificacion para el restaurante"
+        },
+        "CAMPO_REQUERIDO": "Campo requerido. completar",
+        "SERVICIO_RESTAURANTE": "¿Que le parecio el servicio del restaurante?",
+        "DEJAS_PROPINA": "¿Dejaste/vas a dejar propina por tu pedido?",
+        "PARTICIPAS_JUEGOS": "¿Participaste/vas a participar en los juegos para obtener beneficios?",
+        "SI": "Si",
+        "NO": "No",
+        "RECOMENDACION": "¿Tenés alguna recomendacion extra para dar?",
+        "REALIZO": "Ya se ha realizado la encuesta",
+        "ENVIAR": "Enviar",
+        "ESTADISTICAS": "Estadísticas",
+        "calificacionRestaurante": {
+            "MUY_MALA": "Muy mala 😠",
+            "MALA": "Mala 😡",
+            "REGULAR": "Regular 😐",
+            "BUENA": "Buena 🙂",
+            "MUY_BUENA": "Muy buena 😊"
+        },
+        "notificaciones": {
+            "ENCUESTA_FINALIZADA": "¡Su encuesta se finalizo con exito!",
+            "CAMPOS_OBLIGATORIOS": "¡Hay campos obligatorios sin completar!"
+        }
+    },
+    "seccion-juegos": {
+        "placeHolders": {
+            "TIPO_BENEFICIO": "elige el tipo de beneficio"
+        },
+        "DESCUENTO": "Descuento 10%",
+        "BEBIDA_GRATIS": "Bebida Gratis",
+        "POSTRE_GRATIS": "Postre Gratis",
+        "HACE_CLICK": "Hacé click en la moneda para jugar",
+        "notificaciones": {
+            "GANASTE_BENEFICIO": "ganaste tu beneficio!",
+            "PERDISTE_BENEFICIO": "perdiste tu beneficio!"
+        }
+    },
+    "seccion-metre": {
+        "LISTA_ESPERA": "Lista de espera",
+        "TIPO_MESA": "Tipo de Mesa:",
+        "CANTIDAD_COMENSALES": "Cantidad de Comensales:",
+        "ASIGNAR_MESA": "Asignar mesa"
+    },
+    "seccion-mozo": {
+        "EL_CLIENTE": "El cliente ",
+        "DE_LA_MESA": " de la mesa ",
+        "REALIZO_CONSULTA": " realizo la siguiente consulta:",
+        "RESPONDER_CONSULTA": "Responder Consulta",
+        "EL_PEDIDO": "El pedido ",
+        "ESTA_PENDIENTE": " esta pendiente",
+        "ESTA_PREPARADO": " esta preparado",
+        "FUE_PAGADO": " fue pagado.",
+        "NOMBRE": "nombre: ",
+        "CANTIDAD": "cantidad: ",
+        "PRECIO": "precio: ",
+        "TIEMPO_TOTAL": "Tiempo total: ",
+        "PRECIO_TOTAL": "Precio total: ",
+        "textoBotones": {
+            "CONFIRMAR": "Confirmar",
+            "CANCELAR": "Cancelar",
+            "LLEVAR_MESA": "Llevar a la mesa",
+            "CONFIRMAR_Y_LIBERAR": "Confirmar y Liberar mesa"
+        },
+        "CONSULTA_RESUELTA": "La consulta fue resuelta con exito!",
+        "MESA_LIBERADA": "La mesa a sido liberada",
+        "ESTADO_MODIFICADO": "Estado de pedido modificado.",
+        "NUEVO_PEDIDO": "Hay un nuevo pedido para preparar"
+    },
+    "seccion-produccion": {
+        "PEDIDOS_A_ELABORAR": "Pedidos a elaborar",
+        "ID_PEDIDO": "ID Pedido: #",
+        "PEDIDOS": "Pedidos:",
+        "NOMBRE": "nombre: ",
+        "CANTIDAD": "cantidad: ",
+        "PRECIO": "precio: ",
+        "ELABORAR": "Elaborar",
+        "notificaciones": {
+            "PEDIDO": "el pedido #${pedido.id} ya esta listo para ser servido.",
+            "PRODUCTOS_PREPARADOS": "Todos los Productos del pedido preparados",
+            "PRODUCTOS_SECTOR": "Productos de sector preparados"
+        }
+    },
+    "encuestas": {
+        "TITULO": "Encuestas",
+        "CANTIDAD_DE_ENCUESTAS": "Cantidad de encuestas: ",
+        "titulos": {
+            "APP": "¿Qué le parecio nuesta app?",
+            "RESTAURANTE": "¿Que le parecio el servicio del restaurante?",
+            "PROPINA": "¿Dejaste/vas a dejar propina por tu pedido?",
+            "JUEGOS": "¿Participaste/vas a participar en los juegos para obtener beneficios?",
+            "RECOMENDACION": "¿Tenés alguna recomendacion extra para dar?"
+        }
+    },
+    "home": {
+        "TITULO": "!BIENVENIDOS!",
+        "notificaciones": {
+            "PRESENCIA_RESERVA": "Ya se ha confirmado su precencia para su reserva. puede proceder"
+        }
+    },
+    "listado-mesas": {
+        "TITULO": "Mesas disponibles",
+        "NUMERO_MESA": "Numero de mesa: ",
+        "TIPO_MESA": "Tipo de Mesa: ",
+        "CAPACIDAD": "Capacidad: ",
+        "ESTADO_MESA": "Estado de mesa: ",
+        "ASIGNAR_MESA": "Asignar esta mesa",
+        "COMENSALES": "Comensales: ",
+        "notificaciones": {
+            "NO_CUMPLE_PARAMETROS": "La mesa seleccionada no cumple con los parametros del cliente.",
+            "MESA_ASIGNADA": "¡Mesa asignada a cliente!"
+        }
+    },
+    "login": {
+        "INICIAR_SESION": "Iniciar sesión",
+        "USUARIOS": "Usuarios",
+        "placeHolders": {
+            "SELECCIONE_USUARIO": "Seleccione Usuario",
+            "INGRESE_USUARIO": "Ingrese usuario...",
+            "INGRESE_CONTRASENIA": "Ingrese contraseña..."
+        },
+        "CORREO_ELECTRONICO": "Correo electrónico",
+        "CONTRASENIA": "Contraseña",
+        "INGRESAR": "Ingresar",
+        "INGRESAR_GOOGLE": "Ingresar con google",
+        "REGISTRARSE": "Registrarse",
+        "notificaciones": {
+            "REGISTRADO_EN_BD": "Se ha registrado en la base de datos. espere a que un dueño o supervisor le de de alta",
+            "CUENTA_NO_HABILITADA": "Esta cuenta aun no esta habilitada.",
+            "CUENTA_RECHAZADA": "Esta cuenta fue rechazada. no podras acceder con ella"
+        }
+    },
+    "realizar_pedido": {
+        "TITULO": "Lista pedidos",
+        "INFO_PEDIDO": "INFORMACION DEL PEDIDO:",
+        "SIGUIENTES_PLATOS": "Su pedido son los siguientes platos:",
+        "NOMBRE": "nombre: ",
+        "PRECIO": "precio: ",
+        "CANTIDAD": "cantidad: ",
+        "PRECIO_TOTAL1": "Precio total: ",
+        "TIEMPO_TOTAL1": "Tiempo total: ",
+        "SEGUNDOS": " segundos",
+        "textoBotones": {
+            "CONFIRMAR": "Confirmar",
+            "CANCELAR": "Cancelar",
+            "CERRAR": "Cerrar",
+            "AGREGAR": "Agregar",
+            "ELIMINAR": "Eliminar"
+        },
+        "PLATOS_PRINCIPALES": " PLATOS PRINCIPALES ",
+        "CANTIDAD_PEDIDA": "Cantidad pedida: ",
+        "BEBIDAS": "BEBIDAS ",
+        "POSTRES": "POSTRES ",
+        "CONFIRMAR_PEDIDO": "CONFIRMAR PEDIDO",
+        "TIEMPO_TOTAL2": "TIEMPO TOTAL - Aprox: ",
+        "SEG": " seg",
+        "PRECIO_TOTAL2": "PRECIO TOTAL: $",
+        "notificaciones": {
+            "CLIENTE_PEDIDO": "un cliente acaba de realizar un pedido",
+            "PEDIDO_GENERADO": "¡Pedido generado con éxito!",
+            "CARGAR_PRODUCTOS": "¡Debe cargar productos!",
+            "ORDEN_CARGADA": "¡Su orden ya fue cargada!",
+            "PEDIDO_CANCELADO": "¡El pedido fue cancelado!",
+            "NO_PUEDE_CANCELAR": "¡No puede cancelar un pedido ya enviado!"
+        }
+    },
+    "reservas": {
+        "TITULO": "Alta reserva",
+        "ELEGIR_FECHA": "Elegir fecha de reserva",
+        "CANTIDAD_COMENSALES": "Cantidad de Comensales:",
+        "TIPO_MESA": "Tipo de Mesa:",
+        "POR_DEFECTO": "Por defecto",
+        "DISCAPACITADOS": "Discapacitados",
+        "VIP": "VIP",
+        "CARGAR_RESERVAS": "Cargar Reserva",
+        "placeHolder": {
+            "COMENSALES": "Cargue la cantidad",
+            "TIPO_MESA": "Seleccione un tipo"
+        },
+        "mensajes": {
+            "FECHA_REQUERIDA": "La fecha es requerida.",
+            "TIPO_REQUERIDO": "El tipo de mesa es requerido.",
+            "CANTIDAD_COMENSALES_REQUERIDO": "La cantidad de comensales es requerida.",
+            "CANTIDAD_COMENSALES_MAYOR": "El numero de comensales debe ser mayor a 0.",
+            "CANTIDAD_COMENSALES_MENOR": "El numero de comensales debe ser menor a 100.",
+            "NO_ENCONTRO_MESA": "No se han encontrado mesas que cumplan con los requisitos solicitados.",
+            "RESERVA_PARA_CONFIRMAR": "Hay una nueva reserva para confirmar.",
+            "RESERVA_CARGADA": "Reserva cargada con exito. el dueño o supervisor revisara su peticion.",
+            "MESAS_CUMPLEN_CON_REQUISITOS": "Todas las mesas que cumplen con los requisitos ya estan reservadas para este horario .",
+            "YA_TIENES": "Ya tienes una reservacion echa para este horario.",
+            "FECHA_INVALIDA": "se ha asignado una fecha invalida. la reserva se debe cargar 40 minutos antes de ser efectiva."
+        }
+    },
+    "servicios": {
+        "mensajesError": {
+            "CAMPOS": "ERROR: Debe completar todos los campos",
+            "EMAIL": "ERROR: Formato de email no correcto",
+            "USUARIO": "ERROR: Usuario no valido",
+            "CONTRASENIA": "ERROR: Contraseña incorrecta",
+            "DEFAULT": "ERROR"
+        }
+    },
+    "lenguajes": {
+        "TITLE": "Configuracion",
+        "SELECT": "Localización",
+        "PLACEHOLDER": "Seleccione país",
+        "opciones": {
+            "ESPAÑOL": "Español",
+            "INGLES": "Ingles",
+            "RUSO": "Ruso",
+            "ALEMAN": "Alemán",
+            "PORTUGUES": "Portugués",
+            "FRANCES": "Francés"
+        },
+        "paises": {
+            "BR": "Brasil",
+            "AR": "Argentina",
+            "CH": "Chile",
+            "PE": "Peru",
+            "PA": "Paraguay",
+            "ME": "Mexico",
+            "CR": "Costa Rica",
+            "UR": "Uruguay",
+            "EU": "Estados Unidos",
+            "CA": "Canada",
+            "ES": "España",
+            "AL": "Alemania",
+            "FR": "Francia",
+            "PO": "Portugal",
+            "UC": "Ucrania",
+            "AU": "Australia",
+            "NZ": "Nueva Zelanda",
+            "BE": "Benin",
+            "BF": "Burkina Faso",
+            "RU": "Rusia",
+            "FI": "Filipinas"
+        }
+    }
+}

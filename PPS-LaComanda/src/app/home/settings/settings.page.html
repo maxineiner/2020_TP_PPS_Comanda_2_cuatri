@@ -1,0 +1,19 @@
+<div class="ion-page" id="maincontent">
+    <ion-header>
+        <ion-toolbar color="fondo">
+            <ion-buttons slot="start">
+                <ion-back-button defaultHref="/"></ion-back-button>
+            </ion-buttons>
+            <ion-title class="ion-text-capitalize">{{"lenguajes.TITLE" | translate}}</ion-title>
+        </ion-toolbar>
+    </ion-header>
+
+    <ion-content class="contenidoTotal">
+        <ion-item>
+            <ion-label>{{"lenguajes.SELECT" | translate}} <span class="flag-icon flag-icon-{{lang}} flag-icon-squared"></span></ion-label>
+            <ion-select (ionChange)="changeLang($event.detail.value)" placeholder="{{'lenguajes.PLACEHOLDER'| translate}}" class="alert-radio-label">
+                <ion-select-option *ngFor="let item of langList" [value]="item">{{item.text | translate}}</ion-select-option>
+            </ion-select>
+        </ion-item>
+    </ion-content>
+</div>

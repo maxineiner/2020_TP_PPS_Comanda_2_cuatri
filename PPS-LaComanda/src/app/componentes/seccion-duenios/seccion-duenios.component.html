@@ -1,0 +1,68 @@
+<ng-container *ngIf='!splash'>
+    <ng-container *ngIf='_flagFunc === "mostrarClientesNuevos"'>
+        <ion-card class="numeroMesa">
+            <ion-card-content>
+                <h4 style="color:rgb(240, 240, 240); font-size: 20px;text-align: center;">{{'seccion-duenios.CLIENTES_PENDIENTES' | translate}}</h4>
+            </ion-card-content>
+        </ion-card>
+        <ion-card *ngFor="let usuario of listaUsuarios">
+            <div *ngIf="usuario.perfil == 'Cliente'">
+                <ion-item>
+                    <ion-thumbnail slot="start">
+                        <img [src]="usuario.foto ">
+                    </ion-thumbnail>
+                    <ion-label>
+                        <h3>{{usuario.nombre}}</h3>
+                        <p>{{usuario.apellido}}</p>
+                        <p>{{usuario.correo}}</p>
+                    </ion-label>
+                </ion-item>
+                <br>
+                <ion-grid>
+                    <ion-row>
+                        <ion-col col-6>
+                            <ion-button color="success" (click)="organizarUsuario(usuario,true)" expand="block">{{'seccion-duenios.textoBotones.ACEPTAR' | translate}}</ion-button>
+                        </ion-col>
+                        <ion-col col-6>
+                            <ion-button color="danger" (click)="organizarUsuario(usuario,null)" expand="block">{{'seccion-duenios.textoBotones.RECHAZAR' | translate}}</ion-button>
+                        </ion-col>
+                    </ion-row>
+                </ion-grid>
+            </div>
+        </ion-card>
+    </ng-container>
+    <ng-container *ngIf='_flagFunc === "mostrarReservasNuevas"'>
+        <ion-card class="numeroMesa">
+            <ion-card-content>
+                <h4 style="color:rgb(240, 240, 240); font-size: 20px;text-align: center;">{{'seccion-duenios.RESERVAS_PENDIENTES' | translate}}</h4>
+            </ion-card-content>
+        </ion-card>
+        <ion-card *ngFor="let reserva of listaReservas">
+            <div *ngIf="!reserva.estado">
+                <ion-item>
+                    <ion-thumbnail slot="start">
+                    </ion-thumbnail>
+                    <ion-label>
+                        <h3>{{'seccion-duenios.label.CLIENTE' | translate}} #{{reserva.cliente}}</h3>
+                        <p>{{'seccion-duenios.label.FECHA' | translate}} {{reserva.fecha | date: 'medium'}}</p>
+                        <p>{{'seccion-duenios.label.MESA' | translate}} {{reserva.mesa}}</p>
+                    </ion-label>
+                </ion-item>
+                <br>
+                <ion-grid>
+                    <ion-row>
+                        <ion-col col-6>
+                            <ion-button color="success" (click)="organizarReserva(reserva,true)" expand="block"> {{'seccion-duenios.textoBotones.ACEPTAR' | translate}}</ion-button>
+                        </ion-col>
+                        <ion-col col-6>
+                            <ion-button color="danger" (click)="organizarReserva(reserva,null)" expand="block"> {{'seccion-duenios.textoBotones.RECHAZAR' | translate}}</ion-button>
+                        </ion-col>
+                    </ion-row>
+                </ion-grid>
+            </div>
+        </ion-card>
+    </ng-container>
+</ng-container>
+<div id="custom-overlay" [style.display]="splash ? 'flex': 'none'">
+    <img src="../../assets/icon/gifAnimado.gif" class="loading">
+</div>

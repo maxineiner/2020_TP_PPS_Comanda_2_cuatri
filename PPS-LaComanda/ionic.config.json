@@ -1,0 +1,7 @@
+{
+  "name": "PPS-LaComanda",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}

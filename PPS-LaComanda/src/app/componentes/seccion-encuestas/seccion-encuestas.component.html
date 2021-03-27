@@ -1,0 +1,93 @@
+<ng-container *ngIf='!splash'>
+    <ion-card *ngIf='usuario.perfil === "Cliente" || usuario.perfil === "Anonimo"' style="background-color:  #332920cb; border-radius: 20px;">
+        <form *ngIf='flagEncuesta; else realizada' #ngForm='ngForm' [formGroup]='encuestaCliente'>
+            <h2 align="center" style="color: #ffffff;">{{'encuestas.TITULO' | translate}}</h2>
+            <div *ngIf="contadorInterno != 2">
+                <div style="margin: 1rem; position: relative; align-content: center;">
+                    <ion-fab-button style="margin-left: 42%;" color="primary" color="light" horizontal="center" vertical="top" (click)="manejadorEncuesta()">
+                        <ion-icon name="camera-outline"></ion-icon>
+                    </ion-fab-button>
+                </div>
+            </div>
+            <ion-slides pager="true">
+                <ion-slide>
+                    <img [src]="jsonEncuesta.fotos[0]" style=" height: 45%; width: 45%">
+                </ion-slide>
+                <ion-slide>
+                    <img [src]="jsonEncuesta.fotos[1]" style=" height: 45%; width: 45%">
+                </ion-slide>
+                <ion-slide>
+                    <img [src]="jsonEncuesta.fotos[2]" style=" height: 45%; width: 45%">
+                </ion-slide>
+            </ion-slides>
+            <br>
+            <ion-card-content>
+                <div style="color: #ffffff;" align="center">{{'seccion-encuestas.QUE_LE_PARECIO' | translate}}</div>
+                <div align="center">
+                    <span *ngIf="gradoSatisfaccion ==1" style="margin-left:10px;color: #ffffff;">{{'seccion-encuestas.puntuaciones.MUY_MALA' | translate}} <span style="font-size: 150%;">😠</span></span>
+                    <span *ngIf="gradoSatisfaccion==2 " style="margin-left:10px;color: #ffffff;">{{'seccion-encuestas.puntuaciones.MALA' | translate}} <span style="font-size: 150%;">😡</span></span>
+                    <span *ngIf="gradoSatisfaccion ==3" style="margin-left:10px;color: #ffffff;">{{'seccion-encuestas.puntuaciones.REGULAR' | translate}} <span style="font-size: 150%;">😐</span></span>
+                    <span *ngIf="gradoSatisfaccion==4 " style="margin-left:10px;color: #ffffff;">{{'seccion-encuestas.puntuaciones.BUENA' | translate}} <span style="font-size: 150%;">🙂</span></span>
+                    <span *ngIf="gradoSatisfaccion == 5" style="margin-left:10px;color: #ffffff;">{{'seccion-encuestas.puntuaciones.MUY_BUENA' | translate}} <span style="font-size: 150%;">😊</span></span>
+                </div>
+                <ion-item color="transparent" align="center">
+                    <ion-range (ionChange)="cambioRango($event)" min="1" max="5" pin="true" color="light"></ion-range>
+                </ion-item>
+                <div class="error-message" *ngIf="encuestaCliente.get('calificacion_app').errors && (encuestaCliente.get('calificacion_app').dirty || encuestaCliente.get('calificacion_app').touched)">
+                    {{'seccion-encuestas.CAMPO_REQUERIDO' | translate}}</div>
+            </ion-card-content>
+            <ion-card-content>
+                <div style="color: #ffffff;" align="center">{{'seccion-encuestas.SERVICIO_RESTAURANTE' | translate}}</div>
+                <ion-item color="transparent" align="center">
+                    <ion-select placeholder="{{'seccion-encuestas.placeHolders.ELIJE_CALIFICACION' | translate}}" formControlName='calificacion_restaurante' (ionChange)='califRest($event)'>
+                        <ion-select-option *ngFor='let valor of califRestaurante' [value]='valor.puntaje'>{{valor.texto | translate}}</ion-select-option>
+                    </ion-select>
+                </ion-item>
+                <div class="error-message" *ngIf="encuestaCliente.get('calificacion_restaurante').errors && (encuestaCliente.get('calificacion_restaurante').dirty || encuestaCliente.get('calificacion_restaurante').touched)">Campo requerido. completar</div>
+            </ion-card-content>
+            <ion-card-content>
+                <div style="color: #ffffff;" align="center">{{'seccion-encuestas.DEJAS_PROPINA' | translate}}</div>
+                <ion-item color="transparent" align="center">
+                    <ion-checkbox formControlName='propina' color="primary"></ion-checkbox>
+                </ion-item>
+            </ion-card-content>
+            <ion-card-content>
+                <div style="color: #ffffff;" align="center">{{'seccion-encuestas.PARTICIPAS_JUEGOS' | translate}}</div>
+                <ion-radio-group formControlName='participacion_juegos' value='encuestaCliente.value.participacion_juegos'>
+                    <ion-item color="transparent">
+                        <ion-label>{{'seccion-encuestas.SI' | translate}}</ion-label>
+                        <ion-radio [value]='true'></ion-radio>
+                    </ion-item>
+                    <ion-item color="transparent">
+                        <ion-label>{{'seccion-encuestas.NO' | translate}}</ion-label>
+                        <ion-radio [value]='false'></ion-radio>
+                    </ion-item>
+                </ion-radio-group>
+            </ion-card-content>
+            <ion-card-content>
+                <div style="color: #ffffff;" align="center">{{'seccion-encuestas.RECOMENDACION' | translate}}</div>
+                <ion-item color="transparent">
+                    <ion-input type='text' formControlName='recomendaciones'></ion-input>
+                </ion-item>
+            </ion-card-content>
+        </form>
+        <ng-template #realizada>
+            <div align="center">{{'seccion-encuestas.REALIZO' | translate}}</div>
+        </ng-template>
+        <ion-grid>
+            <ion-row>
+                <ion-col col-6>
+                    <div>
+                        <ion-button [disabled]='contadorInterno != 2' (click)="enviarEncuesta()" expand="block" color="success">{{'seccion-encuestas.ENVIAR' | translate}}</ion-button>
+                    </div>
+                </ion-col>
+                <ion-col col-6>
+                    <ion-button routerLink='/encuestas' expand="block" color="warning">{{'seccion-encuestas.ESTADISTICAS' | translate}}</ion-button>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+    </ion-card>
+</ng-container>
+<div id="custom-overlay" [style.display]="splash ? 'flex': 'none'">
+    <img src="../../assets/icon/gifAnimado.gif" class="loading">
+</div>
